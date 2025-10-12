@@ -1,0 +1,132 @@
+<div class="container my-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Tour Packages <span class="badge bg-primary">{{ filteredPackages.length }}</span></h2>
+
+    <!-- View Toggle -->
+    <div class="btn-group" role="group">
+      <button type="button"
+              class="btn btn-outline-primary"
+              [class.active]="viewMode === 'grid'"
+              (click)="setViewMode('grid')">
+        <i class="bi bi-grid-3x3-gap"></i> Grid
+      </button>
+      <button type="button"
+              class="btn btn-outline-primary"
+              [class.active]="viewMode === 'list'"
+              (click)="setViewMode('list')">
+        <i class="bi bi-list-ul"></i> List
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Filters Sidebar -->
+    <div class="col-lg-3 mb-4">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Filters</h5>
+        </div>
+        <div class="card-body">
+          <!-- Type Filter -->
+          <div class="mb-4">
+            <h6 class="mb-3">Package Type</h6>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="type" id="typeAll"
+                     [checked]="selectedType === null" (change)="setType(null)">
+              <label class="form-check-label" for="typeAll">All</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="type" id="typeDomestic"
+                     [checked]="selectedType === 'DOMESTIC'" (change)="setType('DOMESTIC')">
+              <label class="form-check-label" for="typeDomestic">Domestic</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="type" id="typeInternational"
+                     [checked]="selectedType === 'INTERNATIONAL'" (change)="setType('INTERNATIONAL')">
+              <label class="form-check-label" for="typeInternational">International</label>
+            </div>
+          </div>
+
+          <!-- Category Filter -->
+          <div class="mb-4">
+            <h6 class="mb-3">Category</h6>
+            <div class="form-check" *ngFor="let category of categories">
+              <input class="form-check-input" type="checkbox" [id]="'cat-' + category"
+                     [checked]="selectedCategories.includes(category)"
+                     (change)="toggleCategory(category)">
+              <label class="form-check-label" [for]="'cat-' + category">
+                {{ category }}
+              </label>
+            </div>
+          </div>
+
+          <button class="btn btn-outline-secondary w-100" (click)="clearFilters()">
+            Clear All Filters
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Packages Display -->
+    <div class="col-lg-9">
+      <div *ngIf="loading" class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <div *ngIf="!loading && filteredPackages.length === 0" class="alert alert-info">
+        <i class="bi bi-info-circle me-2"></i>No packages found matching your criteria.
+      </div>
+
+      <!-- Grid View -->
+      <div class="row g-4" *ngIf="!loading && filteredPackages.length > 0 && viewMode === 'grid'">
+        <div class="col-md-6 col-xl-4" *ngFor="let package of filteredPackages">
+          <app-package-card [package]="package"></app-package-card>
+        </div>
+      </div>
+
+      <!-- List View -->
+      <div class="list-view" *ngIf="!loading && filteredPackages.length > 0 && viewMode === 'list'">
+        <div class="package-list-item mb-3" *ngFor="let package of filteredPackages">
+          <div class="card shadow-sm">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img [src]="package.imageUrl" class="img-fluid h-100 object-fit-cover" [alt]="package.name">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h5 class="card-title mb-0">{{ package.name }}</h5>
+                    <span class="badge bg-{{ package.type === 'DOMESTIC' ? 'success' : 'info' }}">
+                      {{ package.type }}
+                    </span>
+                  </div>
+                  <p class="card-text text-muted">{{ package.description }}</p>
+                  <div class="d-flex flex-wrap gap-2 mb-3">
+                    <span class="badge bg-secondary">
+                      <i class="bi bi-calendar"></i> {{ package.days }}D/{{ package.nights }}N
+                    </span>
+                    <span class="badge bg-info">{{ package.category }}</span>
+                    <span class="text-warning">
+                      <i class="bi bi-star-fill"></i> {{ package.rating }} ({{ package.totalReviews }})
+                    </span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <small class="text-muted d-block">Starts from</small>
+                      <h5 class="text-primary mb-0">{{ package.currency }} {{ package.basePrice | number }}</h5>
+                    </div>
+                    <a [routerLink]="['/packages', package.id]" class="btn btn-primary">
+                      View Details <i class="bi bi-arrow-right"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

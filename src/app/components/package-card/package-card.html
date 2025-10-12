@@ -1,0 +1,45 @@
+<div class="card h-100 shadow-sm package-card">
+  <div class="position-relative">
+    <img [src]="package.imageUrl" class="card-img-top" [alt]="package.name" style="height: 200px; object-fit: cover;">
+    <span class="badge position-absolute top-0 end-0 m-2"
+          [ngClass]="'bg-' + getStatusClass(package.departures[0].status)">
+      {{ getStatusText(package.departures[0].status) }}
+    </span>
+    <span class="badge bg-primary position-absolute top-0 start-0 m-2">
+      {{ package.type }}
+    </span>
+  </div>
+  <div class="card-body d-flex flex-column">
+    <h5 class="card-title">{{ package.name }}</h5>
+    <p class="card-text text-muted small flex-grow-1">
+      {{ package.description.substring(0, 100) }}{{ package.description.length > 100 ? '...' : '' }}
+    </p>
+    <div class="mb-2">
+      <span class="badge bg-secondary me-1">
+        <i class="bi bi-calendar-event"></i> {{ package.days }}D/{{ package.nights }}N
+      </span>
+      <span class="badge bg-info">{{ package.category }}</span>
+    </div>
+    <div class="d-flex align-items-center mb-2">
+      <div class="text-warning me-2">
+        <i class="bi bi-star-fill" *ngFor="let star of getStarArray(package.rating)"></i>
+        <i class="bi bi-star-half" *ngIf="package.rating % 1 !== 0"></i>
+      </div>
+      <small class="text-muted">({{ package.totalReviews }} reviews)</small>
+    </div>
+    <div class="mb-3">
+      <small class="text-muted d-block">
+        <i class="bi bi-geo-alt-fill"></i> {{ package.destinations.slice(0, 3).join(', ') }}
+      </small>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mt-auto">
+      <div>
+        <small class="text-muted d-block">Starts from</small>
+        <h5 class="mb-0 text-primary">{{ package.currency }} {{ package.basePrice | number }}</h5>
+      </div>
+      <a [routerLink]="['/packages', package.id]" class="btn btn-primary btn-sm">
+        View Details <i class="bi bi-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</div>

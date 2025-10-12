@@ -1,0 +1,185 @@
+<!-- Hero Carousel Section -->
+<section class="hero-carousel-section">
+  <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <!-- Indicators -->
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+    </div>
+
+    <!-- Slides -->
+    <div class="carousel-inner">
+      <!-- Slide 1 -->
+      <div class="carousel-item active">
+        <div class="hero-slide" style="background: linear-gradient(135deg, rgba(0,102,204,0.9), rgba(40,167,69,0.8)), url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1600') center/cover;">
+          <div class="container">
+            <div class="row align-items-center min-vh-60">
+              <div class="col-lg-7 text-white">
+                <h1 class="display-3 fw-bold mb-4 animate-fade-in">Discover Your Dream Destination</h1>
+                <p class="lead mb-4 fs-4">Explore curated tour packages to breathtaking destinations around India and the world</p>
+                <div class="d-flex gap-3">
+                  <a routerLink="/packages" class="btn btn-light btn-lg px-4">
+                    <i class="bi bi-compass me-2"></i>Explore Now
+                  </a>
+                  <a routerLink="/packages" [queryParams]="{type: 'INTERNATIONAL'}" class="btn btn-outline-light btn-lg px-4">
+                    <i class="bi bi-globe me-2"></i>International Tours
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="carousel-item">
+        <div class="hero-slide" style="background: linear-gradient(135deg, rgba(220,53,69,0.85), rgba(253,126,20,0.85)), url('https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1600') center/cover;">
+          <div class="container">
+            <div class="row align-items-center min-vh-60">
+              <div class="col-lg-7 text-white">
+                <h1 class="display-3 fw-bold mb-4 animate-fade-in">Experience India's Rich Heritage</h1>
+                <p class="lead mb-4 fs-4">From Kerala's backwaters to Rajasthan's palaces - unforgettable journeys await</p>
+                <div class="d-flex gap-3">
+                  <a routerLink="/packages" [queryParams]="{type: 'DOMESTIC'}" class="btn btn-light btn-lg px-4">
+                    <i class="bi bi-flag me-2"></i>Domestic Tours
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="carousel-item">
+        <div class="hero-slide" style="background: linear-gradient(135deg, rgba(111,66,193,0.85), rgba(0,123,255,0.85)), url('https://images.unsplash.com/photo-1527004013197-933c4bb611b3?w=1600') center/cover;">
+          <div class="container">
+            <div class="row align-items-center min-vh-60">
+              <div class="col-lg-7 text-white">
+                <h1 class="display-3 fw-bold mb-4 animate-fade-in">Your Journey Starts Here</h1>
+                <p class="lead mb-4 fs-4">25+ years of excellence • 10,000+ happy travelers • Best price guarantee</p>
+                <div class="d-flex gap-3">
+                  <a routerLink="/packages" class="btn btn-light btn-lg px-4">
+                    <i class="bi bi-ticket-perforated me-2"></i>Book Now
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</section>
+
+<!-- Featured Packages Section -->
+<section class="py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="display-6 fw-bold mb-3">Featured Tour Packages</h2>
+      <p class="text-muted">Handpicked destinations for unforgettable experiences</p>
+    </div>
+
+    <div *ngIf="loading" class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    <div class="row g-4" *ngIf="!loading">
+      <div class="col-md-6 col-lg-4" *ngFor="let package of featuredPackages">
+        <app-package-card [package]="package"></app-package-card>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Explore Packages by Type -->
+<section class="bg-light py-5">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2 class="display-6 fw-bold mb-3">Explore Tour Packages</h2>
+    </div>
+
+    <!-- Tabs -->
+    <ul class="nav nav-pills justify-content-center mb-4">
+      <li class="nav-item">
+        <button class="nav-link"
+                [class.active]="selectedType === 'DOMESTIC'"
+                (click)="switchType('DOMESTIC')">
+          <i class="bi bi-flag-fill me-2"></i>Domestic Tours
+        </button>
+      </li>
+      <li class="nav-item ms-2">
+        <button class="nav-link"
+                [class.active]="selectedType === 'INTERNATIONAL'"
+                (click)="switchType('INTERNATIONAL')">
+          <i class="bi bi-globe-americas me-2"></i>International Tours
+        </button>
+      </li>
+    </ul>
+
+    <!-- Packages Grid -->
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4" *ngFor="let package of displayedPackages">
+        <app-package-card [package]="package"></app-package-card>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <a routerLink="/packages" class="btn btn-primary btn-lg">
+        View All Packages <i class="bi bi-arrow-right ms-2"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="display-6 fw-bold mb-3">Why Choose Veena World?</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-3 col-6 text-center">
+        <div class="mb-3">
+          <i class="bi bi-shield-check text-primary" style="font-size: 3rem;"></i>
+        </div>
+        <h5>Trusted Service</h5>
+        <p class="text-muted small">25+ years of excellence</p>
+      </div>
+      <div class="col-md-3 col-6 text-center">
+        <div class="mb-3">
+          <i class="bi bi-currency-rupee text-primary" style="font-size: 3rem;"></i>
+        </div>
+        <h5>Best Prices</h5>
+        <p class="text-muted small">Competitive rates guaranteed</p>
+      </div>
+      <div class="col-md-3 col-6 text-center">
+        <div class="mb-3">
+          <i class="bi bi-headset text-primary" style="font-size: 3rem;"></i>
+        </div>
+        <h5>24/7 Support</h5>
+        <p class="text-muted small">We're here to help anytime</p>
+      </div>
+      <div class="col-md-3 col-6 text-center">
+        <div class="mb-3">
+          <i class="bi bi-star-fill text-primary" style="font-size: 3rem;"></i>
+        </div>
+        <h5>Quality Tours</h5>
+        <p class="text-muted small">Curated experiences</p>
+      </div>
+    </div>
+  </div>
+</section>

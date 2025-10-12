@@ -1,0 +1,131 @@
+/* Hero Carousel Styling */
+.hero-carousel-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-slide {
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+.min-vh-60 {
+  min-height: 60vh;
+}
+
+.carousel-fade .carousel-item {
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.carousel-fade .carousel-item.active {
+  opacity: 1;
+}
+
+/* Animate text on slide */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* Enhanced buttons */
+.btn-lg {
+  padding: 12px 32px;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.btn-lg:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+/* Carousel controls */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 60px;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  opacity: 1;
+}
+
+.carousel-indicators button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 0 6px;
+  opacity: 0.7;
+}
+
+.carousel-indicators button.active {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* Package cards modern styling */
+.package-card {
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.package-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+
+.package-card img {
+  transition: transform 0.4s ease;
+}
+
+.package-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Section styling */
+section {
+  position: relative;
+}
+
+.bg-light-gradient {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-slide {
+    min-height: 500px;
+  }
+  
+  .display-3 {
+    font-size: 2.5rem;
+  }
+  
+  .btn-lg {
+    padding: 10px 24px;
+    font-size: 1rem;
+  }
+}

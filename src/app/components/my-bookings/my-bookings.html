@@ -1,0 +1,58 @@
+<div class="container my-5">
+  <h2 class="mb-4">My Bookings</h2>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && bookings.length === 0" class="alert alert-info">
+    <i class="bi bi-info-circle me-2"></i>You don't have any bookings yet. <a href="/packages" class="alert-link">Browse packages</a> to make your first booking!
+  </div>
+
+  <div *ngIf="!loading && bookings.length > 0">
+    <div class="card mb-3" *ngFor="let booking of bookings">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-2">
+            <img [src]="booking.packageImage" [alt]="booking.packageName" class="img-fluid rounded">
+          </div>
+          <div class="col-md-7">
+            <h5 class="card-title">{{ booking.packageName }}</h5>
+            <p class="card-text">
+              <strong>Booking Reference:</strong> {{ booking.bookingReference }}<br>
+              <strong>Departure Date:</strong> {{ booking.departureDate | date:'fullDate' }}<br>
+              <strong>Departure City:</strong> {{ booking.departureCity }}<br>
+              <strong>Passengers:</strong> {{ booking.passengers.length }}<br>
+              <strong>Booked On:</strong> {{ booking.createdAt | date:'short' }}
+            </p>
+            <div>
+              <span class="badge me-2" [ngClass]="'bg-' + getStatusClass(booking.status)">
+                {{ booking.status }}
+              </span>
+            </div>
+          </div>
+          <div class="col-md-3 text-end">
+            <h4 class="text-primary">₹{{ booking.totalAmount | number }}</h4>
+            <p class="text-muted small">Total Amount</p>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="passengers-list">
+          <h6 class="mb-2">Passengers:</h6>
+          <div class="row">
+            <div class="col-md-6" *ngFor="let passenger of booking.passengers; let i = index">
+              <small>
+                <strong>{{ i + 1 }}.</strong> {{ passenger.title }} {{ passenger.firstName }} {{ passenger.lastName }}
+                ({{ passenger.age }} yrs, {{ passenger.gender }})
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
