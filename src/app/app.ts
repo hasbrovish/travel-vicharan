@@ -11,5 +11,5 @@ import { Footer } from './components/footer/footer';
   styleUrl: './app.css'
 })
 export class App {
-  title = 'Veena World - Travel Booking';
+  title = 'Vichran Trip - Travel Booking';
 }

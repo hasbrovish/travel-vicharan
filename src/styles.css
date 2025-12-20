@@ -1,16 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 
-/* Global Styles for Veena World Travel Booking */
+/* Global Styles for Vichran Trip Travel Booking */
 
 :root {
-  --primary-color: #0066cc;
-  --primary-dark: #0052a3;
-  --secondary-color: #28a745;
-  --accent-color: #ff6b6b;
-  --light-bg: #f8f9fa;
-  --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --primary-color: #1e5558;
+  --primary-dark: #163f42;
+  --secondary-color: #4db8c4;
+  --accent-color: #4db8c4;
+  --light-bg: #ffffff;
+  --gradient-1: linear-gradient(135deg, #1e5558 0%, #2a7278 100%);
+  --gradient-2: linear-gradient(135deg, #4db8c4 0%, #1e5558 100%);
+  --gradient-3: linear-gradient(135deg, #2a7278 0%, #4db8c4 100%);
 }
 
 * {
@@ -21,9 +21,45 @@
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-  background: linear-gradient(135deg, #f5f7fa 0%, #ecf0f1 100%);
+  background: #ffffff;
   color: #2c3e50;
   line-height: 1.6;
+}
+
+/* Override Bootstrap primary color globally */
+.bg-primary {
+  background-color: var(--primary-color) !important;
+}
+
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+.badge.bg-primary {
+  background-color: var(--primary-color) !important;
+}
+
+.spinner-border.text-primary {
+  color: var(--primary-color) !important;
+}
+
+.border-primary {
+  border-color: var(--primary-color) !important;
+}
+
+/* Override Bootstrap nav-pills active state */
+.nav-pills .nav-link.active {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+}
+
+.nav-pills .nav-link {
+  color: var(--primary-color);
+}
+
+.nav-pills .nav-link:hover {
+  background-color: rgba(30, 85, 88, 0.1);
+  color: var(--primary-color);
 }
 
 /* Custom scrollbar */
@@ -41,7 +77,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #0052a3;
+  background: var(--primary-dark);
 }
 
 /* Modern Card Styles */
@@ -70,13 +106,13 @@ body {
 
 .btn-primary {
   background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-  box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
+  box-shadow: 0 4px 15px rgba(30, 85, 88, 0.3);
 }
 
 .btn-primary:hover {
   background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
   transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(0, 102, 204, 0.4);
+  box-shadow: 0 6px 25px rgba(30, 85, 88, 0.4);
 }
 
 .btn-outline-primary {
@@ -111,7 +147,7 @@ a, button, .card, img {
 
 /* Section Backgrounds */
 .bg-light-gradient {
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 }
 
 /* Animations */
