@@ -1,0 +1,38 @@
+/* Make header sticky below the announcement banner */
+.navbar {
+  position: fixed !important;
+  top: 48px; /* Height of announcement banner */
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 999; /* Below announcement banner (1000) */
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  transition: top 0.3s ease;
+}
+
+/* When banner is dismissed, move header to top */
+body.banner-dismissed .navbar {
+  top: 0 !important;
+}
+
+/* Ensure navbar styling */
+.navbar-dark.bg-primary {
+  background: linear-gradient(135deg, #1e5558 0%, #2a7278 100%) !important;
+}
+
+/* Compact navbar items */
+.navbar-nav .nav-link {
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+}
+
+/* Compact search form */
+.navbar form.d-flex {
+  gap: 0.5rem;
+}
+
+.navbar form.d-flex .form-control {
+  font-size: 0.9rem;
+  padding: 0.375rem 0.75rem;
+}

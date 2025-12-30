@@ -1,0 +1,67 @@
+<section class="testimonials-section py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="display-6 fw-bold mb-3">Hear from Our Travelers</h2>
+      <p class="text-muted">Real experiences from real travelers</p>
+    </div>
+
+    <div class="testimonials-carousel position-relative">
+      <!-- Navigation Arrows -->
+      <button class="carousel-nav carousel-nav-prev" 
+              (click)="previous()" 
+              [disabled]="!canGoPrevious"
+              aria-label="Previous testimonials">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+
+      <button class="carousel-nav carousel-nav-next" 
+              (click)="next()" 
+              [disabled]="!canGoNext"
+              aria-label="Next testimonials">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+
+      <!-- Testimonial Cards -->
+      <div class="row g-4">
+        <div class="col-md-4" *ngFor="let testimonial of visibleTestimonials">
+          <div class="testimonial-card h-100">
+            <div class="card-body">
+              <!-- Rating Stars -->
+              <div class="rating mb-3">
+                <i class="bi bi-star-fill text-warning" *ngFor="let star of getStarArray(testimonial.rating)"></i>
+              </div>
+
+              <!-- Quote Text -->
+              <p class="testimonial-text">"{{ testimonial.text }}"</p>
+
+              <!-- Customer Info -->
+              <div class="customer-info d-flex align-items-center mt-4">
+                <img [src]="testimonial.image" [alt]="testimonial.name" class="customer-avatar">
+                <div class="ms-3">
+                  <h6 class="mb-0 fw-bold">{{ testimonial.name }}</h6>
+                  <small class="text-muted">{{ testimonial.trip }}</small>
+                  <div class="d-flex align-items-center mt-1">
+                    <small class="text-muted me-2">{{ testimonial.date }}</small>
+                    <span class="verified-badge" *ngIf="testimonial.verified">
+                      <i class="bi bi-patch-check-fill text-primary"></i> Verified
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Indicators -->
+      <div class="carousel-indicators mt-4 text-center">
+        <button *ngFor="let indicator of slideIndicators; let i = index"
+                class="indicator-dot"
+                [class.active]="i === currentIndex"
+                (click)="goToSlide(i)"
+                [attr.aria-label]="'Go to slide ' + (i + 1)">
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

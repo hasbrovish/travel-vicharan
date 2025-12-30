@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { TourPackage, Booking, PackageType } from '../models';
+import { TourPackage, Booking, PackageType, RoomOption, TourInclusion } from '../models';
+import REAL_TOUR_PACKAGES from '../data/real-tour-packages';
+import DOMESTIC_TOUR_PACKAGES from '../data/domestic-packages';
+import INTERNATIONAL_TOUR_PACKAGES from '../data/international-packages';
+import ASIA_TOUR_PACKAGES from '../data/asia-packages';
+import HIMACHAL_TOUR_PACKAGES from '../data/himachal-packages';
+import NORTH_INDIA_TOUR_PACKAGES from '../data/north-india-packages';
+import VIETNAM_TOUR_PACKAGES from '../data/vietnam-packages';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +14,52 @@ import { TourPackage, Booking, PackageType } from '../models';
 export class DataService {
   private readonly BOOKINGS_KEY = 'travel_bookings';
 
+  // Default room options for legacy packages
+  private readonly DEFAULT_ROOM_OPTIONS: RoomOption[] = [
+    {
+      id: 'room_double_default',
+      type: 'DOUBLE',
+      name: 'Double Sharing',
+      description: 'Two guests sharing one room',
+      bedType: 'Double Bed',
+      adultCapacity: 2,
+      childCapacity: 1,
+      priceModifier: 0
+    },
+    {
+      id: 'room_single_default',
+      type: 'SINGLE',
+      name: 'Single Occupancy',
+      description: 'One guest in private room',
+      bedType: 'Single Bed',
+      adultCapacity: 1,
+      childCapacity: 0,
+      priceModifier: 10000
+    }
+  ];
+
+  // Default inclusions for legacy packages
+  private readonly DEFAULT_INCLUDES: TourInclusion[] = [
+    { icon: 'hotel', label: 'Accommodation' },
+    { icon: 'meals', label: 'Meals' },
+    { icon: 'transport', label: 'Transport' },
+    { icon: 'sightseeing', label: 'Sightseeing' }
+  ];
+
   private packages: TourPackage[] = [
+    // Real tour packages from tour-docs - All legacy packages removed
+    ...REAL_TOUR_PACKAGES,              // Kerala packages (3)
+    ...DOMESTIC_TOUR_PACKAGES,          // Andaman, Goa, Rajasthan (4)
+    ...INTERNATIONAL_TOUR_PACKAGES,     // Dubai, Thailand, Phuket-Krabi (4)
+    ...ASIA_TOUR_PACKAGES,              // Sri Lanka, Bali, Singapore-Malaysia (3)
+    ...HIMACHAL_TOUR_PACKAGES,          // Shimla-Manali combinations (3)
+    ...NORTH_INDIA_TOUR_PACKAGES,       // Uttarakhand, Kashmir (2)
+    ...VIETNAM_TOUR_PACKAGES            // Vietnam Hanoi-Halong-Saigon (1)
+  ];
+
+  // LEGACY PACKAGES REMOVED - Keeping code for reference only
+  /*
+  private legacyPackages = [
     {
       id: '1',
       packageCode: 'EUR-001',
@@ -78,7 +130,12 @@ export class DataService {
       ],
       rating: 4.8,
       totalReviews: 245,
-      isActive: true
+      isActive: true,
+      pricingType: 'FIXED',
+      roomOptions: this.DEFAULT_ROOM_OPTIONS,
+      emiAvailable: true,
+      emiStartingFrom: 43667,
+      includes: [{ icon: 'flight', label: 'Flights' }, { icon: 'hotel', label: 'Hotels' }, { icon: 'meals', label: 'Meals' }, { icon: 'guide', label: 'Guide' }]
     },
     {
       id: '2',
@@ -142,7 +199,12 @@ export class DataService {
       ],
       rating: 4.7,
       totalReviews: 189,
-      isActive: true
+      isActive: true,
+      pricingType: 'FIXED',
+      roomOptions: this.DEFAULT_ROOM_OPTIONS,
+      emiAvailable: true,
+      emiStartingFrom: 7500,
+      includes: [{ icon: 'hotel', label: 'Hotels' }, { icon: 'meals', label: 'Breakfast' }, { icon: 'transport', label: 'Transport' }, { icon: 'sightseeing', label: 'Tours' }]
     },
     {
       id: '3',
@@ -207,7 +269,12 @@ export class DataService {
       ],
       rating: 4.6,
       totalReviews: 156,
-      isActive: true
+      isActive: true,
+      pricingType: 'FIXED',
+      roomOptions: this.DEFAULT_ROOM_OPTIONS,
+      emiAvailable: true,
+      emiStartingFrom: 8667,
+      includes: [{ icon: 'hotel', label: 'Heritage Hotels' }, { icon: 'meals', label: 'Meals' }, { icon: 'transport', label: 'Transport' }, { icon: 'guide', label: 'Guide' }]
     },
     {
       id: '4',
@@ -273,7 +340,12 @@ export class DataService {
       ],
       rating: 4.5,
       totalReviews: 203,
-      isActive: true
+      isActive: true,
+      pricingType: 'FIXED',
+      roomOptions: this.DEFAULT_ROOM_OPTIONS,
+      emiAvailable: true,
+      emiStartingFrom: 5334,
+      includes: [{ icon: 'hotel', label: 'Beach Resort' }, { icon: 'meals', label: 'Breakfast' }, { icon: 'transport', label: 'Transfers' }, { icon: 'sightseeing', label: 'Tours' }]
     },
     {
       id: '5',
@@ -340,7 +412,12 @@ export class DataService {
       ],
       rating: 4.7,
       totalReviews: 178,
-      isActive: true
+      isActive: true,
+      pricingType: 'FIXED',
+      roomOptions: this.DEFAULT_ROOM_OPTIONS,
+      emiAvailable: true,
+      emiStartingFrom: 14167,
+      includes: [{ icon: 'flight', label: 'Flights' }, { icon: 'hotel', label: '4-Star Hotel' }, { icon: 'meals', label: 'Breakfast' }, { icon: 'sightseeing', label: 'Tours' }]
     },
     {
       id: '6',
@@ -407,7 +484,12 @@ export class DataService {
       ],
       rating: 4.6,
       totalReviews: 167,
-      isActive: true
+      isActive: true,
+      pricingType: 'FIXED',
+      roomOptions: this.DEFAULT_ROOM_OPTIONS,
+      emiAvailable: true,
+      emiStartingFrom: 11334,
+      includes: [{ icon: 'flight', label: 'Flights' }, { icon: 'hotel', label: 'Hotels' }, { icon: 'meals', label: 'Breakfast' }, { icon: 'guide', label: 'Guide' }]
     },
     {
       id: '7',
@@ -473,7 +555,12 @@ export class DataService {
       ],
       rating: 4.8,
       totalReviews: 192,
-      isActive: true
+      isActive: true,
+      pricingType: 'FIXED',
+      roomOptions: this.DEFAULT_ROOM_OPTIONS,
+      emiAvailable: true,
+      emiStartingFrom: 12000,
+      includes: [{ icon: 'flight', label: 'Flights' }, { icon: 'hotel', label: 'Hotels' }, { icon: 'meals', label: 'Breakfast' }, { icon: 'sightseeing', label: 'Tours' }]
     },
     {
       id: '8',
@@ -540,9 +627,15 @@ export class DataService {
       ],
       rating: 4.9,
       totalReviews: 234,
-      isActive: true
+      isActive: true,
+      pricingType: 'FIXED',
+      roomOptions: this.DEFAULT_ROOM_OPTIONS,
+      emiAvailable: true,
+      emiStartingFrom: 6334,
+      includes: [{ icon: 'hotel', label: 'Hotels & Houseboat' }, { icon: 'meals', label: 'Meals' }, { icon: 'transport', label: 'Transport' }, { icon: 'guide', label: 'Guide' }]
     }
   ];
+  */
 
   constructor() {}
 
@@ -601,6 +694,6 @@ export class DataService {
   generateBookingReference(): string {
     const timestamp = Date.now();
     const random = Math.floor(Math.random() * 1000);
-    return `VW${timestamp}${random}`;
+    return `VT${timestamp}${random}`; // VT = VichranTrip
   }
 }

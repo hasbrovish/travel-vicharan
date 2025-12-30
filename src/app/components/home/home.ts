@@ -4,11 +4,14 @@ import { RouterLink } from '@angular/router';
 import { PackageService } from '../../services/package.service';
 import { TourPackage, PackageType } from '../../models';
 import { PackageCard } from '../package-card/package-card';
+import { FeaturedDestinations } from '../featured-destinations/featured-destinations';
+import { Testimonials } from '../testimonials/testimonials';
+import { NewsletterSignup } from '../newsletter-signup/newsletter-signup';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, PackageCard],
+  imports: [CommonModule, RouterLink, PackageCard, FeaturedDestinations, Testimonials, NewsletterSignup],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })

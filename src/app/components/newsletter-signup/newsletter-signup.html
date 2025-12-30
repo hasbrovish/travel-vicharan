@@ -1,0 +1,58 @@
+<section class="newsletter-section py-5">
+  <div class="container">
+    <div class="newsletter-card">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <h2 class="newsletter-title">Subscribe & Get Exclusive Deals</h2>
+          <p class="newsletter-subtitle">
+            <i class="bi bi-gift-fill me-2"></i>Get 10% off on your first booking
+          </p>
+          <ul class="benefits-list">
+            <li><i class="bi bi-check-circle-fill text-success me-2"></i>Early access to new packages</li>
+            <li><i class="bi bi-check-circle-fill text-success me-2"></i>Exclusive seasonal offers</li>
+            <li><i class="bi bi-check-circle-fill text-success me-2"></i>Travel tips & guides</li>
+          </ul>
+        </div>
+
+        <div class="col-lg-6">
+          <form (ngSubmit)="onSubmit()" class="newsletter-form">
+            <div class="input-group">
+              <input 
+                type="email" 
+                class="form-control form-control-lg"
+                [(ngModel)]="email"
+                name="email"
+                placeholder="Enter your email address"
+                required
+                [disabled]="isSubmitting">
+              <button 
+                type="submit" 
+                class="btn btn-primary btn-lg"
+                [disabled]="isSubmitting || !email">
+                <span *ngIf="!isSubmitting">Subscribe</span>
+                <span *ngIf="isSubmitting">
+                  <span class="spinner-border spinner-border-sm me-2"></span>
+                  Subscribing...
+                </span>
+              </button>
+            </div>
+
+            <div class="alert alert-success mt-3 mb-0" *ngIf="showSuccess">
+              <i class="bi bi-check-circle-fill me-2"></i>
+              <strong>Success!</strong> You've been subscribed. Check your email for the discount code.
+            </div>
+
+            <div class="alert alert-danger mt-3 mb-0" *ngIf="showError">
+              <i class="bi bi-exclamation-triangle-fill me-2"></i>
+              {{ errorMessage }}
+            </div>
+
+            <small class="form-text text-muted mt-2 d-block">
+              We respect your privacy. Unsubscribe anytime.
+            </small>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

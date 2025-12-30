@@ -1,0 +1,128 @@
+.newsletter-section {
+  background: linear-gradient(135deg, #1e5558 0%, #2a7278 100%);
+  color: white;
+}
+
+.newsletter-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 50px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.newsletter-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.newsletter-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  color: #ffc107;
+  font-weight: 600;
+}
+
+.benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.benefits-list li {
+  padding: 8px 0;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.9);
+}
+
+.newsletter-form .input-group {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.newsletter-form .form-control {
+  border: none;
+  padding: 20px 24px;
+  font-size: 1rem;
+  border-radius: 50px 0 0 50px;
+}
+
+.newsletter-form .form-control:focus {
+  box-shadow: none;
+  border-color: transparent;
+}
+
+.newsletter-form .btn-primary {
+  border-radius: 0 50px 50px 0;
+  padding: 20px 36px;
+  font-weight: 600;
+  background: #ffc107;
+  border: none;
+  color: #1e5558;
+  white-space: nowrap;
+}
+
+.newsletter-form .btn-primary:hover:not(:disabled) {
+  background: #ffb300;
+  transform: scale(1.02);
+}
+
+.newsletter-form .btn-primary:disabled {
+  opacity: 0.7;
+}
+
+.newsletter-form .alert {
+  border-radius: 12px;
+  border: none;
+}
+
+.form-text {
+  opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .newsletter-card {
+    padding: 40px;
+  }
+
+  .newsletter-title {
+    font-size: 1.8rem;
+  }
+
+  .newsletter-subtitle {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .newsletter-card {
+    padding: 30px 20px;
+  }
+
+  .newsletter-title {
+    font-size: 1.5rem;
+  }
+
+  .newsletter-subtitle {
+    font-size: 1rem;
+  }
+
+  .newsletter-form .input-group {
+    flex-direction: column;
+    border-radius: 12px;
+  }
+
+  .newsletter-form .form-control {
+    border-radius: 12px 12px 0 0;
+    margin-bottom: 0;
+  }
+
+  .newsletter-form .btn-primary {
+    border-radius: 0 0 12px 12px;
+    padding: 16px 24px;
+  }
+}

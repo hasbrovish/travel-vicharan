@@ -1,0 +1,34 @@
+<section class="featured-destinations py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="display-6 fw-bold mb-3">Explore Top Destinations</h2>
+      <p class="text-muted">Discover your dream destination from our curated collection</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4" *ngFor="let dest of destinations">
+        <a [routerLink]="['/packages']" [queryParams]="{destination: dest.slug}" class="destination-card">
+          <div class="destination-image-wrapper">
+            <img [src]="dest.imageUrl" [alt]="dest.name" class="destination-image">
+            <div class="destination-overlay"></div>
+            <span class="package-count-badge">
+              {{ dest.packageCount }} {{ dest.packageCount === 1 ? 'Package' : 'Packages' }}
+            </span>
+          </div>
+          <div class="destination-info">
+            <h3 class="destination-name">{{ dest.name }}</h3>
+            <p class="destination-description">{{ dest.description }}</p>
+            <div class="destination-highlights">
+              <span class="highlight-tag" *ngFor="let highlight of dest.highlights | slice:0:3">
+                {{ highlight }}
+              </span>
+            </div>
+            <div class="view-packages-link">
+              View Packages <i class="bi bi-arrow-right ms-2"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

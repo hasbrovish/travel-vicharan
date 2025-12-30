@@ -3,14 +3,21 @@
 /* Global Styles for Vichran Trip Travel Booking */
 
 :root {
-  --primary-color: #1e5558;
-  --primary-dark: #163f42;
-  --secondary-color: #4db8c4;
-  --accent-color: #4db8c4;
-  --light-bg: #ffffff;
-  --gradient-1: linear-gradient(135deg, #1e5558 0%, #2a7278 100%);
-  --gradient-2: linear-gradient(135deg, #4db8c4 0%, #1e5558 100%);
-  --gradient-3: linear-gradient(135deg, #2a7278 0%, #4db8c4 100%);
+  /* VichranTrip Brand Colors (veenaworld.com inspired) */
+  --primary-color: #2d5a5f;        /* Deep Teal (main brand) */
+  --primary-dark: #1e4a4f;         /* Darker Teal */
+  --secondary-color: #ffc107;      /* Yellow/Gold (CTAs) */
+  --accent-color: #5eb8c8;         /* Light Blue (logo dot, accents) */
+  --success-color: #28a745;        /* Green (badges, lowest price) */
+  --light-bg: #e8f4f4;            /* Light Teal (inactive tabs, backgrounds) */
+  --text-dark: #132738;           /* Dark text */
+  --white-bg: #ffffff;
+
+  /* Gradients */
+  --gradient-1: linear-gradient(135deg, #2d5a5f 0%, #3d6a6f 100%);
+  --gradient-2: linear-gradient(135deg, #5eb8c8 0%, #2d5a5f 100%);
+  --gradient-3: linear-gradient(135deg, #3d6a6f 0%, #5eb8c8 100%);
+  --gradient-overlay: linear-gradient(180deg, rgba(166,166,166,0.15), rgba(166,166,166,0));
 }
 
 * {
@@ -186,4 +193,289 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* ========================================
+   VeenaWorld-Inspired Component Styles
+   ======================================== */
+
+/* Primary CTA Button - Yellow/Gold */
+.btn-cta-primary {
+  background: var(--secondary-color);
+  color: var(--text-dark);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(255, 193, 7, 0.2);
+}
+
+.btn-cta-primary:hover {
+  background: #e6ac00;
+  color: var(--text-dark);
+  box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-cta-primary:active {
+  transform: translateY(0);
+}
+
+/* Secondary Button - Teal */
+.btn-secondary-teal {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary-teal:hover {
+  background: var(--primary-dark);
+  color: white;
+}
+
+/* Outline Button - Teal */
+.btn-outline-teal {
+  background: white;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.btn-outline-teal:hover {
+  background: var(--light-bg);
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+/* Package Cards */
+.package-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  overflow: hidden;
+}
+
+.package-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+
+.package-card-image {
+  position: relative;
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+}
+
+.package-card-image::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: var(--gradient-overlay);
+  pointer-events: none;
+}
+
+/* Badge Styles */
+.badge-group-tour {
+  background: var(--primary-color);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-lowest-price {
+  background: var(--success-color);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.badge-all-inclusive {
+  background: var(--light-bg);
+  color: var(--primary-color);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Modern Form Controls */
+.form-control-modern {
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  padding: 12px;
+  height: 40px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-size: 14px;
+}
+
+.form-control-modern:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(45, 90, 95, 0.1);
+  outline: none;
+}
+
+.form-control-modern.error {
+  border-color: #ef4444;
+}
+
+.form-control-modern.error:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.form-label-modern {
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+/* Step Progress Indicator */
+.step-progress {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2rem 0;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.step-item.completed .step-number {
+  background: var(--success-color);
+  color: white;
+}
+
+.step-item.active .step-number {
+  background: var(--primary-color);
+  color: white;
+  box-shadow: 0 0 0 4px rgba(45, 90, 95, 0.1);
+}
+
+.step-connector {
+  flex: 1;
+  height: 2px;
+  background: #e5e7eb;
+  margin: 0 8px;
+}
+
+.step-item.completed .step-connector {
+  background: var(--success-color);
+}
+
+/* Price Breakdown */
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 14px;
+}
+
+.price-row.total {
+  border-top: 2px solid #e5e7eb;
+  padding-top: 12px;
+  margin-top: 8px;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--primary-color);
+}
+
+/* Sticky Sidebar */
+.sticky-sidebar {
+  position: sticky;
+  top: 100px;
+}
+
+/* Icon Buttons */
+.icon-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #d1d5db;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.icon-button:hover {
+  background: var(--light-bg);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+/* Alert Banner */
+.alert-banner {
+  background: #fef3c7;
+  border-left: 4px solid #f59e0b;
+  padding: 12px 16px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.alert-banner i {
+  color: #f59e0b;
+}
+
+/* Statistics Box */
+.stat-box {
+  text-align: center;
+  padding: 20px;
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary-color);
+  display: block;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
 }

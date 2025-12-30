@@ -21,10 +21,12 @@ export class PackageList implements OnInit {
   // Filters
   selectedType: PackageType | null = null;
   selectedCategories: PackageCategory[] = [];
+  selectedDestination: string | null = null;
   minPrice = 0;
   maxPrice = 300000;
 
   categories: PackageCategory[] = ['FAMILY', 'HONEYMOON', 'GROUP', 'SENIORS', 'WEEKEND'];
+  availableDestinations: string[] = [];
 
   constructor(
     private packageService: PackageService,
@@ -35,9 +37,13 @@ export class PackageList implements OnInit {
     this.route.queryParams.subscribe(params => {
       const searchQuery = params['search'];
       const type = params['type'] as PackageType;
+      const destination = params['destination'];
 
       if (searchQuery) {
         this.searchPackages(searchQuery);
+      } else if (destination) {
+        this.selectedDestination = destination;
+        this.loadPackagesByDestination(destination);
       } else if (type) {
         this.selectedType = type;
         this.loadPackagesByType(type);
@@ -53,12 +59,41 @@ export class PackageList implements OnInit {
       next: (packages) => {
         this.allPackages = packages;
         this.filteredPackages = packages;
+        this.extractDestinations(packages);
         this.loading = false;
       },
       error: () => {
         this.loading = false;
       }
     });
+  }
+
+  loadPackagesByDestination(destination: string): void {
+    this.loading = true;
+    this.packageService.getAllPackages().subscribe({
+      next: (packages) => {
+        this.allPackages = packages;
+        // Filter packages by destination (case-insensitive)
+        this.filteredPackages = packages.filter(pkg =>
+          pkg.destinations.some(dest =>
+            dest.toLowerCase().includes(destination.toLowerCase())
+          )
+        );
+        this.extractDestinations(packages);
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+      }
+    });
+  }
+
+  extractDestinations(packages: TourPackage[]): void {
+    const destSet = new Set<string>();
+    packages.forEach(pkg => {
+      pkg.destinations.forEach(dest => destSet.add(dest));
+    });
+    this.availableDestinations = Array.from(destSet).sort();
   }
 
   loadPackagesByType(type: PackageType): void {
@@ -116,6 +151,7 @@ export class PackageList implements OnInit {
   clearFilters(): void {
     this.selectedType = null;
     this.selectedCategories = [];
+    this.selectedDestination = null;
     this.minPrice = 0;
     this.maxPrice = 300000;
     this.filteredPackages = this.allPackages;

@@ -27,12 +27,20 @@
           <h5 class="mb-0">Filters</h5>
         </div>
         <div class="card-body">
+          <!-- Destination Filter -->
+          <div class="mb-4" *ngIf="selectedDestination">
+            <h6 class="mb-3">Destination</h6>
+            <div class="alert alert-info py-2 px-3 small">
+              <i class="bi bi-funnel-fill me-2"></i>Filtered by: <strong>{{ selectedDestination }}</strong>
+            </div>
+          </div>
+
           <!-- Type Filter -->
           <div class="mb-4">
             <h6 class="mb-3">Package Type</h6>
             <div class="form-check">
               <input class="form-check-input" type="radio" name="type" id="typeAll"
-                     [checked]="selectedType === null" (change)="setType(null)">
+                     [checked]="selectedType === null && selectedDestination === null" (change)="setType(null)">
               <label class="form-check-label" for="typeAll">All</label>
             </div>
             <div class="form-check">

@@ -1,223 +1,331 @@
-<div class="container my-5" *ngIf="package">
-  <!-- Package Header -->
-  <div class="row mb-4">
-    <div class="col-lg-8">
-      <h1 class="display-5 mb-3">{{ package.name }}</h1>
-      <div class="d-flex align-items-center mb-3">
-        <div class="text-warning me-3">
-          <i class="bi bi-star-fill" *ngFor="let star of getStarArray(package.rating)"></i>
-          <i class="bi bi-star-half" *ngIf="package.rating % 1 !== 0"></i>
-          <span class="text-dark ms-2">{{ package.rating }}</span>
-        </div>
-        <span class="text-muted">({{ package.totalReviews }} reviews)</span>
-      </div>
-      <p class="lead">{{ package.description }}</p>
-    </div>
-  </div>
-
-  <!-- Image Gallery -->
-  <div class="row mb-4">
-    <div class="col-12">
-      <div id="packageCarousel" class="carousel slide" data-bs-ride="carousel">
-        <!-- Indicators -->
-        <div class="carousel-indicators">
-          <button *ngFor="let image of package.galleryImages; let i = index"
-                  type="button"
-                  [attr.data-bs-target]="'#packageCarousel'"
-                  [attr.data-bs-slide-to]="i"
-                  [class.active]="i === 0"
-                  [attr.aria-current]="i === 0 ? 'true' : null"
-                  [attr.aria-label]="'Slide ' + (i + 1)"></button>
-        </div>
-
-        <!-- Slides -->
-        <div class="carousel-inner">
-          <div class="carousel-item" *ngFor="let image of package.galleryImages; let i = index" [class.active]="i === 0">
-            <img [src]="image" class="d-block w-100" [alt]="package.name" style="height: 400px; object-fit: cover;">
+<div class="container-fluid px-0" *ngIf="package">
+  <!-- Hero Section with Package Image -->
+  <div class="package-hero position-relative">
+    <img [src]="package.imageUrl" [alt]="package.name" class="w-100" style="height: 400px; object-fit: cover;">
+    <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-end">
+      <div class="container pb-5">
+        <!-- Back Button -->
+        <div class="row mb-3">
+          <div class="col-12">
+            <button class="btn btn-light btn-sm" onclick="history.back()">
+              <i class="bi bi-arrow-left me-2"></i>Back to Packages
+            </button>
           </div>
         </div>
-
-        <!-- Controls -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#packageCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#packageCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <!-- Left Column - Details -->
-    <div class="col-lg-8">
-      <!-- Tabs -->
-      <ul class="nav nav-tabs mb-4">
-        <li class="nav-item">
-          <button class="nav-link" [class.active]="activeTab === 'overview'" (click)="setActiveTab('overview')">
-            Overview
-          </button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link" [class.active]="activeTab === 'itinerary'" (click)="setActiveTab('itinerary')">
-            Itinerary
-          </button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link" [class.active]="activeTab === 'inclusions'" (click)="setActiveTab('inclusions')">
-            Inclusions & Exclusions
-          </button>
-        </li>
-      </ul>
-
-      <!-- Tab Content -->
-      <div class="tab-content">
-        <!-- Overview Tab -->
-        <div *ngIf="activeTab === 'overview'">
-          <div class="card mb-3">
-            <div class="card-body">
-              <h5 class="card-title">Package Highlights</h5>
-              <ul class="list-unstyled">
-                <li *ngFor="let highlight of package.highlights" class="mb-2">
-                  <i class="bi bi-check-circle-fill text-success me-2"></i>{{ highlight }}
-                </li>
-              </ul>
+        <div class="row">
+          <div class="col-lg-8">
+            <span class="badge bg-primary mb-2">{{ package.type }}</span>
+            <span class="badge bg-info ms-2">{{ package.category }}</span>
+            <h1 class="display-4 text-white fw-bold mb-3">{{ package.name }}</h1>
+            <div class="d-flex align-items-center mb-3">
+              <div class="text-warning me-3">
+                <i class="bi bi-star-fill" *ngFor="let star of getStarArray(package.rating)"></i>
+                <i class="bi bi-star-half" *ngIf="package.rating % 1 !== 0"></i>
+                <span class="text-white ms-2 fw-bold">{{ package.rating }}</span>
+              </div>
+              <span class="text-white">({{ package.totalReviews }} reviews)</span>
             </div>
+            <p class="lead text-white mb-0">{{ package.description }}</p>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Destinations</h5>
-              <div class="d-flex flex-wrap gap-2">
-                <span class="badge bg-primary" *ngFor="let dest of package.destinations">
-                  <i class="bi bi-geo-alt-fill me-1"></i>{{ dest }}
-                </span>
+  <div class="container my-5">
+    <!-- Quick Info Bar -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body">
+            <div class="row text-center">
+              <div class="col-md-3 col-6 mb-3 mb-md-0">
+                <div class="d-flex flex-column align-items-center">
+                  <i class="bi bi-calendar3 text-primary mb-2" style="font-size: 2rem;"></i>
+                  <h6 class="mb-0">Duration</h6>
+                  <span class="text-muted">{{ package.days }}D / {{ package.nights }}N</span>
+                </div>
+              </div>
+              <div class="col-md-3 col-6 mb-3 mb-md-0">
+                <div class="d-flex flex-column align-items-center">
+                  <i class="bi bi-geo-alt-fill text-primary mb-2" style="font-size: 2rem;"></i>
+                  <h6 class="mb-0">Destinations</h6>
+                  <span class="text-muted">{{ package.destinations.length }} Places</span>
+                </div>
+              </div>
+              <div class="col-md-3 col-6">
+                <div class="d-flex flex-column align-items-center">
+                  <i class="bi bi-people-fill text-primary mb-2" style="font-size: 2rem;"></i>
+                  <h6 class="mb-0">Tour Type</h6>
+                  <span class="text-muted">{{ package.tourType || 'FAMILY' }}</span>
+                </div>
+              </div>
+              <div class="col-md-3 col-6">
+                <div class="d-flex flex-column align-items-center">
+                  <i class="bi bi-currency-rupee text-primary mb-2" style="font-size: 2rem;"></i>
+                  <h6 class="mb-0">Starting From</h6>
+                  <span class="text-muted fw-bold">{{ package.currency }} {{ package.basePrice | number }}</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
 
-        <!-- Itinerary Tab -->
-        <div *ngIf="activeTab === 'itinerary'">
-          <div class="accordion" id="itineraryAccordion">
-            <div class="accordion-item" *ngFor="let day of package.itinerary">
-              <h2 class="accordion-header" [id]="'heading' + day.day">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        [attr.data-bs-target]="'#collapse' + day.day">
-                  Day {{ day.day }}: {{ day.title }}
-                </button>
-              </h2>
-              <div [id]="'collapse' + day.day" class="accordion-collapse collapse"
-                   [attr.data-bs-parent]="'#itineraryAccordion'">
-                <div class="accordion-body">
-                  <p>{{ day.description }}</p>
-                  <h6 class="mt-3">Activities:</h6>
-                  <ul>
-                    <li *ngFor="let activity of day.activities">{{ activity }}</li>
-                  </ul>
-                  <div class="mt-2">
-                    <strong>Meals: </strong>
-                    <span class="badge bg-secondary me-1" *ngFor="let meal of day.meals">{{ meal }}</span>
+    <!-- Image Gallery -->
+    <div class="row mb-5" *ngIf="galleryImages.length > 1">
+      <div class="col-12">
+        <h3 class="mb-4">Photo Gallery</h3>
+        <div id="packageCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button *ngFor="let image of galleryImages; let i = index"
+                    type="button"
+                    [attr.data-bs-target]="'#packageCarousel'"
+                    [attr.data-bs-slide-to]="i"
+                    [class.active]="i === 0"></button>
+          </div>
+          <div class="carousel-inner rounded-4 overflow-hidden shadow">
+            <div class="carousel-item" *ngFor="let image of galleryImages; let i = index" [class.active]="i === 0">
+              <img [src]="image" class="d-block w-100" [alt]="package.name" style="height: 500px; object-fit: cover;">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#packageCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#packageCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Left Column - Details -->
+      <div class="col-lg-8">
+        <!-- Tabs -->
+        <ul class="nav nav-pills mb-4 custom-tabs">
+          <li class="nav-item">
+            <button class="nav-link" [class.active]="activeTab === 'overview'" (click)="setActiveTab('overview')">
+              <i class="bi bi-info-circle me-2"></i>Overview
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" [class.active]="activeTab === 'itinerary'" (click)="setActiveTab('itinerary')">
+              <i class="bi bi-map me-2"></i>Itinerary
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" [class.active]="activeTab === 'inclusions'" (click)="setActiveTab('inclusions')">
+              <i class="bi bi-check2-square me-2"></i>Inclusions
+            </button>
+          </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+          <!-- Overview Tab -->
+          <div *ngIf="activeTab === 'overview'" class="fade-in">
+            <div class="card border-0 shadow-sm mb-4">
+              <div class="card-body p-4">
+                <h4 class="card-title mb-4">
+                  <i class="bi bi-stars text-warning me-2"></i>Package Highlights
+                </h4>
+                <div class="row">
+                  <div class="col-md-6" *ngFor="let highlight of package.highlights">
+                    <div class="d-flex align-items-start mb-3">
+                      <i class="bi bi-check-circle-fill text-success me-3 mt-1" style="font-size: 1.2rem;"></i>
+                      <span>{{ highlight }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card border-0 shadow-sm">
+              <div class="card-body p-4">
+                <h4 class="card-title mb-4">
+                  <i class="bi bi-geo-alt text-primary me-2"></i>Destinations Covered
+                </h4>
+                <div class="d-flex flex-wrap gap-3">
+                  <div class="destination-badge" *ngFor="let dest of package.destinations">
+                    <i class="bi bi-pin-map-fill me-2"></i>{{ dest }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Itinerary Tab - Journey Timeline -->
+          <div *ngIf="activeTab === 'itinerary'" class="fade-in">
+            <h4 class="mb-4">
+              <i class="bi bi-signpost-2 text-primary me-2"></i>Your Journey Day by Day
+            </h4>
+            <div class="timeline">
+              <div class="timeline-item" *ngFor="let day of package.itinerary; let isLast = last" [class.last]="isLast">
+                <div class="timeline-marker">
+                  <div class="timeline-icon">
+                    <i class="bi {{ getDayIcon(day.day) }} text-white"></i>
+                  </div>
+                  <div class="timeline-line" *ngIf="!isLast"></div>
+                </div>
+                <div class="timeline-content card border-0 shadow-sm">
+                  <div class="card-header bg-gradient-primary text-white">
+                    <h5 class="mb-0">
+                      <span class="badge bg-white text-primary me-2">Day {{ day.day }}</span>
+                      {{ day.title }}
+                    </h5>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text mb-3">{{ day.description }}</p>
+
+                    <div class="mb-3" *ngIf="day.activities && day.activities.length > 0">
+                      <h6 class="text-primary mb-2">
+                        <i class="bi bi-list-check me-2"></i>Activities
+                      </h6>
+                      <div class="row">
+                        <div class="col-md-6" *ngFor="let activity of day.activities">
+                          <div class="activity-item mb-2">
+                            <i class="bi bi-caret-right-fill text-success me-2"></i>{{ activity }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div *ngIf="day.meals && day.meals.length > 0">
+                      <h6 class="text-primary mb-2">
+                        <i class="bi bi-egg-fried me-2"></i>Meals Included
+                      </h6>
+                      <div class="d-flex flex-wrap gap-2">
+                        <span class="badge badge-meal" *ngFor="let meal of day.meals">
+                          <i class="bi bi-check-lg me-1"></i>{{ meal }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inclusions & Exclusions Tab -->
+          <div *ngIf="activeTab === 'inclusions'" class="fade-in">
+            <div class="row">
+              <div class="col-md-6 mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                  <div class="card-header bg-success bg-gradient text-white py-3">
+                    <h5 class="mb-0">
+                      <i class="bi bi-check-circle-fill me-2"></i>What's Included
+                    </h5>
+                  </div>
+                  <div class="card-body p-4">
+                    <ul class="list-unstyled mb-0">
+                      <li *ngFor="let item of package.inclusions" class="mb-3 d-flex align-items-start">
+                        <i class="bi bi-patch-check-fill text-success me-3 mt-1" style="font-size: 1.2rem;"></i>
+                        <span>{{ item }}</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                  <div class="card-header bg-danger bg-gradient text-white py-3">
+                    <h5 class="mb-0">
+                      <i class="bi bi-x-circle-fill me-2"></i>What's Excluded
+                    </h5>
+                  </div>
+                  <div class="card-body p-4">
+                    <ul class="list-unstyled mb-0">
+                      <li *ngFor="let item of package.exclusions" class="mb-3 d-flex align-items-start">
+                        <i class="bi bi-x-circle-fill text-danger me-3 mt-1" style="font-size: 1.2rem;"></i>
+                        <span>{{ item }}</span>
+                      </li>
+                    </ul>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        <!-- Inclusions & Exclusions Tab -->
-        <div *ngIf="activeTab === 'inclusions'">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="card mb-3">
-                <div class="card-header bg-success text-white">
-                  <h5 class="mb-0">Inclusions</h5>
-                </div>
-                <div class="card-body">
-                  <ul class="list-unstyled">
-                    <li *ngFor="let item of package.inclusions" class="mb-2">
-                      <i class="bi bi-check-circle-fill text-success me-2"></i>{{ item }}
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="card mb-3">
-                <div class="card-header bg-danger text-white">
-                  <h5 class="mb-0">Exclusions</h5>
-                </div>
-                <div class="card-body">
-                  <ul class="list-unstyled">
-                    <li *ngFor="let item of package.exclusions" class="mb-2">
-                      <i class="bi bi-x-circle-fill text-danger me-2"></i>{{ item }}
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
 
-    <!-- Right Column - Booking Card -->
-    <div class="col-lg-4">
-      <div class="card sticky-top" style="top: 100px;">
-        <div class="card-body">
-          <h5 class="card-title">Book This Package</h5>
-          <hr>
-
-          <div class="mb-3">
-            <label class="form-label">Duration</label>
-            <div>
-              <span class="badge bg-info">{{ package.days }} Days / {{ package.nights }} Nights</span>
+      <!-- Right Column - Booking Card -->
+      <div class="col-lg-4">
+        <div class="card sticky-top border-0 shadow-lg booking-card" style="top: 100px;">
+          <div class="card-header bg-gradient-primary text-white py-3">
+            <h5 class="mb-0">
+              <i class="bi bi-calendar-check me-2"></i>Book This Package
+            </h5>
+          </div>
+          <div class="card-body p-4">
+            <div class="mb-4">
+              <label class="form-label fw-bold">
+                <i class="bi bi-calendar-event me-2"></i>Select Departure Date
+              </label>
+              <select class="form-select form-select-lg" [(ngModel)]="selectedDeparture">
+                <option *ngFor="let dep of availableDepartures" [ngValue]="dep">
+                  {{ dep.date | date:'dd MMM yyyy' }} - {{ dep.departureCity }}
+                  ({{ dep.availableSeats }} seats left)
+                </option>
+              </select>
             </div>
-          </div>
 
-          <div class="mb-3">
-            <label class="form-label">Select Departure</label>
-            <select class="form-select" [(ngModel)]="selectedDeparture">
-              <option *ngFor="let dep of package.departures" [ngValue]="dep">
-                {{ dep.date | date }} - {{ dep.departureCity }} ({{ dep.availableSeats }} seats)
-              </option>
-            </select>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Number of Passengers</label>
-            <input type="number" class="form-control" [(ngModel)]="numberOfPassengers" min="1" max="10">
-          </div>
-
-          <hr>
-
-          <div class="mb-3">
-            <div class="d-flex justify-content-between">
-              <span>Base Price (per person):</span>
-              <strong>{{ package.currency }} {{ package.basePrice | number }}</strong>
+            <div class="mb-4">
+              <label class="form-label fw-bold">
+                <i class="bi bi-people me-2"></i>Number of Travelers
+              </label>
+              <input type="number" class="form-control form-control-lg"
+                     [(ngModel)]="numberOfPassengers" min="1" max="10">
             </div>
-            <div class="d-flex justify-content-between mt-2">
-              <span>Number of Passengers:</span>
-              <strong>{{ numberOfPassengers }}</strong>
+
+            <hr class="my-4">
+
+            <div class="price-breakdown mb-4">
+              <div class="d-flex justify-content-between mb-2">
+                <span class="text-muted">Price per person:</span>
+                <strong class="text-dark">{{ package.currency }} {{ (selectedDeparture && 'price' in selectedDeparture ? selectedDeparture.price : package.basePrice) | number }}</strong>
+              </div>
+              <div class="d-flex justify-content-between mb-3">
+                <span class="text-muted">Number of travelers:</span>
+                <strong class="text-dark">{{ numberOfPassengers }}</strong>
+              </div>
+              <div class="bg-light p-4 rounded-3">
+                <div class="d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0 text-dark">Total Amount:</h5>
+                  <h3 class="mb-0 text-primary fw-bold">{{ package.currency }} {{ totalAmount | number }}</h3>
+                </div>
+                <small class="text-muted d-block mt-2" *ngIf="package.emiAvailable">
+                  <i class="bi bi-credit-card me-1"></i>EMI starting from ₹{{ package.emiStartingFrom | number }}/month
+                </small>
+              </div>
             </div>
-          </div>
 
-          <div class="bg-light p-3 rounded mb-3">
-            <div class="d-flex justify-content-between align-items-center">
-              <h5 class="mb-0">Total Amount:</h5>
-              <h4 class="mb-0 text-primary">{{ package.currency }} {{ totalAmount | number }}</h4>
+            <button class="btn btn-primary btn-lg w-100 py-3 fw-bold shadow"
+                    (click)="proceedToBooking()"
+                    [disabled]="!selectedDeparture || selectedDeparture.status === 'SOLD_OUT'">
+              <i class="bi bi-cart-check-fill me-2"></i>Proceed to Book
+            </button>
+
+            <div class="alert alert-warning mt-3 mb-0" *ngIf="selectedDeparture?.status === 'FILLING_FAST'">
+              <i class="bi bi-exclamation-triangle-fill me-2"></i>
+              <strong>Hurry!</strong> Only {{ selectedDeparture?.availableSeats }} seats left
             </div>
-          </div>
 
-          <button class="btn btn-primary w-100 btn-lg" (click)="proceedToBooking()"
-                  [disabled]="!selectedDeparture || selectedDeparture.status === 'SOLD_OUT'">
-            <i class="bi bi-calendar-check me-2"></i>Book Now
-          </button>
-
-          <div class="alert alert-warning mt-3" *ngIf="selectedDeparture?.status === 'FILLING_FAST'">
-            <i class="bi bi-exclamation-triangle-fill me-2"></i>Filling Fast! Book Soon
+            <div class="mt-4 pt-3 border-top">
+              <div class="d-flex align-items-center mb-2">
+                <i class="bi bi-shield-check text-success me-2"></i>
+                <small class="text-muted">100% Secure Payment</small>
+              </div>
+              <div class="d-flex align-items-center mb-2">
+                <i class="bi bi-telephone text-success me-2"></i>
+                <small class="text-muted">24/7 Customer Support</small>
+              </div>
+              <div class="d-flex align-items-center">
+                <i class="bi bi-award text-success me-2"></i>
+                <small class="text-muted">Best Price Guarantee</small>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -226,7 +334,7 @@
 </div>
 
 <div class="text-center py-5" *ngIf="loading">
-  <div class="spinner-border text-primary" role="status">
+  <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
     <span class="visually-hidden">Loading...</span>
   </div>
 </div>

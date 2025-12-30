@@ -1,0 +1,123 @@
+.featured-destinations {
+  background: #ffffff;
+}
+
+.destination-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 16px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.destination-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+
+.destination-image-wrapper {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.destination-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.destination-card:hover .destination-image {
+  transform: scale(1.1);
+}
+
+.destination-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 100%);
+}
+
+.package-count-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #ffc107;
+  color: #1e5558;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  z-index: 2;
+}
+
+.destination-info {
+  padding: 24px;
+}
+
+.destination-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e5558;
+  margin-bottom: 12px;
+}
+
+.destination-description {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.destination-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.highlight-tag {
+  background: #e9f5f7;
+  color: #1e5558;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.view-packages-link {
+  color: #4db8c4;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.destination-card:hover .view-packages-link {
+  color: #2a7278;
+  transform: translateX(5px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .destination-image-wrapper {
+    height: 200px;
+  }
+
+  .destination-name {
+    font-size: 1.3rem;
+  }
+
+  .destination-info {
+    padding: 20px;
+  }
+}

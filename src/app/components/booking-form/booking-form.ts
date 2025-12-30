@@ -112,7 +112,25 @@ export class BookingForm implements OnInit {
         passengers: this.bookingForm.value.passengers as Passenger[],
         totalAmount: this.totalAmount,
         status: 'CONFIRMED',
-        createdAt: new Date()
+        createdAt: new Date(),
+        // Room configuration - default to first room option if available
+        roomConfiguration: {
+          optionId: this.package.roomOptions?.[0]?.id || 'default',
+          rooms: Math.ceil(this.numberOfPassengers / 2),
+          description: this.package.roomOptions?.[0]?.name || 'Standard Room',
+          totalCost: this.totalAmount
+        },
+        // Payment details - default to full payment
+        paymentOption: 'FULL',
+        convenienceFee: 0,
+        // GST - not required by default
+        gstRequired: false,
+        // Agreement flags
+        termsAccepted: true,
+        communicationConsent: true,
+        // Step tracking - simple booking is single step
+        currentStep: 1,
+        completedSteps: [1]
       };
 
       this.bookingService.createBooking(booking).subscribe({
