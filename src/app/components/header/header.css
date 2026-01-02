@@ -1,7 +1,7 @@
 /* Make header sticky below the announcement banner */
 .navbar {
   position: fixed !important;
-  top: 48px; /* Height of announcement banner */
+  top: 32px; /* Height of announcement banner (reduced) */
   left: 0;
   right: 0;
   width: 100%;

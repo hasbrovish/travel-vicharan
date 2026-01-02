@@ -135,10 +135,10 @@ const kerala3N4D: TourPackage = {
   departures: [],
   imageUrl: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800',
   galleryImages: [
-    '/gallery/kerala-tea-gardens.jpg',
-    '/gallery/kerala-backwaters.jpg',
-    '/gallery/periyar-wildlife.jpg',
-    '/gallery/munnar-hills.jpg'
+    'https://images.unsplash.com/photo-1593693397690-362cb9666fc2?w=800',
+    'https://images.unsplash.com/photo-1584274294230-d59ae3a0b1f1?w=800',
+    'https://images.unsplash.com/photo-1588407894683-348dace4e3c8?w=800',
+    'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800'
   ],
   rating: 4.7,
   totalReviews: 342,

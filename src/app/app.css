@@ -9,13 +9,24 @@ app-header {
 
 /* Main content wrapper - pushes content below fixed header and banner */
 .main-content {
-  padding-top: 115px !important; /* 48px (announcement) + ~67px (header) */
+  padding-top: 99px !important; /* 32px (announcement) + ~67px (header) */
   transition: padding-top 0.3s ease;
-  min-height: calc(100vh - 115px);
+  min-height: calc(100vh - 99px);
 }
 
 /* When banner is dismissed, reduce padding */
 body.banner-dismissed .main-content {
   padding-top: 67px !important; /* Only header height */
   min-height: calc(100vh - 67px);
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .main-content {
+    padding-top: 95px !important; /* 24px (smaller banner) + ~71px (mobile header) */
+  }
+
+  body.banner-dismissed .main-content {
+    padding-top: 71px !important;
+  }
 }

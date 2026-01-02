@@ -1,14 +1,14 @@
 .announcement-banner {
-  background: linear-gradient(135deg, #4db8c4 0%, #2a7278 100%);
-  color: white;
-  padding: 12px 0;
+  background: linear-gradient(135deg, #fffbea 0%, #fef3c7 100%);
+  color: #b91c1c;
+  padding: 6px 0;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   width: 100%;
   z-index: 1000;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
   opacity: 1;
   transform: translateY(0);
@@ -27,58 +27,40 @@ body.banner-dismissed .announcement-banner {
   align-items: center;
   justify-content: center;
   position: relative;
-  padding: 0 50px;
+  padding: 0 20px;
 }
 
 .announcement-text {
   display: flex;
   align-items: center;
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-size: 0.85rem;
+  font-weight: 600;
   margin-right: 20px;
+  color: #b91c1c;
 }
 
 .announcement-text i {
-  font-size: 1.1rem;
+  font-size: 1rem;
+  color: #dc2626;
 }
 
 .announcement-cta {
-  background: white;
-  color: #2a7278;
-  padding: 6px 16px;
-  border-radius: 20px;
+  background: #dc2626;
+  color: white;
+  padding: 4px 14px;
+  border-radius: 16px;
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   transition: all 0.3s ease;
   white-space: nowrap;
 }
 
 .announcement-cta:hover {
-  background: #ffc107;
-  color: #1e5558;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-.close-btn {
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent;
-  border: none;
+  background: #b91c1c;
   color: white;
-  font-size: 1.2rem;
-  cursor: pointer;
-  padding: 5px 10px;
-  transition: all 0.3s ease;
-  opacity: 0.8;
-}
-
-.close-btn:hover {
-  opacity: 1;
-  transform: translateY(-50%) scale(1.1);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(185,28,28,0.3);
 }
 
 /* Animation for announcement rotation */
@@ -99,27 +81,39 @@ body.banner-dismissed .announcement-banner {
 
 /* Responsive */
 @media (max-width: 768px) {
+  .announcement-banner {
+    padding: 4px 0;
+  }
+
   .announcement-content {
-    flex-direction: column;
-    gap: 10px;
-    padding: 0 40px;
+    flex-direction: row;
+    gap: 8px;
+    padding: 0 15px;
+    justify-content: space-between;
   }
 
   .announcement-text {
     margin-right: 0;
+    font-size: 0.75rem;
+    text-align: left;
+    flex: 1;
+  }
+
+  .announcement-text i {
     font-size: 0.85rem;
-    text-align: center;
   }
 
   .announcement-cta {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
+    padding: 3px 10px;
+    white-space: nowrap;
   }
 }
 
 @media (max-width: 480px) {
   .announcement-text span {
     display: block;
-    max-width: 250px;
+    max-width: 200px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

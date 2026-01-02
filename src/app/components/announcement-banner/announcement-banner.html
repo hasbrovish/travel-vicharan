@@ -1,9 +1,6 @@
 <div class="announcement-banner" *ngIf="showBanner">
   <div class="container-fluid">
     <div class="announcement-content">
-      <button class="close-btn" (click)="closeBanner()" aria-label="Close announcement">
-        <i class="bi bi-x-lg"></i>
-      </button>
       <div class="announcement-text">
         <i class="bi bi-megaphone-fill me-2"></i>
         <span>{{ currentAnnouncement.text }}</span>
