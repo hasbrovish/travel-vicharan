@@ -1,6 +1,6 @@
 .newsletter-section {
-  background: linear-gradient(135deg, #1e5558 0%, #2a7278 100%);
-  color: white;
+  background: var(--gradient-primary);
+  color: var(--text-on-primary);
 }
 
 .newsletter-card {
@@ -61,7 +61,7 @@
   font-weight: 600;
   background: #ffc107;
   border: none;
-  color: #1e5558;
+  color: var(--primary-700);
   white-space: nowrap;
 }
 
@@ -83,10 +83,61 @@
   opacity: 0.8;
 }
 
+/* Discount Code Box */
+.discount-code-box {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  border: 2px solid #10b981;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.discount-label {
+  font-size: 0.85rem;
+  color: #047857;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.75rem;
+}
+
+.discount-code {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #059669;
+  letter-spacing: 3px;
+  font-family: 'Courier New', monospace;
+  background: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  display: inline-block;
+  border: 2px dashed #10b981;
+  margin: 0.5rem 0;
+}
+
+.alert-success {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  border: 2px solid #10b981;
+  color: #047857;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.alert-success strong {
+  color: #047857;
+  font-size: 1.1rem;
+}
+
+.alert-success p {
+  color: #065f46;
+  margin: 0.5rem 0;
+}
+
 /* Responsive */
 @media (max-width: 992px) {
   .newsletter-card {
-    padding: 40px;
+    padding: 40px 30px;
   }
 
   .newsletter-title {
@@ -96,33 +147,84 @@
   .newsletter-subtitle {
     font-size: 1.1rem;
   }
+
+  .benefits-list {
+    margin-bottom: 1.5rem;
+  }
 }
 
 @media (max-width: 768px) {
+  .newsletter-section {
+    padding: 3rem 0;
+  }
+
   .newsletter-card {
-    padding: 30px 20px;
+    padding: 2rem 1.5rem;
+    border-radius: 16px;
   }
 
   .newsletter-title {
     font-size: 1.5rem;
+    margin-bottom: 0.75rem;
   }
 
   .newsletter-subtitle {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+
+  .benefits-list {
+    margin-bottom: 1.5rem;
+  }
+
+  .benefits-list li {
+    font-size: 0.9rem;
+    padding: 6px 0;
   }
 
   .newsletter-form .input-group {
     flex-direction: column;
     border-radius: 12px;
+    gap: 0;
   }
 
   .newsletter-form .form-control {
     border-radius: 12px 12px 0 0;
     margin-bottom: 0;
+    padding: 16px 20px;
+    font-size: 16px; /* Prevents zoom on iOS */
   }
 
   .newsletter-form .btn-primary {
     border-radius: 0 0 12px 12px;
     padding: 16px 24px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .newsletter-section {
+    padding: 2rem 0;
+  }
+
+  .newsletter-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .newsletter-title {
+    font-size: 1.25rem;
+  }
+
+  .newsletter-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .benefits-list li {
+    font-size: 0.85rem;
+  }
+
+  .discount-code {
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
   }
 }

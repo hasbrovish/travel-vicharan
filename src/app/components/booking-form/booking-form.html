@@ -1,156 +1,285 @@
-<div class="container my-5" *ngIf="package">
-  <div class="row">
-    <div class="col-lg-8">
-      <h2 class="mb-4">Complete Your Booking</h2>
-
-      <!-- Package Summary -->
-      <div class="card mb-4">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-3">
-              <img [src]="package.imageUrl" [alt]="package.name" class="img-fluid rounded">
-            </div>
-            <div class="col-md-9">
-              <h4>{{ package.name }}</h4>
-              <p class="text-muted">{{ package.days }} Days / {{ package.nights }} Nights</p>
-              <p><strong>Departure:</strong> {{ departureDate | date:'fullDate' }}</p>
-              <p><strong>Passengers:</strong> {{ numberOfPassengers }}</p>
-            </div>
-          </div>
+<div class="booking-container">
+  <!-- Breadcrumb Navigation -->
+  <app-breadcrumb></app-breadcrumb>
+  
+  <div class="container my-5" *ngIf="package">
+    <!-- Progress Steps -->
+    <div class="booking-progress mb-5">
+      <div class="progress-steps">
+        <div class="step active">
+          <div class="step-number">1</div>
+          <div class="step-label">Passenger Details</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-label">Review & Payment</div>
         </div>
       </div>
-
-      <!-- Passenger Details Form -->
-      <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
-        <div formArrayName="passengers">
-          <div *ngFor="let passenger of passengers.controls; let i = index" class="card mb-3">
-            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-              <h5 class="mb-0">Passenger {{ i + 1 }} Details</h5>
-              <button type="button" class="btn btn-sm btn-outline-light" (click)="removePassenger(i)"
-                      *ngIf="passengers.length > 1">
-                <i class="bi bi-trash"></i>
-              </button>
-            </div>
-            <div class="card-body" [formGroupName]="i">
-              <div class="row">
-                <div class="col-md-2 mb-3">
-                  <label class="form-label">Title *</label>
-                  <select class="form-select" formControlName="title">
-                    <option *ngFor="let title of titles" [value]="title">{{ title }}</option>
-                  </select>
-                </div>
-                <div class="col-md-5 mb-3">
-                  <label class="form-label">First Name *</label>
-                  <input type="text" class="form-control" formControlName="firstName" placeholder="Enter first name">
-                  <div class="text-danger small" *ngIf="passenger.get('firstName')?.invalid && passenger.get('firstName')?.touched">
-                    First name is required
-                  </div>
-                </div>
-                <div class="col-md-5 mb-3">
-                  <label class="form-label">Last Name *</label>
-                  <input type="text" class="form-control" formControlName="lastName" placeholder="Enter last name">
-                  <div class="text-danger small" *ngIf="passenger.get('lastName')?.invalid && passenger.get('lastName')?.touched">
-                    Last name is required
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-3 mb-3">
-                  <label class="form-label">Age *</label>
-                  <input type="number" class="form-control" formControlName="age" placeholder="Age">
-                  <div class="text-danger small" *ngIf="passenger.get('age')?.invalid && passenger.get('age')?.touched">
-                    Valid age required
-                  </div>
-                </div>
-                <div class="col-md-3 mb-3">
-                  <label class="form-label">Gender *</label>
-                  <select class="form-select" formControlName="gender">
-                    <option *ngFor="let gender of genders" [value]="gender">{{ gender }}</option>
-                  </select>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label class="form-label">Email *</label>
-                  <input type="email" class="form-control" formControlName="email" placeholder="email@example.com">
-                  <div class="text-danger small" *ngIf="passenger.get('email')?.invalid && passenger.get('email')?.touched">
-                    Valid email required
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label class="form-label">Phone *</label>
-                  <input type="tel" class="form-control" formControlName="phone" placeholder="10-digit mobile number">
-                  <div class="text-danger small" *ngIf="passenger.get('phone')?.invalid && passenger.get('phone')?.touched">
-                    Valid 10-digit phone required
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="d-grid gap-2 mt-4">
-          <button type="submit" class="btn btn-primary btn-lg" [disabled]="submitting || bookingForm.invalid">
-            <span *ngIf="!submitting">
-              <i class="bi bi-check-circle me-2"></i>Confirm Booking
-            </span>
-            <span *ngIf="submitting">
-              <span class="spinner-border spinner-border-sm me-2"></span>Processing...
-            </span>
-          </button>
-        </div>
-      </form>
     </div>
 
-    <!-- Booking Summary Sidebar -->
-    <div class="col-lg-4">
-      <div class="card sticky-top" style="top: 100px;">
-        <div class="card-header bg-primary text-white">
-          <h5 class="mb-0">Booking Summary</h5>
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="booking-header mb-4">
+          <h2 class="booking-title">
+            <i class="bi bi-person-check me-2"></i>
+            Complete Your Booking
+          </h2>
+          <p class="booking-subtitle">Please provide passenger details for all travelers</p>
         </div>
-        <div class="card-body">
-          <div class="mb-3">
-            <div class="d-flex justify-content-between mb-2">
-              <span>Package:</span>
-              <strong>{{ package.name }}</strong>
+
+        <!-- Package Summary Card -->
+        <div class="card border-0 shadow-sm mb-4 package-summary-card">
+          <div class="card-body p-4">
+            <div class="row align-items-center">
+              <div class="col-md-3">
+                <img [src]="package.imageUrl" [alt]="package.name" class="package-image rounded-3">
+              </div>
+              <div class="col-md-9">
+                <h4 class="package-name mb-2">{{ package.name }}</h4>
+                <div class="package-meta mb-3">
+                  <span class="badge badge-type me-2">{{ package.type }}</span>
+                  <span class="badge badge-category me-2">{{ package.category }}</span>
+                  <span class="package-duration">
+                    {{ package.days }}D / {{ package.nights }}N
+                  </span>
+                </div>
+                <div class="package-details">
+                  <p class="mb-0 departure-date">
+                    <i class="bi bi-calendar-event me-2"></i>
+                    {{ departureDate | date:'EEEE, MMMM d, yyyy' }}
+                  </p>
+                </div>
+              </div>
             </div>
-            <div class="d-flex justify-content-between mb-2">
-              <span>Duration:</span>
-              <strong>{{ package.days }}D/{{ package.nights }}N</strong>
-            </div>
-            <div class="d-flex justify-content-between mb-2">
-              <span>Departure:</span>
-              <strong>{{ departureDate | date:'shortDate' }}</strong>
-            </div>
-            <div class="d-flex justify-content-between mb-2">
-              <span>Passengers:</span>
-              <strong>{{ numberOfPassengers }}</strong>
+          </div>
+        </div>
+
+        <!-- Passenger Details Form -->
+        <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+          <div formArrayName="passengers">
+            <div *ngFor="let passenger of passengers.controls; let i = index" class="card border-0 shadow-sm mb-4 passenger-card">
+              <div class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center py-3">
+                <h5 class="mb-0">
+                  <i class="bi bi-person-circle me-2"></i>
+                  Passenger {{ i + 1 }} Details
+                </h5>
+                <button type="button" class="btn btn-sm btn-outline-light" (click)="removePassenger(i)"
+                        *ngIf="passengers.length > 1">
+                  <i class="bi bi-trash me-1"></i>Remove
+                </button>
+              </div>
+              <div class="card-body p-4" [formGroupName]="i">
+                <div class="row">
+                  <div class="col-md-2 mb-3">
+                    <label class="form-label fw-bold">
+                      <i class="bi bi-person-badge me-1"></i>Title *
+                    </label>
+                    <select class="form-select" formControlName="title"
+                            [class.is-invalid]="passenger.get('title')?.invalid && passenger.get('title')?.touched">
+                      <option *ngFor="let title of titles" [value]="title">{{ title }}</option>
+                    </select>
+                  </div>
+                  <div class="col-md-5 mb-3">
+                    <label class="form-label fw-bold">First Name *</label>
+                    <input type="text" class="form-control" formControlName="firstName" 
+                           placeholder="Enter first name"
+                           [class.is-invalid]="passenger.get('firstName')?.invalid && passenger.get('firstName')?.touched">
+                    <div class="invalid-feedback" *ngIf="passenger.get('firstName')?.invalid && passenger.get('firstName')?.touched">
+                      First name is required
+                    </div>
+                  </div>
+                  <div class="col-md-5 mb-3">
+                    <label class="form-label fw-bold">Last Name *</label>
+                    <input type="text" class="form-control" formControlName="lastName" 
+                           placeholder="Enter last name"
+                           [class.is-invalid]="passenger.get('lastName')?.invalid && passenger.get('lastName')?.touched">
+                    <div class="invalid-feedback" *ngIf="passenger.get('lastName')?.invalid && passenger.get('lastName')?.touched">
+                      Last name is required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-3 mb-3">
+                    <label class="form-label fw-bold">Age *</label>
+                    <input type="number" class="form-control" formControlName="age" 
+                           placeholder="Age" min="1" max="120"
+                           [class.is-invalid]="passenger.get('age')?.invalid && passenger.get('age')?.touched">
+                    <div class="invalid-feedback" *ngIf="passenger.get('age')?.invalid && passenger.get('age')?.touched">
+                      Valid age required (1-120)
+                    </div>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label class="form-label fw-bold">Gender *</label>
+                    <select class="form-select" formControlName="gender"
+                            [class.is-invalid]="passenger.get('gender')?.invalid && passenger.get('gender')?.touched">
+                      <option *ngFor="let gender of genders" [value]="gender">{{ gender }}</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">
+                      <i class="bi bi-envelope me-1"></i>Email *
+                    </label>
+                    <input type="email" class="form-control" formControlName="email" 
+                           placeholder="email@example.com"
+                           [class.is-invalid]="passenger.get('email')?.invalid && passenger.get('email')?.touched">
+                    <div class="invalid-feedback" *ngIf="passenger.get('email')?.invalid && passenger.get('email')?.touched">
+                      Valid email required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">
+                      <i class="bi bi-telephone me-1"></i>Phone *
+                    </label>
+                    <input type="tel" class="form-control" formControlName="phone" 
+                           placeholder="10-digit mobile number" maxlength="10"
+                           [class.is-invalid]="passenger.get('phone')?.invalid && passenger.get('phone')?.touched">
+                    <div class="invalid-feedback" *ngIf="passenger.get('phone')?.invalid && passenger.get('phone')?.touched">
+                      Valid 10-digit phone required
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <hr>
-
-          <div class="mb-3">
-            <div class="d-flex justify-content-between mb-2">
-              <span>Price per person:</span>
-              <strong>₹{{ package.basePrice | number }}</strong>
-            </div>
-            <div class="d-flex justify-content-between mb-2">
-              <span>Total passengers:</span>
-              <strong>{{ numberOfPassengers }}</strong>
-            </div>
+          <div class="d-flex justify-content-between align-items-center mt-4 mb-4">
+            <button type="button" class="btn btn-outline-primary" (click)="addPassenger()" *ngIf="passengers.length < 10">
+              <i class="bi bi-plus-circle me-2"></i>Add Another Passenger
+            </button>
+            <a routerLink="/packages" class="text-muted text-decoration-none">
+              <i class="bi bi-arrow-left me-1"></i>Back to Packages
+            </a>
           </div>
 
-          <div class="bg-light p-3 rounded">
-            <div class="d-flex justify-content-between align-items-center">
-              <h5 class="mb-0">Total Amount:</h5>
-              <h4 class="mb-0 text-primary">₹{{ totalAmount | number }}</h4>
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary btn-lg py-3 fw-bold" 
+                    [disabled]="submitting || bookingForm.invalid">
+              <span *ngIf="!submitting">
+                <i class="bi bi-check-circle me-2"></i>Proceed to Payment
+              </span>
+              <span *ngIf="submitting">
+                <span class="spinner-border spinner-border-sm me-2"></span>Processing Booking...
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Booking Summary Sidebar -->
+      <div class="col-lg-4">
+        <div class="card border-0 shadow-lg booking-summary-card">
+          <div class="card-header text-white py-3">
+            <h5 class="mb-0">
+              <i class="bi bi-receipt me-2"></i>Booking Summary
+            </h5>
+          </div>
+          <div class="card-body p-4">
+            <!-- Package Info -->
+            <div class="summary-section mb-4">
+              <h6 class="summary-section-title mb-3">PACKAGE DETAILS</h6>
+              <div class="summary-item mb-2">
+                <span class="text-muted">Package:</span>
+                <strong>{{ package.name }}</strong>
+              </div>
+              <div class="summary-item mb-2">
+                <span class="text-muted">Duration:</span>
+                <strong>{{ package.days }}D / {{ package.nights }}N</strong>
+              </div>
+              <div class="summary-item mb-2">
+                <span class="text-muted">Departure:</span>
+                <strong>{{ departureDate | date:'dd MMM yyyy' }}</strong>
+              </div>
+            </div>
+
+            <hr class="my-4">
+
+            <!-- Price Breakdown -->
+            <div class="summary-section mb-4">
+              <h6 class="summary-section-title mb-3">Price Breakdown</h6>
+              <div class="summary-item mb-2">
+                <span class="text-muted">Price per person:</span>
+                <strong>{{ package.currency }} {{ package.basePrice | number }}</strong>
+              </div>
+              <div class="summary-item mb-2">
+                <span class="text-muted">Number of travelers:</span>
+                <strong>× {{ numberOfPassengers }}</strong>
+              </div>
+              <div class="summary-item mb-3" *ngIf="package.emiAvailable">
+                <span class="text-muted">GST (5%):</span>
+                <strong>{{ package.currency }} {{ (totalAmount * 0.05) | number }}</strong>
+              </div>
+            </div>
+
+            <!-- Total -->
+              <div class="summary-total mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <h5 class="mb-0">Subtotal:</h5>
+                  <h4 class="mb-0 fw-bold">{{ package.currency }} {{ totalAmount | number }}</h4>
+                </div>
+                <div class="d-flex justify-content-between align-items-center" *ngIf="package.emiAvailable">
+                  <span class="small">GST (5%):</span>
+                  <strong class="small">{{ package.currency }} {{ (totalAmount * 0.05) | number }}</strong>
+                </div>
+                <hr class="my-2">
+                <div class="d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0">Total Amount:</h5>
+                  <h3 class="mb-0 fw-bold">{{ package.currency }} {{ (totalAmount * 1.05) | number }}</h3>
+                </div>
+                <small class="d-block mt-2" *ngIf="package.emiAvailable" style="opacity: 0.9;">
+                  <i class="bi bi-credit-card me-1"></i>
+                  EMI starting from ₹{{ package.emiStartingFrom | number }}/month
+                </small>
+              </div>
+
+            <!-- Trust Badges -->
+            <div class="trust-badges">
+              <div class="trust-item mb-2">
+                <i class="bi bi-shield-check me-2"></i>
+                <small>100% Secure Payment</small>
+              </div>
+              <div class="trust-item mb-2">
+                <i class="bi bi-telephone me-2"></i>
+                <small>24/7 Customer Support</small>
+              </div>
+              <div class="trust-item">
+                <i class="bi bi-arrow-counterclockwise me-2"></i>
+                <small>Easy Cancellation</small>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div class="success-modal-backdrop" *ngIf="showSuccessModal" (click)="closeSuccessModal()">
+  <div class="success-modal-content" (click)="$event.stopPropagation()">
+    <div class="success-icon">
+      <i class="bi bi-check-circle-fill"></i>
+    </div>
+    <h2 class="success-title">Booking Confirmed!</h2>
+    <p class="success-message">
+      Your booking has been successfully confirmed. A confirmation email has been sent to your registered email address.
+    </p>
+    <div class="booking-reference-box">
+      <div class="reference-label">Booking Reference</div>
+      <div class="reference-code">{{ bookingReference }}</div>
+    </div>
+    <div class="success-actions">
+      <button class="btn btn-primary btn-lg" (click)="viewMyBookings()">
+        <i class="bi bi-calendar-check me-2"></i>
+        View My Bookings
+      </button>
+      <button class="btn btn-outline-secondary btn-lg" (click)="closeSuccessModal()">
+        Close
+      </button>
     </div>
   </div>
 </div>

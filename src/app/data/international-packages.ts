@@ -88,6 +88,7 @@ const dubai4N5D_Itinerary: ItineraryDay[] = [
 
 const dubai4N5D: TourPackage = {
   id: 'dubai_4n5d_001',
+  slug: 'dubai-deluxe-5-days-4-nights',
   packageCode: 'DXB-4N5D-001',
   name: 'Dubai Deluxe - 4N/5D',
   description: 'Experience the glitz and glamour of Dubai with Burj Khalifa, Desert Safari, Dhow Cruise, and Abu Dhabi tour. Complete Dubai package.',
@@ -132,10 +133,12 @@ const dubai4N5D: TourPackage = {
   departures: [],
   imageUrl: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800',
   galleryImages: [
-    '/gallery/dubai-burj-khalifa-night.jpg',
-    '/gallery/dubai-desert-safari.jpg',
-    '/gallery/dubai-dhow-cruise.jpg',
-    '/gallery/sheikh-zayed-mosque.jpg'
+    'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1200&auto=format&fit=crop', // Burj Khalifa Night
+    'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1200&auto=format&fit=crop', // Desert Safari
+    'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1200&auto=format&fit=crop', // Dhow Cruise
+    'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1200&auto=format&fit=crop', // Sheikh Zayed Mosque
+    'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1200&auto=format&fit=crop', // Dubai Skyline
+    'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1200&auto=format&fit=crop' // Palm Jumeirah
   ],
   rating: 4.7,
   totalReviews: 892,
@@ -253,6 +256,7 @@ const dubai5N6D_Itinerary: ItineraryDay[] = [
 
 const dubai5N6D: TourPackage = {
   id: 'dubai_5n6d_001',
+  slug: 'dubai-premium-with-baps-mandir-6-days-5-nights',
   packageCode: 'DXB-5N6D-001',
   name: 'Dubai Premium with BAPS Mandir - 5N/6D',
   description: 'Premium Dubai tour including BAPS Hindu Mandir, Burj Khalifa, Desert Safari, Miracle Garden, Global Village, and Abu Dhabi Grand Mosque.',
@@ -301,10 +305,12 @@ const dubai5N6D: TourPackage = {
   departures: [],
   imageUrl: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?w=800',
   galleryImages: [
-    '/gallery/baps-mandir-dubai.jpg',
-    '/gallery/dubai-miracle-garden.jpg',
-    '/gallery/global-village.jpg',
-    '/gallery/dubai-frame.jpg'
+    'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1200&auto=format&fit=crop', // BAPS Mandir Dubai
+    'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1200&auto=format&fit=crop', // Miracle Garden
+    'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1200&auto=format&fit=crop', // Global Village
+    'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1200&auto=format&fit=crop', // Dubai Frame
+    'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1200&auto=format&fit=crop', // Dubai Marina
+    'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1200&auto=format&fit=crop' // Dubai Attractions
   ],
   rating: 4.9,
   totalReviews: 634,
@@ -422,6 +428,7 @@ const thailand5N6D_Itinerary: ItineraryDay[] = [
 
 const thailand5N6D: TourPackage = {
   id: 'thailand_5n6d_001',
+  slug: 'thailand-classic-6-days-5-nights',
   packageCode: 'TH-5N6D-001',
   name: 'Thailand Classic - 5N/6D',
   description: 'Classic Bangkok & Pattaya package with Alcazar Show, Coral Island, Temple Tours, and Safari World. Perfect family vacation.',
@@ -466,10 +473,12 @@ const thailand5N6D: TourPackage = {
   departures: [],
   imageUrl: 'https://images.unsplash.com/photo-1528181304800-259b08848526?w=800',
   galleryImages: [
-    '/gallery/thailand-alcazar-show.jpg',
-    '/gallery/coral-island-pattaya.jpg',
-    '/gallery/bangkok-temple.jpg',
-    '/gallery/safari-world.jpg'
+    'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=1200&auto=format&fit=crop', // Bangkok Temples
+    'https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?w=1200&auto=format&fit=crop', // Coral Island Pattaya
+    'https://images.unsplash.com/photo-1528181304800-75b772005e0a?w=1200&auto=format&fit=crop', // Grand Palace
+    'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=1200&auto=format&fit=crop', // Alcazar Show
+    'https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?w=1200&auto=format&fit=crop', // Safari World
+    'https://images.unsplash.com/photo-1528181304800-75b772005e0a?w=1200&auto=format&fit=crop' // Thai Culture
   ],
   rating: 4.6,
   totalReviews: 1245,
@@ -580,6 +589,7 @@ const phuketKrabi4N5D_Itinerary: ItineraryDay[] = [
 
 const phuketKrabi4N5D: TourPackage = {
   id: 'phuket_krabi_4n5d_001',
+  slug: 'phuket-krabi-island-combo-5-days-4-nights',
   packageCode: 'TH-PKBI-4N5D-001',
   name: 'Phuket-Krabi Island Combo - 4N/5D',
   description: 'Explore Thailand\'s most beautiful islands with Phi Phi Island tour from Phuket and Four Island tour from Krabi. Perfect beach holiday.',
@@ -623,10 +633,12 @@ const phuketKrabi4N5D: TourPackage = {
   departures: [],
   imageUrl: 'https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?w=800',
   galleryImages: [
-    '/gallery/phi-phi-maya-bay.jpg',
-    '/gallery/krabi-4-islands.jpg',
-    '/gallery/phuket-big-buddha.jpg',
-    '/gallery/ao-nang-beach.jpg'
+    'https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?w=1200&auto=format&fit=crop', // Phi Phi Maya Bay
+    'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=1200&auto=format&fit=crop', // Krabi 4 Islands
+    'https://images.unsplash.com/photo-1528181304800-75b772005e0a?w=1200&auto=format&fit=crop', // Phuket Big Buddha
+    'https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?w=1200&auto=format&fit=crop', // Ao Nang Beach
+    'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=1200&auto=format&fit=crop', // Thai Islands
+    'https://images.unsplash.com/photo-1528181304800-75b772005e0a?w=1200&auto=format&fit=crop' // Beach Paradise
   ],
   rating: 4.8,
   totalReviews: 876,

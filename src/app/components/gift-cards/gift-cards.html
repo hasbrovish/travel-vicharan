@@ -1,0 +1,169 @@
+<div class="gift-cards-container">
+  <!-- Breadcrumb Navigation -->
+  <app-breadcrumb></app-breadcrumb>
+  
+  <div class="container my-5">
+    <!-- Header -->
+    <div class="gift-cards-header mb-4">
+      <h1 class="gift-cards-title">Gift Cards</h1>
+      <p class="gift-cards-subtitle">Give the gift of travel</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="gift-cards-tabs mb-4">
+      <button
+        class="tab-btn"
+        [class.active]="activeTab === 'purchase'"
+        (click)="setActiveTab('purchase')">
+        <i class="bi bi-gift me-2"></i>
+        Purchase Gift Card
+      </button>
+      <button
+        class="tab-btn"
+        [class.active]="activeTab === 'my-cards'"
+        (click)="setActiveTab('my-cards')">
+        <i class="bi bi-wallet2 me-2"></i>
+        My Gift Cards
+      </button>
+    </div>
+
+    <!-- Purchase Tab -->
+    <div class="gift-card-section" *ngIf="activeTab === 'purchase'">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="gift-card-form-card">
+            <h2 class="section-title">Purchase a Gift Card</h2>
+            <form [formGroup]="giftCardForm" (ngSubmit)="onSubmit()">
+              <!-- Amount Selection -->
+              <div class="form-section">
+                <label class="form-label">Select Amount *</label>
+                <div class="amount-grid">
+                  <button
+                    type="button"
+                    class="amount-btn"
+                    [class.active]="giftCardForm.get('amount')?.value === amount"
+                    *ngFor="let amount of giftAmounts"
+                    (click)="selectAmount(amount)">
+                    ₹{{ amount | number }}
+                  </button>
+                </div>
+                <input type="hidden" formControlName="amount">
+              </div>
+
+              <!-- Recipient Details -->
+              <div class="form-section">
+                <h3 class="section-subtitle">Recipient Details</h3>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Recipient Name *</label>
+                    <input
+                      type="text"
+                      formControlName="recipientName"
+                      class="form-control"
+                      [class.is-invalid]="giftCardForm.get('recipientName')?.invalid && giftCardForm.get('recipientName')?.touched">
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Recipient Email *</label>
+                    <input
+                      type="email"
+                      formControlName="recipientEmail"
+                      class="form-control"
+                      [class.is-invalid]="giftCardForm.get('recipientEmail')?.invalid && giftCardForm.get('recipientEmail')?.touched">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sender Details -->
+              <div class="form-section">
+                <h3 class="section-subtitle">Your Details</h3>
+                <div class="mb-3">
+                  <label class="form-label">Your Name *</label>
+                  <input
+                    type="text"
+                    formControlName="senderName"
+                    class="form-control"
+                    [class.is-invalid]="giftCardForm.get('senderName')?.invalid && giftCardForm.get('senderName')?.touched">
+                </div>
+              </div>
+
+              <!-- Message -->
+              <div class="form-section">
+                <label class="form-label">Personal Message (Optional)</label>
+                <textarea
+                  formControlName="message"
+                  class="form-control"
+                  rows="4"
+                  placeholder="Write a personal message..."
+                  maxlength="200"></textarea>
+                <small class="text-muted">{{ giftCardForm.get('message')?.value?.length || 0 }}/200 characters</small>
+              </div>
+
+              <button
+                type="submit"
+                class="btn btn-primary btn-lg w-100"
+                [disabled]="loading || giftCardForm.invalid">
+                <span *ngIf="!loading">Purchase Gift Card</span>
+                <span *ngIf="loading">
+                  <span class="spinner-border spinner-border-sm me-2"></span>
+                  Processing...
+                </span>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="gift-card-preview">
+            <h3 class="preview-title">Gift Card Preview</h3>
+            <div class="preview-card">
+              <div class="preview-header">
+                <i class="bi bi-gift preview-icon"></i>
+                <h4>Travel Gift Card</h4>
+              </div>
+              <div class="preview-amount">
+                ₹{{ giftCardForm.get('amount')?.value || 0 | number }}
+              </div>
+              <div class="preview-details">
+                <p><strong>To:</strong> {{ giftCardForm.get('recipientName')?.value || 'Recipient Name' }}</p>
+                <p *ngIf="giftCardForm.get('message')?.value">
+                  <strong>Message:</strong> {{ giftCardForm.get('message')?.value }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- My Cards Tab -->
+    <div class="gift-card-section" *ngIf="activeTab === 'my-cards'">
+      <div *ngIf="myGiftCards.length === 0" class="empty-state">
+        <i class="bi bi-wallet2 empty-icon"></i>
+        <h3>No Gift Cards</h3>
+        <p>You haven't purchased any gift cards yet</p>
+        <button class="btn btn-primary" (click)="setActiveTab('purchase')">
+          Purchase Gift Card
+        </button>
+      </div>
+
+      <div class="gift-cards-grid" *ngIf="myGiftCards.length > 0">
+        <div class="gift-card-item" *ngFor="let card of myGiftCards">
+          <div class="card-header">
+            <span class="badge" [ngClass]="'bg-' + getStatusClass(card.status)">
+              {{ card.status }}
+            </span>
+          </div>
+          <div class="card-body">
+            <div class="card-amount">₹{{ card.amount | number }}</div>
+            <div class="card-details">
+              <p><strong>To:</strong> {{ card.recipientName }}</p>
+              <p><strong>Email:</strong> {{ card.recipientEmail }}</p>
+              <p><strong>Purchased:</strong> {{ card.purchaseDate | date:'dd MMM yyyy' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

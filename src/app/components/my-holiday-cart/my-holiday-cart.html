@@ -1,0 +1,107 @@
+<div class="cart-container">
+  <!-- Breadcrumb Navigation -->
+  <app-breadcrumb></app-breadcrumb>
+  
+  <div class="container my-5">
+    <!-- Header -->
+    <div class="cart-header mb-4">
+      <h1 class="cart-title">My Holiday Cart</h1>
+      <p class="cart-subtitle">Complete your pending payments here</p>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!loading && cartItems.length === 0" class="empty-cart">
+      <div class="empty-icon">
+        <i class="bi bi-cart-x"></i>
+      </div>
+      <h2>Your cart is empty</h2>
+      <p>Add packages to your cart to continue</p>
+      <a routerLink="/packages" class="btn btn-primary">
+        <i class="bi bi-search me-2"></i>
+        Browse Packages
+      </a>
+    </div>
+
+    <!-- Cart Items -->
+    <div *ngIf="!loading && cartItems.length > 0" class="row">
+      <div class="col-lg-8">
+        <div class="cart-items">
+          <div class="cart-item" *ngFor="let item of cartItems; let i = index">
+            <div class="item-image">
+              <img [src]="item.package.imageUrl" [alt]="item.package.name">
+            </div>
+            <div class="item-details">
+              <h3 class="item-title">{{ item.package.name }}</h3>
+              <div class="item-meta">
+                <span class="badge bg-primary">{{ item.package.type }}</span>
+                <span class="badge bg-info">{{ item.package.category }}</span>
+                <span class="meta-text">
+                  <i class="bi bi-calendar me-1"></i>
+                  {{ item.package.days }}D / {{ item.package.nights }}N
+                </span>
+              </div>
+              <div class="item-info">
+                <p><strong>Departure Date:</strong> {{ item.departureDate | date:'dd MMM yyyy' }}</p>
+                <p><strong>Passengers:</strong> {{ item.numberOfPassengers }}</p>
+                <p><strong>Added on:</strong> {{ item.addedDate | date:'dd MMM yyyy' }}</p>
+              </div>
+              <div class="item-actions">
+                <button class="btn btn-sm btn-outline-primary" (click)="proceedToCheckout(item)">
+                  <i class="bi bi-credit-card me-1"></i>
+                  Proceed to Payment
+                </button>
+                <button class="btn btn-sm btn-outline-danger" (click)="removeItem(i)">
+                  <i class="bi bi-trash me-1"></i>
+                  Remove
+                </button>
+              </div>
+            </div>
+            <div class="item-price">
+              <div class="price-label">Total Amount</div>
+              <div class="price-value">{{ item.package.currency }} {{ item.totalAmount | number }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cart-actions mt-4">
+          <button class="btn btn-outline-danger" (click)="clearCart()">
+            <i class="bi bi-trash me-2"></i>
+            Clear Cart
+          </button>
+        </div>
+      </div>
+
+      <!-- Cart Summary -->
+      <div class="col-lg-4">
+        <div class="cart-summary">
+          <h3 class="summary-title">Cart Summary</h3>
+          <div class="summary-item">
+            <span>Subtotal ({{ cartItems.length }} items)</span>
+            <span>{{ cartItems.length > 0 ? cartItems[0].package.currency : 'INR' }} {{ getTotalAmount() | number }}</span>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-total">
+            <span>Total Amount</span>
+            <span class="total-price">{{ cartItems.length > 0 ? cartItems[0].package.currency : 'INR' }} {{ getTotalAmount() | number }}</span>
+          </div>
+          <button class="btn btn-primary btn-checkout w-100 mt-3">
+            <i class="bi bi-lock me-2"></i>
+            Secure Checkout
+          </button>
+          <p class="security-note">
+            <i class="bi bi-shield-check me-1"></i>
+            Your payment is secure and encrypted
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

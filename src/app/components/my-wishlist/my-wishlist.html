@@ -1,0 +1,58 @@
+<div class="wishlist-container">
+  <!-- Breadcrumb Navigation -->
+  <app-breadcrumb></app-breadcrumb>
+  
+  <div class="container my-5">
+    <!-- Header -->
+    <div class="wishlist-header mb-4">
+      <h1 class="wishlist-title">My Wishlist</h1>
+      <p class="wishlist-subtitle">Save tours to your wishlist for later</p>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!loading && wishlistItems.length === 0" class="empty-wishlist">
+      <div class="empty-icon">
+        <i class="bi bi-heart"></i>
+      </div>
+      <h2>Your wishlist is empty</h2>
+      <p>Start adding packages to your wishlist to save them for later</p>
+      <a routerLink="/packages" class="btn btn-primary">
+        <i class="bi bi-search me-2"></i>
+        Browse Packages
+      </a>
+    </div>
+
+    <!-- Wishlist Items -->
+    <div *ngIf="!loading && wishlistItems.length > 0">
+      <div class="wishlist-actions mb-4">
+        <span class="wishlist-count">{{ wishlistItems.length }} package(s) saved</span>
+        <button class="btn btn-outline-danger btn-sm" (click)="clearWishlist()">
+          <i class="bi bi-trash me-1"></i>
+          Clear Wishlist
+        </button>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-xl-4" *ngFor="let package of wishlistItems">
+          <div class="wishlist-card-wrapper">
+            <app-package-card [package]="package"></app-package-card>
+            <button
+              class="remove-wishlist-btn"
+              (click)="removeFromWishlist(package.id)"
+              title="Remove from wishlist">
+              <i class="bi bi-heart-fill"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

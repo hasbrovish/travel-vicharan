@@ -1,0 +1,166 @@
+<div class="modal-backdrop" 
+     [@backdropFade]
+     (click)="onBackdropClick($event)">
+  <div class="modal-container" [@modalEnter] (click)="$event.stopPropagation()">
+    <!-- Close Button -->
+    <button class="modal-close" (click)="closeModal()" aria-label="Close modal">
+      <i class="bi bi-x-lg"></i>
+    </button>
+
+    <!-- Modal Content -->
+    <div class="modal-content">
+      <!-- Header -->
+      <div class="modal-header">
+        <h2 class="modal-title">{{ isSignupMode ? 'Create Account' : 'Welcome Back' }}</h2>
+        <p class="modal-subtitle">{{ isSignupMode ? 'Sign up to get started' : 'Sign in to continue' }}</p>
+      </div>
+
+      <!-- Form -->
+      <form [formGroup]="isSignupMode ? signupForm : loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        
+        <!-- Name Input (Signup only) -->
+        <div class="form-group" *ngIf="isSignupMode">
+          <label for="name-input" class="form-label">Full Name</label>
+          <div class="input-wrapper">
+            <i class="bi bi-person input-icon"></i>
+            <input
+              id="name-input"
+              type="text"
+              formControlName="name"
+              class="form-control"
+              [class.error]="nameControl?.invalid && nameControl?.touched"
+              placeholder="Enter your full name"
+              autocomplete="name">
+          </div>
+          <div class="error-message" *ngIf="nameControl?.invalid && nameControl?.touched">
+            {{ getNameError() }}
+          </div>
+        </div>
+        <!-- Email Input -->
+        <div class="form-group">
+          <label for="email-input" class="form-label">Email</label>
+          <div class="input-wrapper">
+            <i class="bi bi-envelope input-icon"></i>
+            <input
+              id="email-input"
+              type="email"
+              formControlName="email"
+              class="form-control"
+              [class.error]="emailControl?.invalid && emailControl?.touched"
+              placeholder="Enter your email"
+              autocomplete="email">
+          </div>
+          <div class="error-message" *ngIf="emailControl?.invalid && emailControl?.touched">
+            {{ getEmailError() }}
+          </div>
+        </div>
+
+        <!-- Password Input -->
+        <div class="form-group">
+          <label for="password-input" class="form-label">Password</label>
+          <div class="input-wrapper">
+            <i class="bi bi-lock input-icon"></i>
+            <input
+              id="password-input"
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+              class="form-control"
+              [class.error]="passwordControl?.invalid && passwordControl?.touched"
+              [placeholder]="isSignupMode ? 'Create a password' : 'Enter your password'"
+              [autocomplete]="isSignupMode ? 'new-password' : 'current-password'">
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="togglePasswordVisibility()"
+              aria-label="Toggle password visibility">
+              <i class="bi" [class.bi-eye]="!showPassword" [class.bi-eye-slash]="showPassword"></i>
+            </button>
+          </div>
+          <div class="error-message" *ngIf="passwordControl?.invalid && passwordControl?.touched">
+            {{ getPasswordError() }}
+          </div>
+        </div>
+
+        <!-- Confirm Password Input (Signup only) -->
+        <div class="form-group" *ngIf="isSignupMode">
+          <label for="confirm-password-input" class="form-label">Confirm Password</label>
+          <div class="input-wrapper">
+            <i class="bi bi-lock-fill input-icon"></i>
+            <input
+              id="confirm-password-input"
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              formControlName="confirmPassword"
+              class="form-control"
+              [class.error]="confirmPasswordControl?.invalid && confirmPasswordControl?.touched"
+              placeholder="Confirm your password"
+              autocomplete="new-password">
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="toggleConfirmPasswordVisibility()"
+              aria-label="Toggle password visibility">
+              <i class="bi" [class.bi-eye]="!showConfirmPassword" [class.bi-eye-slash]="showConfirmPassword"></i>
+            </button>
+          </div>
+          <div class="error-message" *ngIf="confirmPasswordControl?.invalid && confirmPasswordControl?.touched">
+            {{ getConfirmPasswordError() }}
+          </div>
+        </div>
+
+        <!-- Forgot Password (Login only) -->
+        <div class="form-footer" *ngIf="!isSignupMode">
+          <a href="#" class="forgot-password">Forgot Password?</a>
+        </div>
+
+        <!-- Error Message -->
+        <div class="error-message global-error" *ngIf="errorMessage">
+          <i class="bi bi-exclamation-circle me-2"></i>
+          {{ errorMessage }}
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="btn btn-primary btn-submit"
+          [disabled]="loading">
+          <span *ngIf="!loading">{{ isSignupMode ? 'Sign Up' : 'Sign In' }}</span>
+          <span *ngIf="loading" class="loading-spinner">
+            <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+            {{ isSignupMode ? 'Creating account...' : 'Signing in...' }}
+          </span>
+        </button>
+      </form>
+
+      <!-- Divider -->
+      <div class="divider">
+        <span class="divider-line"></span>
+        <span class="divider-text">or</span>
+        <span class="divider-line"></span>
+      </div>
+
+      <!-- Google Login Button -->
+      <div id="google-signin-button" class="google-signin-container"></div>
+      
+      <!-- Fallback Google Login Button (if Google Identity Services fails) -->
+      <button
+        type="button"
+        class="btn btn-google fallback-google-btn"
+        (click)="onGoogleLogin()"
+        [disabled]="loading"
+        style="display: none;">
+        <i class="bi bi-google google-icon-fallback"></i>
+        <span>Continue with Google</span>
+      </button>
+
+      <!-- Toggle Sign Up / Sign In Link -->
+      <div class="signup-link">
+        <span *ngIf="!isSignupMode">Don't have an account?</span>
+        <span *ngIf="isSignupMode">Already have an account?</span>
+        <a href="#" class="signup-text" (click)="toggleSignupMode(); $event.preventDefault()">
+          {{ isSignupMode ? 'Sign In' : 'Sign Up' }}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+

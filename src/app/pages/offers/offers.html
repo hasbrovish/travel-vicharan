@@ -1,0 +1,160 @@
+<!-- Offers Filter -->
+<app-offers-filter (filterChange)="onFilterChange($event)"></app-offers-filter>
+
+<!-- Premium Offers Section -->
+<section class="offers-content-section">
+  <div class="container">
+    <div class="offers-grid">
+
+      <!-- Card 1: Last Minute Departures -->
+      <div class="offer-card" *ngIf="offers[0]" [style.background]="offers[0].gradient">
+        <div class="card-header">
+          <h3 class="card-title">{{ offers[0].title }}</h3>
+          <p class="card-subtitle">{{ offers[0].subtitle }}</p>
+        </div>
+
+        <div class="destinations-grid">
+          <app-destination-tile
+            *ngFor="let dest of offers[0].destinations?.slice(0, 4)"
+            [destination]="dest">
+          </app-destination-tile>
+        </div>
+
+        <button class="cta-button" routerLink="/packages">
+          {{ offers[0].ctaText }} <span class="cta-count">{{ offers[0].ctaCount }}</span>
+          <i class="bi bi-arrow-right ms-2"></i>
+        </button>
+      </div>
+
+      <!-- Card 2: Easy-Visa Destinations -->
+      <div class="offer-card" *ngIf="offers[1]" [style.background]="offers[1].gradient">
+        <div class="card-header">
+          <h3 class="card-title">{{ offers[1].title }}</h3>
+          <p class="card-subtitle">{{ offers[1].subtitle }}</p>
+        </div>
+
+        <div class="carousel-wrapper">
+          <div class="destinations-carousel">
+            <app-destination-tile
+              *ngFor="let dest of offers[1].destinations"
+              [destination]="dest"
+              size="small">
+            </app-destination-tile>
+          </div>
+        </div>
+
+        <p class="explore-text">Explore {{ offers[1].ctaCount }} More easy-visa destinations</p>
+
+        <button class="cta-button" routerLink="/packages">
+          {{ offers[1].ctaText }}
+          <i class="bi bi-arrow-right ms-2"></i>
+        </button>
+      </div>
+
+      <!-- Card 3: Customized Holidays -->
+      <div class="offer-card" *ngIf="offers[2]" [style.background]="offers[2].gradient">
+        <div class="card-header">
+          <h3 class="card-title">{{ offers[2].title }}</h3>
+          <p class="card-subtitle">{{ offers[2].subtitle }}</p>
+        </div>
+
+        <div class="holidays-list">
+          <div class="holiday-item" *ngFor="let holiday of offers[2].holidays">
+            <i class="bi {{ holiday.icon }} holiday-icon"></i>
+            <div class="holiday-info">
+              <h4 class="holiday-name">{{ holiday.name }}</h4>
+              <p class="holiday-price">Starting ₹{{ holiday.startingPrice.toLocaleString('en-IN') }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="features-row">
+          <div class="feature-item" *ngFor="let feature of features; let last = last">
+            <i class="bi {{ feature.icon }} feature-icon"></i>
+            <span class="feature-text">{{ feature.label }}</span>
+            <div class="feature-divider" *ngIf="!last"></div>
+          </div>
+        </div>
+
+        <button class="cta-button" routerLink="/packages">
+          {{ offers[2].ctaText }}
+          <i class="bi bi-arrow-right ms-2"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Filtered Packages Section -->
+<section class="filtered-packages-section">
+  <div class="container">
+    <!-- Results Header -->
+    <div class="results-header">
+      <h2 class="results-title">
+        <span *ngIf="filteredPackages.length > 0">{{ filteredPackages.length }} Package{{ filteredPackages.length > 1 ? 's' : '' }} Found</span>
+        <span *ngIf="filteredPackages.length === 0">No Packages Found</span>
+      </h2>
+      <p class="results-subtitle" *ngIf="filteredPackages.length > 0">
+        Showing {{ displayedPackages.length }} of {{ filteredPackages.length }} packages
+      </p>
+    </div>
+
+    <!-- No Results Message -->
+    <div class="no-results" *ngIf="filteredPackages.length === 0">
+      <i class="bi bi-search no-results-icon"></i>
+      <h3 class="no-results-title">No packages match your filters</h3>
+      <p class="no-results-text">Try adjusting your filters to see more options</p>
+    </div>
+
+    <!-- Packages Grid -->
+    <div class="packages-grid" *ngIf="filteredPackages.length > 0">
+      <div class="package-card" *ngFor="let package of displayedPackages">
+        <div class="package-image" [style.backgroundImage]="'url(' + package.imageUrl + ')'">
+          <div class="package-badges">
+            <span class="badge badge-tag" *ngIf="package.badgeType">{{ package.badgeType }}</span>
+            <span class="badge badge-type">{{ package.type }}</span>
+          </div>
+        </div>
+        <div class="package-content">
+          <h3 class="package-name">{{ package.name }}</h3>
+          <div class="package-meta">
+            <div class="meta-item">
+              <i class="bi bi-geo-alt-fill"></i>
+              {{ package.destinations.join(', ') }}
+            </div>
+            <div class="meta-item">
+              <i class="bi bi-calendar3"></i>
+              {{ package.days }} Days / {{ package.nights }} Nights
+            </div>
+          </div>
+          <p class="package-description">{{ package.description }}</p>
+          <div class="package-highlights">
+            <span class="highlight-tag" *ngFor="let highlight of package.highlights.slice(0, 3)">
+              <i class="bi bi-check-circle-fill"></i>
+              {{ highlight }}
+            </span>
+          </div>
+          <div class="package-footer">
+            <div class="package-price">
+              <span class="price-label">Starting from</span>
+              <span class="price-amount">₹{{ package.basePrice.toLocaleString('en-IN') }}</span>
+            </div>
+            <button class="view-details-btn" [routerLink]="['/packages', package.id]">
+              View Details
+              <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Load More Button -->
+    <div class="load-more-section" *ngIf="hasMorePackages">
+      <button class="load-more-btn" (click)="loadMore()">
+        Load More Packages
+        <i class="bi bi-chevron-down"></i>
+      </button>
+    </div>
+  </div>
+</section>

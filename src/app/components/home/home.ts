@@ -9,11 +9,13 @@ import { Testimonials } from '../testimonials/testimonials';
 import { NewsletterSignup } from '../newsletter-signup/newsletter-signup';
 import { TrustBadges } from '../trust-badges/trust-badges';
 import { PremiumOffers } from '../premium-offers/premium-offers';
+import { HomeHeroCarousel } from '../home-hero-carousel/home-hero-carousel';
+import { FloatingActionButtons } from '../floating-action-buttons/floating-action-buttons';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, PackageCard, FeaturedDestinations, Testimonials, NewsletterSignup, TrustBadges, PremiumOffers],
+  imports: [CommonModule, RouterLink, PackageCard, FeaturedDestinations, Testimonials, NewsletterSignup, TrustBadges, PremiumOffers, HomeHeroCarousel, FloatingActionButtons],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })

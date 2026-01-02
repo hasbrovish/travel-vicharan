@@ -4,11 +4,12 @@ import { filter } from 'rxjs/operators';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
 import { AnnouncementBanner } from './components/announcement-banner/announcement-banner';
+import { WhatsAppCta } from './components/whatsapp-cta/whatsapp-cta';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Header, Footer, AnnouncementBanner],
+  imports: [RouterOutlet, Header, Footer, AnnouncementBanner, WhatsAppCta],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

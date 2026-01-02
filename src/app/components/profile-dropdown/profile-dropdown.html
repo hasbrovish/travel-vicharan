@@ -1,0 +1,98 @@
+<div class="profile-dropdown-container">
+  <!-- Profile Trigger Button - Just the Icon -->
+  <button
+    class="profile-trigger"
+    type="button"
+    (click)="toggleDropdown($event)"
+    [attr.aria-expanded]="isOpen"
+    aria-label="User menu"
+    [attr.aria-haspopup]="true">
+    <div class="profile-avatar" [style.background-image]="(user && user.avatar) ? 'url(' + user.avatar + ')' : 'none'">
+      <span *ngIf="!user || !user.avatar" class="avatar-initials">{{ getUserInitials() }}</span>
+    </div>
+  </button>
+
+  <!-- Dropdown Menu -->
+  <div
+    class="dropdown-menu"
+    [@dropdownEnter]
+    *ngIf="isOpen"
+    (click)="$event.stopPropagation()">
+    
+    <!-- Greeting Section -->
+    <div class="dropdown-greeting">
+      <h3 class="greeting-text">Hello, {{ getUserFirstName() }}</h3>
+    </div>
+
+    <!-- Menu Items -->
+    <a
+      class="dropdown-item"
+      (click)="onMyAccount($event)"
+      routerLink="/my-account">
+      <div class="item-content">
+        <div class="item-title">My Account</div>
+        <div class="item-subtitle">Manage your profile & traveller details.</div>
+      </div>
+    </a>
+
+    <a
+      class="dropdown-item"
+      (click)="onMyBookings($event)"
+      routerLink="/my-bookings">
+      <div class="item-content">
+        <div class="item-title">My Bookings</div>
+        <div class="item-subtitle">See booking details.</div>
+      </div>
+    </a>
+
+    <a
+      class="dropdown-item"
+      (click)="onMyHolidayCart($event)"
+      routerLink="/my-holiday-cart">
+      <div class="item-content">
+        <div class="item-title">My Holiday Cart</div>
+        <div class="item-subtitle">Complete your pending payments here.</div>
+      </div>
+    </a>
+
+    <a
+      class="dropdown-item"
+      (click)="onMyWishlist($event)"
+      routerLink="/my-wishlist">
+      <div class="item-content">
+        <div class="item-title">My Wishlist</div>
+        <div class="item-subtitle">Save tours to your wishlist for later.</div>
+      </div>
+    </a>
+
+    <a
+      class="dropdown-item"
+      (click)="onGiftCards($event)"
+      routerLink="/gift-cards">
+      <div class="item-content">
+        <div class="item-title">Gift Cards</div>
+        <div class="item-subtitle">Your purchase history.</div>
+      </div>
+    </a>
+
+    <a
+      class="dropdown-item"
+      (click)="onPreDepartureVideos($event)"
+      routerLink="/pre-departure-videos">
+      <div class="item-content">
+        <div class="item-title">Pre-departure Videos</div>
+        <div class="item-subtitle">Key tips for a smooth journey</div>
+      </div>
+    </a>
+
+    <!-- Sign Out -->
+    <a
+      class="dropdown-item sign-out-item"
+      (click)="onLogout()"
+      href="#">
+      <i class="bi bi-arrow-right sign-out-icon"></i>
+      <span class="sign-out-text">Sign Out</span>
+    </a>
+  </div>
+</div>
+

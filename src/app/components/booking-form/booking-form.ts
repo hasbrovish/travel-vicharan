@@ -2,14 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PackageService } from '../../services/package.service';
+import { PackagesDataService } from '../../services/packages-data.service';
 import { BookingService } from '../../services/booking.service';
+import { EmailService } from '../../services/email.service';
 import { TourPackage, Booking, Passenger, PassengerTitle, Gender } from '../../models';
+import { Breadcrumb } from '../breadcrumb/breadcrumb';
 
 @Component({
   selector: 'app-booking-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, Breadcrumb],
   templateUrl: './booking-form.html',
   styleUrl: './booking-form.css'
 })
@@ -19,6 +21,8 @@ export class BookingForm implements OnInit {
   departureDate: string = '';
   numberOfPassengers: number = 1;
   submitting = false;
+  showSuccessModal = false;
+  bookingReference = '';
 
   titles: PassengerTitle[] = ['Mr', 'Ms', 'Mrs', 'Master'];
   genders: Gender[] = ['Male', 'Female', 'Other'];
@@ -27,26 +31,27 @@ export class BookingForm implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private packageService: PackageService,
-    private bookingService: BookingService
+    private packagesDataService: PackagesDataService,
+    private bookingService: BookingService,
+    private emailService: EmailService
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      const packageId = params['id'];
+      const slug = params['slug'];
       this.route.queryParams.subscribe(qParams => {
         this.departureDate = qParams['departure'];
         this.numberOfPassengers = +qParams['passengers'] || 1;
 
-        if (packageId) {
-          this.loadPackage(packageId);
+        if (slug) {
+          this.loadPackage(slug);
         }
       });
     });
   }
 
-  loadPackage(id: string): void {
-    this.packageService.getPackageById(id).subscribe({
+  loadPackage(slug: string): void {
+    this.packagesDataService.getPackageBySlug(slug).subscribe({
       next: (pkg) => {
         if (pkg) {
           this.package = pkg;
@@ -97,6 +102,10 @@ export class BookingForm implements OnInit {
     return this.package.basePrice * this.numberOfPassengers;
   }
 
+  get totalWithGST(): number {
+    return this.totalAmount * 1.05; // 5% GST
+  }
+
   onSubmit(): void {
     if (this.bookingForm.valid && this.package) {
       this.submitting = true;
@@ -108,9 +117,13 @@ export class BookingForm implements OnInit {
         packageName: this.package.name,
         packageImage: this.package.imageUrl,
         departureDate: this.departureDate,
-        departureCity: this.package.departures[0].departureCity,
+        departureCity: this.package.departures && this.package.departures.length > 0 
+          ? this.package.departures[0].departureCity 
+          : (this.package.datePricing && this.package.datePricing.length > 0 
+            ? this.package.datePricing[0].departureCity 
+            : 'Mumbai'),
         passengers: this.bookingForm.value.passengers as Passenger[],
-        totalAmount: this.totalAmount,
+        totalAmount: this.totalWithGST,
         status: 'CONFIRMED',
         createdAt: new Date(),
         // Room configuration - default to first room option if available
@@ -136,10 +149,26 @@ export class BookingForm implements OnInit {
       this.bookingService.createBooking(booking).subscribe({
         next: (success) => {
           if (success) {
-            alert(`Booking confirmed! Your booking reference is: ${booking.bookingReference}`);
-            this.router.navigate(['/my-bookings']);
+            this.bookingReference = booking.bookingReference;
+            // Send confirmation email
+            this.emailService.sendBookingConfirmation(booking).subscribe({
+              next: (emailResponse) => {
+                if (emailResponse.success) {
+                  console.log('✅ Booking confirmation email sent');
+                }
+              },
+              error: (error) => {
+                console.error('Email sending failed:', error);
+                // Continue with booking even if email fails
+              }
+            });
+            // Show success modal
+            this.showSuccessModal = true;
+            this.submitting = false;
+          } else {
+            alert('Booking failed. Please try again.');
+            this.submitting = false;
           }
-          this.submitting = false;
         },
         error: () => {
           alert('Booking failed. Please try again.');
@@ -149,5 +178,16 @@ export class BookingForm implements OnInit {
     } else {
       alert('Please fill all required fields correctly.');
     }
+  }
+
+  closeSuccessModal(): void {
+    this.showSuccessModal = false;
+    // Just close the modal, don't navigate
+  }
+
+  viewMyBookings(): void {
+    this.showSuccessModal = false;
+    // Navigate to bookings page
+    this.router.navigate(['/my-bookings']);
   }
 }

@@ -87,6 +87,7 @@ const shimlaManali4N5D_Itinerary: ItineraryDay[] = [
 
 const shimlaManali4N5D: TourPackage = {
   id: 'hp_shimla_manali_4n5d_001',
+  slug: 'shimla-manali-classic-5-days-4-nights',
   packageCode: 'HP-SM-4N5D-001',
   name: 'Shimla-Manali Classic - 4N/5D',
   description: 'Experience Himachal\'s most popular hill stations with Shimla\'s colonial charm, Kufri\'s nature, and Manali\'s adventure at Solang Valley.',
@@ -125,10 +126,12 @@ const shimlaManali4N5D: TourPackage = {
   departures: [],
   imageUrl: 'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=800',
   galleryImages: [
-    '/gallery/shimla-ridge.jpg',
-    '/gallery/kufri-snow.jpg',
-    '/gallery/manali-solang.jpg',
-    '/gallery/hadimba-temple.jpg'
+    'https://images.unsplash.com/photo-1606240724602-5fff10f2b4c9?w=1200&auto=format&fit=crop', // Shimla Ridge
+    'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=1200&auto=format&fit=crop', // Kufri Snow
+    'https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=1200&auto=format&fit=crop', // Manali Solang
+    'https://images.unsplash.com/photo-1626621341580-9b4f81b8f8b0?w=1200&auto=format&fit=crop', // Hadimba Temple
+    'https://images.unsplash.com/photo-1606240724602-5fff10f2b4c9?w=1200&auto=format&fit=crop', // Himachal Mountains
+    'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=1200&auto=format&fit=crop' // Hill Station View
   ],
   rating: 4.5,
   totalReviews: 1456,
@@ -246,6 +249,7 @@ const shimlaManali5N6D_Itinerary: ItineraryDay[] = [
 
 const shimlaManali5N6D: TourPackage = {
   id: 'hp_shimla_manali_5n6d_001',
+  slug: 'shimla-manali-deluxe-6-days-5-nights',
   packageCode: 'HP-SM-5N6D-001',
   name: 'Shimla-Manali Deluxe - 5N/6D',
   description: 'Extended Himachal tour with more time to explore Shimla\'s heritage and Manali\'s adventure. Perfect blend of culture and nature.',
@@ -284,10 +288,12 @@ const shimlaManali5N6D: TourPackage = {
   departures: [],
   imageUrl: 'https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=800',
   galleryImages: [
-    '/gallery/shimla-kufri.jpg',
-    '/gallery/solang-valley-adventure.jpg',
-    '/gallery/manali-hadimba.jpg',
-    '/gallery/kullu-valley.jpg'
+    'https://images.unsplash.com/photo-1606240724602-5fff10f2b4c9?w=1200&auto=format&fit=crop', // Shimla Kufri
+    'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=1200&auto=format&fit=crop', // Solang Valley Adventure
+    'https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=1200&auto=format&fit=crop', // Manali Hadimba
+    'https://images.unsplash.com/photo-1626621341580-9b4f81b8f8b0?w=1200&auto=format&fit=crop', // Kullu Valley
+    'https://images.unsplash.com/photo-1606240724602-5fff10f2b4c9?w=1200&auto=format&fit=crop', // Mountain Views
+    'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=1200&auto=format&fit=crop' // Adventure Activities
   ],
   rating: 4.6,
   totalReviews: 1287,
@@ -412,6 +418,7 @@ const shimlaManaliDharamshala6N7D_Itinerary: ItineraryDay[] = [
 
 const shimlaManaliDharamshala6N7D: TourPackage = {
   id: 'hp_smd_6n7d_001',
+  slug: 'himachal-grand-tour-7-days-6-nights',
   packageCode: 'HP-SMD-6N7D-001',
   name: 'Himachal Grand Tour - 6N/7D',
   description: 'Complete Himachal experience covering Shimla\'s colonial charm, Manali\'s adventure, and Dharamshala\'s spiritual serenity.',
@@ -451,10 +458,12 @@ const shimlaManaliDharamshala6N7D: TourPackage = {
   departures: [],
   imageUrl: 'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=800',
   galleryImages: [
-    'https://images.unsplash.com/photo-1606240724602-5fff10f2b4c9?auto=format&fit=crop&w=800',
-    'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=800',
-    'https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=800',
-    'https://images.unsplash.com/photo-1626621341580-9b4f81b8f8b0?w=800'
+    'https://images.unsplash.com/photo-1606240724602-5fff10f2b4c9?w=1200&auto=format&fit=crop', // Shimla Ridge
+    'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=1200&auto=format&fit=crop', // Manali Snow
+    'https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=1200&auto=format&fit=crop', // Solang Valley
+    'https://images.unsplash.com/photo-1626621341580-9b4f81b8f8b0?w=1200&auto=format&fit=crop', // Rohtang Pass
+    'https://images.unsplash.com/photo-1606240724602-5fff10f2b4c9?w=1200&auto=format&fit=crop', // Kufri Snow
+    'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=1200&auto=format&fit=crop' // Hill Station Views
   ],
   rating: 4.7,
   totalReviews: 934,

@@ -94,6 +94,7 @@ const sriLanka5N6D_Itinerary: ItineraryDay[] = [
 
 const sriLanka5N6D: TourPackage = {
   id: 'sri_lanka_5n6d_001',
+  slug: 'sri-lanka-cultural-triangle-6-days-5-nights',
   packageCode: 'LK-5N6D-001',
   name: 'Sri Lanka Cultural Triangle - 5N/6D',
   description: 'Explore Sri Lanka\'s UNESCO World Heritage sites including Sigiriya Rock, ancient Polonnaruwa, sacred Kandy, and beautiful Nuwara Eliya tea country.',
@@ -140,10 +141,12 @@ const sriLanka5N6D: TourPackage = {
   departures: [],
   imageUrl: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800',
   galleryImages: [
-    'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800',
-    'https://images.unsplash.com/photo-1579965342575-16428a7c8520?w=800',
-    'https://images.unsplash.com/photo-1557838923-2985c318be48?w=800',
-    'https://images.unsplash.com/photo-1608147951827-b7a66c6f1c86?w=800'
+    'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&auto=format&fit=crop', // Sri Lanka Temple
+    'https://images.unsplash.com/photo-1579965342575-16428a7c8520?w=1200&auto=format&fit=crop', // Sigiriya Rock
+    'https://images.unsplash.com/photo-1557838923-2985c318be48?w=1200&auto=format&fit=crop', // Kandy Lake
+    'https://images.unsplash.com/photo-1608147951827-b7a66c6f1c86?w=1200&auto=format&fit=crop', // Tea Plantations
+    'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&auto=format&fit=crop', // Beaches
+    'https://images.unsplash.com/photo-1579965342575-16428a7c8520?w=1200&auto=format&fit=crop' // Wildlife
   ],
   rating: 4.7,
   totalReviews: 543,
@@ -254,6 +257,7 @@ const bali4N5D_Itinerary: ItineraryDay[] = [
 
 const bali4N5D: TourPackage = {
   id: 'bali_4n5d_001',
+  slug: 'bali-adventure-5-days-4-nights',
   packageCode: 'BALI-4N5D-001',
   name: 'Bali Adventure - 4N/5D',
   description: 'Experience Bali\'s cultural treasures and natural beauty with Ubud temples, Mount Batur sunrise trek, Uluwatu Kecak Dance, and pristine beaches.',
@@ -298,10 +302,12 @@ const bali4N5D: TourPackage = {
   departures: [],
   imageUrl: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800',
   galleryImages: [
-    'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800',
-    'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800',
-    'https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=800',
-    'https://images.unsplash.com/photo-1604999333679-b86d54738315?w=800'
+    'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1200&auto=format&fit=crop', // Bali Temples
+    'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=1200&auto=format&fit=crop', // Ubud Rice Terraces
+    'https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=1200&auto=format&fit=crop', // Bali Beaches
+    'https://images.unsplash.com/photo-1604999333679-b86d54738315?w=1200&auto=format&fit=crop', // Tanah Lot Temple
+    'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1200&auto=format&fit=crop', // Balinese Culture
+    'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=1200&auto=format&fit=crop' // Volcanic Views
   ],
   rating: 4.8,
   totalReviews: 721,
@@ -419,6 +425,7 @@ const singaporeMalaysia5N6D_Itinerary: ItineraryDay[] = [
 
 const singaporeMalaysia5N6D: TourPackage = {
   id: 'sing_malay_5n6d_001',
+  slug: 'singapore-malaysia-combo-6-days-5-nights',
   packageCode: 'SGMY-5N6D-001',
   name: 'Singapore-Malaysia Combo - 5N/6D',
   description: 'Best of both countries: Singapore Night Safari, Universal Studios, Sentosa, plus Malaysia\'s Putrajaya, KL City, and Genting Highlands.',
@@ -468,10 +475,12 @@ const singaporeMalaysia5N6D: TourPackage = {
   departures: [],
   imageUrl: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800',
   galleryImages: [
-    'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800',
-    'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=800',
-    'https://images.unsplash.com/photo-1542267207-f8127b454605?w=800',
-    'https://images.unsplash.com/photo-1562503542-2a1e6f03b16b?w=800'
+    'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=1200&auto=format&fit=crop', // Marina Bay Singapore
+    'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=1200&auto=format&fit=crop', // Gardens by the Bay
+    'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=1200&auto=format&fit=crop', // Petronas Towers KL
+    'https://images.unsplash.com/photo-1542267207-f8127b454605?w=1200&auto=format&fit=crop', // Universal Studios
+    'https://images.unsplash.com/photo-1562503542-2a1e6f03b16b?w=1200&auto=format&fit=crop', // Sentosa Island
+    'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=1200&auto=format&fit=crop' // Singapore Skyline
   ],
   rating: 4.7,
   totalReviews: 982,

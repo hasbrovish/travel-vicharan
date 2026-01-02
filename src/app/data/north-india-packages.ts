@@ -87,6 +87,7 @@ const uttarakhand4N5D_Itinerary: ItineraryDay[] = [
 
 const uttarakhand4N5D: TourPackage = {
   id: 'uttarakhand_4n5d_001',
+  slug: 'uttarakhand-divine-5-days-4-nights',
   packageCode: 'UK-4N5D-001',
   name: 'Uttarakhand Divine - 4N/5D',
   description: 'Spiritual and scenic Uttarakhand tour covering Haridwar\'s divine Ganga Aarti, Rishikesh yoga capital, and beautiful Mussoorie hill station.',
@@ -127,10 +128,12 @@ const uttarakhand4N5D: TourPackage = {
   departures: [],
   imageUrl: 'https://images.unsplash.com/photo-1609137144813-7d9921338f24?w=800',
   galleryImages: [
-    '/gallery/haridwar-ganga-aarti.jpg',
-    '/gallery/rishikesh-laxman-jhula.jpg',
-    '/gallery/mussoorie-kempty-falls.jpg',
-    '/gallery/dehradun-robbers-cave.jpg'
+    'https://images.unsplash.com/photo-1606240724602-5fff10f2b4c9?w=1200&auto=format&fit=crop', // Haridwar Ganga Aarti
+    'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=1200&auto=format&fit=crop', // Rishikesh Laxman Jhula
+    'https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=1200&auto=format&fit=crop', // Mussoorie Kempty Falls
+    'https://images.unsplash.com/photo-1626621341580-9b4f81b8f8b0?w=1200&auto=format&fit=crop', // Dehradun Robbers Cave
+    'https://images.unsplash.com/photo-1606240724602-5fff10f2b4c9?w=1200&auto=format&fit=crop', // Uttarakhand Mountains
+    'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=1200&auto=format&fit=crop' // Valley View
   ],
   rating: 4.6,
   totalReviews: 867,
@@ -248,6 +251,7 @@ const kashmir5N6D_Itinerary: ItineraryDay[] = [
 
 const kashmir5N6D: TourPackage = {
   id: 'kashmir_5n6d_001',
+  slug: 'kashmir-paradise-6-days-5-nights',
   packageCode: 'JK-5N6D-001',
   name: 'Kashmir Paradise - 5N/6D',
   description: 'Experience Paradise on Earth with Srinagar houseboats, Gulmarg Gondola, Pahalgam valleys, Sonamarg glaciers, and Mughal Gardens.',
@@ -289,10 +293,12 @@ const kashmir5N6D: TourPackage = {
   departures: [],
   imageUrl: 'https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=800',
   galleryImages: [
-    'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=800',
-    'https://images.unsplash.com/photo-1588580000645-c6e3369d3b39?w=800',
-    'https://images.unsplash.com/photo-1587953601933-d97328a95818?w=800',
-    'https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=800'
+    'https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1200&auto=format&fit=crop', // Dal Lake Srinagar
+    'https://images.unsplash.com/photo-1548013146-72479768bada?w=1200&auto=format&fit=crop', // Gulmarg Meadows
+    'https://images.unsplash.com/photo-1588580000645-c6e3369d3b39?w=1200&auto=format&fit=crop', // Pahalgam Valley
+    'https://images.unsplash.com/photo-1587953601933-d97328a95818?w=1200&auto=format&fit=crop', // Mughal Gardens
+    'https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=1200&auto=format&fit=crop', // Kashmir Mountains
+    'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1200&auto=format&fit=crop' // Houseboats
   ],
   rating: 4.9,
   totalReviews: 1123,

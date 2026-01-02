@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { PackageService } from '../../services/package.service';
+import { PackagesDataService } from '../../services/packages-data.service';
 import { TourPackage, PackageType, PackageCategory } from '../../models';
 import { PackageCard } from '../package-card/package-card';
+import { OffersFilter, OffersFilterCriteria } from '../offers-filter/offers-filter';
+import { Breadcrumb } from '../breadcrumb/breadcrumb';
+import { packageBelongsToDestination } from '../../utils/destination-mapping.util';
 
 @Component({
   selector: 'app-package-list',
   standalone: true,
-  imports: [CommonModule, PackageCard, RouterLink],
+  imports: [CommonModule, PackageCard, RouterLink, OffersFilter, Breadcrumb],
   templateUrl: './package-list.html',
   styleUrl: './package-list.css'
 })
@@ -30,7 +33,7 @@ export class PackageList implements OnInit {
   availableDestinations: string[] = [];
 
   constructor(
-    private packageService: PackageService,
+    private packagesDataService: PackagesDataService,
     private route: ActivatedRoute
   ) {}
 
@@ -56,7 +59,8 @@ export class PackageList implements OnInit {
 
   loadAllPackages(): void {
     this.loading = true;
-    this.packageService.getAllPackages().subscribe({
+    // Use PackagesDataService for comprehensive mock data
+    this.packagesDataService.getAllPackages().subscribe({
       next: (packages) => {
         this.allPackages = packages;
         this.filteredPackages = packages;
@@ -71,14 +75,12 @@ export class PackageList implements OnInit {
 
   loadPackagesByDestination(destination: string): void {
     this.loading = true;
-    this.packageService.getAllPackages().subscribe({
+    this.packagesDataService.getAllPackages().subscribe({
       next: (packages) => {
         this.allPackages = packages;
-        // Filter packages by destination (case-insensitive)
+        // Filter packages by destination using destination mapping
         this.filteredPackages = packages.filter(pkg =>
-          pkg.destinations.some(dest =>
-            dest.toLowerCase().includes(destination.toLowerCase())
-          )
+          packageBelongsToDestination(pkg.destinations, destination)
         );
         this.extractDestinations(packages);
         this.loading = false;
@@ -99,10 +101,11 @@ export class PackageList implements OnInit {
 
   loadPackagesByType(type: PackageType): void {
     this.loading = true;
-    this.packageService.getPackagesByType(type).subscribe({
+    this.packagesDataService.getAllPackages().subscribe({
       next: (packages) => {
         this.allPackages = packages;
-        this.filteredPackages = packages;
+        this.filteredPackages = packages.filter(pkg => pkg.type === type && pkg.isActive);
+        this.extractDestinations(packages);
         this.loading = false;
       },
       error: () => {
@@ -113,10 +116,18 @@ export class PackageList implements OnInit {
 
   searchPackages(query: string): void {
     this.loading = true;
-    this.packageService.searchPackages(query).subscribe({
+    this.packagesDataService.getAllPackages().subscribe({
       next: (packages) => {
         this.allPackages = packages;
-        this.filteredPackages = packages;
+        const term = query.toLowerCase();
+        this.filteredPackages = packages.filter(pkg =>
+          pkg.isActive && (
+            pkg.name.toLowerCase().includes(term) ||
+            pkg.destinations.some(dest => dest.toLowerCase().includes(term)) ||
+            pkg.description.toLowerCase().includes(term)
+          )
+        );
+        this.extractDestinations(packages);
         this.loading = false;
       },
       error: () => {
@@ -126,12 +137,26 @@ export class PackageList implements OnInit {
   }
 
   applyFilters(): void {
-    this.filteredPackages = this.packageService.filterPackages(this.allPackages, {
-      type: this.selectedType || undefined,
-      categories: this.selectedCategories.length > 0 ? this.selectedCategories : undefined,
-      minPrice: this.minPrice,
-      maxPrice: this.maxPrice
-    });
+    // Apply basic filters manually since we're using PackagesDataService
+    let filtered = [...this.allPackages];
+    
+    if (this.selectedType) {
+      filtered = filtered.filter(pkg => pkg.type === this.selectedType);
+    }
+    
+    if (this.selectedCategories.length > 0) {
+      filtered = filtered.filter(pkg => this.selectedCategories.includes(pkg.category));
+    }
+    
+    if (this.minPrice > 0) {
+      filtered = filtered.filter(pkg => pkg.basePrice >= this.minPrice);
+    }
+    
+    if (this.maxPrice < 300000) {
+      filtered = filtered.filter(pkg => pkg.basePrice <= this.maxPrice);
+    }
+    
+    this.filteredPackages = filtered;
   }
 
   toggleCategory(category: PackageCategory): void {
@@ -156,6 +181,8 @@ export class PackageList implements OnInit {
     this.minPrice = 0;
     this.maxPrice = 300000;
     this.filteredPackages = this.allPackages;
+    // Trigger filter change to reset filters in OffersFilter component
+    this.onFilterChange({});
   }
 
   setViewMode(mode: 'grid' | 'list'): void {
@@ -171,5 +198,20 @@ export class PackageList implements OnInit {
   setDuration(duration: 'short' | 'medium' | 'long' | null): void {
     this.selectedDuration = duration;
     this.applyFilters();
+  }
+
+  onFilterChange(criteria: OffersFilterCriteria): void {
+    console.log('Filter criteria changed:', criteria);
+
+    // If destination is selected from query params, add it to criteria
+    if (this.selectedDestination && !criteria.city && !criteria.country) {
+      criteria.city = this.selectedDestination;
+    }
+
+    // Apply filters using PackagesDataService
+    this.packagesDataService.filterPackages(criteria).subscribe(filtered => {
+      this.filteredPackages = filtered;
+      console.log(`Filtered ${filtered.length} packages from ${this.allPackages.length} total`);
+    });
   }
 }

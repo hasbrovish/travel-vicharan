@@ -12,8 +12,8 @@
   top: 50%;
   transform: translateY(-50%);
   background: white;
-  border: 2px solid #4db8c4;
-  color: #1e5558;
+  border: 2px solid var(--primary-500);
+  color: var(--primary-700);
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -27,7 +27,7 @@
 }
 
 .carousel-nav:hover:not(:disabled) {
-  background: #4db8c4;
+  background: var(--primary-500);
   color: white;
   transform: translateY(-50%) scale(1.1);
 }
@@ -110,13 +110,13 @@
 }
 
 .indicator-dot.active {
-  background: #4db8c4;
+  background: var(--primary-500);
   width: 32px;
   border-radius: 6px;
 }
 
 .indicator-dot:hover {
-  background: #2a7278;
+  background: var(--primary-600);
 }
 
 @keyframes fadeIn {

@@ -1,40 +1,131 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
-    <a class="navbar-brand fw-bold d-flex align-items-center" routerLink="/">
-      <div style="background: white; padding: 3px 6px; border-radius: 6px; margin-right: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-        <img src="/new-logo.png" alt="VichranTrip" style="height: 45px; display: block;">
+    <!-- Top Row: Logo, Search, Contact, Profile - All in One Line -->
+    <div class="navbar-top-row">
+      <!-- Logo -->
+      <a class="navbar-brand fw-bold d-flex align-items-center" routerLink="/">
+        <div class="logo-container">
+          <img src="/new-logo.png" alt="VichranTrip" class="logo-image">
+        </div>
+        <span class="brand-text">VichranTrip</span>
+      </a>
+
+      <!-- Advanced Search (Center) -->
+      <div class="navbar-search-center">
+        <app-advanced-search (search)="onSearch($event)"></app-advanced-search>
       </div>
-      <span style="font-size: 18px;">VichranTrip</span>
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto me-3">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/packages" [queryParams]="{type: 'DOMESTIC'}" routerLinkActive="active">Domestic</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/packages" [queryParams]="{type: 'INTERNATIONAL'}" routerLinkActive="active">International</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/my-bookings" routerLinkActive="active">My Bookings</a>
-        </li>
-      </ul>
-      <form class="d-flex" (submit)="onSearch(); $event.preventDefault()">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Search destinations..."
-          [(ngModel)]="searchQuery"
-          name="search">
-        <button class="btn btn-outline-light" type="submit">
-          <i class="bi bi-search"></i>
+
+      <!-- Right Section: Contact & Profile -->
+      <div class="header-right-section">
+        <!-- Contact Button -->
+        <a href="tel:+919929443313" class="btn-contact">
+          <i class="bi bi-telephone-fill"></i>
+          <span class="contact-number">+91 9929443313</span>
+        </a>
+        
+        <!-- Profile Icon (when logged in) or Sign In (when not logged in) -->
+        <div class="profile-section">
+          <!-- Sign In Button (when not logged in) -->
+          <button
+            *ngIf="!(isLoggedIn$ | async)"
+            class="btn btn-outline-light btn-signin"
+            (click)="openLoginModal()"
+            aria-label="Login / Signup">
+            <span class="d-none d-md-inline me-1">Login / Signup</span>
+            <i class="bi bi-person"></i>
+          </button>
+          <!-- Profile Dropdown (when logged in) -->
+          <app-profile-dropdown
+            *ngIf="isLoggedIn$ | async"
+            [user]="user$ | async">
+          </app-profile-dropdown>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Row: Navigation Menu -->
+    <div class="navbar-bottom-row">
+      <button 
+        class="navbar-toggler" 
+        type="button" 
+        (click)="toggleMobileMenu()"
+        [attr.aria-expanded]="isMobileMenuOpen"
+        aria-label="Toggle navigation menu"
+        aria-controls="navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div 
+        class="collapse navbar-collapse" 
+        id="navbarNav"
+        [class.show]="isMobileMenuOpen">
+        <!-- Mobile Menu Close Button -->
+        <button 
+          class="mobile-menu-close d-md-none"
+          (click)="closeMobileMenu()"
+          aria-label="Close menu"
+          type="button">
+          <i class="bi bi-x-lg"></i>
         </button>
-      </form>
+        <ul class="navbar-nav">
+          <li class="nav-item" [class.dropdown]="navItem.hasDropdown" *ngFor="let navItem of navigationItems">
+            <!-- Wrapper div for dropdown hover area -->
+            <div 
+              class="dropdown-wrapper"
+              *ngIf="navItem.hasDropdown"
+              (mouseenter)="showDropdown(navItem.id)"
+              (mouseleave)="hideDropdown(navItem.id)">
+              <a
+                class="nav-link"
+                [class.dropdown-toggle]="navItem.hasDropdown"
+                [class.active]="activeDropdown === navItem.id"
+                [routerLink]="navItem.hasDropdown ? '#' : navItem.route"
+                [routerLinkActive]="navItem.hasDropdown ? '' : 'active'"
+                [attr.aria-expanded]="navItem.hasDropdown ? (activeDropdown === navItem.id ? 'true' : 'false') : null"
+                [attr.aria-haspopup]="navItem.hasDropdown ? 'true' : null"
+                [attr.id]="navItem.hasDropdown ? navItem.id + 'Dropdown' : null"
+                [attr.aria-label]="navItem.label + (navItem.hasDropdown ? ' menu' : '')"
+                (click)="navItem.hasDropdown ? $event.preventDefault() : closeMobileMenu()"
+                (keydown.enter)="navItem.hasDropdown ? showDropdown(navItem.id) : null"
+                (keydown.escape)="navItem.hasDropdown ? hideDropdown(navItem.id) : null"
+                tabindex="0">
+                {{ navItem.label }}
+                <i class="bi bi-check-lg ms-1" *ngIf="navItem.hasDropdown"></i>
+                <i class="bi bi-chevron-down ms-1" *ngIf="navItem.hasDropdown"></i>
+              </a>
+              <ul 
+                class="dropdown-menu" 
+                *ngIf="navItem.hasDropdown" 
+                [attr.aria-labelledby]="navItem.id + 'Dropdown'"
+                [class.show]="activeDropdown === navItem.id">
+                <li *ngFor="let subItem of navItem.subItems">
+                  <a class="dropdown-item" [routerLink]="subItem.route" [queryParams]="subItem.queryParams" (click)="hideDropdown(navItem.id); closeMobileMenu()">
+                    <i class="bi" [ngClass]="subItem.icon" *ngIf="subItem.icon"></i>
+                    {{ subItem.label }}
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <!-- Non-dropdown items without wrapper -->
+            <a
+              *ngIf="!navItem.hasDropdown"
+              class="nav-link"
+              [routerLink]="navItem.route"
+              [queryParams]="navItem.queryParams"
+              [routerLinkActive]="'active'"
+              (click)="closeMobileMenu()"
+              tabindex="0">
+              {{ navItem.label }}
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
+
+  <!-- Login Modal -->
+  <app-login-modal
+    *ngIf="showLoginModal"
+    (close)="closeLoginModal()"
+    (loginSuccess)="onLoginSuccess()">
+  </app-login-modal>
 </nav>

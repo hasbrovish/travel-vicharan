@@ -1,7 +1,7 @@
 .announcement-banner {
   background: linear-gradient(135deg, #fffbea 0%, #fef3c7 100%);
   color: #b91c1c;
-  padding: 6px 0;
+  padding: 8px 0;
   position: fixed;
   top: 0;
   left: 0;
@@ -13,6 +13,19 @@
   opacity: 1;
   transform: translateY(0);
   visibility: visible;
+  /* Premium slide-down animation on load */
+  animation: slideDown 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* Fade out animation when dismissing */
@@ -25,9 +38,46 @@ body.banner-dismissed .announcement-banner {
 .announcement-content {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   position: relative;
   padding: 0 20px;
+  gap: 1rem;
+}
+
+.announcement-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.announcement-close {
+  background: transparent;
+  border: none;
+  color: #b91c1c;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.announcement-close:hover {
+  background: rgba(185, 28, 28, 0.1);
+  transform: scale(1.1);
+}
+
+.announcement-close:focus {
+  outline: 2px solid #b91c1c;
+  outline-offset: 2px;
+}
+
+.announcement-close i {
+  font-size: 0.875rem;
 }
 
 .announcement-text {

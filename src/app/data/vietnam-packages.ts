@@ -94,6 +94,7 @@ const vietnam5N6D_Itinerary: ItineraryDay[] = [
 
 const vietnam5N6D: TourPackage = {
   id: 'vietnam_5n6d_001',
+  slug: 'vietnam-explorer-6-days-5-nights',
   packageCode: 'VN-5N6D-001',
   name: 'Vietnam Explorer - 5N/6D',
   description: 'Discover Vietnam\'s highlights from Hanoi\'s colonial charm to Halong Bay\'s limestone wonders, and Saigon\'s bustling energy to Mekong Delta\'s tranquility.',
@@ -139,10 +140,12 @@ const vietnam5N6D: TourPackage = {
   departures: [],
   imageUrl: 'https://images.unsplash.com/photo-1528127269322-539801943592?w=800',
   galleryImages: [
-    'https://images.unsplash.com/photo-1528127269322-539801943592?w=800',
-    'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800',
-    'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=800',
-    'https://images.unsplash.com/photo-1555633514-abcee6ab2e4e?w=800'
+    'https://images.unsplash.com/photo-1528127269322-539801943592?w=1200&auto=format&fit=crop', // Halong Bay
+    'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=1200&auto=format&fit=crop', // Hanoi Old Quarter
+    'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=1200&auto=format&fit=crop', // Ho Chi Minh City
+    'https://images.unsplash.com/photo-1555633514-abcee6ab2e4e?w=1200&auto=format&fit=crop', // Vietnamese Countryside
+    'https://images.unsplash.com/photo-1528127269322-539801943592?w=1200&auto=format&fit=crop', // Mekong Delta
+    'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=1200&auto=format&fit=crop' // Vietnamese Culture
   ],
   rating: 4.7,
   totalReviews: 654,

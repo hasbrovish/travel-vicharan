@@ -191,25 +191,108 @@ section {
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .hero-slide {
-    min-height: 380px;
+    min-height: 400px;
   }
 
   .min-vh-60 {
-    min-height: 380px;
+    min-height: 400px;
   }
 
   .display-3 {
-    font-size: 2rem;
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-slide {
+    min-height: 300px;
+  }
+
+  .min-vh-60 {
+    min-height: 300px;
+  }
+
+  .display-3 {
+    font-size: 1.75rem;
   }
 
   .lead {
-    font-size: 1rem !important;
+    font-size: 0.95rem !important;
   }
 
   .btn-lg {
-    padding: 12px 28px;
-    font-size: 0.95rem;
+    padding: 10px 24px;
+    font-size: 0.9rem;
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 40px;
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-slide {
+    min-height: 250px;
+  }
+
+  .min-vh-60 {
+    min-height: 250px;
+  }
+
+  .display-3 {
+    font-size: 1.5rem;
+  }
+
+  .lead {
+    font-size: 0.85rem !important;
+  }
+
+  .btn-lg {
+    padding: 8px 20px;
+    font-size: 0.85rem;
+  }
+
+  .promo-banner-img {
+    max-height: 60px;
+  }
+
+  /* Section spacing on mobile */
+  section {
+    padding: 2rem 0 !important;
+  }
+
+  section .container {
+    padding: 0 1rem;
+  }
+
+  /* Package cards on mobile */
+  .row.g-4 {
+    margin: 0;
+  }
+
+  .row.g-4 > * {
+    padding: 0.5rem;
+  }
+
+  /* Typography adjustments */
+  .display-6 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
   }
 }

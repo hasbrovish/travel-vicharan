@@ -1,0 +1,94 @@
+<div class="advanced-search-container">
+  <div class="search-wrapper">
+      <div class="search-input-group">
+      <span class="search-shortcut">Q</span>
+      <i class="bi bi-search search-icon"></i>
+      <input
+        type="text"
+        class="search-input"
+        [(ngModel)]="searchQuery"
+        (input)="onInputChange()"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+        (keydown)="onKeyDown($event)"
+        placeholder="Search 'Europe'"
+        aria-label="Search destinations, packages, and experiences"
+        aria-autocomplete="list"
+        aria-expanded="{{showSuggestions && isFocused}}"
+        role="combobox"
+        autocomplete="off">
+      <button
+        *ngIf="searchQuery"
+        class="search-clear"
+        (click)="searchQuery = ''; showSuggestions = false; onInputChange()"
+        type="button">
+        <i class="bi bi-x-lg"></i>
+      </button>
+      <button
+        class="search-voice"
+        type="button"
+        title="Voice Search"
+        aria-label="Voice Search"
+        (click)="onVoiceSearch()">
+        <i class="bi bi-mic" aria-hidden="true"></i>
+      </button>
+      <button
+        class="search-button"
+        type="button"
+        title="Search"
+        aria-label="Search"
+        (click)="performSearch()"
+        [disabled]="!searchQuery || searchQuery.trim().length === 0">
+        <i class="bi bi-search" aria-hidden="true"></i>
+        <span class="search-button-text">Search</span>
+      </button>
+    </div>
+
+    <!-- Search Suggestions Dropdown -->
+    <div 
+      class="search-suggestions" 
+      *ngIf="showSuggestions && isFocused"
+      role="listbox"
+      aria-label="Search suggestions">
+      <!-- Suggestions from input -->
+      <div class="suggestions-section" *ngIf="suggestions.length > 0">
+        <div 
+          class="suggestion-item"
+          *ngFor="let suggestion of suggestions; let i = index"
+          (mousedown)="isClickingSuggestion = true"
+          (click)="selectSuggestion(suggestion, $event)"
+          (keydown.enter)="selectSuggestion(suggestion, $event)"
+          role="option"
+          [attr.aria-label]="suggestion.label + (suggestion.count ? ' - ' + suggestion.count + ' tours' : '')"
+          [attr.tabindex]="i === 0 ? '0' : '-1'">
+          <i class="bi" [ngClass]="{
+            'bi-geo-alt-fill': suggestion.type === 'destination',
+            'bi-box-seam': suggestion.type === 'package',
+            'bi-star-fill': suggestion.type === 'popular'
+          }"></i>
+          <span class="suggestion-label">{{ suggestion.label }}</span>
+          <span class="suggestion-count" *ngIf="suggestion.count">
+            {{ suggestion.count }} tours
+          </span>
+        </div>
+      </div>
+
+      <!-- Popular Searches -->
+      <div class="popular-searches-section" *ngIf="suggestions.length === 0 || searchQuery.trim().length === 0">
+        <div class="section-title">Popular Searches</div>
+        <div class="popular-tags">
+          <button
+            *ngFor="let popular of popularSearches"
+            class="popular-tag"
+            type="button"
+            (mousedown)="isClickingSuggestion = true"
+            (click)="selectSuggestion(popular, $event)">
+            {{ popular.label }}
+            <span class="tag-count">{{ popular.count }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

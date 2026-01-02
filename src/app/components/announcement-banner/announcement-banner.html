@@ -1,13 +1,22 @@
-<div class="announcement-banner" *ngIf="showBanner">
+<div class="announcement-banner" *ngIf="showBanner" role="banner" aria-label="Announcement">
   <div class="container-fluid">
     <div class="announcement-content">
       <div class="announcement-text">
-        <i class="bi bi-megaphone-fill me-2"></i>
+        <i class="bi bi-megaphone-fill me-2" aria-hidden="true"></i>
         <span>{{ currentAnnouncement.text }}</span>
       </div>
-      <a [href]="currentAnnouncement.link" class="announcement-cta">
-        {{ currentAnnouncement.cta }} <i class="bi bi-arrow-right ms-1"></i>
-      </a>
+      <div class="announcement-actions">
+        <a [href]="currentAnnouncement.link" class="announcement-cta" aria-label="Locate Us">
+          {{ currentAnnouncement.cta }} <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
+        </a>
+        <button 
+          class="announcement-close" 
+          (click)="closeBanner()"
+          aria-label="Dismiss announcement"
+          type="button">
+          <i class="bi bi-x-lg" aria-hidden="true"></i>
+        </button>
+      </div>
     </div>
   </div>
 </div>

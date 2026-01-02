@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BookingService } from '../../services/booking.service';
 import { Booking } from '../../models';
+import { Breadcrumb } from '../breadcrumb/breadcrumb';
 
 @Component({
   selector: 'app-my-bookings',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, Breadcrumb],
   templateUrl: './my-bookings.html',
   styleUrl: './my-bookings.css'
 })

@@ -1,0 +1,372 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-container {
+  background: #ffffff;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 440px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #6c757d;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 200ms ease-out;
+  z-index: 10;
+}
+
+.modal-close:hover {
+  background: #f8f9fa;
+  color: #132738;
+  transform: scale(1.1);
+}
+
+.modal-content {
+  padding: 2.5rem;
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.modal-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #132738;
+  margin-bottom: 0.5rem;
+}
+
+.modal-subtitle {
+  font-size: 0.95rem;
+  color: #6c757d;
+  margin: 0;
+}
+
+.login-form {
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #132738;
+  margin-bottom: 0.5rem;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 1rem;
+  color: #6c757d;
+  font-size: 1.1rem;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.875rem 1rem 0.875rem 3rem;
+  font-size: 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #132738;
+  transition: all 200ms ease-out;
+}
+
+.form-control:focus {
+  border-color: var(--primary-color, #2d5a5f);
+  box-shadow: 0 0 0 3px rgba(45, 90, 95, 0.1);
+  outline: none;
+}
+
+.form-control.error {
+  border-color: #dc3545;
+}
+
+.form-control.error:focus {
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+.password-toggle {
+  position: absolute;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: #6c757d;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 200ms ease-out;
+}
+
+.password-toggle:hover {
+  color: #132738;
+}
+
+.error-message {
+  font-size: 0.875rem;
+  color: #dc3545;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.global-error {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: #fff5f5;
+  border: 1px solid #feb2b2;
+  border-radius: 8px;
+}
+
+.form-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.forgot-password {
+  font-size: 0.875rem;
+  color: var(--primary-color, #2d5a5f);
+  text-decoration: none;
+  transition: all 200ms ease-out;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+  color: var(--primary-dark, #1e4a4f);
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 0.875rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  background: var(--primary-color, #2d5a5f);
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 200ms ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background: var(--primary-dark, #1e4a4f);
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-submit:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.btn-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+  gap: 1rem;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: #dee2e6;
+}
+
+.divider-text {
+  font-size: 0.875rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.btn-google {
+  width: 100%;
+  padding: 0.875rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: 1px solid #dadce0;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #132738;
+  cursor: pointer;
+  transition: all 200ms ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.btn-google:hover:not(:disabled) {
+  background: #f8f9fa;
+  border-color: #c4c4c4;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.btn-google:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.google-icon,
+.google-icon-fallback {
+  width: 20px;
+  height: 20px;
+}
+
+.google-signin-container {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.google-signin-container iframe {
+  width: 100% !important;
+}
+
+.fallback-google-btn {
+  display: none; /* Hidden by default, shown when Google Identity Services fails */
+  display: none;
+}
+
+.signup-link {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.signup-text {
+  color: var(--primary-color, #2d5a5f);
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 0.5rem;
+  transition: all 200ms ease-out;
+}
+
+.signup-text:hover {
+  text-decoration: underline;
+  color: var(--primary-dark, #1e4a4f);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .modal-container {
+    max-width: 95%;
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .modal-title {
+    font-size: 1.5rem;
+  }
+
+  .modal-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .input-wrapper {
+    padding: 0.75rem;
+  }
+
+  .form-control {
+    font-size: 1rem; /* Prevents zoom on iOS */
+    padding: 0.75rem;
+  }
+
+  .btn-submit {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .modal-container {
+    max-width: 100%;
+    margin: 0.5rem;
+    padding: 1.25rem;
+    border-radius: 16px;
+  }
+
+  .modal-title {
+    font-size: 1.25rem;
+  }
+
+  .modal-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .form-control {
+    font-size: 16px; /* Prevents zoom on iOS */
+    border-radius: 16px;
+  }
+
+  .modal-content {
+    padding: 1.5rem;
+  }
+
+  .modal-title {
+    font-size: 1.5rem;
+  }
+}
+

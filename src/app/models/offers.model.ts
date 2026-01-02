@@ -3,13 +3,20 @@ export interface DestinationTile {
   name: string;
   imageUrl: string;
   price?: number;
+  easyVisa?: boolean;
 }
 
 export interface HolidayTile {
   id: string;
-  name: string;
   icon: string;
+  name: string;
   startingPrice: number;
+  currency: string;
+}
+
+export interface OfferFeature {
+  icon: string;
+  label: string;
 }
 
 export interface OfferCard {
@@ -18,13 +25,10 @@ export interface OfferCard {
   title: string;
   subtitle: string;
   gradient: string;
-  destinations?: DestinationTile[];
-  holidays?: HolidayTile[];
   ctaText: string;
   ctaCount?: string;
-}
-
-export interface OfferFeature {
-  icon: string;
-  text: string;
+  destinations?: DestinationTile[];
+  holidays?: HolidayTile[];
+  features?: OfferFeature[];
+  carouselText?: string;
 }

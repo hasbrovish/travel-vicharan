@@ -29,13 +29,34 @@
           <p class="card-subtitle">{{ offers[1].subtitle }}</p>
         </div>
 
-        <div class="carousel-wrapper">
+        <div class="carousel-wrapper" (mouseenter)="pauseAutoScroll()" (mouseleave)="resumeAutoScroll()">
+          <!-- Navigation Arrows -->
+          <button class="carousel-nav carousel-nav-prev" (click)="prevSlide()" aria-label="Previous">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button class="carousel-nav carousel-nav-next" (click)="nextSlide()" aria-label="Next">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+
+          <!-- Carousel Track -->
           <div class="destinations-carousel">
-            <app-destination-tile
-              *ngFor="let dest of offers[1].destinations"
-              [destination]="dest"
-              size="small">
-            </app-destination-tile>
+            <div class="carousel-track" [@carouselSlide]="currentSlide">
+              <app-destination-tile
+                *ngFor="let dest of visibleDestinations"
+                [destination]="dest"
+                size="small">
+              </app-destination-tile>
+            </div>
+          </div>
+
+          <!-- Scroll Indicators -->
+          <div class="carousel-indicators">
+            <div
+              *ngFor="let dest of offers[1].destinations; let i = index"
+              class="indicator"
+              [class.active]="i === currentSlide"
+              (click)="goToSlide(i)">
+            </div>
           </div>
         </div>
 
@@ -67,7 +88,7 @@
         <div class="features-row">
           <div class="feature-item" *ngFor="let feature of features; let last = last">
             <i class="bi {{ feature.icon }} feature-icon"></i>
-            <span class="feature-text">{{ feature.text }}</span>
+            <span class="feature-text">{{ feature.label }}</span>
             <div class="feature-divider" *ngIf="!last"></div>
           </div>
         </div>

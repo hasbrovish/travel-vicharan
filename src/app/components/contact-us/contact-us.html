@@ -1,0 +1,192 @@
+<div class="contact-us-container">
+  <app-breadcrumb></app-breadcrumb>
+
+  <div class="container-fluid px-0">
+    <div class="row g-0">
+      <!-- Left Side: Main Content -->
+      <div class="col-lg-8">
+        <div class="contact-main-content">
+          <!-- Header Section -->
+          <div class="contact-header">
+            <h1 class="contact-title">Find the nearest VichranTrip</h1>
+            <div class="search-section">
+              <div class="search-input-wrapper">
+                <i class="bi bi-search search-icon"></i>
+                <input
+                  type="text"
+                  class="search-input"
+                  [(ngModel)]="searchQuery"
+                  (input)="onSearch()"
+                  placeholder="Search by country, city or pincode">
+                <i class="bi bi-x-lg clear-icon" *ngIf="searchQuery" (click)="searchQuery = ''; onSearch()"></i>
+              </div>
+              <button class="btn-announcement">
+                <i class="bi bi-megaphone-fill me-2"></i>
+                Now Open All Sundays!
+              </button>
+            </div>
+          </div>
+
+          <!-- Office Listings -->
+          <div class="offices-list">
+            <div class="office-card" *ngFor="let office of filteredOffices">
+              <div class="office-header">
+                <div class="office-tags">
+                  <span class="tag tag-sales">{{ office.type }}</span>
+                  <span class="tag tag-forex" *ngIf="office.hasForex">FOREX Available</span>
+                </div>
+                <div class="office-actions">
+                  <button class="btn-icon" title="Share">
+                    <i class="bi bi-share"></i>
+                  </button>
+                  <button class="btn-icon" title="Map">
+                    <i class="bi bi-geo-alt"></i>
+                  </button>
+                </div>
+              </div>
+              
+              <h3 class="office-city">{{ office.city }}</h3>
+              
+              <div class="office-hours">
+                <i class="bi bi-clock me-2"></i>
+                {{ office.hours }}
+              </div>
+              
+              <div class="office-address">
+                {{ office.address }}, {{ office.city }}- {{ office.pincode }}, {{ office.state }}
+              </div>
+              
+              <div class="office-footer">
+                <button class="btn-office-details" (click)="selectOffice(office)">
+                  Office Details
+                </button>
+                <a [href]="'tel:' + office.phone" class="office-phone">
+                  <i class="bi bi-telephone-fill"></i>
+                  {{ office.phone }}
+                </a>
+              </div>
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" *ngIf="filteredOffices.length === 0">
+              <i class="bi bi-building-x"></i>
+              <h3>No offices found</h3>
+              <p>Try searching with a different city, state, or pincode</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Sidebar -->
+      <div class="col-lg-4">
+        <div class="contact-sidebar">
+          <!-- Request Callback Form -->
+          <div class="sidebar-card">
+            <h2 class="sidebar-title">Want us to call you?</h2>
+            <form (ngSubmit)="onSubmitCallback()" *ngIf="!showSuccess">
+              <div class="form-group">
+                <label class="form-label">Full Name*</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="callbackForm.fullName"
+                  name="fullName"
+                  required>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Phone Number*</label>
+                <div class="phone-input-group">
+                  <select class="country-code" [(ngModel)]="callbackForm.countryCode" name="countryCode">
+                    <option value="+91">🇮🇳 +91</option>
+                    <option value="+1">🇺🇸 +1</option>
+                    <option value="+44">🇬🇧 +44</option>
+                  </select>
+                  <input
+                    type="tel"
+                    class="form-control"
+                    [(ngModel)]="callbackForm.phone"
+                    name="phone"
+                    required>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Email ID*</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  [(ngModel)]="callbackForm.email"
+                  name="email"
+                  required>
+              </div>
+              
+              <button
+                type="submit"
+                class="btn-callback"
+                [disabled]="isSubmitting">
+                <i class="bi bi-telephone-fill me-2"></i>
+                <span *ngIf="!isSubmitting">Request Call Back</span>
+                <span *ngIf="isSubmitting">Submitting...</span>
+              </button>
+            </form>
+            
+            <div class="success-message" *ngIf="showSuccess">
+              <i class="bi bi-check-circle-fill"></i>
+              <h3>Request Submitted!</h3>
+              <p>We'll call you back soon.</p>
+            </div>
+          </div>
+
+          <!-- Contact Information -->
+          <div class="sidebar-card">
+            <h3 class="contact-section-title">For Indian Guests</h3>
+            <div class="contact-info">
+              <a href="tel:18003135555" class="contact-item">
+                <i class="bi bi-telephone-fill"></i>
+                <span>1800 313 5555</span>
+              </a>
+              <a href="mailto:travel@vichrantrip.com" class="contact-item">
+                <i class="bi bi-envelope-fill"></i>
+                <span>travel@vichrantrip.com</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="sidebar-card">
+            <h3 class="contact-section-title">For Foreign Nationals/NRIs travelling to India</h3>
+            <div class="contact-info">
+              <a href="tel:+919152004511" class="contact-item">
+                <i class="bi bi-telephone-fill"></i>
+                <span>+91 915 200 4511</span>
+              </a>
+              <a href="mailto:inbound@vichrantrip.com" class="contact-item">
+                <i class="bi bi-envelope-fill"></i>
+                <span>inbound@vichrantrip.com</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Tour Categories -->
+          <div class="sidebar-card">
+            <h3 class="contact-section-title">Tour Categories</h3>
+            <div class="tour-categories-grid">
+              <div class="tour-category-card" *ngFor="let category of tourCategories">
+                <img [src]="category.image" [alt]="category.name" class="category-image">
+                <div class="category-overlay">
+                  <h4 class="category-name">{{ category.name }}</h4>
+                  <div class="category-stats">
+                    <span>{{ formatNumber(category.tours) }} tours</span>
+                    <span>{{ formatNumber(category.departures) }} departures</span>
+                    <span>{{ formatNumber(category.guests) }} guests travelled</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

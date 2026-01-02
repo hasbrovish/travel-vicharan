@@ -1,0 +1,291 @@
+<div class="account-container">
+  <!-- Breadcrumb Navigation -->
+  <app-breadcrumb></app-breadcrumb>
+  
+  <div class="container my-5">
+    <!-- Header -->
+    <div class="account-header mb-4">
+      <h1 class="account-title">My Account</h1>
+      <p class="account-subtitle">Manage your profile and account settings</p>
+    </div>
+
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-lg-3 mb-4">
+        <div class="account-sidebar">
+          <div class="profile-card">
+            <div class="profile-avatar" [style.background-image]="(user && user.avatar) ? 'url(' + user.avatar + ')' : 'none'">
+              <span *ngIf="!user || !user.avatar" class="avatar-initials">{{ getUserInitials() }}</span>
+            </div>
+            <h3 class="profile-name">{{ user?.name || 'User' }}</h3>
+            <p class="profile-email">{{ user?.email }}</p>
+          </div>
+
+          <nav class="account-nav">
+            <button
+              class="nav-item"
+              [class.active]="activeTab === 'profile'"
+              (click)="setActiveTab('profile')">
+              <i class="bi bi-person me-2"></i>
+              Profile
+            </button>
+            <button
+              class="nav-item"
+              [class.active]="activeTab === 'password'"
+              (click)="setActiveTab('password')">
+              <i class="bi bi-lock me-2"></i>
+              Change Password
+            </button>
+            <button
+              class="nav-item"
+              [class.active]="activeTab === 'travellers'"
+              (click)="setActiveTab('travellers')">
+              <i class="bi bi-people me-2"></i>
+              Traveller Details
+            </button>
+          </nav>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-lg-9">
+        <!-- Success Message -->
+        <div class="alert alert-success" *ngIf="successMessage" role="alert">
+          <i class="bi bi-check-circle me-2"></i>
+          {{ successMessage }}
+        </div>
+
+        <!-- Profile Tab -->
+        <div class="account-card" *ngIf="activeTab === 'profile'">
+          <div class="card-header">
+            <h2 class="card-title">
+              <i class="bi bi-person me-2"></i>
+              Personal Information
+            </h2>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="profileForm" (ngSubmit)="onProfileSubmit()">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Full Name *</label>
+                  <input
+                    type="text"
+                    formControlName="name"
+                    class="form-control"
+                    [class.is-invalid]="profileForm.get('name')?.invalid && profileForm.get('name')?.touched">
+                  <div class="invalid-feedback" *ngIf="profileForm.get('name')?.invalid && profileForm.get('name')?.touched">
+                    Name is required and must be at least 2 characters
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Email</label>
+                  <input
+                    type="email"
+                    formControlName="email"
+                    class="form-control"
+                    [disabled]="true">
+                  <small class="text-muted">Email cannot be changed</small>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Phone Number</label>
+                  <input
+                    type="tel"
+                    formControlName="phone"
+                    class="form-control"
+                    placeholder="10-digit mobile number"
+                    [class.is-invalid]="profileForm.get('phone')?.invalid && profileForm.get('phone')?.touched">
+                  <div class="invalid-feedback" *ngIf="profileForm.get('phone')?.invalid && profileForm.get('phone')?.touched">
+                    Please enter a valid 10-digit phone number
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Date of Birth</label>
+                  <input
+                    type="date"
+                    formControlName="dateOfBirth"
+                    class="form-control">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Gender</label>
+                  <select formControlName="gender" class="form-select">
+                    <option value="">Select</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">City</label>
+                  <input
+                    type="text"
+                    formControlName="city"
+                    class="form-control"
+                    placeholder="Enter city">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">State</label>
+                  <input
+                    type="text"
+                    formControlName="state"
+                    class="form-control"
+                    placeholder="Enter state">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Pincode</label>
+                  <input
+                    type="text"
+                    formControlName="pincode"
+                    class="form-control"
+                    placeholder="6-digit pincode"
+                    [class.is-invalid]="profileForm.get('pincode')?.invalid && profileForm.get('pincode')?.touched">
+                  <div class="invalid-feedback" *ngIf="profileForm.get('pincode')?.invalid && profileForm.get('pincode')?.touched">
+                    Please enter a valid 6-digit pincode
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Address</label>
+                <textarea
+                  formControlName="address"
+                  class="form-control"
+                  rows="3"
+                  placeholder="Enter your address"></textarea>
+              </div>
+
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="loading || profileForm.invalid">
+                <span *ngIf="!loading">Save Changes</span>
+                <span *ngIf="loading">
+                  <span class="spinner-border spinner-border-sm me-2"></span>
+                  Saving...
+                </span>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Password Tab -->
+        <div class="account-card" *ngIf="activeTab === 'password'">
+          <div class="card-header">
+            <h2 class="card-title">
+              <i class="bi bi-lock me-2"></i>
+              Change Password
+            </h2>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()">
+              <div class="mb-3">
+                <label class="form-label">Current Password *</label>
+                <div class="input-group">
+                  <input
+                    [type]="showPassword ? 'text' : 'password'"
+                    formControlName="currentPassword"
+                    class="form-control"
+                    [class.is-invalid]="passwordForm.get('currentPassword')?.invalid && passwordForm.get('currentPassword')?.touched">
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    (click)="showPassword = !showPassword">
+                    <i class="bi" [class.bi-eye]="!showPassword" [class.bi-eye-slash]="showPassword"></i>
+                  </button>
+                </div>
+                <div class="invalid-feedback" *ngIf="passwordForm.get('currentPassword')?.invalid && passwordForm.get('currentPassword')?.touched">
+                  Current password is required
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">New Password *</label>
+                <div class="input-group">
+                  <input
+                    [type]="showNewPassword ? 'text' : 'password'"
+                    formControlName="newPassword"
+                    class="form-control"
+                    [class.is-invalid]="passwordForm.get('newPassword')?.invalid && passwordForm.get('newPassword')?.touched">
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    (click)="showNewPassword = !showNewPassword">
+                    <i class="bi" [class.bi-eye]="!showNewPassword" [class.bi-eye-slash]="showNewPassword"></i>
+                  </button>
+                </div>
+                <div class="invalid-feedback" *ngIf="passwordForm.get('newPassword')?.invalid && passwordForm.get('newPassword')?.touched">
+                  Password must be at least 6 characters
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Confirm New Password *</label>
+                <div class="input-group">
+                  <input
+                    [type]="showConfirmPassword ? 'text' : 'password'"
+                    formControlName="confirmPassword"
+                    class="form-control"
+                    [class.is-invalid]="passwordForm.get('confirmPassword')?.invalid && passwordForm.get('confirmPassword')?.touched">
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    (click)="showConfirmPassword = !showConfirmPassword">
+                    <i class="bi" [class.bi-eye]="!showConfirmPassword" [class.bi-eye-slash]="showConfirmPassword"></i>
+                  </button>
+                </div>
+                <div class="invalid-feedback" *ngIf="passwordForm.get('confirmPassword')?.hasError('passwordMismatch') && passwordForm.get('confirmPassword')?.touched">
+                  Passwords do not match
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="loading || passwordForm.invalid">
+                <span *ngIf="!loading">Update Password</span>
+                <span *ngIf="loading">
+                  <span class="spinner-border spinner-border-sm me-2"></span>
+                  Updating...
+                </span>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Travellers Tab -->
+        <div class="account-card" *ngIf="activeTab === 'travellers'">
+          <div class="card-header">
+            <h2 class="card-title">
+              <i class="bi bi-people me-2"></i>
+              Traveller Details
+            </h2>
+            <button class="btn btn-sm btn-primary">
+              <i class="bi bi-plus me-1"></i>
+              Add Traveller
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="empty-state">
+              <i class="bi bi-person-plus empty-icon"></i>
+              <h3>No Travellers Added</h3>
+              <p>Add traveller details to make booking faster</p>
+              <button class="btn btn-primary">
+                <i class="bi bi-plus me-1"></i>
+                Add First Traveller
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

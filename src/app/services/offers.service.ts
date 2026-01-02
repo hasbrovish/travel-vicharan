@@ -14,7 +14,7 @@ export class OffersService {
         type: 'last-minute',
         title: 'Abhi Jana Hai? Kuch Hai kya?',
         subtitle: 'Last Minute departures, for you',
-        gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        gradient: 'linear-gradient(135deg, #4f46e5 0%, #6366f1 50%, #818cf8 100%)', // Premium Indigo
         ctaText: 'View all Departures',
         ctaCount: '80+',
         destinations: [
@@ -45,9 +45,10 @@ export class OffersService {
         type: 'easy-visa',
         title: 'Easy-Visa Destinations',
         subtitle: 'Travel with zero visa stress',
-        gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+        gradient: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)', // Premium Indigo-Pink (Eye-Catching)
         ctaText: 'View all Destinations',
         ctaCount: '80+',
+        carouselText: 'Explore 80+ More easy-visa destinations',
         destinations: [
           {
             id: 'ev-1',
@@ -81,32 +82,41 @@ export class OffersService {
         type: 'customized',
         title: 'Customized Holidays – Flights Included',
         subtitle: 'Your itinerary, your pace, your way',
-        gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+        gradient: 'linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%)', // Premium Purple
         ctaText: 'View all Holidays',
+        features: [
+          { icon: 'bi-calendar-check', label: 'Personalized Itineraries' },
+          { icon: 'bi-calendar2-week', label: 'Flexible Travel Dates' },
+          { icon: 'bi-person-badge', label: 'Dedicated Travel Advisor' }
+        ],
         holidays: [
           {
             id: 'h-1',
             name: 'Romantic Getaway',
             icon: 'bi-heart-fill',
-            startingPrice: 45000
+            startingPrice: 45000,
+            currency: 'INR'
           },
           {
             id: 'h-2',
             name: 'Adventure Trip',
             icon: 'bi-bicycle',
-            startingPrice: 38000
+            startingPrice: 38000,
+            currency: 'INR'
           },
           {
             id: 'h-3',
             name: 'Beach Paradise',
             icon: 'bi-sun-fill',
-            startingPrice: 52000
+            startingPrice: 52000,
+            currency: 'INR'
           },
           {
             id: 'h-4',
             name: 'Cultural Tour',
             icon: 'bi-building',
-            startingPrice: 41000
+            startingPrice: 41000,
+            currency: 'INR'
           }
         ]
       }
@@ -115,9 +125,9 @@ export class OffersService {
 
   getCustomizedFeatures(): Observable<OfferFeature[]> {
     return of([
-      { icon: 'bi-calendar-check', text: 'Personalized Itineraries' },
-      { icon: 'bi-calendar2-week', text: 'Flexible Travel Dates' },
-      { icon: 'bi-person-badge', text: 'Dedicated Travel Advisor' }
+      { icon: 'bi-calendar-check', label: 'Personalized Itineraries' },
+      { icon: 'bi-calendar2-week', label: 'Flexible Travel Dates' },
+      { icon: 'bi-person-badge', label: 'Dedicated Travel Advisor' }
     ]);
   }
 }

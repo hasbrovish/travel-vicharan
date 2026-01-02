@@ -39,11 +39,15 @@ export class AnnouncementBanner implements OnInit, OnDestroy {
   ];
 
   ngOnInit(): void {
-    // Clean up any old localStorage first
-    localStorage.removeItem('announcement-banner-dismissed');
+    // Check localStorage for dismissed state
+    const dismissed = localStorage.getItem('announcement-banner-dismissed');
+    if (dismissed === 'true') {
+      this.showBanner = false;
+      document.body.classList.add('banner-dismissed');
+      return;
+    }
 
-    // Show banner by default (sessionStorage clears on browser close, not on reload)
-    // Only keep dismissed during same page session, not across reloads
+    // Show banner by default
     this.showBanner = true;
 
     // Auto-rotate announcements every 5 seconds
@@ -63,8 +67,10 @@ export class AnnouncementBanner implements OnInit, OnDestroy {
   }
 
   closeBanner(): void {
-    // Add class for smooth transition - CSS handles the hide animation
+    // Hide banner with smooth transition
+    this.showBanner = false;
     document.body.classList.add('banner-dismissed');
-    // Don't persist dismissal - banner will show again on reload
+    // Persist dismissal in localStorage
+    localStorage.setItem('announcement-banner-dismissed', 'true');
   }
 }

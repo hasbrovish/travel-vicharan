@@ -95,6 +95,7 @@ const kerala3N4D_Itinerary: ItineraryDay[] = [
 
 const kerala3N4D: TourPackage = {
   id: 'kerala_3n4d_001',
+  slug: 'kerala-highlights-4-days-3-nights',
   packageCode: 'KER-3N4D-001',
   name: 'Kerala Highlights - 3N/4D',
   description: 'Experience the best of Kerala in 4 days covering Munnar hills, Thekkady wildlife, and Alleppey backwaters. Perfect for quick getaways.',
@@ -135,10 +136,12 @@ const kerala3N4D: TourPackage = {
   departures: [],
   imageUrl: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800',
   galleryImages: [
-    'https://images.unsplash.com/photo-1593693397690-362cb9666fc2?w=800',
-    'https://images.unsplash.com/photo-1584274294230-d59ae3a0b1f1?w=800',
-    'https://images.unsplash.com/photo-1588407894683-348dace4e3c8?w=800',
-    'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800'
+    'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=1200&auto=format&fit=crop', // Kerala Backwaters
+    'https://images.unsplash.com/photo-1593693397690-362cb9666fc2?w=1200&auto=format&fit=crop', // Houseboat
+    'https://images.unsplash.com/photo-1584274294230-d59ae3a0b1f1?w=1200&auto=format&fit=crop', // Munnar Tea Plantations
+    'https://images.unsplash.com/photo-1588407894683-348dace4e3c8?w=1200&auto=format&fit=crop', // Thekkady Wildlife
+    'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=1200&auto=format&fit=crop', // Alleppey Backwaters
+    'https://images.unsplash.com/photo-1584274292003-1887b3e8e8e6?w=1200&auto=format&fit=crop' // Kochi Fort
   ],
   rating: 4.7,
   totalReviews: 342,
@@ -244,6 +247,7 @@ const kerala4N5D_Itinerary: ItineraryDay[] = [
 
 const kerala4N5D: TourPackage = {
   id: 'kerala_4n5d_001',
+  slug: 'kerala-complete-5-days-4-nights',
   packageCode: 'KER-4N5D-001',
   name: 'Kerala Complete - 4N/5D',
   description: 'Comprehensive Kerala tour covering hill stations, wildlife, backwaters, and cultural Kochi. Includes overnight houseboat stay.',
@@ -283,10 +287,12 @@ const kerala4N5D: TourPackage = {
   departures: [],
   imageUrl: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800',
   galleryImages: [
-    'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800',
-    'https://images.unsplash.com/photo-1593693397690-362cb9666fc2?w=800',
-    'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=800',
-    'https://images.unsplash.com/photo-1584274292003-1887b3e8e8e6?w=800'
+    'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=1200&auto=format&fit=crop', // Kerala Backwaters
+    'https://images.unsplash.com/photo-1593693397690-362cb9666fc2?w=1200&auto=format&fit=crop', // Houseboat Sunset
+    'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=1200&auto=format&fit=crop', // Munnar Hills
+    'https://images.unsplash.com/photo-1584274292003-1887b3e8e8e6?w=1200&auto=format&fit=crop', // Periyar Lake
+    'https://images.unsplash.com/photo-1584274294230-d59ae3a0b1f1?w=1200&auto=format&fit=crop', // Tea Gardens
+    'https://images.unsplash.com/photo-1588407894683-348dace4e3c8?w=1200&auto=format&fit=crop' // Spice Plantations
   ],
   rating: 4.8,
   totalReviews: 528,
@@ -399,6 +405,7 @@ const kerala5N6D_Itinerary: ItineraryDay[] = [
 
 const kerala5N6D: TourPackage = {
   id: 'kerala_5n6d_001',
+  slug: 'kerala-grand-tour-6-days-5-nights',
   packageCode: 'KER-5N6D-001',
   name: 'Kerala Grand Tour - 5N/6D',
   description: 'Complete Kerala experience from misty hills to backwaters and pristine beaches. Includes Munnar, Thekkady, Alleppey houseboat, and Kovalam beach.',
@@ -439,10 +446,12 @@ const kerala5N6D: TourPackage = {
   departures: [],
   imageUrl: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800',
   galleryImages: [
-    '/gallery/kovalam-beach.jpg',
-    '/gallery/kerala-houseboat-sunset.jpg',
-    '/gallery/munnar-panorama.jpg',
-    '/gallery/trivandrum-temple.jpg'
+    'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=1200&auto=format&fit=crop', // Kerala Backwaters
+    'https://images.unsplash.com/photo-1593693397690-362cb9666fc2?w=1200&auto=format&fit=crop', // Houseboat Sunset
+    'https://images.unsplash.com/photo-1584274294230-d59ae3a0b1f1?w=1200&auto=format&fit=crop', // Munnar Tea Plantations
+    'https://images.unsplash.com/photo-1588407894683-348dace4e3c8?w=1200&auto=format&fit=crop', // Kovalam Beach
+    'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=1200&auto=format&fit=crop', // Kerala Temple
+    'https://images.unsplash.com/photo-1593693397690-362cb9666fc2?w=1200&auto=format&fit=crop' // Alleppey Backwaters
   ],
   rating: 4.9,
   totalReviews: 671,

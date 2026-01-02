@@ -88,6 +88,7 @@ const andaman4N5D_Itinerary: ItineraryDay[] = [
 
 const andaman4N5D: TourPackage = {
   id: 'andaman_4n5d_001',
+  slug: 'andaman-island-paradise-5-days-4-nights',
   packageCode: 'AND-4N5D-001',
   name: 'Andaman Island Paradise - 4N/5D',
   description: 'Explore the pristine beaches and coral reefs of Andaman Islands. Visit Havelock, Radhanagar Beach, Elephant Beach, and historic Cellular Jail.',
@@ -129,10 +130,12 @@ const andaman4N5D: TourPackage = {
   departures: [],
   imageUrl: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=800',
   galleryImages: [
-    'https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=800',
-    'https://images.unsplash.com/photo-1606297681199-9de39def0796?w=800',
-    'https://images.unsplash.com/photo-1586276393509-125e5f0c31db?w=800',
-    'https://images.unsplash.com/photo-1581783342876-c87f6f634c1b?w=800'
+    'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&auto=format&fit=crop', // Radhanagar Beach
+    'https://images.unsplash.com/photo-1606297681199-9de39def0796?w=1200&auto=format&fit=crop', // Havelock Island
+    'https://images.unsplash.com/photo-1586276393509-125e5f0c31db?w=1200&auto=format&fit=crop', // Coral Reefs
+    'https://images.unsplash.com/photo-1581783342876-c87f6f634c1b?w=1200&auto=format&fit=crop', // Cellular Jail
+    'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&auto=format&fit=crop', // Ross Island
+    'https://images.unsplash.com/photo-1606297681199-9de39def0796?w=1200&auto=format&fit=crop' // Andaman Sunset
   ],
   rating: 4.8,
   totalReviews: 456,
@@ -236,6 +239,7 @@ const goa3N4D_Itinerary: ItineraryDay[] = [
 
 const goa3N4D: TourPackage = {
   id: 'goa_3n4d_001',
+  slug: 'goa-beach-escape-4-days-3-nights',
   packageCode: 'GOA-3N4D-001',
   name: 'Goa Beach Escape - 3N/4D',
   description: 'Quick Goa getaway covering pristine beaches, Portuguese heritage, and vibrant nightlife. Perfect weekend escape.',
@@ -275,10 +279,12 @@ const goa3N4D: TourPackage = {
   departures: [],
   imageUrl: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=800',
   galleryImages: [
-    '/gallery/goa-baga-beach.jpg',
-    '/gallery/goa-fort-aguada.jpg',
-    '/gallery/goa-old-church.jpg',
-    '/gallery/goa-palolem.jpg'
+    'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=1200&auto=format&fit=crop', // Baga Beach
+    'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&auto=format&fit=crop', // Fort Aguada
+    'https://images.unsplash.com/photo-1606297681199-9de39def0796?w=1200&auto=format&fit=crop', // Old Goa Church
+    'https://images.unsplash.com/photo-1586276393509-125e5f0c31db?w=1200&auto=format&fit=crop', // Palolem Beach
+    'https://images.unsplash.com/photo-1581783342876-c87f6f634c1b?w=1200&auto=format&fit=crop', // Calangute Beach
+    'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=1200&auto=format&fit=crop' // Goa Sunset
   ],
   rating: 4.6,
   totalReviews: 782,
@@ -351,6 +357,7 @@ const goa3N4D: TourPackage = {
 
 const goa4N5D: TourPackage = {
   id: 'goa_4n5d_001',
+  slug: 'goa-complete-5-days-4-nights',
   packageCode: 'GOA-4N5D-001',
   name: 'Goa Complete - 4N/5D',
   description: 'Complete Goa tour with North & South Goa sightseeing, beaches, churches, water sports, and nightlife. Perfect family vacation.',
@@ -424,7 +431,14 @@ const goa4N5D: TourPackage = {
   ],
   departures: [],
   imageUrl: 'https://images.unsplash.com/photo-1587922546307-776227941871?w=800',
-  galleryImages: ['/gallery/goa-fort-aguada.jpg', '/gallery/goa-church.jpg', '/gallery/goa-calangute.jpg'],
+  galleryImages: [
+    'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=1200&auto=format&fit=crop', // Fort Aguada
+    'https://images.unsplash.com/photo-1606297681199-9de39def0796?w=1200&auto=format&fit=crop', // Old Goa Church
+    'https://images.unsplash.com/photo-1586276393509-125e5f0c31db?w=1200&auto=format&fit=crop', // Calangute Beach
+    'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&auto=format&fit=crop', // Baga Beach
+    'https://images.unsplash.com/photo-1581783342876-c87f6f634c1b?w=1200&auto=format&fit=crop', // Anjuna Beach
+    'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=1200&auto=format&fit=crop' // Goa Sunset
+  ],
   rating: 4.7,
   totalReviews: 956,
   isActive: true,
@@ -450,6 +464,7 @@ const goa4N5D: TourPackage = {
 
 const rajasthan5N6D: TourPackage = {
   id: 'rajasthan_5n6d_001',
+  slug: 'rajasthan-royal-6-days-5-nights',
   packageCode: 'RAJ-5N6D-001',
   name: 'Rajasthan Royal - 5N/6D',
   description: 'Experience the royal heritage of Rajasthan covering Jaipur, Bikaner, Jaisalmer desert with camel safari and cultural performances.',
@@ -494,7 +509,14 @@ const rajasthan5N6D: TourPackage = {
   ],
   departures: [],
   imageUrl: 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800',
-  galleryImages: ['/gallery/jaipur-amber.jpg', '/gallery/jaisalmer-fort.jpg', '/gallery/desert-camel.jpg'],
+  galleryImages: [
+    'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1200&auto=format&fit=crop', // Amber Fort
+    'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=1200&auto=format&fit=crop', // Jaisalmer Fort
+    'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1200&auto=format&fit=crop', // Desert Camel
+    'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&auto=format&fit=crop', // Jodhpur Blue City
+    'https://images.unsplash.com/photo-1539650116574-75c0c6d73a6e?w=1200&auto=format&fit=crop', // Udaipur Lake
+    'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1200&auto=format&fit=crop' // Rajasthan Palace
+  ],
   rating: 4.8,
   totalReviews: 734,
   isActive: true,

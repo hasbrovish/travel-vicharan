@@ -7,7 +7,7 @@
 
     <div class="row g-4">
       <div class="col-md-6 col-lg-4" *ngFor="let dest of destinations">
-        <a [routerLink]="['/packages']" [queryParams]="{destination: dest.slug}" class="destination-card">
+        <a [routerLink]="['/packages']" [queryParams]="{destination: dest.name}" class="destination-card">
           <div class="destination-image-wrapper">
             <img [src]="dest.imageUrl" [alt]="dest.name" class="destination-image">
             <div class="destination-overlay"></div>

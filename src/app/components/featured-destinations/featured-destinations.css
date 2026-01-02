@@ -50,7 +50,7 @@
   top: 16px;
   right: 16px;
   background: #ffc107;
-  color: #1e5558;
+  color: var(--primary-700);
   padding: 8px 16px;
   border-radius: 20px;
   font-weight: 600;
@@ -66,7 +66,7 @@
 .destination-name {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1e5558;
+  color: var(--primary-700);
   margin-bottom: 12px;
 }
 
@@ -86,7 +86,7 @@
 
 .highlight-tag {
   background: #e9f5f7;
-  color: #1e5558;
+  color: var(--primary-700);
   padding: 6px 12px;
   border-radius: 12px;
   font-size: 0.8rem;
@@ -94,7 +94,7 @@
 }
 
 .view-packages-link {
-  color: #4db8c4;
+  color: var(--primary-500);
   font-weight: 600;
   font-size: 0.95rem;
   display: flex;
@@ -103,7 +103,7 @@
 }
 
 .destination-card:hover .view-packages-link {
-  color: #2a7278;
+  color: var(--primary-600);
   transform: translateX(5px);
 }
 

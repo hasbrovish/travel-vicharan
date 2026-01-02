@@ -1,0 +1,103 @@
+<div class="floating-action-buttons" [@fadeIn]>
+  <!-- Quick Enquiry Modal -->
+  <div class="enquiry-modal" *ngIf="showQuickEnquiry" (click)="closeEnquiry()">
+    <div class="enquiry-modal-content" (click)="$event.stopPropagation()">
+      <button class="modal-close-btn" (click)="closeEnquiry()" aria-label="Close">
+        <i class="bi bi-x-lg"></i>
+      </button>
+
+      <div class="enquiry-header">
+        <div class="enquiry-icon">
+          <i class="bi bi-chat-dots-fill"></i>
+        </div>
+        <h3>Quick Enquiry</h3>
+        <p>Get instant assistance from our travel experts</p>
+      </div>
+
+      <div class="enquiry-success" *ngIf="showSuccess">
+        <i class="bi bi-check-circle-fill"></i>
+        <h4>Thank You!</h4>
+        <p>We'll get back to you within 24 hours.</p>
+      </div>
+
+      <form *ngIf="!showSuccess" (ngSubmit)="onSubmitEnquiry()" class="enquiry-form">
+        <div class="form-group">
+          <label>Name *</label>
+          <input
+            type="text"
+            [(ngModel)]="enquiryForm.name"
+            name="name"
+            placeholder="Your name"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label>Email *</label>
+          <input
+            type="email"
+            [(ngModel)]="enquiryForm.email"
+            name="email"
+            placeholder="your.email@example.com"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label>Phone *</label>
+          <input
+            type="tel"
+            [(ngModel)]="enquiryForm.phone"
+            name="phone"
+            placeholder="+91 98765 43210"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label>Message</label>
+          <textarea
+            [(ngModel)]="enquiryForm.message"
+            name="message"
+            placeholder="Tell us about your travel plans..."
+            rows="4"></textarea>
+        </div>
+
+        <button
+          type="submit"
+          class="btn-submit-enquiry"
+          [disabled]="isSubmitting || !enquiryForm.name || !enquiryForm.email || !enquiryForm.phone">
+          <span *ngIf="!isSubmitting">
+            <i class="bi bi-send-fill me-2"></i>
+            Send Enquiry
+          </span>
+          <span *ngIf="isSubmitting">
+            <span class="spinner-border spinner-border-sm me-2"></span>
+            Sending...
+          </span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Floating Buttons -->
+  <div class="fab-container">
+    <!-- Quick Enquiry Button (with bounce animation) -->
+    <button
+      class="fab-btn fab-enquiry"
+      (click)="toggleQuickEnquiry()"
+      aria-label="Quick Enquiry"
+      title="Quick Enquiry">
+      <i class="bi bi-chat-dots-fill"></i>
+      <span class="fab-label">Quick Enquiry</span>
+    </button>
+
+    <!-- Book Online Button -->
+    <button
+      class="fab-btn fab-book"
+      (click)="onBookOnline()"
+      aria-label="Book Online"
+      title="Book Online">
+      <i class="bi bi-calendar-check-fill"></i>
+      <span class="fab-label">Book Online</span>
+    </button>
+  </div>
+</div>
+

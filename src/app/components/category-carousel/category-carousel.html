@@ -1,0 +1,69 @@
+<div class="category-carousel-wrapper"
+     (mouseenter)="onMouseEnter()"
+     (mouseleave)="onMouseLeave()">
+  
+  <!-- Navigation Arrows -->
+  <button
+    class="carousel-nav carousel-nav-prev"
+    (click)="prevSlide()"
+    aria-label="Previous categories">
+    <i class="bi bi-chevron-left"></i>
+  </button>
+  
+  <button
+    class="carousel-nav carousel-nav-next"
+    (click)="nextSlide()"
+    aria-label="Next categories">
+    <i class="bi bi-chevron-right"></i>
+  </button>
+
+  <!-- Carousel Track -->
+  <div class="carousel-track" [@slideAnimation]="currentIndex" [style.transform]="transformX">
+    <a
+      *ngFor="let category of visibleCategories"
+      [routerLink]="['/packages']"
+      [queryParams]="{destination: category.name}"
+      class="category-card"
+      [attr.aria-label]="'View ' + category.name + ' packages'">
+      
+      <!-- Category Image -->
+      <div class="category-image">
+        <img [src]="category.imageUrl" [alt]="category.name" loading="lazy">
+        <div class="image-overlay"></div>
+      </div>
+      
+      <!-- Category Info -->
+      <div class="category-info">
+        <h3 class="category-name">{{ category.name }}</h3>
+        
+        <!-- Stats Badge -->
+        <div class="category-stats">
+          <span class="stat-item">
+            <i class="bi bi-map"></i>
+            {{ category.stats.tours }} Tours
+          </span>
+          <span class="stat-item">
+            <i class="bi bi-calendar"></i>
+            {{ category.stats.departures }} Departures
+          </span>
+          <span class="stat-item">
+            <i class="bi bi-people"></i>
+            {{ formatNumber(category.stats.guests) }} Guests
+          </span>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- Pagination Dots -->
+  <div class="carousel-indicators" *ngIf="totalSlides > 1">
+    <button
+      *ngFor="let indicator of slideIndicators; let i = index"
+      class="indicator"
+      [class.active]="isActiveIndicator(i)"
+      (click)="goToSlide(i)"
+      [attr.aria-label]="'Go to slide ' + (i + 1)">
+    </button>
+  </div>
+</div>
+

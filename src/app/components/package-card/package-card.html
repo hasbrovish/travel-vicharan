@@ -1,4 +1,4 @@
-<a [routerLink]="['/packages', package.id]" class="package-card">
+<a [routerLink]="['/packages', package.slug || package.id]" class="package-card">
   <div class="package-image-wrapper">
     <img [src]="package.imageUrl" [alt]="package.name" class="package-image">
     <div class="package-overlay"></div>

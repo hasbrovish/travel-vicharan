@@ -15,12 +15,12 @@
 
 .badge-icon {
   font-size: 2.5rem;
-  color: #2a7278;
+  color: var(--primary-600);
   transition: all 0.3s ease;
 }
 
 .trust-badge:hover .badge-icon {
-  color: #1e5558;
+  color: var(--primary-700);
   transform: scale(1.1);
 }
 

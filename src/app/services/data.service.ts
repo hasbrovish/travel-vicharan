@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TourPackage, Booking, PackageType, RoomOption, TourInclusion } from '../models';
+import { generatePackageSlug } from '../utils/slug.util';
 import REAL_TOUR_PACKAGES from '../data/real-tour-packages';
 import DOMESTIC_TOUR_PACKAGES from '../data/domestic-packages';
 import INTERNATIONAL_TOUR_PACKAGES from '../data/international-packages';
@@ -46,16 +47,26 @@ export class DataService {
     { icon: 'sightseeing', label: 'Sightseeing' }
   ];
 
-  private packages: TourPackage[] = [
-    // Real tour packages from tour-docs - All legacy packages removed
-    ...REAL_TOUR_PACKAGES,              // Kerala packages (3)
-    ...DOMESTIC_TOUR_PACKAGES,          // Andaman, Goa, Rajasthan (4)
-    ...INTERNATIONAL_TOUR_PACKAGES,     // Dubai, Thailand, Phuket-Krabi (4)
-    ...ASIA_TOUR_PACKAGES,              // Sri Lanka, Bali, Singapore-Malaysia (3)
-    ...HIMACHAL_TOUR_PACKAGES,          // Shimla-Manali combinations (3)
-    ...NORTH_INDIA_TOUR_PACKAGES,       // Uttarakhand, Kashmir (2)
-    ...VIETNAM_TOUR_PACKAGES            // Vietnam Hanoi-Halong-Saigon (1)
-  ];
+  private packages: TourPackage[] = this.initializePackagesWithSlugs();
+
+  private initializePackagesWithSlugs(): TourPackage[] {
+    const allPackages = [
+      // Real tour packages from tour-docs - All legacy packages removed
+      ...REAL_TOUR_PACKAGES,              // Kerala packages (3)
+      ...DOMESTIC_TOUR_PACKAGES,          // Andaman, Goa, Rajasthan (4)
+      ...INTERNATIONAL_TOUR_PACKAGES,     // Dubai, Thailand, Phuket-Krabi (4)
+      ...ASIA_TOUR_PACKAGES,              // Sri Lanka, Bali, Singapore-Malaysia (3)
+      ...HIMACHAL_TOUR_PACKAGES,          // Shimla-Manali combinations (3)
+      ...NORTH_INDIA_TOUR_PACKAGES,       // Uttarakhand, Kashmir (2)
+      ...VIETNAM_TOUR_PACKAGES            // Vietnam Hanoi-Halong-Saigon (1)
+    ];
+
+    // Add slugs to all packages
+    return allPackages.map(pkg => ({
+      ...pkg,
+      slug: pkg.slug || generatePackageSlug(pkg)
+    }));
+  }
 
   // LEGACY PACKAGES REMOVED - Keeping code for reference only
   /*
@@ -646,6 +657,10 @@ export class DataService {
 
   getPackageById(id: string): TourPackage | undefined {
     return this.packages.find(pkg => pkg.id === id);
+  }
+
+  getPackageBySlug(slug: string): TourPackage | undefined {
+    return this.packages.find(pkg => pkg.slug === slug);
   }
 
   getPackagesByType(type: PackageType): TourPackage[] {

@@ -1,0 +1,383 @@
+/* Floating Action Buttons Container */
+.floating-action-buttons {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: flex-end;
+}
+
+/* FAB Container */
+.fab-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Floating Action Button Base */
+.fab-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transition: all 300ms ease-out;
+  position: relative;
+  overflow: visible;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.fab-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+}
+
+.fab-btn:active {
+  transform: scale(0.95);
+}
+
+/* Book Online Button */
+.fab-book {
+  background: var(--gradient-primary);
+  order: 2;
+}
+
+.fab-book:hover {
+  background: var(--gradient-primary-dark);
+}
+
+/* Quick Enquiry Button (with bounce) */
+.fab-enquiry {
+  background: var(--gradient-accent);
+  order: 1;
+  animation: slowBounce 2s ease-in-out infinite;
+}
+
+.fab-enquiry:hover {
+  background: var(--gradient-accent-light);
+  animation-play-state: paused;
+}
+
+/* Slow Basketball Bounce Animation */
+@keyframes slowBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* Button Labels */
+.fab-label {
+  position: absolute;
+  right: 70px;
+  background: var(--text-dark);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 200ms ease-out;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.fab-label::after {
+  content: '';
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-left-color: var(--text-dark);
+}
+
+.fab-btn:hover .fab-label {
+  opacity: 1;
+  transform: translateX(-5px);
+}
+
+/* Quick Enquiry Modal */
+.enquiry-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: fadeIn 200ms ease-out;
+}
+
+.enquiry-modal-content {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  position: relative;
+  animation: slideUp 300ms ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 200ms ease-out;
+}
+
+.modal-close-btn:hover {
+  background: var(--bg-secondary);
+  color: var(--text-dark);
+  transform: rotate(90deg);
+}
+
+.enquiry-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.enquiry-icon {
+  width: 70px;
+  height: 70px;
+  background: var(--gradient-accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-size: 2rem;
+  color: white;
+  box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+}
+
+.enquiry-header h3 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.enquiry-header p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.enquiry-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--text-dark);
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 0.875rem 1rem;
+  border: 2px solid var(--border-light);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  transition: all 200ms ease-out;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-700);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.btn-submit-enquiry {
+  background: var(--gradient-accent);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 200ms ease-out;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-submit-enquiry:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(236, 72, 153, 0.3);
+}
+
+.btn-submit-enquiry:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.enquiry-success {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.enquiry-success i {
+  font-size: 4rem;
+  color: var(--success-color);
+  margin-bottom: 1rem;
+}
+
+.enquiry-success h4 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.enquiry-success p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .floating-action-buttons {
+    bottom: 20px;
+    right: 20px;
+    z-index: 999; /* Ensure it's above other content */
+  }
+
+  .fab-btn {
+    width: 55px;
+    height: 55px;
+    font-size: 1.3rem;
+  }
+
+  .fab-label {
+    display: none; /* Hide labels on mobile */
+  }
+
+  .enquiry-modal {
+    padding: 1rem;
+  }
+
+  .enquiry-modal-content {
+    padding: 1.5rem;
+    width: 95%;
+    max-height: 90vh;
+    border-radius: 16px;
+  }
+
+  .enquiry-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.75rem;
+  }
+
+  .enquiry-header h3 {
+    font-size: 1.5rem;
+  }
+
+  .enquiry-form {
+    gap: 1rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+@media (max-width: 480px) {
+  .floating-action-buttons {
+    bottom: 15px;
+    right: 15px;
+  }
+
+  .fab-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+
+  .fab-container {
+    gap: 12px;
+  }
+
+  .enquiry-modal-content {
+    padding: 1.25rem;
+    width: 98%;
+    max-height: 95vh;
+  }
+
+  .enquiry-header h3 {
+    font-size: 1.25rem;
+  }
+
+  .enquiry-header p {
+    font-size: 0.85rem;
+  }
+}
+

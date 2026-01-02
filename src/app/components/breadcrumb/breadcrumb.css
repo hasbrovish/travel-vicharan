@@ -1,0 +1,213 @@
+/* Breadcrumb Navigation */
+.breadcrumb-nav {
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-light);
+  padding: 1rem 0 0.5rem 0; /* Increased top padding for visibility */
+  position: sticky;
+  top: 145px; /* Below banner (36px) + header (109px: 60px top row + 49px bottom row with padding) */
+  z-index: 998; /* Below header (999) but above content */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  margin-bottom: 0;
+  margin-top: 0;
+  transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* When banner is dismissed, header moves up */
+body.banner-dismissed .breadcrumb-nav {
+  top: 109px; /* Only header height (60px top row + 49px bottom row with padding) */
+  padding-top: 1rem; /* Maintain top padding */
+  transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.breadcrumb-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 0.35rem;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.breadcrumb-item a {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.breadcrumb-item a:hover {
+  color: var(--primary-700);
+  background: var(--bg-secondary);
+}
+
+.breadcrumb-item a i {
+  font-size: 0.9rem;
+  color: var(--text-tertiary);
+}
+
+.breadcrumb-item a:hover i {
+  color: var(--primary-700);
+}
+
+.breadcrumb-item .current-page {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--primary-700);
+  font-weight: 600;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  background: var(--bg-secondary);
+  border-left: 3px solid var(--primary-700);
+  font-size: 0.9rem;
+}
+
+.breadcrumb-item .current-page i {
+  font-size: 0.9rem;
+  color: var(--primary-700);
+}
+
+.breadcrumb-item .separator {
+  color: var(--border-medium);
+  font-size: 0.7rem;
+  margin: 0 0.2rem;
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+.breadcrumb-item.active {
+  pointer-events: none;
+}
+
+/* Home icon special styling */
+.breadcrumb-item:first-child a i {
+  color: var(--primary-700);
+  font-size: 0.95rem;
+}
+
+.breadcrumb-item:first-child a:hover {
+  background: var(--bg-secondary);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .breadcrumb-nav {
+    padding: 0.875rem 0 0.4rem 0; /* Increased top padding */
+    top: 135px; /* Adjusted for mobile header (36px banner + ~99px header) */
+    position: sticky;
+    margin-top: 0;
+    transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 998;
+  }
+
+  body.banner-dismissed .breadcrumb-nav {
+    top: 99px; /* Only mobile header height */
+    padding-top: 0.875rem; /* Maintain top padding */
+    transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+@media (max-width: 768px) {
+  .breadcrumb-nav {
+    padding: 0.75rem 0 0.4rem 0; /* Increased top padding */
+    top: 125px; /* Adjusted for small mobile header (36px banner + ~89px header) */
+    position: sticky;
+    margin-top: 0;
+    transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 998;
+  }
+
+  body.banner-dismissed .breadcrumb-nav {
+    top: 89px; /* Only small mobile header height */
+    padding-top: 0.75rem; /* Maintain top padding */
+    transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .breadcrumb-list {
+    gap: 0.2rem;
+    padding: 0 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .breadcrumb-item {
+    font-size: 0.8rem;
+  }
+
+  .breadcrumb-item a,
+  .breadcrumb-item .current-page {
+    padding: 0.35rem 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .breadcrumb-item a i,
+  .breadcrumb-item .current-page i {
+    font-size: 0.8rem;
+  }
+
+  .breadcrumb-item .separator {
+    font-size: 0.6rem;
+    margin: 0 0.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .breadcrumb-nav {
+    padding: 0.625rem 0 0.3rem 0; /* Increased top padding */
+    top: 95px; /* Small mobile (36px banner + ~59px header) */
+    margin-top: 0;
+    transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 998;
+  }
+
+  body.banner-dismissed .breadcrumb-nav {
+    top: 59px; /* Only small mobile header height */
+    padding-top: 0.625rem; /* Maintain top padding */
+    transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .breadcrumb-list {
+    gap: 0.15rem;
+    padding: 0 0.25rem;
+  }
+
+  .breadcrumb-item {
+    font-size: 0.75rem;
+  }
+
+  .breadcrumb-item a,
+  .breadcrumb-item .current-page {
+    padding: 0.3rem 0.4rem;
+    font-size: 0.75rem;
+  }
+
+  .breadcrumb-item a i,
+  .breadcrumb-item .current-page i {
+    font-size: 0.75rem;
+  }
+
+  /* Truncate long labels on very small screens */
+  .breadcrumb-item a span:not(:first-child),
+  .breadcrumb-item .current-page span {
+    max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+  }
+}
+
+/* Animations removed */
+

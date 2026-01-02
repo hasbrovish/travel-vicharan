@@ -14,24 +14,51 @@ app-header {
 
 /* Main content wrapper - pushes content below fixed header and banner */
 .main-content {
-  padding-top: 89px !important; /* 32px (announcement) + ~57px (header) */
-  transition: padding-top 0.3s ease;
-  min-height: calc(100vh - 89px);
+  padding-top: 180px !important; /* ~36px (announcement) + ~104px (header) + ~40px (extra padding for visibility) */
+  transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  min-height: calc(100vh - 180px);
 }
 
-/* When banner is dismissed, reduce padding */
+/* When banner is dismissed, reduce padding smoothly */
 body.banner-dismissed .main-content {
-  padding-top: 57px !important; /* Only header height */
-  min-height: calc(100vh - 57px);
+  padding-top: 144px !important; /* Only header height (104px) + extra padding (40px) */
+  min-height: calc(100vh - 144px);
+  transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Mobile responsive adjustments */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .main-content {
-    padding-top: 86px !important; /* 24px (smaller banner) + ~62px (mobile header) */
+    padding-top: 170px !important; /* ~36px (banner) + ~94px (mobile header) + ~40px (extra padding) */
+    transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   body.banner-dismissed .main-content {
-    padding-top: 62px !important;
+    padding-top: 134px !important; /* Only mobile header height + extra padding */
+    transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding-top: 160px !important; /* ~36px (banner) + ~84px (small mobile header) + ~40px (extra padding) */
+    transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  body.banner-dismissed .main-content {
+    padding-top: 124px !important; /* Only small mobile header height + extra padding */
+    transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding-top: 130px !important; /* ~36px (banner) + ~54px (smallest mobile header) + ~40px (extra padding) */
+    transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  body.banner-dismissed .main-content {
+    padding-top: 94px !important; /* Only smallest mobile header height + extra padding */
+    transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 }

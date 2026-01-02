@@ -47,6 +47,7 @@ export interface TourInclusion {
 
 export interface TourPackage {
   id: string;
+  slug: string; // SEO-friendly URL slug
   packageCode: string;
   name: string;
   description: string;

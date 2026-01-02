@@ -38,8 +38,18 @@
             </div>
 
             <div class="alert alert-success mt-3 mb-0" *ngIf="showSuccess">
-              <i class="bi bi-check-circle-fill me-2"></i>
-              <strong>Success!</strong> You've been subscribed. Check your email for the discount code.
+              <div class="d-flex align-items-start">
+                <i class="bi bi-check-circle-fill me-2" style="font-size: 1.5rem;"></i>
+                <div class="flex-grow-1">
+                  <strong>Success! You've been subscribed.</strong>
+                  <p class="mb-2 mt-2">Check your email for the welcome message and your exclusive discount code!</p>
+                  <div class="discount-code-box" *ngIf="discountCode">
+                    <div class="discount-label">Your Discount Code:</div>
+                    <div class="discount-code">{{ discountCode }}</div>
+                    <small class="text-muted d-block mt-2">Use this code at checkout to get 10% OFF on your first booking!</small>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div class="alert alert-danger mt-3 mb-0" *ngIf="showError">

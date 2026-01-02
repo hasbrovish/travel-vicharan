@@ -3,21 +3,165 @@
 /* Global Styles for Vichran Trip Travel Booking */
 
 :root {
-  /* VichranTrip Brand Colors (veenaworld.com inspired) */
-  --primary-color: #2d5a5f;        /* Deep Teal (main brand) */
-  --primary-dark: #1e4a4f;         /* Darker Teal */
-  --secondary-color: #ffc107;      /* Yellow/Gold (CTAs) */
-  --accent-color: #5eb8c8;         /* Light Blue (logo dot, accents) */
-  --success-color: #28a745;        /* Green (badges, lowest price) */
-  --light-bg: #e8f4f4;            /* Light Teal (inactive tabs, backgrounds) */
-  --text-dark: #132738;           /* Dark text */
+  /* ============================================
+     PREMIUM COLOR SYSTEM - LOGO-BASED
+     Soft, Positive, Eye-Catching, Premium
+     Based on VichranTrip Logo Colors
+     ============================================ */
+  
+  /* Primary Palette - Deep Teal Blue (Logo Square & Text Color) */
+  --primary-900: #0a3d42;           /* Deepest teal - logo square darkest */
+  --primary-800: #0d4d52;           /* Dark teal - logo square & text main */
+  --primary-700: #0f5f65;           /* Medium-dark teal - logo V embossed */
+  --primary-600: #127a82;           /* Medium teal - primary actions */
+  --primary-500: #1a9ca5;           /* Light teal - secondary accents */
+  --primary-400: #2dd4bf;           /* Very light teal - highlights */
+  --primary-300: #5eead4;           /* Pale teal - subtle backgrounds */
+  --primary-200: #a7f3d0;           /* Lightest teal - inactive states */
+  --primary-100: #ccfbf1;           /* Almost white teal - page backgrounds */
+  --primary-50: #f0fdfa;            /* Softest teal - subtle backgrounds */
+
+  /* Accent Palette - Bright Sky Blue (Logo Dot Color - Premium) */
+  --accent-900: #0c4a6e;            /* Deep blue - strong accents */
+  --accent-800: #075985;            /* Dark blue - hover states */
+  --accent-700: #0ea5e9;            /* Bright sky blue - logo dot (exact match) */
+  --accent-600: #38bdf8;            /* Light sky blue - main accent */
+  --accent-500: #7dd3fc;            /* Very light sky blue - secondary accents */
+  --accent-400: #bae6fd;            /* Pale sky blue - highlights */
+  --accent-300: #dbeafe;            /* Lightest sky blue - subtle backgrounds */
+  --accent-200: #e0f2fe;            /* Softest sky blue - soft backgrounds */
+  --accent-100: #f0f9ff;            /* Almost white sky blue - page backgrounds */
+
+  /* Secondary Palette - Cyan-Teal (Complementary, Premium) */
+  --secondary-800: #155e75;         /* Dark cyan-teal */
+  --secondary-700: #0891b2;         /* Medium cyan-teal */
+  --secondary-600: #06b6d4;         /* Light cyan-teal - secondary brand */
+  --secondary-500: #22d3ee;         /* Very light cyan-teal */
+  --secondary-400: #67e8f9;         /* Pale cyan-teal */
+  --secondary-300: #a5f3fc;         /* Lightest cyan-teal */
+  --secondary-200: #cffafe;         /* Softest cyan-teal */
+  --secondary-100: #ecfeff;         /* Almost white cyan-teal */
+
+  /* Success Palette - Soft Green (Positive, Growth, Harmony) */
+  --success-700: #059669;           /* Dark green */
+  --success-600: #10b981;           /* Medium green */
+  --success-500: #34d399;           /* Soft green - success states */
+  --success-400: #6ee7b7;           /* Light green */
+  --success-300: #a7f3d0;           /* Pale green */
+  --success-200: #d1fae5;           /* Lightest green */
+  --success-100: #ecfdf5;           /* Softest green */
+
+  /* Warning Palette - Soft Amber (Warm, Friendly, Energetic) */
+  --warning-700: #d97706;           /* Dark amber */
+  --warning-600: #f59e0b;           /* Medium amber */
+  --warning-500: #fbbf24;           /* Soft amber - warning states */
+  --warning-400: #fcd34d;           /* Light amber */
+  --warning-300: #fde68a;           /* Pale amber */
+  --warning-200: #fef3c7;           /* Lightest amber */
+  --warning-100: #fffbeb;           /* Softest amber */
+
+  /* Error Palette - Soft Red (Clear but Not Harsh) */
+  --error-700: #b91c1c;             /* Dark red */
+  --error-600: #dc2626;              /* Medium red */
+  --error-500: #ef4444;              /* Soft red - error states */
+  --error-400: #f87171;              /* Light red */
+  --error-300: #fca5a5;              /* Pale red */
+  --error-200: #fee2e2;              /* Lightest red */
+  --error-100: #fef2f2;              /* Softest red */
+
+  /* Semantic Color Mappings - Premium & Classy */
+  --primary-color: var(--primary-800);      /* #0d4d52 - Main brand (Dark Teal - Logo Square) */
+  --primary-dark: var(--primary-900);       /* #0a3d42 - Darkest variant (Logo Square Darkest) */
+  --primary-darker: var(--primary-900);     /* #0a3d42 - Darkest variant */
+  --primary-light: var(--primary-700);      /* #0f5f65 - Light variant (Logo V Embossed) */
+  --primary-lighter: var(--primary-600);    /* #127a82 - Lighter variant */
+  
+  --secondary-color: var(--secondary-600);  /* #06b6d4 - Cyan-Teal */
+  --secondary-dark: var(--secondary-800);   /* #155e75 - Dark cyan-teal */
+  --secondary-light: var(--secondary-500);  /* #22d3ee - Light cyan-teal */
+  
+  --accent-color: var(--accent-700);        /* #0ea5e9 - Bright Blue (Logo Dot) */
+  --accent-dark: var(--accent-800);         /* #075985 - Dark blue */
+  --accent-light: var(--accent-600);        /* #38bdf8 - Light bright blue */
+  
+  --success-color: var(--success-600);      /* #10b981 - Soft Green */
+  --success-light: var(--success-500);      /* #34d399 - Light success */
+  --warning-color: var(--warning-600);      /* #f59e0b - Soft Amber */
+  --danger-color: var(--error-500);         /* #ef4444 - Soft Red */
+  --info-color: var(--accent-700);          /* #0ea5e9 - Info bright blue */
+
+  /* Background Colors */
+  --bg-primary: #ffffff;                    /* Pure white */
+  --bg-secondary: var(--primary-100);      /* #f5f7ff - Soft indigo bg */
+  --bg-tertiary: var(--primary-200);        /* #eef2ff - Subtle indigo */
+  --bg-accent: var(--accent-100);           /* #fdf2f8 - Soft pink bg */
+  --bg-success: var(--success-100);         /* #ecfdf5 - Soft green bg */
+  --bg-dark: var(--primary-900);            /* #4338ca - Dark backgrounds */
+  
+  --light-bg: var(--primary-100);           /* Light background */
   --white-bg: #ffffff;
 
-  /* Gradients */
-  --gradient-1: linear-gradient(135deg, #2d5a5f 0%, #3d6a6f 100%);
-  --gradient-2: linear-gradient(135deg, #5eb8c8 0%, #2d5a5f 100%);
-  --gradient-3: linear-gradient(135deg, #3d6a6f 0%, #5eb8c8 100%);
-  --gradient-overlay: linear-gradient(180deg, rgba(166,166,166,0.15), rgba(166,166,166,0));
+  /* Text Colors */
+  --text-primary: #1e293b;                 /* Dark slate - main text */
+  --text-secondary: #475569;                /* Medium slate - secondary text */
+  --text-tertiary: #64748b;                 /* Light slate - tertiary text */
+  --text-dark: #0f172a;                     /* Very dark - headings */
+  --text-light: #94a3b8;                    /* Light slate - hints */
+  --text-on-primary: #ffffff;               /* White on primary backgrounds */
+  --text-on-accent: #ffffff;                /* White on accent backgrounds */
+  --text-primary-color: var(--primary-700); /* Primary color text */
+  --text-accent-color: var(--accent-600);   /* Accent color text */
+
+  /* Border Colors */
+  --border-light: #e2e8f0;                  /* Light slate border */
+  --border-medium: #cbd5e1;                 /* Medium slate border */
+  --border-primary: var(--primary-400);     /* Primary border */
+  --border-accent: var(--accent-400);       /* Accent border */
+  --border-soft: var(--primary-300);        /* Soft primary border */
+
+  /* Shadow Colors - Soft & Premium (Teal-based - Classy) */
+  --shadow-primary-sm: 0 2px 8px rgba(13, 77, 82, 0.1);
+  --shadow-primary-md: 0 4px 16px rgba(13, 77, 82, 0.15);
+  --shadow-primary-lg: 0 8px 24px rgba(13, 77, 82, 0.2);
+  --shadow-primary-xl: 0 12px 32px rgba(13, 77, 82, 0.25);
+  
+  --shadow-accent-sm: 0 2px 8px rgba(14, 165, 233, 0.12);
+  --shadow-accent-md: 0 4px 16px rgba(14, 165, 233, 0.18);
+  --shadow-accent-lg: 0 8px 24px rgba(14, 165, 233, 0.24);
+  
+  --shadow-soft: 0 2px 12px rgba(0, 0, 0, 0.04);
+  --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.06);
+  --shadow-large: 0 8px 32px rgba(0, 0, 0, 0.08);
+
+  /* Premium Gradients - Classy, Sophisticated, Eye-Catching */
+  --gradient-primary: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-800) 50%, var(--primary-700) 100%);
+  --gradient-primary-dark: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-800) 100%);
+  --gradient-primary-light: linear-gradient(135deg, var(--primary-800) 0%, var(--primary-700) 50%, var(--primary-600) 100%);
+  --gradient-primary-soft: linear-gradient(135deg, var(--primary-100) 0%, #ffffff 100%);
+  
+  --gradient-accent: linear-gradient(135deg, var(--accent-700) 0%, var(--accent-600) 50%, var(--accent-500) 100%);
+  --gradient-accent-light: linear-gradient(135deg, var(--accent-600) 0%, var(--accent-500) 100%);
+  --gradient-accent-soft: linear-gradient(135deg, var(--accent-100) 0%, #ffffff 100%);
+  
+  --gradient-secondary: linear-gradient(135deg, var(--secondary-800) 0%, var(--secondary-600) 100%);
+  --gradient-secondary-light: linear-gradient(135deg, var(--secondary-600) 0%, var(--secondary-500) 100%);
+  
+  /* Premium Combination Gradients - Eye-Catching & Positive */
+  --gradient-primary-accent: linear-gradient(135deg, var(--primary-700) 0%, var(--accent-600) 100%);
+  --gradient-primary-secondary: linear-gradient(135deg, var(--primary-700) 0%, var(--secondary-600) 100%);
+  --gradient-accent-secondary: linear-gradient(135deg, var(--accent-600) 0%, var(--secondary-600) 100%);
+  
+  /* Soft Background Gradients */
+  --gradient-soft-primary: linear-gradient(135deg, var(--primary-100) 0%, var(--primary-50) 50%, #ffffff 100%);
+  --gradient-soft-accent: linear-gradient(135deg, var(--accent-100) 0%, #ffffff 100%);
+  --gradient-soft-success: linear-gradient(135deg, var(--success-100) 0%, #ffffff 100%);
+  
+  --gradient-overlay: linear-gradient(180deg, rgba(15, 118, 110, 0.1), rgba(15, 118, 110, 0));
+  
+  /* Legacy Support (mapped to new system) */
+  --gradient-1: var(--gradient-primary);
+  --gradient-2: var(--gradient-primary-light);
+  --gradient-3: var(--gradient-accent);
 }
 
 * {
@@ -27,15 +171,34 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Display', Roboto, Oxygen, Ubuntu, sans-serif;
   background: #ffffff;
   color: #2c3e50;
   line-height: 1.6;
+  overflow-x: hidden; /* Prevent horizontal scroll on mobile */
+}
+
+/* Mobile-first responsive base */
+html {
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
 }
 
 /* Override Bootstrap primary color globally */
 .bg-primary {
-  background-color: var(--primary-color) !important;
+  background: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-800) 100%) !important;
+  color: var(--text-on-primary) !important;
 }
 
 .text-primary {
@@ -112,25 +275,31 @@ body {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-  box-shadow: 0 4px 15px rgba(30, 85, 88, 0.3);
+  background: linear-gradient(135deg, var(--primary-800) 0%, var(--primary-700) 100%);
+  color: var(--text-on-primary);
+  box-shadow: 0 4px 16px rgba(13, 77, 82, 0.2);
+  border: none;
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+  background: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-800) 100%);
   transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(30, 85, 88, 0.4);
+  box-shadow: 0 6px 20px rgba(13, 77, 82, 0.3);
+  color: var(--text-on-primary);
 }
 
 .btn-outline-primary {
-  border: 2px solid var(--primary-color);
-  color: var(--primary-color);
+  border: 2px solid var(--primary-700);
+  color: var(--primary-700);
+  background: transparent;
 }
 
 .btn-outline-primary:hover {
-  background: var(--primary-color);
-  color: white;
+  background: linear-gradient(135deg, var(--primary-800) 0%, var(--primary-700) 100%);
+  color: var(--text-on-primary);
+  border-color: var(--primary-700);
   transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(13, 77, 82, 0.15);
 }
 
 /* Badge Styling */
@@ -386,9 +555,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .step-item.active .step-number {
-  background: var(--primary-color);
-  color: white;
-  box-shadow: 0 0 0 4px rgba(45, 90, 95, 0.1);
+  background: var(--gradient-primary);
+  color: var(--text-on-primary);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
 }
 
 .step-connector {
@@ -399,7 +568,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .step-item.completed .step-connector {
-  background: var(--success-color);
+  background: var(--gradient-primary);
 }
 
 /* Price Breakdown */
@@ -411,12 +580,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .price-row.total {
-  border-top: 2px solid #e5e7eb;
+  border-top: 2px solid var(--border-primary);
   padding-top: 12px;
   margin-top: 8px;
   font-weight: 700;
   font-size: 18px;
-  color: var(--primary-color);
+  color: var(--primary-700);
 }
 
 /* Sticky Sidebar */
@@ -440,9 +609,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .icon-button:hover {
-  background: var(--light-bg);
-  border-color: var(--primary-color);
-  color: var(--primary-color);
+  background: var(--bg-secondary);
+  border-color: var(--primary-700);
+  color: var(--primary-700);
 }
 
 /* Alert Banner */
