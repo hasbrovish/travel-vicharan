@@ -1,0 +1,83 @@
+<section class="premium-offers-section">
+  <div class="container">
+    <div class="offers-grid">
+
+      <!-- Card 1: Last Minute Departures -->
+      <div class="offer-card" *ngIf="offers[0]" [style.background]="offers[0].gradient">
+        <div class="card-header">
+          <h3 class="card-title">{{ offers[0].title }}</h3>
+          <p class="card-subtitle">{{ offers[0].subtitle }}</p>
+        </div>
+
+        <div class="destinations-grid">
+          <app-destination-tile
+            *ngFor="let dest of offers[0].destinations?.slice(0, 4)"
+            [destination]="dest">
+          </app-destination-tile>
+        </div>
+
+        <button class="cta-button" routerLink="/packages">
+          {{ offers[0].ctaText }} <span class="cta-count">{{ offers[0].ctaCount }}</span>
+          <i class="bi bi-arrow-right ms-2"></i>
+        </button>
+      </div>
+
+      <!-- Card 2: Easy-Visa Destinations -->
+      <div class="offer-card" *ngIf="offers[1]" [style.background]="offers[1].gradient">
+        <div class="card-header">
+          <h3 class="card-title">{{ offers[1].title }}</h3>
+          <p class="card-subtitle">{{ offers[1].subtitle }}</p>
+        </div>
+
+        <div class="carousel-wrapper">
+          <div class="destinations-carousel">
+            <app-destination-tile
+              *ngFor="let dest of offers[1].destinations"
+              [destination]="dest"
+              size="small">
+            </app-destination-tile>
+          </div>
+        </div>
+
+        <p class="explore-text">Explore {{ offers[1].ctaCount }} More easy-visa destinations</p>
+
+        <button class="cta-button" routerLink="/packages">
+          {{ offers[1].ctaText }}
+          <i class="bi bi-arrow-right ms-2"></i>
+        </button>
+      </div>
+
+      <!-- Card 3: Customized Holidays -->
+      <div class="offer-card" *ngIf="offers[2]" [style.background]="offers[2].gradient">
+        <div class="card-header">
+          <h3 class="card-title">{{ offers[2].title }}</h3>
+          <p class="card-subtitle">{{ offers[2].subtitle }}</p>
+        </div>
+
+        <div class="holidays-list">
+          <div class="holiday-item" *ngFor="let holiday of offers[2].holidays">
+            <i class="bi {{ holiday.icon }} holiday-icon"></i>
+            <div class="holiday-info">
+              <h4 class="holiday-name">{{ holiday.name }}</h4>
+              <p class="holiday-price">Starting ₹{{ holiday.startingPrice.toLocaleString('en-IN') }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="features-row">
+          <div class="feature-item" *ngFor="let feature of features; let last = last">
+            <i class="bi {{ feature.icon }} feature-icon"></i>
+            <span class="feature-text">{{ feature.text }}</span>
+            <div class="feature-divider" *ngIf="!last"></div>
+          </div>
+        </div>
+
+        <button class="cta-button" routerLink="/packages">
+          {{ offers[2].ctaText }}
+          <i class="bi bi-arrow-right ms-2"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>

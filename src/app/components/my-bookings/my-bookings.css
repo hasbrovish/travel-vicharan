@@ -1,0 +1,5 @@
+/* Page top spacing to prevent hiding behind header */
+.container.my-5:first-child {
+  margin-top: 0 !important;
+  padding-top: 2rem;
+}

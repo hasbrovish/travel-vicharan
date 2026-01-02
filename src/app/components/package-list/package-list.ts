@@ -22,6 +22,7 @@ export class PackageList implements OnInit {
   selectedType: PackageType | null = null;
   selectedCategories: PackageCategory[] = [];
   selectedDestination: string | null = null;
+  selectedDuration: 'short' | 'medium' | 'long' | null = null;
   minPrice = 0;
   maxPrice = 300000;
 
@@ -159,5 +160,16 @@ export class PackageList implements OnInit {
 
   setViewMode(mode: 'grid' | 'list'): void {
     this.viewMode = mode;
+  }
+
+  setBudget(min: number, max: number): void {
+    this.minPrice = min;
+    this.maxPrice = max;
+    this.applyFilters();
+  }
+
+  setDuration(duration: 'short' | 'medium' | 'long' | null): void {
+    this.selectedDuration = duration;
+    this.applyFilters();
   }
 }

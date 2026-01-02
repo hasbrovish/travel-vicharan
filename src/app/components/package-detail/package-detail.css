@@ -2,15 +2,7 @@
 .package-hero {
   position: relative;
   overflow: hidden;
-  margin-top: -99px; /* Negative margin equal to main-content padding */
-  padding-top: 99px; /* Add padding back to maintain spacing for content */
-}
-
-@media (max-width: 768px) {
-  .package-hero {
-    margin-top: -95px;
-    padding-top: 95px;
-  }
+  padding-top: 2px;
 }
 
 .hero-overlay {

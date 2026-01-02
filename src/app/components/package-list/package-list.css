@@ -1,3 +1,9 @@
+/* Page top spacing to prevent hiding behind header */
+.container.my-5:first-child {
+  margin-top: 0 !important;
+  padding-top: 2rem;
+}
+
 /* List View Styling */
 .package-list-item .card {
   transition: all 0.3s ease;

@@ -6,8 +6,8 @@
   right: 0;
   width: 100%;
   z-index: 999; /* Below announcement banner (1000) */
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
   transition: top 0.3s ease;
 }
 
@@ -23,7 +23,7 @@ body.banner-dismissed .navbar {
 
 /* Compact navbar items */
 .navbar-nav .nav-link {
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 1rem;
   font-size: 0.95rem;
 }
 

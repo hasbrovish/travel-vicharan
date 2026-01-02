@@ -1,3 +1,8 @@
+/* Ensure smooth page layout */
+* {
+  scroll-behavior: smooth;
+}
+
 /* Fixed header and banner setup */
 app-announcement-banner {
   display: block;
@@ -9,24 +14,24 @@ app-header {
 
 /* Main content wrapper - pushes content below fixed header and banner */
 .main-content {
-  padding-top: 99px !important; /* 32px (announcement) + ~67px (header) */
+  padding-top: 89px !important; /* 32px (announcement) + ~57px (header) */
   transition: padding-top 0.3s ease;
-  min-height: calc(100vh - 99px);
+  min-height: calc(100vh - 89px);
 }
 
 /* When banner is dismissed, reduce padding */
 body.banner-dismissed .main-content {
-  padding-top: 67px !important; /* Only header height */
-  min-height: calc(100vh - 67px);
+  padding-top: 57px !important; /* Only header height */
+  min-height: calc(100vh - 57px);
 }
 
 /* Mobile responsive adjustments */
 @media (max-width: 768px) {
   .main-content {
-    padding-top: 95px !important; /* 24px (smaller banner) + ~71px (mobile header) */
+    padding-top: 86px !important; /* 24px (smaller banner) + ~62px (mobile header) */
   }
 
   body.banner-dismissed .main-content {
-    padding-top: 71px !important;
+    padding-top: 62px !important;
   }
 }

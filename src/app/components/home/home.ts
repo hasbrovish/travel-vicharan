@@ -7,11 +7,13 @@ import { PackageCard } from '../package-card/package-card';
 import { FeaturedDestinations } from '../featured-destinations/featured-destinations';
 import { Testimonials } from '../testimonials/testimonials';
 import { NewsletterSignup } from '../newsletter-signup/newsletter-signup';
+import { TrustBadges } from '../trust-badges/trust-badges';
+import { PremiumOffers } from '../premium-offers/premium-offers';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, PackageCard, FeaturedDestinations, Testimonials, NewsletterSignup],
+  imports: [CommonModule, RouterLink, PackageCard, FeaturedDestinations, Testimonials, NewsletterSignup, TrustBadges, PremiumOffers],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })

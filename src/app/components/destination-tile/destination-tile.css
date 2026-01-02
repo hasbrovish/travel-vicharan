@@ -1,0 +1,86 @@
+/* Design Tokens */
+:host {
+  --tile-radius: 12px;
+  --tile-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --tile-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.15);
+  --overlay-gradient: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 50%, transparent 100%);
+  --transition-timing: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.destination-tile {
+  height: 100%;
+  border-radius: var(--tile-radius);
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: var(--tile-shadow);
+  transition: all var(--transition-timing);
+}
+
+.destination-tile:hover {
+  box-shadow: var(--tile-shadow-hover);
+  transform: translateY(-4px);
+}
+
+.tile-image {
+  position: relative;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  transition: transform var(--transition-timing);
+}
+
+.destination-tile:hover .tile-image {
+  transform: scale(1.05);
+}
+
+.tile-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--overlay-gradient);
+}
+
+.tile-title {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  z-index: 2;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Size Variants */
+.size-small .tile-image {
+  height: 150px;
+}
+
+.size-small .tile-title {
+  font-size: 0.875rem;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+}
+
+.size-large .tile-image {
+  height: 250px;
+}
+
+.size-large .tile-title {
+  font-size: 1.25rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tile-image {
+    height: 160px;
+  }
+
+  .tile-title {
+    font-size: 0.875rem;
+    bottom: 12px;
+    left: 12px;
+  }
+}

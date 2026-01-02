@@ -1,0 +1,6 @@
+<div class="destination-tile" [class.size-small]="size === 'small'" [class.size-large]="size === 'large'">
+  <div class="tile-image" [style.backgroundImage]="'url(' + destination.imageUrl + ')'">
+    <div class="tile-overlay"></div>
+    <h4 class="tile-title">{{ destination.name }}</h4>
+  </div>
+</div>
