@@ -2785,3 +2785,1141 @@ html {
     min-height: 140px;
   }
 }
+
+/* ============================================
+   JOURNEY MAP STYLE ITINERARY
+   ============================================ */
+
+/* Journey Map Header */
+.journey-map-header {
+  background: #faf8f5;
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 3rem;
+  border: 1px solid #e5e0d8;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.journey-header-content {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.journey-icon {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.journey-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 0.5rem 0;
+}
+
+.journey-subtitle {
+  font-size: 1.1rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Journey Map Container */
+.journey-map-container {
+  position: relative;
+  min-height: 2500px;
+  background: #faf8f5;
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  overflow: visible;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  margin-bottom: 4rem;
+  z-index: 1;
+}
+
+/* Dynamic height based on number of days */
+.journey-map-container[style*="height"] {
+  height: auto !important;
+  min-height: 1200px;
+}
+
+/* Doodle Elements */
+.journey-doodles {
+  pointer-events: none;
+}
+
+.doodle-airplane,
+.doodle-star,
+.doodle-sun,
+.doodle-cloud,
+.doodle-arrow,
+.doodle-dot,
+.doodle-map-pin,
+.doodle-day-pin,
+.doodle-leaf,
+.doodle-wave {
+  animation: float 8s ease-in-out infinite;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.05));
+}
+
+.doodle-star {
+  animation-delay: 1.5s;
+}
+
+.doodle-cloud {
+  animation-delay: 3s;
+}
+
+.doodle-leaf {
+  animation-delay: 2s;
+  animation-duration: 10s;
+}
+
+.doodle-wave {
+  animation-delay: 1s;
+  animation-duration: 6s;
+}
+
+.doodle-day-pin {
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(1deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+.journey-path-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 2500px;
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+/* Ensure path flows behind cards */
+.journey-path {
+  z-index: 1;
+}
+
+.journey-doodles {
+  z-index: 2;
+}
+
+/* Ensure FAQ section is visible above itinerary */
+.row.mt-5 {
+  position: relative;
+  z-index: 200 !important;
+  clear: both;
+  margin-top: 3rem !important;
+  margin-bottom: 2rem !important;
+  background: white;
+  padding-top: 2rem;
+}
+
+.row.mt-5 .card {
+  position: relative;
+  z-index: 200 !important;
+  background: white;
+}
+
+#faqAccordion {
+  position: relative;
+  z-index: 200 !important;
+}
+
+/* Ensure itinerary tab content doesn't overflow */
+.fade-in {
+  position: relative;
+  z-index: 2;
+}
+
+/* Prevent itinerary from overlapping content below */
+*ngIf="activeTab === 'itinerary'" {
+  overflow: visible;
+  position: relative;
+}
+
+.journey-path {
+  stroke: #f97316;
+  stroke-width: 2;
+  stroke-dasharray: 5,8,2,8;
+  fill: none;
+  opacity: 0.4;
+  z-index: 1;
+}
+
+/* Journey Days Container */
+.journey-days-container {
+  position: relative;
+  z-index: 3;
+  min-height: 2500px;
+  padding-bottom: 4rem;
+  height: auto;
+}
+
+.journey-day-stop {
+  position: absolute;
+  width: 45%;
+  transition: all 0.3s ease;
+  z-index: 5;
+  min-height: 200px;
+}
+
+.journey-day-stop.left {
+  left: 0;
+}
+
+.journey-day-stop.right {
+  right: 0;
+}
+
+/* Map Pin */
+.map-pin-stop {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.journey-day-stop.left .map-pin-stop {
+  left: 100%;
+}
+
+.journey-day-stop.right .map-pin-stop {
+  right: 100%;
+  left: auto;
+  transform: translateX(50%);
+}
+
+.pin-circle-stop {
+  width: 36px;
+  height: 36px;
+  background: #f97316;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #faf8f5;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+/* Map pin tail/point */
+.pin-circle-stop::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 8px solid #f97316;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.9;
+}
+
+/* Slightly imperfect outline ring */
+.pin-circle-stop::after {
+  content: '';
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  border-radius: 50% 50% 50% 0;
+  border: 1.5px dashed #f97316;
+  opacity: 0.25;
+  top: -3px;
+  left: -3px;
+  transform: rotate(-45deg);
+}
+
+.pin-number {
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  transform: rotate(45deg);
+  position: relative;
+  z-index: 2;
+}
+
+/* Day Card Minimal (Collapsed) - Label pinned on map */
+.day-card-minimal {
+  background: white;
+  border: 1px solid #e5e0d8;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-top: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+  position: relative;
+  z-index: 5;
+}
+
+/* Subtle paper texture effect */
+.day-card-minimal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.015) 100%);
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.day-card-minimal:hover {
+  border-color: #f97316;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.15);
+  transform: translateY(-2px);
+}
+
+.day-card-header {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.day-number-badge {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.day-card-content {
+  flex: 1;
+}
+
+.day-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #374151;
+  margin: 0 0 0.75rem 0;
+  line-height: 1.4;
+}
+
+.day-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.highlight-line {
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+.day-duration {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #f97316;
+  font-weight: 600;
+}
+
+.view-plan-btn {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: #faf8f5;
+  border: 1px solid #e5e0d8;
+  border-radius: 8px;
+  color: #1f2937;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.view-plan-btn:hover {
+  background: #f97316;
+  color: white;
+  border-color: #f97316;
+}
+
+/* Day Detail Panel (Expanded) - Note attached to journey */
+.day-detail-panel {
+  background: #fff7ed;
+  border: none;
+  border-left: 3px solid #f97316;
+  border-radius: 0 12px 12px 0;
+  margin-top: 0.5rem;
+  margin-left: 0;
+  padding: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 6;
+  animation: slideDown 0.3s ease;
+}
+
+/* Visual connection to day card */
+.day-detail-panel::before {
+  content: '';
+  position: absolute;
+  top: -0.5rem;
+  left: -3px;
+  width: 3px;
+  height: 0.5rem;
+  background: #f97316;
+  opacity: 0.6;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.detail-panel-header {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: white;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0 12px 0 0;
+}
+
+.detail-panel-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.close-detail-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.close-detail-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.detail-panel-content {
+  padding: 2rem;
+}
+
+/* Journey Overview */
+.journey-overview {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #e5e0d8;
+}
+
+.overview-text {
+  color: #374151;
+  line-height: 1.7;
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Operational Schedule */
+.operational-schedule {
+  margin-bottom: 2rem;
+}
+
+.time-period-detail {
+  background: transparent;
+  border-radius: 0;
+  padding: 1rem 0;
+  margin-bottom: 1.25rem;
+  border: none;
+  border-bottom: 1px solid #e5e0d8;
+}
+
+.time-period-detail:last-child {
+  border-bottom: none;
+}
+
+.period-header-detail {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: none;
+}
+
+.period-icon-detail {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.period-icon-detail.morning {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: white;
+}
+
+.period-icon-detail.afternoon {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: white;
+}
+
+.period-icon-detail.evening {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  color: white;
+}
+
+.period-title-detail {
+  flex: 1;
+}
+
+.period-title-detail h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+  margin: 0;
+}
+
+.travel-time-badge,
+.pickup-time-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: white;
+  padding: 0.375rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 600;
+  margin-left: 0.5rem;
+}
+
+.pickup-time-badge {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.return-time-text {
+  color: #374151;
+  line-height: 1.6;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+}
+
+.travel-info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.travel-info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+.travel-info-item i {
+  color: #f97316;
+  font-size: 1.1rem;
+}
+
+.period-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.detail-section {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.detail-section-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.detail-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.detail-list li {
+  padding-left: 1.5rem;
+  position: relative;
+  color: #374151;
+  line-height: 1.6;
+}
+
+.detail-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #f97316;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.meals-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.meal-tag {
+  background: #fef3c7;
+  color: #92400e;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.inclusions-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inclusions-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  color: #374151;
+  line-height: 1.6;
+}
+
+.inclusions-list li i {
+  color: #10b981;
+  margin-top: 0.25rem;
+  flex-shrink: 0;
+}
+
+.notes-text {
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Travel & Logistics */
+.travel-logistics {
+  margin-top: 1.5rem;
+  padding: 1rem 0;
+  background: transparent;
+  border-radius: 0;
+  border: none;
+  border-top: 1px solid #e5e0d8;
+  padding-top: 1rem;
+}
+
+.logistics-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 0.75rem;
+}
+
+.logistics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.logistics-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.logistics-item i {
+  color: #f97316;
+  font-size: 1.25rem;
+  margin-top: 0.25rem;
+  flex-shrink: 0;
+}
+
+.logistics-item strong {
+  display: block;
+  color: #374151;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.logistics-item p {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+/* Optional Activities */
+.optional-activities {
+  background: #fef3c7;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid #fbbf24;
+}
+
+.optional-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #92400e;
+  margin: 0 0 1rem 0;
+}
+
+.optional-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.optional-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #78350f;
+}
+
+.optional-list li i {
+  color: #f97316;
+}
+
+/* Important Notes */
+.important-notes-section {
+  background: #fee2e2;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid #fca5a5;
+}
+
+.important-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #991b1b;
+  margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.important-notes-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.important-notes-list li {
+  color: #7f1d1d;
+  line-height: 1.6;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.important-notes-list li::before {
+  content: '⚠';
+  position: absolute;
+  left: 0;
+}
+
+/* Legacy Operational */
+.legacy-operational {
+  margin-bottom: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .journey-day-stop {
+    width: 100%;
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    margin-bottom: 3rem;
+  }
+
+  .journey-day-stop.left .map-pin-stop,
+  .journey-day-stop.right .map-pin-stop {
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%);
+  }
+
+  .journey-path-svg {
+    display: none;
+  }
+
+  .journey-map-container {
+    padding: 2rem 1rem;
+    min-height: auto;
+    overflow: visible;
+  }
+  
+  .journey-days-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .journey-day-stop {
+    top: auto !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .journey-map-header {
+    padding: 1.5rem;
+  }
+
+  .journey-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.5rem;
+  }
+
+  .journey-title {
+    font-size: 1.5rem;
+  }
+
+  .journey-subtitle {
+    font-size: 1rem;
+  }
+
+  .detail-panel-content {
+    padding: 1.5rem;
+  }
+
+  .logistics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Operational Details: Morning / Afternoon / Evening Structure */
+.day-operational-details {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.operational-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--border-light);
+}
+
+.operational-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--gradient-primary);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.operational-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.operational-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin: 0.25rem 0 0 0;
+}
+
+.time-periods-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.time-period-card {
+  background: white;
+  border: 2px solid var(--border-light);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.time-period-card:hover {
+  border-color: var(--primary-400);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.period-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.period-icon-wrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  flex-shrink: 0;
+}
+
+.period-icon-wrapper.morning {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: white;
+}
+
+.period-icon-wrapper.afternoon {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: white;
+}
+
+.period-icon-wrapper.evening {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  color: white;
+}
+
+.period-title-wrapper {
+  flex: 1;
+}
+
+.period-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem 0;
+}
+
+.period-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.period-meta i {
+  color: var(--primary-600);
+}
+
+.travel-time-label {
+  font-weight: 600;
+  color: var(--primary-700);
+}
+
+.period-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.period-section {
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.section-label i {
+  color: var(--primary-600);
+}
+
+.activities-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.activities-list li {
+  padding-left: 1.5rem;
+  position: relative;
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.activities-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--primary-600);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.meals-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.meal-badge {
+  background: var(--primary-100);
+  color: var(--primary-700);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid var(--primary-200);
+}
+
+.inclusions-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inclusions-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.inclusions-list li i {
+  color: var(--success-600);
+  margin-top: 0.25rem;
+  flex-shrink: 0;
+}
+
+.period-notes {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .operational-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .period-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .period-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    font-size: 1.5rem;
+  }
+
+  .period-title {
+    font-size: 1.1rem;
+  }
+
+  .time-period-card {
+    padding: 1.25rem;
+  }
+}

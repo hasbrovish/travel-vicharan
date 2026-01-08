@@ -1,0 +1,191 @@
+<!-- Journey Map Component Template -->
+<div class="journey-map-wrapper">
+  <!-- SVG Path - Zig-zag connecting days -->
+  <svg class="journey-path-svg" viewBox="0 0 1200 2000" preserveAspectRatio="xMidYMid meet">
+    <!-- Zig-zag path connecting all days -->
+    <path class="journey-path" 
+          [attr.d]="getJourneyPath(package.itinerary.length)"
+          fill="none"
+          stroke="#d1d5db"
+          stroke-width="3"
+          stroke-dasharray="8,8"
+          stroke-linecap="round"
+          opacity="0.4"/>
+  </svg>
+
+  <!-- Day Stops - Alternating left/right -->
+  <div class="journey-days-container">
+    <div class="journey-day-stop" 
+         *ngFor="let day of package.itinerary; let i = index"
+         [class.left]="i % 2 === 0"
+         [class.right]="i % 2 === 1"
+         [style.top.%]="getDayPosition(i, package.itinerary.length)">
+      
+      <!-- Map Pin -->
+      <div class="map-pin-stop">
+        <div class="pin-circle-stop">
+          <span class="pin-number">{{ day.day }}</span>
+        </div>
+      </div>
+
+      <!-- Day Card (Collapsed) -->
+      <div class="day-card-minimal" 
+           [class.expanded]="expandedDay === day.day"
+           (click)="toggleDay(day.day)">
+        <div class="day-card-header">
+          <div class="day-number-badge">{{ day.day }}</div>
+          <div class="day-card-content">
+            <h3 class="day-card-title">{{ day.title }}</h3>
+            <div class="day-highlights">
+              <span class="highlight-line" *ngFor="let highlight of getDayHighlights(day); let idx = index">
+                {{ highlight }}
+              </span>
+            </div>
+            <div class="day-duration">
+              <i class="bi bi-clock"></i>
+              <span>{{ getDayDuration(day) }}</span>
+            </div>
+          </div>
+        </div>
+        <button class="view-plan-btn" *ngIf="expandedDay !== day.day">
+          <span>View full day plan</span>
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </div>
+
+      <!-- Day Detail Panel (Expanded) -->
+      <div class="day-detail-panel" 
+           *ngIf="expandedDay === day.day"
+           [@slideDown]>
+        <div class="detail-panel-header">
+          <h4 class="detail-panel-title">Day {{ day.day }}: {{ day.title }}</h4>
+          <button class="close-detail-btn" (click)="closeDay()">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+
+        <div class="detail-panel-content">
+          <!-- Journey Overview -->
+          <div class="journey-overview" *ngIf="day.description">
+            <p class="overview-text">{{ day.description }}</p>
+          </div>
+
+          <!-- Operational Details: Morning / Afternoon / Evening -->
+          <div class="operational-schedule" *ngIf="day.timePeriods && day.timePeriods.length > 0">
+            <div class="time-period-detail" *ngFor="let period of day.timePeriods">
+              <div class="period-header-detail">
+                <div class="period-icon-detail" 
+                     [class.morning]="period.period === 'Morning'"
+                     [class.afternoon]="period.period === 'Afternoon'"
+                     [class.evening]="period.period === 'Evening'">
+                  <i class="bi" 
+                     [class.bi-sunrise]="period.period === 'Morning'"
+                     [class.bi-sun]="period.period === 'Afternoon'"
+                     [class.bi-moon-stars]="period.period === 'Evening'"></i>
+                </div>
+                <div class="period-title-detail">
+                  <h5>{{ period.period }}</h5>
+                  <span class="travel-time-badge" *ngIf="period.travelTime">
+                    <i class="bi bi-clock"></i> {{ period.travelTime }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="period-details">
+                <!-- Activities with timings -->
+                <div class="detail-section" *ngIf="period.activities && period.activities.length > 0">
+                  <h6 class="detail-section-title">Activities</h6>
+                  <ul class="detail-list">
+                    <li *ngFor="let activity of period.activities">{{ activity }}</li>
+                  </ul>
+                </div>
+
+                <!-- Meals -->
+                <div class="detail-section" *ngIf="period.meals && period.meals.length > 0">
+                  <h6 class="detail-section-title">Meals Included</h6>
+                  <div class="meals-list">
+                    <span class="meal-tag" *ngFor="let meal of period.meals">{{ meal }}</span>
+                  </div>
+                </div>
+
+                <!-- Inclusions -->
+                <div class="detail-section" *ngIf="period.inclusions && period.inclusions.length > 0">
+                  <h6 class="detail-section-title">Included</h6>
+                  <ul class="inclusions-list">
+                    <li *ngFor="let inclusion of period.inclusions">
+                      <i class="bi bi-check-circle"></i>
+                      <span>{{ inclusion }}</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Notes -->
+                <div class="detail-section" *ngIf="period.notes">
+                  <h6 class="detail-section-title">Important Notes</h6>
+                  <p class="notes-text">{{ period.notes }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Travel & Logistics -->
+          <div class="travel-logistics" *ngIf="day.transport || day.distance || day.duration || day.accommodation">
+            <h5 class="logistics-title">Travel & Logistics</h5>
+            <div class="logistics-grid">
+              <div class="logistics-item" *ngIf="day.transport">
+                <i class="bi bi-car-front"></i>
+                <div>
+                  <strong>Vehicle Type</strong>
+                  <p>{{ day.transport }}</p>
+                </div>
+              </div>
+              <div class="logistics-item" *ngIf="day.distance">
+                <i class="bi bi-signpost-split"></i>
+                <div>
+                  <strong>Distance</strong>
+                  <p>{{ day.distance }}</p>
+                </div>
+              </div>
+              <div class="logistics-item" *ngIf="day.duration">
+                <i class="bi bi-clock-history"></i>
+                <div>
+                  <strong>Travel Time</strong>
+                  <p>{{ day.duration }}</p>
+                </div>
+              </div>
+              <div class="logistics-item" *ngIf="day.accommodation">
+                <i class="bi bi-building"></i>
+                <div>
+                  <strong>Accommodation</strong>
+                  <p>{{ day.accommodation }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Optional Activities -->
+          <div class="optional-activities" *ngIf="day.optionalActivities && day.optionalActivities.length > 0">
+            <h5 class="optional-title">Optional / Extra Cost</h5>
+            <ul class="optional-list">
+              <li *ngFor="let optional of day.optionalActivities">
+                <i class="bi bi-plus-circle"></i>
+                <span>{{ optional }}</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Important Notes -->
+          <div class="important-notes-section" *ngIf="day.importantNotes && day.importantNotes.length > 0">
+            <h5 class="important-title">
+              <i class="bi bi-exclamation-triangle"></i>
+              Important Notes
+            </h5>
+            <ul class="important-notes-list">
+              <li *ngFor="let note of day.importantNotes">{{ note }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

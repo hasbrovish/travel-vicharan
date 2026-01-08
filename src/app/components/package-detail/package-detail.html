@@ -196,358 +196,345 @@
             </div>
           </div>
 
-          <!-- Itinerary Tab - Premium Journey Timeline -->
+          <!-- Itinerary Tab - Journey Map Style -->
           <div *ngIf="activeTab === 'itinerary'" class="fade-in">
-            <!-- Premium Itinerary Header -->
-            <div class="itinerary-header-premium">
-              <div class="itinerary-header-content">
-                <div class="header-icon-wrapper">
-                  <i class="bi bi-compass-fill"></i>
+            <!-- Journey Map Overview Header -->
+            <div class="journey-map-header">
+              <div class="journey-header-content">
+                <div class="journey-icon">
+                  <i class="bi bi-compass"></i>
                 </div>
-                <div class="header-text">
-                  <h2 class="itinerary-title-premium">
-                    Your Journey Awaits
-                  </h2>
-                  <p class="itinerary-subtitle-premium">
-                    A meticulously crafted {{ package.days }}-day adventure through {{ package.destinations.join(', ') }}
+                <div class="journey-header-text">
+                  <h2 class="journey-title">Your Journey Map</h2>
+                  <p class="journey-subtitle">
+                    {{ package.days }}-day adventure through {{ package.destinations.join(', ') }}
                   </p>
-                  <div class="itinerary-stats">
-                    <div class="stat-item">
-                      <i class="bi bi-calendar-check"></i>
-                      <span>{{ package.days }} Days</span>
-                    </div>
-                    <div class="stat-item">
-                      <i class="bi bi-moon-stars"></i>
-                      <span>{{ package.nights }} Nights</span>
-                    </div>
-                    <div class="stat-item">
-                      <i class="bi bi-geo-alt-fill"></i>
-                      <span>{{ package.destinations.length }} Destinations</span>
-                    </div>
-                    <div class="stat-item">
-                      <i class="bi bi-list-check"></i>
-                      <span>{{ totalActivities }} Activities</span>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
             
-            <!-- Journey Map Itinerary -->
-            <div class="journey-map-wrapper">
-              <!-- SVG Background with winding horizontal path -->
-              <svg class="journey-map-svg" viewBox="0 0 1200 1400" preserveAspectRatio="xMidYMid meet">
-                <!-- Horizontal zigzag path -->
-                <path class="journey-path-line"
-                      d="M 50,200 Q 180,180 300,220 Q 420,260 550,200 Q 680,140 800,200 Q 920,260 1050,220 Q 1100,200 1150,200
-                         M 1150,200 Q 1120,300 1000,350 Q 880,400 750,350 Q 620,300 500,370 Q 380,440 250,380 Q 150,340 80,400
-                         M 80,400 Q 180,420 300,480 Q 420,540 550,500 Q 680,460 800,520 Q 920,580 1050,540 Q 1100,520 1150,540
-                         M 1150,540 Q 1120,640 1000,690 Q 880,740 750,690 Q 620,640 500,710 Q 380,780 250,720 Q 150,680 80,740
-                         M 80,740 Q 180,760 300,820 Q 420,880 550,840 Q 680,800 800,860 Q 920,920 1050,880 Q 1100,860 1150,880"
+            <!-- Journey Map Container -->
+            <div class="journey-map-container">
+              <!-- SVG Zig-zag Path with Doodles -->
+              <svg class="journey-path-svg" [attr.viewBox]="'0 0 1200 ' + getJourneySvgHeight(package.itinerary.length)" preserveAspectRatio="xMidYMid meet">
+                <!-- Main Journey Path - Flows behind cards -->
+                <path class="journey-path" 
+                      [attr.d]="getJourneyPath(package.itinerary.length)"
                       fill="none"
-                      stroke="#d1d5db"
-                      stroke-width="4"
-                      stroke-dasharray="10,10"
+                      stroke="#f97316"
+                      stroke-width="2"
+                      stroke-dasharray="5,8,2,8"
                       stroke-linecap="round"
-                      opacity="0.6"/>
-
-                <!-- Decorative elements -->
-                <g class="journey-decorations">
-                  <!-- Airplane -->
-                  <g transform="translate(40, 190)">
-                    <path d="M0,0 L12,-3 L15,0 L12,3 Z M6,-2 L6,-5 M6,2 L6,5"
-                          stroke="#9ca3af" stroke-width="1.5" fill="none"/>
+                      stroke-linejoin="round"
+                      opacity="0.4"/>
+                
+                <!-- Journey Doodles - Decorative only, positioned along path -->
+                <g class="journey-doodles">
+                  <!-- ✈️ Airplane with dotted trail - at START only -->
+                  <g class="doodle-airplane" transform="translate(50, 50)">
+                    <path d="M0,0 Q2,-1 4,-1.5 Q6,-2 8,-2 Q10,-2 12,-1.5 Q14,-1 15,0 Q14,1 12,1.5 Q10,2 8,2 Q6,2 4,1.5 Q2,1 0,0 Z"
+                          stroke="#f97316"
+                          stroke-width="1.2"
+                          fill="none"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          opacity="0.5"/>
+                    <circle cx="4" cy="0" r="1" fill="#f97316" opacity="0.4"/>
+                    <circle cx="8" cy="0" r="1" fill="#f97316" opacity="0.4"/>
+                    <circle cx="12" cy="0" r="1" fill="#f97316" opacity="0.4"/>
+                    <path d="M6,-1.2 Q6,-2.5 6,-3.5 M6,1.2 Q6,2.5 6,3.5"
+                          stroke="#f97316"
+                          stroke-width="1"
+                          stroke-linecap="round"
+                          opacity="0.5"/>
                   </g>
-
-                  <!-- Clouds -->
-                  <g opacity="0.4">
-                    <ellipse cx="400" cy="150" rx="20" ry="10" fill="#cbd5e1"/>
-                    <ellipse cx="415" cy="150" rx="16" ry="12" fill="#cbd5e1"/>
-                    <ellipse cx="392" cy="158" rx="14" ry="8" fill="#cbd5e1"/>
+                  
+                  <!-- ⭐ Tiny stars between days (along path) -->
+                  <g class="doodle-star" transform="translate(150, 300)">
+                    <path d="M0,-2.5 L0.7,-0.7 L2.5,-0.7 L1,0.7 L1.7,2.5 L0,1.2 L-1.7,2.5 L-1,0.7 L-2.5,-0.7 L-0.7,-0.7 Z"
+                          fill="#fbbf24"
+                          opacity="0.3"
+                          stroke="#f97316"
+                          stroke-width="0.6"/>
                   </g>
-
-                  <g opacity="0.4">
-                    <ellipse cx="900" cy="280" rx="22" ry="11" fill="#cbd5e1"/>
-                    <ellipse cx="918" cy="280" rx="18" ry="13" fill="#cbd5e1"/>
+                  
+                  <g class="doodle-star" transform="translate(750, 800)">
+                    <path d="M0,-2.5 L0.7,-0.7 L2.5,-0.7 L1,0.7 L1.7,2.5 L0,1.2 L-1.7,2.5 L-1,0.7 L-2.5,-0.7 L-0.7,-0.7 Z"
+                          fill="#fbbf24"
+                          opacity="0.25"
+                          stroke="#f97316"
+                          stroke-width="0.6"/>
                   </g>
-
-                  <!-- Hot air balloon -->
-                  <g transform="translate(1050, 360)">
-                    <ellipse cx="0" cy="0" rx="14" ry="18" fill="#fb923c" opacity="0.6"/>
-                    <path d="M-10,14 L-6,22 L6,22 L10,14" fill="#fde68a" stroke="#92400e" stroke-width="1"/>
+                  
+                  <g class="doodle-star" transform="translate(250, 1300)">
+                    <path d="M0,-2.5 L0.7,-0.7 L2.5,-0.7 L1,0.7 L1.7,2.5 L0,1.2 L-1.7,2.5 L-1,0.7 L-2.5,-0.7 L-0.7,-0.7 Z"
+                          fill="#fbbf24"
+                          opacity="0.25"
+                          stroke="#f97316"
+                          stroke-width="0.6"/>
                   </g>
-
-                  <!-- Mountain -->
-                  <g transform="translate(600, 600)" opacity="0.3">
-                    <path d="M0,30 L15,5 L30,30" stroke="#94a3b8" stroke-width="2" fill="none"/>
+                  
+                  <!-- 🌴 Leaf doodles (Kerala-themed, between days) -->
+                  <g class="doodle-leaf" transform="translate(400, 600)">
+                    <path d="M0,0 Q-3.5,-1.8 -5.5,-3.5 Q-6.5,-4.5 -6.5,-5.5 Q-5.5,-5 -4.5,-4.5 Q-3,-3.5 0,0 Q3,-3.5 4.5,-4.5 Q5.5,-5 6.5,-5.5 Q6.5,-4.5 5.5,-3.5 Q3.5,-1.8 0,0"
+                          stroke="#22c55e"
+                          stroke-width="1"
+                          fill="none"
+                          stroke-linecap="round"
+                          opacity="0.3"/>
+                  </g>
+                  
+                  <g class="doodle-leaf" transform="translate(850, 1100)">
+                    <path d="M0,0 Q-3,-1.5 -5,-3 Q-6,-4 -6,-5 Q-5,-4.5 -4,-4 Q-2.5,-3 0,0 Q2.5,-3 4,-4 Q5,-4.5 6,-5 Q6,-4 5,-3 Q3,-1.5 0,0"
+                          stroke="#22c55e"
+                          stroke-width="1"
+                          fill="none"
+                          stroke-linecap="round"
+                          opacity="0.25"/>
+                  </g>
+                  
+                  <!-- 🌊 Wave doodles (backwaters theme, between days) -->
+                  <g class="doodle-wave" transform="translate(300, 500)">
+                    <path d="M0,0 Q7,-1.2 14,0 Q21,1.2 28,0"
+                          stroke="#3b82f6"
+                          stroke-width="1.2"
+                          fill="none"
+                          stroke-linecap="round"
+                          opacity="0.25"/>
+                  </g>
+                  
+                  <g class="doodle-wave" transform="translate(700, 1000)">
+                    <path d="M0,0 Q6,-1 12,0 Q18,1 24,0"
+                          stroke="#3b82f6"
+                          stroke-width="1.2"
+                          fill="none"
+                          stroke-linecap="round"
+                          opacity="0.2"/>
                   </g>
                 </g>
               </svg>
 
-              <!-- Day stops positioned along the map -->
-              <div class="journey-day-item" *ngFor="let day of package.itinerary; let i = index; let isLast = last"
-                   [class.last-day]="isLast"
-                   [class.first-day]="i === 0">
-
-                <!-- Map Pin -->
-                <div class="map-pin">
-                  <div class="pin-circle">
-                    <span class="pin-day-number">{{ day.day }}</span>
+              <!-- Day Stops - Alternating Left/Right -->
+              <div class="journey-days-container">
+                <div class="journey-day-stop" 
+                     *ngFor="let day of package.itinerary; let i = index"
+                     [class.left]="i % 2 === 0"
+                     [class.right]="i % 2 === 1"
+                     [style.top.%]="getDayPosition(i, package.itinerary.length)">
+                  
+                  <!-- Map Pin -->
+                  <div class="map-pin-stop">
+                    <div class="pin-circle-stop">
+                      <span class="pin-number">{{ day.day }}</span>
+                    </div>
                   </div>
-                </div>
 
-                <!-- Day Card -->
-                <div class="day-card-wrapper">
-                  <!-- Day Header -->
-                  <div class="day-header-premium" (click)="toggleDayExpansion(day.day)">
-                    <div class="day-header-left">
-                      <div class="day-badge-premium">
-                        <span class="day-badge-number">{{ day.day }}</span>
-                        <span class="day-badge-label">DAY</span>
-                      </div>
-                      <div class="day-title-wrapper">
-                        <h3 class="day-title-premium">{{ day.title }}</h3>
-                        <div class="day-quick-info">
-                          <span class="quick-info-item" *ngIf="day.activities && day.activities.length > 0">
-                            <i class="bi bi-check-circle-fill"></i>
-                            {{ day.activities.length }} Activities
+                  <!-- Day Card (Collapsed - Minimal) -->
+                  <div class="day-card-minimal" 
+                       [class.expanded]="expandedDay === day.day"
+                       (click)="toggleDay(day.day)">
+                    <div class="day-card-header">
+                      <div class="day-number-badge">{{ day.day }}</div>
+                      <div class="day-card-content">
+                        <h3 class="day-card-title">{{ day.title }}</h3>
+                        <div class="day-highlights">
+                          <span class="highlight-line" *ngFor="let highlight of getDayHighlights(day); let idx = index">
+                            {{ highlight }}
                           </span>
-                          <span class="quick-info-item" *ngIf="day.meals && day.meals.length > 0">
-                            <i class="bi bi-utensils"></i>
-                            {{ day.meals.length }} Meals
-                          </span>
-                          <span class="quick-info-item" *ngIf="day.accommodation">
-                            <i class="bi bi-building"></i>
-                            Stay Included
-                          </span>
+                        </div>
+                        <div class="day-duration">
+                          <i class="bi bi-clock"></i>
+                          <span>{{ getDayDuration(day) }}</span>
                         </div>
                       </div>
                     </div>
-                    <div class="day-header-right">
-                      <button class="expand-btn" [class.expanded]="isDayExpanded(day.day)">
-                        <i class="bi" 
-                           [class.bi-chevron-down]="!isDayExpanded(day.day)" 
-                           [class.bi-chevron-up]="isDayExpanded(day.day)"></i>
+                    <button class="view-plan-btn" *ngIf="expandedDay !== day.day">
+                      <span>View full day plan</span>
+                      <i class="bi bi-chevron-right"></i>
+                    </button>
+                  </div>
+
+                  <!-- Day Detail Panel (Expanded) -->
+                  <div class="day-detail-panel" 
+                       *ngIf="expandedDay === day.day">
+                    <div class="detail-panel-header">
+                      <h4 class="detail-panel-title">Day {{ day.day }}: {{ day.title }}</h4>
+                      <button class="close-detail-btn" (click)="closeDay()">
+                        <i class="bi bi-x-lg"></i>
                       </button>
                     </div>
-                  </div>
 
-                  <!-- Day Content -->
-                  <div class="day-content-premium" [class.expanded]="isDayExpanded(day.day)">
-                    
-                    <!-- Main Description - Narrative Format -->
-                    <div class="day-description-premium">
-                      <div class="description-header">
-                        <div class="description-icon-premium">
-                          <i class="bi bi-journal-text"></i>
-                        </div>
-                        <h4 class="description-title">Your Day's Journey</h4>
+                    <div class="detail-panel-content">
+                      <!-- Journey Overview -->
+                      <div class="journey-overview" *ngIf="day.description">
+                        <p class="overview-text">{{ day.description }}</p>
                       </div>
-                      <div class="description-text-wrapper">
-                        <div class="narrative-content" [innerHTML]="formatDescription(day.description)"></div>
-                      </div>
-                    </div>
 
-                    <!-- Activities Section -->
-                    <div class="day-activities-premium" *ngIf="day.activities && day.activities.length > 0">
-                      <div class="section-header-premium">
-                        <div class="section-icon-premium activities-icon-premium">
-                          <i class="bi bi-list-check"></i>
-                        </div>
-                        <h4 class="section-title-premium">Activities & Experiences</h4>
-                        <span class="section-count">{{ day.activities.length }}</span>
-                      </div>
-                      <div class="activities-grid-premium">
-                        <div class="activity-card-premium" *ngFor="let activity of day.activities; let idx = index">
-                          <div class="activity-icon-premium">
-                            <i class="bi {{ getActivityIcon(activity) }}"></i>
-                          </div>
-                          <div class="activity-content">
-                            <p class="activity-text">{{ activity }}</p>
-                          </div>
-                          <div class="activity-number">{{ idx + 1 }}</div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Meals Section -->
-                    <div class="day-meals-premium" *ngIf="day.meals && day.meals.length > 0">
-                      <div class="section-header-premium">
-                        <div class="section-icon-premium meals-icon-premium">
-                          <i class="bi bi-utensils"></i>
-                        </div>
-                        <h4 class="section-title-premium">Meals Included</h4>
-                        <span class="section-count">{{ day.meals.length }}</span>
-                      </div>
-                      <div class="meals-grid-premium">
-                        <div class="meal-card-premium" *ngFor="let meal of day.meals">
-                          <div class="meal-icon-premium">
-                            <i class="bi {{ getMealIcon(meal) }}"></i>
-                          </div>
-                          <span class="meal-label">{{ meal }}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Additional Info Section -->
-                    <div class="day-additional-info" *ngIf="day.transport || day.accommodation || day.distance || day.duration">
-                      <div class="info-grid">
-                        <div class="info-card-premium" *ngIf="day.accommodation">
-                          <div class="info-icon-premium accommodation-icon">
-                            <i class="bi bi-building"></i>
-                          </div>
-                          <div class="info-content">
-                            <h5 class="info-label">Accommodation</h5>
-                            <p class="info-value">{{ day.accommodation }}</p>
-                          </div>
-                        </div>
-                        <div class="info-card-premium" *ngIf="day.transport">
-                          <div class="info-icon-premium transport-icon">
-                            <i class="bi bi-car-front-fill"></i>
-                          </div>
-                          <div class="info-content">
-                            <h5 class="info-label">Transport</h5>
-                            <p class="info-value">{{ day.transport }}</p>
-                          </div>
-                        </div>
-                        <div class="info-card-premium" *ngIf="day.distance">
-                          <div class="info-icon-premium distance-icon">
-                            <i class="bi bi-signpost-split"></i>
-                          </div>
-                          <div class="info-content">
-                            <h5 class="info-label">Distance</h5>
-                            <p class="info-value">{{ day.distance }}</p>
-                          </div>
-                        </div>
-                        <div class="info-card-premium" *ngIf="day.duration">
-                          <div class="info-icon-premium duration-icon">
-                            <i class="bi bi-clock-history"></i>
-                          </div>
-                          <div class="info-content">
-                            <h5 class="info-label">Travel Time</h5>
-                            <p class="info-value">{{ day.duration }}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Time Schedule Section -->
-                    <div class="day-schedule-premium" *ngIf="day.timeSchedule && day.timeSchedule.length > 0">
-                      <div class="section-header-premium">
-                        <div class="section-icon-premium schedule-icon-premium">
-                          <i class="bi bi-clock"></i>
-                        </div>
-                        <h4 class="section-title-premium">Daily Schedule</h4>
-                      </div>
-                      <div class="schedule-timeline">
-                        <div class="schedule-item" *ngFor="let schedule of day.timeSchedule">
-                          <div class="schedule-time">{{ schedule.time }}</div>
-                          <div class="schedule-activity">{{ schedule.activity }}</div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Tips Section -->
-                    <div class="day-tips-premium" *ngIf="day.tips && day.tips.length > 0">
-                      <div class="section-header-premium">
-                        <div class="section-icon-premium tips-icon-premium">
-                          <i class="bi bi-lightbulb-fill"></i>
-                        </div>
-                        <h4 class="section-title-premium">Travel Tips</h4>
-                      </div>
-                      <div class="tips-list">
-                        <div class="tip-item" *ngFor="let tip of day.tips">
-                          <i class="bi bi-check-circle-fill"></i>
-                          <span>{{ tip }}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Important Notes Section -->
-                    <div class="day-notes-premium" *ngIf="day.importantNotes && day.importantNotes.length > 0">
-                      <div class="section-header-premium">
-                        <div class="section-icon-premium notes-icon-premium">
-                          <i class="bi bi-exclamation-triangle-fill"></i>
-                        </div>
-                        <h4 class="section-title-premium">Important Notes</h4>
-                      </div>
-                      <div class="notes-list">
-                        <div class="note-item" *ngFor="let note of day.importantNotes">
-                          <i class="bi bi-info-circle-fill"></i>
-                          <span>{{ note }}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Optional Activities Section -->
-                    <div class="day-optional-premium" *ngIf="day.optionalActivities && day.optionalActivities.length > 0">
-                      <div class="section-header-premium">
-                        <div class="section-icon-premium optional-icon-premium">
-                          <i class="bi bi-plus-circle-fill"></i>
-                        </div>
-                        <h4 class="section-title-premium">Optional Activities</h4>
-                        <span class="optional-badge">Extra Cost</span>
-                      </div>
-                      <div class="optional-list">
-                        <div class="optional-item" *ngFor="let activity of day.optionalActivities">
-                          <i class="bi bi-star"></i>
-                          <span>{{ activity }}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Local Insights Section -->
-                    <div class="day-insights-premium" *ngIf="day.localInsights">
-                      <div class="section-header-premium">
-                        <div class="section-icon-premium insights-icon-premium">
-                          <i class="bi bi-compass"></i>
-                        </div>
-                        <h4 class="section-title-premium">Local Insights</h4>
-                      </div>
-                      <div class="insights-content">
-                        <p>{{ day.localInsights }}</p>
-                      </div>
-                    </div>
-
-                    <!-- Day Highlights Section -->
-                    <div class="day-highlights-premium" *ngIf="day.highlights && day.highlights.length > 0">
-                      <div class="section-header-premium">
-                        <div class="section-icon-premium highlights-icon-premium">
-                          <i class="bi bi-star-fill"></i>
-                        </div>
-                        <h4 class="section-title-premium">Day Highlights</h4>
-                      </div>
-                      <div class="highlights-grid">
-                        <div class="highlight-badge" *ngFor="let highlight of day.highlights">
-                          <i class="bi bi-check-circle"></i>
-                          {{ highlight }}
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Photo Gallery Section -->
-                    <div class="day-photos-premium" *ngIf="day.photos && day.photos.length > 0">
-                      <div class="section-header-premium">
-                        <div class="section-icon-premium photos-icon-premium">
-                          <i class="bi bi-images"></i>
-                        </div>
-                        <h4 class="section-title-premium">Day Photos</h4>
-                        <span class="section-count">{{ day.photos.length }}</span>
-                      </div>
-                      <div class="photos-grid">
-                        <ng-container *ngFor="let photo of day.photos">
-                          <div class="photo-item" 
-                               *ngIf="isValidImage(photo)"
-                               (click)="openPhotoGallery(day.photos, photo)">
-                            <img [src]="photo" 
-                                 [alt]="day.title + ' photo'" 
-                                 (error)="onImageError($event, photo)"
-                                 loading="lazy">
-                            <div class="photo-overlay">
-                              <i class="bi bi-zoom-in"></i>
+                      <!-- Operational Details: Morning / Afternoon / Evening -->
+                      <div class="operational-schedule" *ngIf="day.timePeriods && day.timePeriods.length > 0">
+                        <!-- Morning -->
+                        <div class="time-period-detail" *ngFor="let period of day.timePeriods">
+                          <div class="period-header-detail">
+                            <div class="period-icon-detail" 
+                                 [class.morning]="period.period === 'Morning'"
+                                 [class.afternoon]="period.period === 'Afternoon'"
+                                 [class.evening]="period.period === 'Evening'">
+                              <i class="bi" 
+                                 [class.bi-sunrise]="period.period === 'Morning'"
+                                 [class.bi-sun]="period.period === 'Afternoon'"
+                                 [class.bi-moon-stars]="period.period === 'Evening'"></i>
+                            </div>
+                            <div class="period-title-detail">
+                              <h5>{{ period.period }}</h5>
+                              <span class="pickup-time-badge" *ngIf="period.pickupTime">
+                                <i class="bi bi-clock"></i> Pickup: {{ period.pickupTime }}
+                              </span>
                             </div>
                           </div>
-                        </ng-container>
+
+                          <div class="period-details">
+                            <!-- Activities -->
+                            <div class="detail-section" *ngIf="period.activities && period.activities.length > 0">
+                              <h6 class="detail-section-title">Activities</h6>
+                              <ul class="detail-list">
+                                <li *ngFor="let activity of period.activities">{{ activity }}</li>
+                              </ul>
+                            </div>
+
+                            <!-- Transfers (for Afternoon) -->
+                            <div class="detail-section" *ngIf="period.period === 'Afternoon' && period.transfers && period.transfers.length > 0">
+                              <h6 class="detail-section-title">Transfers</h6>
+                              <ul class="detail-list">
+                                <li *ngFor="let transfer of period.transfers">{{ transfer }}</li>
+                              </ul>
+                            </div>
+
+                            <!-- Distance + Travel Time (for Afternoon) -->
+                            <div class="detail-section" *ngIf="period.period === 'Afternoon' && (period.distance || period.travelTime)">
+                              <h6 class="detail-section-title">Travel Information</h6>
+                              <div class="travel-info-grid">
+                                <div class="travel-info-item" *ngIf="period.distance">
+                                  <i class="bi bi-signpost-split"></i>
+                                  <span><strong>Distance:</strong> {{ period.distance }}</span>
+                                </div>
+                                <div class="travel-info-item" *ngIf="period.travelTime">
+                                  <i class="bi bi-clock-history"></i>
+                                  <span><strong>Travel Time:</strong> {{ period.travelTime }}</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- Return Timing (for Evening) -->
+                            <div class="detail-section" *ngIf="period.period === 'Evening' && period.returnTime">
+                              <h6 class="detail-section-title">Return Timing</h6>
+                              <p class="return-time-text">
+                                <i class="bi bi-clock"></i>
+                                <strong>{{ period.returnTime }}</strong>
+                              </p>
+                            </div>
+
+                            <!-- Meals -->
+                            <div class="detail-section" *ngIf="period.meals && period.meals.length > 0">
+                              <h6 class="detail-section-title">Meals Included</h6>
+                              <div class="meals-list">
+                                <span class="meal-tag" *ngFor="let meal of period.meals">{{ meal }}</span>
+                              </div>
+                            </div>
+
+                            <!-- Inclusions -->
+                            <div class="detail-section" *ngIf="period.inclusions && period.inclusions.length > 0">
+                              <h6 class="detail-section-title">Included</h6>
+                              <ul class="inclusions-list">
+                                <li *ngFor="let inclusion of period.inclusions">
+                                  <i class="bi bi-check-circle"></i>
+                                  <span>{{ inclusion }}</span>
+                                </li>
+                              </ul>
+                            </div>
+
+                            <!-- Notes -->
+                            <div class="detail-section" *ngIf="period.notes">
+                              <h6 class="detail-section-title">Notes</h6>
+                              <p class="notes-text">{{ period.notes }}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Legacy Format (if timePeriods not available) -->
+                      <div class="legacy-operational" *ngIf="!day.timePeriods || day.timePeriods.length === 0">
+                        <!-- Activities -->
+                        <div class="detail-section" *ngIf="day.activities && day.activities.length > 0">
+                          <h6 class="detail-section-title">Activities</h6>
+                          <ul class="detail-list">
+                            <li *ngFor="let activity of day.activities">{{ activity }}</li>
+                          </ul>
+                        </div>
+
+                        <!-- Meals -->
+                        <div class="detail-section" *ngIf="day.meals && day.meals.length > 0">
+                          <h6 class="detail-section-title">Meals Included</h6>
+                          <div class="meals-list">
+                            <span class="meal-tag" *ngFor="let meal of day.meals">{{ meal }}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Travel & Logistics -->
+                      <div class="travel-logistics" *ngIf="day.transport || day.distance || day.duration || day.accommodation">
+                        <h5 class="logistics-title">Travel & Logistics</h5>
+                        <div class="logistics-grid">
+                          <div class="logistics-item" *ngIf="day.transport">
+                            <i class="bi bi-car-front"></i>
+                            <div>
+                              <strong>Vehicle Type</strong>
+                              <p>{{ day.transport }}</p>
+                            </div>
+                          </div>
+                          <div class="logistics-item" *ngIf="day.distance">
+                            <i class="bi bi-signpost-split"></i>
+                            <div>
+                              <strong>Distance</strong>
+                              <p>{{ day.distance }}</p>
+                            </div>
+                          </div>
+                          <div class="logistics-item" *ngIf="day.duration">
+                            <i class="bi bi-clock-history"></i>
+                            <div>
+                              <strong>Travel Time</strong>
+                              <p>{{ day.duration }}</p>
+                            </div>
+                          </div>
+                          <div class="logistics-item" *ngIf="day.accommodation">
+                            <i class="bi bi-building"></i>
+                            <div>
+                              <strong>Accommodation</strong>
+                              <p>{{ day.accommodation }}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Optional Activities -->
+                      <div class="optional-activities" *ngIf="day.optionalActivities && day.optionalActivities.length > 0">
+                        <h5 class="optional-title">Optional / Extra Cost</h5>
+                        <ul class="optional-list">
+                          <li *ngFor="let optional of day.optionalActivities">
+                            <i class="bi bi-plus-circle"></i>
+                            <span>{{ optional }}</span>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <!-- Important Notes -->
+                      <div class="important-notes-section" *ngIf="day.importantNotes && day.importantNotes.length > 0">
+                        <h5 class="important-title">
+                          <i class="bi bi-exclamation-triangle"></i>
+                          Important Notes
+                        </h5>
+                        <ul class="important-notes-list">
+                          <li *ngFor="let note of day.importantNotes">{{ note }}</li>
+                        </ul>
                       </div>
                     </div>
                   </div>
@@ -815,7 +802,7 @@
     </div>
 
     <!-- FAQ Section -->
-    <div class="row mt-5">
+    <div class="row mt-5" style="position: relative; z-index: 200; clear: both; background: white; padding-top: 2rem;">
       <div class="col-12">
         <div class="card border-0 shadow-sm">
           <div class="card-header bg-light">

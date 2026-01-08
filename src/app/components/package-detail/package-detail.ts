@@ -25,6 +25,7 @@ export class PackageDetail implements OnInit {
   selectedRoomOption: string | null = null;
   showFAQ = false;
   expandedDays: Set<number> = new Set();
+  expandedDay: number | null = null; // Only one day expanded at a time
   isInWishlist = false;
   showAddToCartSuccess = false;
   failedImages: Set<string> = new Set(); // Track failed image loads
@@ -213,6 +214,121 @@ export class PackageDetail implements OnInit {
 
   isDayExpanded(dayNumber: number): boolean {
     return this.expandedDays.has(dayNumber);
+  }
+
+  // Journey Map Methods
+  toggleDay(dayNumber: number): void {
+    if (this.expandedDay === dayNumber) {
+      this.expandedDay = null; // Collapse
+    } else {
+      this.expandedDay = dayNumber; // Expand (only one at a time)
+    }
+  }
+
+  closeDay(): void {
+    this.expandedDay = null;
+  }
+
+  getDayPosition(index: number, totalDays: number): number {
+    // Calculate vertical position percentage for each day
+    // Even spacing along the journey path
+    // Handle single day case
+    if (totalDays === 1) return 0;
+    // Distribute days evenly from 0% to 100%
+    return (index / (totalDays - 1)) * 100;
+  }
+
+  getJourneyPath(totalDays: number): string {
+    // Generate hand-drawn zig-zag path flowing behind cards
+    // Path alternates left and right, positioned to flow behind day cards
+    if (totalDays === 1) {
+      return 'M 50,50 Q 55,52 50,50';
+    }
+    
+    let path = 'M 50,50'; // Start point (center, top)
+    const stepX = 200; // Horizontal offset for zig-zag
+    const stepY = 500; // Vertical spacing between days
+    
+    for (let i = 1; i < totalDays; i++) {
+      const x = 50 + (i % 2 === 0 ? stepX : -stepX);
+      const y = 50 + (i * stepY);
+      
+      // Previous point
+      const prevX = i > 1 ? (50 + ((i-1) % 2 === 0 ? stepX : -stepX)) : 50;
+      const prevY = i > 1 ? (50 + ((i-1) * stepY)) : 50;
+      
+      // Midpoint for curve
+      const midX = (prevX + x) / 2;
+      const midY = (prevY + y) / 2;
+      
+      // Subtle hand-drawn irregularity (very subtle)
+      const offsetX = (i % 3 === 0 ? 2 : i % 2 === 0 ? -1.5 : 1.5);
+      const offsetY = (i % 4 === 0 ? -2 : i % 3 === 0 ? 1.5 : -1.5);
+      
+      // Smooth quadratic curve for hand-drawn feel
+      path += ` Q ${midX + offsetX},${midY + offsetY} ${x},${y}`;
+    }
+    
+    return path;
+  }
+
+  getJourneySvgHeight(totalDays: number): number {
+    // Calculate SVG height based on number of days
+    // Each day needs ~500px vertical space for proper spacing
+    return totalDays * 500 + 300;
+  }
+
+  getDayHighlights(day: any): string[] {
+    // Extract 1-2 highlight lines from day data
+    const highlights: string[] = [];
+    
+    // Try to get from timePeriods first
+    if (day.timePeriods && day.timePeriods.length > 0) {
+      const morning = day.timePeriods.find((p: any) => p.period === 'Morning');
+      const evening = day.timePeriods.find((p: any) => p.period === 'Evening');
+      
+      if (morning && morning.activities && morning.activities.length > 0) {
+        highlights.push(morning.activities[0]);
+      }
+      if (evening && evening.activities && evening.activities.length > 0) {
+        highlights.push(evening.activities[0]);
+      }
+    }
+    
+    // Fallback to activities array
+    if (highlights.length === 0 && day.activities && day.activities.length > 0) {
+      highlights.push(day.activities[0]);
+      if (day.activities.length > 1) {
+        highlights.push(day.activities[day.activities.length - 1]);
+      }
+    }
+    
+    return highlights.slice(0, 2); // Max 2 highlights
+  }
+
+  getDayDuration(day: any): string {
+    // Calculate total duration from timePeriods or use day.duration
+    if (day.duration) {
+      return day.duration;
+    }
+    
+    if (day.timePeriods && day.timePeriods.length > 0) {
+      // Sum up travel times or estimate
+      const hasMorning = day.timePeriods.some((p: any) => p.period === 'Morning');
+      const hasAfternoon = day.timePeriods.some((p: any) => p.period === 'Afternoon');
+      const hasEvening = day.timePeriods.some((p: any) => p.period === 'Evening');
+      
+      if (hasMorning && hasAfternoon && hasEvening) {
+        return 'Full day 8-9 hrs';
+      } else if (hasMorning && hasAfternoon) {
+        return 'Half day 4-5 hrs';
+      } else if (hasEvening) {
+        return 'Evening 3-4 hrs';
+      }
+    }
+    
+    // Default estimate
+    return 'Full day';
   }
 
   getActivityIcon(activity: string): string {
