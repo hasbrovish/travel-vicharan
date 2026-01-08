@@ -27,6 +27,9 @@ export class PackageDetail implements OnInit {
   expandedDays: Set<number> = new Set();
   isInWishlist = false;
   showAddToCartSuccess = false;
+  failedImages: Set<string> = new Set(); // Track failed image loads
+  previousPackage: TourPackage | null = null;
+  nextPackage: TourPackage | null = null;
 
   constructor(
     public route: ActivatedRoute,
@@ -45,6 +48,9 @@ export class PackageDetail implements OnInit {
     });
     // Expand first day by default
     this.expandedDays.add(1);
+    
+    // Setup booking card sticky behavior
+    this.setupBookingCardSticky();
   }
 
   loadPackage(slug: string): void {
@@ -60,6 +66,12 @@ export class PackageDetail implements OnInit {
           } else if (pkg.departures && pkg.departures.length > 0) {
             this.selectedDeparture = pkg.departures[0];
           }
+          // Auto-select first room option if only one exists
+          if (pkg.roomOptions && pkg.roomOptions.length === 1) {
+            this.selectedRoomOption = pkg.roomOptions[0].id;
+          }
+          // Load previous and next packages
+          this.loadPreviousNextPackages(pkg);
         } else {
           console.error('Package not found with slug:', slug);
         }
@@ -70,6 +82,30 @@ export class PackageDetail implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  loadPreviousNextPackages(currentPackage: TourPackage): void {
+    // Get all packages synchronously from service
+    const allPackages = this.packagesDataService.getAllPackagesSync();
+    const currentIndex = allPackages.findIndex(p => p.id === currentPackage.id);
+    
+    if (currentIndex > 0) {
+      this.previousPackage = allPackages[currentIndex - 1];
+    } else {
+      this.previousPackage = null;
+    }
+    
+    if (currentIndex < allPackages.length - 1 && currentIndex >= 0) {
+      this.nextPackage = allPackages[currentIndex + 1];
+    } else {
+      this.nextPackage = null;
+    }
+  }
+
+  navigateToPackage(pkg: TourPackage | null): void {
+    if (pkg) {
+      this.router.navigate(['/packages', pkg.slug]);
+    }
   }
 
   setActiveTab(tab: string): void {
@@ -97,9 +133,18 @@ export class PackageDetail implements OnInit {
     if (!this.package) return [];
     // Use gallery images if available, otherwise use main image
     if (this.package.galleryImages && this.package.galleryImages.length > 0) {
-      return this.package.galleryImages;
+      // Filter out empty, null, undefined, or invalid image URLs
+      const validImages = this.package.galleryImages.filter(img => 
+        img && 
+        img.trim() !== '' && 
+        img !== 'null' && 
+        img !== 'undefined' &&
+        img.length > 0
+      );
+      // If we have valid images, return them; otherwise fall back to main image
+      return validImages.length > 0 ? validImages : (this.package.imageUrl ? [this.package.imageUrl] : []);
     }
-    return [this.package.imageUrl];
+    return this.package.imageUrl ? [this.package.imageUrl] : [];
   }
 
   proceedToBooking(): void {
@@ -157,8 +202,11 @@ export class PackageDetail implements OnInit {
 
   toggleDayExpansion(dayNumber: number): void {
     if (this.expandedDays.has(dayNumber)) {
+      // Collapse if already expanded
       this.expandedDays.delete(dayNumber);
     } else {
+      // Expand only this day - collapse all others (accordion behavior)
+      this.expandedDays.clear();
       this.expandedDays.add(dayNumber);
     }
   }
@@ -280,5 +328,95 @@ export class PackageDetail implements OnInit {
       this.wishlistService.addToWishlist(this.package);
     }
     this.isInWishlist = !this.isInWishlist;
+  }
+
+  get totalActivities(): number {
+    if (!this.package || !this.package.itinerary) return 0;
+    return this.package.itinerary.reduce((sum, day) => sum + (day.activities?.length || 0), 0);
+  }
+
+  formatDescription(description: string): string {
+    if (!description) return '';
+    
+    // Split by periods and create paragraphs for better readability
+    const sentences = description.split(/[.!?]+/).filter(s => s.trim().length > 0);
+    
+    // If only one sentence or very short, return as single paragraph
+    if (sentences.length <= 1 || description.length < 100) {
+      return `<p class="narrative-paragraph">${description}</p>`;
+    }
+    
+    // Group sentences into paragraphs (2-3 sentences per paragraph for better flow)
+    const paragraphs: string[] = [];
+    for (let i = 0; i < sentences.length; i += 2) {
+      const paragraphSentences = sentences.slice(i, i + 2);
+      const paragraph = paragraphSentences
+        .map(s => s.trim())
+        .filter(s => s.length > 0)
+        .join('. ') + '.';
+      if (paragraph.length > 1 && paragraph !== '.') {
+        paragraphs.push(paragraph);
+      }
+    }
+    
+    // If no paragraphs created, return as single paragraph
+    if (paragraphs.length === 0) {
+      return `<p class="narrative-paragraph">${description}</p>`;
+    }
+    
+    // Return formatted paragraphs
+    return paragraphs.map(p => `<p class="narrative-paragraph">${p}</p>`).join('');
+  }
+
+  openPhotoGallery(photos: string[], currentPhoto: string): void {
+    // TODO: Implement photo gallery modal/lightbox
+    console.log('Open gallery:', photos, currentPhoto);
+  }
+
+  onImageError(event: Event, imageUrl: string): void {
+    // Mark image as failed
+    this.failedImages.add(imageUrl);
+    // Set a placeholder image
+    const img = event.target as HTMLImageElement;
+    img.src = 'https://via.placeholder.com/800x500/0d9488/ffffff?text=Image+Not+Available';
+    img.alt = 'Image not available';
+  }
+
+  isValidImage(imageUrl: string | null | undefined): boolean {
+    if (!imageUrl) return false;
+    const url = imageUrl.trim();
+    return url !== '' && 
+           url !== 'null' && 
+           url !== 'undefined' && 
+           !this.failedImages.has(url);
+  }
+
+  // Setup booking card to become sticky only after hero section scrolls out
+  setupBookingCardSticky(): void {
+    setTimeout(() => {
+      const bookingCard = document.querySelector('.booking-card');
+      const heroSection = document.querySelector('.package-hero');
+      
+      if (!bookingCard || !heroSection) return;
+
+      const checkSticky = () => {
+        const heroRect = heroSection.getBoundingClientRect();
+        const headerHeight = 72; // Header height
+        
+        // Become sticky only when hero has scrolled past the top
+        if (heroRect.bottom <= headerHeight) {
+          bookingCard.classList.add('sticky-active');
+        } else {
+          bookingCard.classList.remove('sticky-active');
+        }
+      };
+
+      // Check on scroll
+      window.addEventListener('scroll', checkSticky, { passive: true });
+      // Initial check
+      checkSticky();
+      // Check on resize
+      window.addEventListener('resize', checkSticky, { passive: true });
+    }, 100);
   }
 }

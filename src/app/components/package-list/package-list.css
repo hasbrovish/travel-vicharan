@@ -193,6 +193,31 @@
   color: #0c4a6e;
 }
 
+/* Search Results Summary */
+.search-results-summary {
+  animation: slideDown 0.3s ease-out;
+}
+
+.search-results-summary .alert {
+  margin-bottom: 0;
+  border-left: 4px solid var(--primary-600);
+}
+
+.search-results-summary .alert strong {
+  color: var(--primary-800);
+  font-weight: 700;
+}
+
+/* Search Highlight */
+.search-highlight {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  color: #92400e;
+  padding: 0.1em 0.2em;
+  border-radius: 3px;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(146, 64, 14, 0.2);
+}
+
 /* Responsive */
 @media (max-width: 992px) {
   .packages-header {

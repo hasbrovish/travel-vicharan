@@ -1,9 +1,12 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 export interface OffersFilterCriteria {
   tag?: string;
+  category?: string; // PackageCategory: 'FAMILY' | 'HONEYMOON' | 'GROUP' | 'SENIORS' | 'WEEKEND'
+  attraction?: string; // Attraction/celebration name
   priceRange?: string;
   departureCity?: string;
   joiningLeaving?: string;
@@ -33,9 +36,20 @@ export class OffersFilter implements OnInit {
   departStartDate: string = '';
   departEndDate: string = '';
 
+  constructor(private route: ActivatedRoute) {}
+
   ngOnInit(): void {
-    // Reset filters on component initialization
-    this.clearFilters();
+    // Read priceRange from query params
+    this.route.queryParams.subscribe(params => {
+      if (params['priceRange']) {
+        this.selectedPriceRange = params['priceRange'];
+        // Don't emit here - let package-list handle it via onFilterChange
+        // The filter will be applied when package-list calls onFilterChange
+      } else {
+        // Reset price range if not in query params
+        this.selectedPriceRange = '';
+      }
+    });
   }
 
   selectTag(tag: string): void {

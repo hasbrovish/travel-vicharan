@@ -26,7 +26,7 @@
   
   <!-- Hero Section with Package Image -->
   <div class="package-hero position-relative">
-    <img [src]="package.imageUrl" [alt]="package.name" class="w-100" style="height: 400px; object-fit: cover;">
+    <img [src]="package.imageUrl" (error)="onImageError($event, package.imageUrl)" loading="eager" [alt]="package.name" class="w-100" style="height: 400px; object-fit: cover;">
     <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-end">
       <div class="container pb-5">
         <!-- Back Button -->
@@ -99,10 +99,10 @@
     </div>
 
     <!-- Image Gallery -->
-    <div class="row mb-5" *ngIf="galleryImages.length > 1">
+    <div class="row mb-5" *ngIf="galleryImages.length > 0">
       <div class="col-12">
         <h3 class="mb-4">Photo Gallery</h3>
-        <div id="packageCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div id="packageCarousel" class="carousel slide photo-gallery-carousel" data-bs-ride="carousel">
           <div class="carousel-indicators">
             <button *ngFor="let image of galleryImages; let i = index"
                     type="button"
@@ -112,7 +112,12 @@
           </div>
           <div class="carousel-inner rounded-4 overflow-hidden shadow">
             <div class="carousel-item" *ngFor="let image of galleryImages; let i = index" [class.active]="i === 0">
-              <img [src]="image" class="d-block w-100" [alt]="package.name" style="height: 500px; object-fit: cover;">
+              <img [src]="image" 
+                   class="d-block w-100" 
+                   [alt]="package.name + ' - Photo ' + (i + 1)" 
+                   style="height: 500px; object-fit: cover;"
+                   (error)="onImageError($event, image)"
+                   loading="lazy">
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#packageCarousel" data-bs-slide="prev">
@@ -125,7 +130,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row align-items-start">
       <!-- Left Column - Details -->
       <div class="col-lg-8">
         <!-- Tabs -->
@@ -191,72 +196,311 @@
             </div>
           </div>
 
-          <!-- Itinerary Tab - Journey Timeline -->
+          <!-- Itinerary Tab - Premium Journey Timeline -->
           <div *ngIf="activeTab === 'itinerary'" class="fade-in">
-            <h4 class="mb-4">
-              <i class="bi bi-signpost-2 text-primary me-2"></i>Your Journey Day by Day
-            </h4>
-            <div class="timeline">
-              <div class="timeline-item" *ngFor="let day of package.itinerary; let isLast = last" [class.last]="isLast">
-                <div class="timeline-marker">
-                  <div class="timeline-icon">
-                    <i class="bi {{ getDayIcon(day.day) }} text-white"></i>
-                  </div>
-                  <div class="timeline-line" *ngIf="!isLast"></div>
+            <!-- Premium Itinerary Header -->
+            <div class="itinerary-header-premium">
+              <div class="itinerary-header-content">
+                <div class="header-icon-wrapper">
+                  <i class="bi bi-compass-fill"></i>
                 </div>
-                <div class="timeline-content card border-0 shadow-sm">
-                  <div class="card-header bg-gradient-primary text-white cursor-pointer" (click)="toggleDayExpansion(day.day)">
-                    <div class="d-flex justify-content-between align-items-center">
-                      <h5 class="mb-0">
-                        <span class="badge bg-white text-primary me-2">Day {{ day.day }}</span>
-                        {{ day.title }}
-                      </h5>
-                      <i class="bi" 
-                         [class.bi-chevron-down]="!isDayExpanded(day.day)" 
-                         [class.bi-chevron-up]="isDayExpanded(day.day)"
-                         style="font-size: 1.5rem; transition: transform 200ms ease-out;"></i>
+                <div class="header-text">
+                  <h2 class="itinerary-title-premium">
+                    Your Journey Awaits
+                  </h2>
+                  <p class="itinerary-subtitle-premium">
+                    A meticulously crafted {{ package.days }}-day adventure through {{ package.destinations.join(', ') }}
+                  </p>
+                  <div class="itinerary-stats">
+                    <div class="stat-item">
+                      <i class="bi bi-calendar-check"></i>
+                      <span>{{ package.days }} Days</span>
+                    </div>
+                    <div class="stat-item">
+                      <i class="bi bi-moon-stars"></i>
+                      <span>{{ package.nights }} Nights</span>
+                    </div>
+                    <div class="stat-item">
+                      <i class="bi bi-geo-alt-fill"></i>
+                      <span>{{ package.destinations.length }} Destinations</span>
+                    </div>
+                    <div class="stat-item">
+                      <i class="bi bi-list-check"></i>
+                      <span>{{ totalActivities }} Activities</span>
                     </div>
                   </div>
-                  <div class="card-body" [class.collapsed]="!isDayExpanded(day.day)">
-                    <div class="day-description mb-4">
-                      <div class="description-icon">
-                        <i class="bi bi-journal-text"></i>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Premium Timeline Itinerary -->
+            <div class="premium-itinerary-timeline">
+              <div class="timeline-line"></div>
+              
+              <div class="itinerary-day-card-premium" *ngFor="let day of package.itinerary; let i = index; let isLast = last" 
+                   [class.last-day]="isLast"
+                   [class.first-day]="i === 0">
+                
+                <!-- Timeline Node -->
+                <div class="timeline-node">
+                  <div class="node-circle">
+                    <span class="node-day-number">{{ day.day }}</span>
+                  </div>
+                  <div class="node-connector" *ngIf="!isLast"></div>
+                </div>
+
+                <!-- Day Card -->
+                <div class="day-card-wrapper">
+                  <!-- Day Header -->
+                  <div class="day-header-premium" (click)="toggleDayExpansion(day.day)">
+                    <div class="day-header-left">
+                      <div class="day-badge-premium">
+                        <span class="day-badge-number">{{ day.day }}</span>
+                        <span class="day-badge-label">DAY</span>
                       </div>
-                      <p class="card-text mb-0">
-                        {{ day.description }}
-                      </p>
+                      <div class="day-title-wrapper">
+                        <h3 class="day-title-premium">{{ day.title }}</h3>
+                        <div class="day-quick-info">
+                          <span class="quick-info-item" *ngIf="day.activities && day.activities.length > 0">
+                            <i class="bi bi-check-circle-fill"></i>
+                            {{ day.activities.length }} Activities
+                          </span>
+                          <span class="quick-info-item" *ngIf="day.meals && day.meals.length > 0">
+                            <i class="bi bi-utensils"></i>
+                            {{ day.meals.length }} Meals
+                          </span>
+                          <span class="quick-info-item" *ngIf="day.accommodation">
+                            <i class="bi bi-building"></i>
+                            Stay Included
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="day-header-right">
+                      <button class="expand-btn" [class.expanded]="isDayExpanded(day.day)">
+                        <i class="bi" 
+                           [class.bi-chevron-down]="!isDayExpanded(day.day)" 
+                           [class.bi-chevron-up]="isDayExpanded(day.day)"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Day Content -->
+                  <div class="day-content-premium" [class.expanded]="isDayExpanded(day.day)">
+                    
+                    <!-- Main Description - Narrative Format -->
+                    <div class="day-description-premium">
+                      <div class="description-header">
+                        <div class="description-icon-premium">
+                          <i class="bi bi-journal-text"></i>
+                        </div>
+                        <h4 class="description-title">Your Day's Journey</h4>
+                      </div>
+                      <div class="description-text-wrapper">
+                        <div class="narrative-content" [innerHTML]="formatDescription(day.description)"></div>
+                      </div>
                     </div>
 
-                    <!-- Activities Section - Expandable -->
-                    <div class="activities-section mb-4" *ngIf="day.activities && day.activities.length > 0">
-                      <div class="activities-header d-flex justify-content-between align-items-center mb-3" (click)="toggleDayExpansion(day.day)">
-                        <h6 class="text-primary mb-0">
-                          <i class="bi bi-list-check me-2"></i>Activities & Experiences
-                        </h6>
-                        <span class="activity-count-badge">{{ day.activities.length }} Activities</span>
+                    <!-- Activities Section -->
+                    <div class="day-activities-premium" *ngIf="day.activities && day.activities.length > 0">
+                      <div class="section-header-premium">
+                        <div class="section-icon-premium activities-icon-premium">
+                          <i class="bi bi-list-check"></i>
+                        </div>
+                        <h4 class="section-title-premium">Activities & Experiences</h4>
+                        <span class="section-count">{{ day.activities.length }}</span>
                       </div>
-                      <div class="activities-list" [class.expanded]="isDayExpanded(day.day)">
-                        <div class="activity-item" *ngFor="let activity of day.activities">
-                          <div class="activity-icon-wrapper">
+                      <div class="activities-grid-premium">
+                        <div class="activity-card-premium" *ngFor="let activity of day.activities; let idx = index">
+                          <div class="activity-icon-premium">
                             <i class="bi {{ getActivityIcon(activity) }}"></i>
                           </div>
                           <div class="activity-content">
-                            <span class="activity-text">{{ activity }}</span>
+                            <p class="activity-text">{{ activity }}</p>
                           </div>
+                          <div class="activity-number">{{ idx + 1 }}</div>
                         </div>
                       </div>
                     </div>
 
                     <!-- Meals Section -->
-                    <div class="meals-section" *ngIf="day.meals && day.meals.length > 0">
-                      <h6 class="text-primary mb-3">
-                        <i class="bi bi-utensils me-2"></i>Meals Included
-                      </h6>
-                      <div class="meals-grid">
-                        <div class="meal-badge" *ngFor="let meal of day.meals">
-                          <i class="bi {{ getMealIcon(meal) }}"></i>
-                          <span>{{ meal }}</span>
+                    <div class="day-meals-premium" *ngIf="day.meals && day.meals.length > 0">
+                      <div class="section-header-premium">
+                        <div class="section-icon-premium meals-icon-premium">
+                          <i class="bi bi-utensils"></i>
                         </div>
+                        <h4 class="section-title-premium">Meals Included</h4>
+                        <span class="section-count">{{ day.meals.length }}</span>
+                      </div>
+                      <div class="meals-grid-premium">
+                        <div class="meal-card-premium" *ngFor="let meal of day.meals">
+                          <div class="meal-icon-premium">
+                            <i class="bi {{ getMealIcon(meal) }}"></i>
+                          </div>
+                          <span class="meal-label">{{ meal }}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Additional Info Section -->
+                    <div class="day-additional-info" *ngIf="day.transport || day.accommodation || day.distance || day.duration">
+                      <div class="info-grid">
+                        <div class="info-card-premium" *ngIf="day.accommodation">
+                          <div class="info-icon-premium accommodation-icon">
+                            <i class="bi bi-building"></i>
+                          </div>
+                          <div class="info-content">
+                            <h5 class="info-label">Accommodation</h5>
+                            <p class="info-value">{{ day.accommodation }}</p>
+                          </div>
+                        </div>
+                        <div class="info-card-premium" *ngIf="day.transport">
+                          <div class="info-icon-premium transport-icon">
+                            <i class="bi bi-car-front-fill"></i>
+                          </div>
+                          <div class="info-content">
+                            <h5 class="info-label">Transport</h5>
+                            <p class="info-value">{{ day.transport }}</p>
+                          </div>
+                        </div>
+                        <div class="info-card-premium" *ngIf="day.distance">
+                          <div class="info-icon-premium distance-icon">
+                            <i class="bi bi-signpost-split"></i>
+                          </div>
+                          <div class="info-content">
+                            <h5 class="info-label">Distance</h5>
+                            <p class="info-value">{{ day.distance }}</p>
+                          </div>
+                        </div>
+                        <div class="info-card-premium" *ngIf="day.duration">
+                          <div class="info-icon-premium duration-icon">
+                            <i class="bi bi-clock-history"></i>
+                          </div>
+                          <div class="info-content">
+                            <h5 class="info-label">Travel Time</h5>
+                            <p class="info-value">{{ day.duration }}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Time Schedule Section -->
+                    <div class="day-schedule-premium" *ngIf="day.timeSchedule && day.timeSchedule.length > 0">
+                      <div class="section-header-premium">
+                        <div class="section-icon-premium schedule-icon-premium">
+                          <i class="bi bi-clock"></i>
+                        </div>
+                        <h4 class="section-title-premium">Daily Schedule</h4>
+                      </div>
+                      <div class="schedule-timeline">
+                        <div class="schedule-item" *ngFor="let schedule of day.timeSchedule">
+                          <div class="schedule-time">{{ schedule.time }}</div>
+                          <div class="schedule-activity">{{ schedule.activity }}</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Tips Section -->
+                    <div class="day-tips-premium" *ngIf="day.tips && day.tips.length > 0">
+                      <div class="section-header-premium">
+                        <div class="section-icon-premium tips-icon-premium">
+                          <i class="bi bi-lightbulb-fill"></i>
+                        </div>
+                        <h4 class="section-title-premium">Travel Tips</h4>
+                      </div>
+                      <div class="tips-list">
+                        <div class="tip-item" *ngFor="let tip of day.tips">
+                          <i class="bi bi-check-circle-fill"></i>
+                          <span>{{ tip }}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Important Notes Section -->
+                    <div class="day-notes-premium" *ngIf="day.importantNotes && day.importantNotes.length > 0">
+                      <div class="section-header-premium">
+                        <div class="section-icon-premium notes-icon-premium">
+                          <i class="bi bi-exclamation-triangle-fill"></i>
+                        </div>
+                        <h4 class="section-title-premium">Important Notes</h4>
+                      </div>
+                      <div class="notes-list">
+                        <div class="note-item" *ngFor="let note of day.importantNotes">
+                          <i class="bi bi-info-circle-fill"></i>
+                          <span>{{ note }}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Optional Activities Section -->
+                    <div class="day-optional-premium" *ngIf="day.optionalActivities && day.optionalActivities.length > 0">
+                      <div class="section-header-premium">
+                        <div class="section-icon-premium optional-icon-premium">
+                          <i class="bi bi-plus-circle-fill"></i>
+                        </div>
+                        <h4 class="section-title-premium">Optional Activities</h4>
+                        <span class="optional-badge">Extra Cost</span>
+                      </div>
+                      <div class="optional-list">
+                        <div class="optional-item" *ngFor="let activity of day.optionalActivities">
+                          <i class="bi bi-star"></i>
+                          <span>{{ activity }}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Local Insights Section -->
+                    <div class="day-insights-premium" *ngIf="day.localInsights">
+                      <div class="section-header-premium">
+                        <div class="section-icon-premium insights-icon-premium">
+                          <i class="bi bi-compass"></i>
+                        </div>
+                        <h4 class="section-title-premium">Local Insights</h4>
+                      </div>
+                      <div class="insights-content">
+                        <p>{{ day.localInsights }}</p>
+                      </div>
+                    </div>
+
+                    <!-- Day Highlights Section -->
+                    <div class="day-highlights-premium" *ngIf="day.highlights && day.highlights.length > 0">
+                      <div class="section-header-premium">
+                        <div class="section-icon-premium highlights-icon-premium">
+                          <i class="bi bi-star-fill"></i>
+                        </div>
+                        <h4 class="section-title-premium">Day Highlights</h4>
+                      </div>
+                      <div class="highlights-grid">
+                        <div class="highlight-badge" *ngFor="let highlight of day.highlights">
+                          <i class="bi bi-check-circle"></i>
+                          {{ highlight }}
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Photo Gallery Section -->
+                    <div class="day-photos-premium" *ngIf="day.photos && day.photos.length > 0">
+                      <div class="section-header-premium">
+                        <div class="section-icon-premium photos-icon-premium">
+                          <i class="bi bi-images"></i>
+                        </div>
+                        <h4 class="section-title-premium">Day Photos</h4>
+                        <span class="section-count">{{ day.photos.length }}</span>
+                      </div>
+                      <div class="photos-grid">
+                        <ng-container *ngFor="let photo of day.photos">
+                          <div class="photo-item" 
+                               *ngIf="isValidImage(photo)"
+                               (click)="openPhotoGallery(day.photos, photo)">
+                            <img [src]="photo" 
+                                 [alt]="day.title + ' photo'" 
+                                 (error)="onImageError($event, photo)"
+                                 loading="lazy">
+                            <div class="photo-overlay">
+                              <i class="bi bi-zoom-in"></i>
+                            </div>
+                          </div>
+                        </ng-container>
                       </div>
                     </div>
                   </div>
@@ -310,7 +554,11 @@
             <h4 class="mb-4">
               <i class="bi bi-door-open text-primary me-2"></i>Accommodation Options
             </h4>
-            <div class="row g-4">
+            <div *ngIf="!package.roomOptions || package.roomOptions.length === 0" class="alert alert-info">
+              <i class="bi bi-info-circle me-2"></i>
+              No room options available for this package. Standard accommodation will be provided.
+            </div>
+            <div class="row g-4" *ngIf="package.roomOptions && package.roomOptions.length > 0">
               <div class="col-md-6" *ngFor="let room of package.roomOptions">
                 <div class="card border-0 shadow-sm h-100 room-option-card" 
                      [class.selected]="selectedRoomOption === room.id"
@@ -420,7 +668,7 @@
             </div>
 
             <!-- Room Selection -->
-            <div class="mb-4" *ngIf="package.roomOptions && package.roomOptions.length > 1">
+            <div class="mb-4" *ngIf="package.roomOptions && package.roomOptions.length > 0">
               <label class="form-label">
                 <i class="bi bi-door-open"></i>Room Type
               </label>
@@ -581,6 +829,36 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Previous/Next Package Navigation -->
+    <div class="row mt-5 mb-4" *ngIf="(previousPackage || nextPackage) && !loading">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center gap-3">
+          <!-- Previous Package -->
+          <button class="btn btn-outline-primary d-flex align-items-center" 
+                  *ngIf="previousPackage"
+                  (click)="navigateToPackage(previousPackage)">
+            <i class="bi bi-chevron-left me-2"></i>
+            <div class="text-start">
+              <small class="d-block text-muted">Previous Package</small>
+              <span class="fw-semibold">{{ previousPackage.name }}</span>
+            </div>
+          </button>
+          <div *ngIf="!previousPackage"></div>
+
+          <!-- Next Package -->
+          <button class="btn btn-outline-primary d-flex align-items-center ms-auto" 
+                  *ngIf="nextPackage"
+                  (click)="navigateToPackage(nextPackage)">
+            <div class="text-end">
+              <small class="d-block text-muted">Next Package</small>
+              <span class="fw-semibold">{{ nextPackage.name }}</span>
+            </div>
+            <i class="bi bi-chevron-right ms-2"></i>
+          </button>
         </div>
       </div>
     </div>

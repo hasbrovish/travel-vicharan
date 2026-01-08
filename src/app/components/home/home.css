@@ -1,11 +1,17 @@
-/* Promotional Banner Styling */
+/* Promotional Banner Styling - No gap after header */
 .promo-banner-section {
   position: relative;
   width: 100%;
   overflow: hidden;
   background: #f8f9fa;
   z-index: 1; /* Ensure it's below header but visible */
-  padding-top: 12px; /* Space above zero slider image */
+  padding-top: 0; /* No gap - starts immediately after header */
+  margin-top: 0; /* No margin gap */
+}
+
+/* When banner is dismissed, adjust margin */
+body.banner-dismissed .promo-banner-section {
+  margin-top: 0; /* No offset needed */
 }
 
 .promo-banner-wrapper {
@@ -24,7 +30,8 @@
 
 @media (max-width: 768px) {
   .promo-banner-section {
-    padding-top: 12px;
+    padding-top: 0; /* No gap on mobile */
+    margin-top: 0;
   }
 
   .promo-banner-img {
@@ -83,20 +90,37 @@
   animation: fadeInUp 0.8s ease-out;
 }
 
-/* Enhanced buttons */
+/* Premium Enhanced Buttons */
 .btn-lg {
-  padding: 14px 36px;
-  font-size: 1rem;
+  padding: 16px 40px;
+  font-size: 1.05rem;
   border-radius: 50px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  font-weight: 700;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(13, 77, 82, 0.25), 0 4px 12px rgba(13, 77, 82, 0.15);
   letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-lg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s ease;
 }
 
 .btn-lg:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(13, 77, 82, 0.3), 0 6px 16px rgba(13, 77, 82, 0.2);
+}
+
+.btn-lg:hover::before {
+  left: 100%;
 }
 
 .btn-warning {
@@ -159,35 +183,77 @@
   border-color: #fff;
 }
 
-/* Package cards modern styling */
+/* Premium Package Cards */
 .package-card {
   border: none;
-  border-radius: 16px;
+  border-radius: 20px;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 20px rgba(13, 77, 82, 0.1), 0 2px 8px rgba(13, 77, 82, 0.08);
+  position: relative;
+}
+
+.package-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .package-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+  transform: translateY(-12px);
+  box-shadow: 0 16px 48px rgba(13, 77, 82, 0.18), 0 8px 24px rgba(13, 77, 82, 0.15);
+}
+
+.package-card:hover::before {
+  opacity: 1;
 }
 
 .package-card img {
-  transition: transform 0.4s ease;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .package-card:hover img {
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
-/* Section styling */
+/* Premium Section Styling */
 section {
   position: relative;
 }
 
+section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(13, 77, 82, 0.1) 50%, transparent 100%);
+}
+
 .bg-light-gradient {
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: linear-gradient(135deg, #f0fdfa 0%, #ffffff 50%, #f0f9ff 100%);
+  position: relative;
+}
+
+.bg-light-gradient::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(13, 77, 82, 0.03) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(14, 165, 233, 0.03) 0%, transparent 50%);
+  pointer-events: none;
 }
 
 /* Responsive */

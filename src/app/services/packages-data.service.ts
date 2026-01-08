@@ -17,6 +17,11 @@ export class PackagesDataService {
     return this.dataService.getAllPackages();
   }
 
+  // Get all packages synchronously for navigation
+  getAllPackagesSync(): TourPackage[] {
+    return this.dataService.getAllPackages();
+  }
+
   // Legacy mock packages - kept for reference but not used
   private mockPackages: TourPackage[] = [
     // India - Domestic Packages
@@ -319,6 +324,34 @@ export class PackagesDataService {
   filterPackages(criteria: OffersFilterCriteria): Observable<TourPackage[]> {
     let filtered = [...this.allPackages];
 
+    // Category filter (FAMILY, HONEYMOON, GROUP, SENIORS, WEEKEND)
+    if (criteria.category) {
+      filtered = filtered.filter(pkg => pkg.category === criteria.category);
+    }
+
+    // Attraction filter (search in highlights, description, activities)
+    if (criteria.attraction) {
+      const attractionLower = criteria.attraction.toLowerCase().replace(/-/g, ' ');
+      filtered = filtered.filter(pkg => {
+        // Check highlights
+        const hasInHighlights = pkg.highlights.some(highlight => 
+          highlight.toLowerCase().includes(attractionLower)
+        );
+        
+        // Check description
+        const hasInDescription = pkg.description.toLowerCase().includes(attractionLower);
+        
+        // Check itinerary activities
+        const hasInActivities = pkg.itinerary.some(day => 
+          day.activities.some(activity => 
+            activity.toLowerCase().includes(attractionLower)
+          )
+        );
+        
+        return hasInHighlights || hasInDescription || hasInActivities;
+      });
+    }
+
     // Tag filter (India/World → DOMESTIC/INTERNATIONAL)
     if (criteria.tag) {
       const type: PackageType = criteria.tag === 'India' ? 'DOMESTIC' : 'INTERNATIONAL';
@@ -391,10 +424,17 @@ export class PackagesDataService {
   }
 
   private parsePriceRange(range: string): [number, number | null] {
-    if (range === '100000+') {
-      return [100000, null];
+    // Handle formats like "300000+", "100000+", etc.
+    if (range.includes('+')) {
+      const min = parseInt(range.replace('+', ''), 10);
+      return [min, null];
     }
-    const [min, max] = range.split('-').map(Number);
-    return [min, max];
+    // Handle formats like "0-35000", "35000-50000", etc.
+    if (range.includes('-')) {
+      const [min, max] = range.split('-').map(Number);
+      return [min, max];
+    }
+    // Fallback: treat as minimum price
+    return [parseInt(range, 10), null];
   }
 }

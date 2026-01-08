@@ -46,12 +46,13 @@
 
     <!-- Search Suggestions Dropdown -->
     <div 
-      class="search-suggestions" 
+      class="search-suggestions enhanced-search-dropdown" 
       *ngIf="showSuggestions && isFocused"
       role="listbox"
       aria-label="Search suggestions">
-      <!-- Suggestions from input -->
-      <div class="suggestions-section" *ngIf="suggestions.length > 0">
+      
+      <!-- Suggestions from input (when typing) -->
+      <div class="suggestions-section" *ngIf="suggestions.length > 0 && searchQuery.trim().length > 0">
         <div 
           class="suggestion-item"
           *ngFor="let suggestion of suggestions; let i = index"
@@ -64,7 +65,8 @@
           <i class="bi" [ngClass]="{
             'bi-geo-alt-fill': suggestion.type === 'destination',
             'bi-box-seam': suggestion.type === 'package',
-            'bi-star-fill': suggestion.type === 'popular'
+            'bi-star-fill': suggestion.type === 'popular',
+            'bi-calendar-event': suggestion.type === 'category'
           }"></i>
           <span class="suggestion-label">{{ suggestion.label }}</span>
           <span class="suggestion-count" *ngIf="suggestion.count">
@@ -73,19 +75,160 @@
         </div>
       </div>
 
-      <!-- Popular Searches -->
-      <div class="popular-searches-section" *ngIf="suggestions.length === 0 || searchQuery.trim().length === 0">
-        <div class="section-title">Popular Searches</div>
-        <div class="popular-tags">
-          <button
-            *ngFor="let popular of popularSearches"
-            class="popular-tag"
-            type="button"
-            (mousedown)="isClickingSuggestion = true"
-            (click)="selectSuggestion(popular, $event)">
-            {{ popular.label }}
-            <span class="tag-count">{{ popular.count }}</span>
-          </button>
+      <!-- Enhanced Search Options (when empty or focused) -->
+      <div class="enhanced-search-content" *ngIf="suggestions.length === 0 || searchQuery.trim().length === 0">
+        
+        <!-- Recent Searches -->
+        <div class="recent-searches-section" *ngIf="recentSearches.length > 0">
+          <div class="section-header-row">
+            <div class="section-title">Recent Searches</div>
+            <button 
+              class="clear-recent-btn"
+              type="button"
+              (click)="clearRecentSearches()"
+              title="Clear recent searches"
+              aria-label="Clear recent searches">
+              <i class="bi bi-x"></i>
+            </button>
+          </div>
+          <div class="recent-searches-list">
+            <button
+              *ngFor="let recent of recentSearches"
+              class="recent-search-item"
+              type="button"
+              (mousedown)="isClickingSuggestion = true"
+              (click)="selectSuggestion(recent, $event)">
+              <i class="bi bi-clock-history"></i>
+              <span>{{ recent.label }}</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Category Tags (Best Season Tours) -->
+        <div class="category-tags-section" *ngIf="categoryTags.length > 0">
+          <div class="section-title">Best Season Tours</div>
+          <div class="category-tags">
+            <button
+              *ngFor="let tag of categoryTags"
+              class="category-tag"
+              type="button"
+              (mousedown)="isClickingSuggestion = true"
+              (click)="selectCategoryTag(tag)">
+              {{ tag.label }}
+              <span class="tag-count" *ngIf="tag.count">{{ tag.count }}</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Hot Selling Destinations -->
+        <div class="hot-destinations-section" *ngIf="hotDestinations.length > 0">
+          <div class="section-title">Hot Selling Destinations</div>
+          <div class="destinations-grid">
+            <div
+              *ngFor="let dest of hotDestinations"
+              class="destination-card"
+              (mousedown)="isClickingSuggestion = true"
+              (click)="selectHotDestination(dest)">
+              <div class="destination-image">
+                <img [src]="dest.imageUrl" [alt]="dest.name">
+                <div class="destination-overlay"></div>
+              </div>
+              <div class="destination-info">
+                <h4 class="destination-name">{{ dest.name }}</h4>
+                <div class="destination-stats">
+                  <span class="stat-item">
+                    <i class="bi bi-box-seam"></i>
+                    {{ dest.tourCount }} tours
+                  </span>
+                  <span class="stat-item">
+                    <i class="bi bi-calendar-event"></i>
+                    {{ dest.departureCount }} departures
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Two Column Layout for Filters -->
+        <div class="filters-two-column">
+          <!-- Left Column: Date Filters -->
+          <div class="filter-column">
+            <!-- When do you wish to travel? -->
+            <div class="month-filters-section">
+              <div class="section-title">
+                <i class="bi bi-calendar3"></i>
+                When do you wish to travel?
+              </div>
+              <div class="year-selector">
+                <button class="year-btn active">Y {{ selectedYear }}</button>
+              </div>
+              <div class="months-grid">
+                <button
+                  *ngFor="let month of monthFilters"
+                  class="month-btn"
+                  [class.disabled]="month.tourCount === 0"
+                  type="button"
+                  (mousedown)="isClickingSuggestion = true"
+                  (click)="selectMonth(month)"
+                  [disabled]="month.tourCount === 0">
+                  <span class="month-name">{{ month.month }}</span>
+                  <span class="month-count">{{ month.tourCount }} tours</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Attractions & Celebrations -->
+            <div class="attractions-section" *ngIf="attractions.length > 0">
+              <div class="section-title">
+                <i class="bi bi-calendar-event"></i>
+                Attractions & Celebrations
+              </div>
+              <div class="attractions-tags">
+                <button
+                  *ngFor="let attraction of attractions"
+                  class="attraction-tag"
+                  type="button"
+                  (mousedown)="isClickingSuggestion = true"
+                  (click)="selectAttraction(attraction)">
+                  {{ attraction.label }}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Price Range -->
+          <div class="filter-column">
+            <div class="price-range-section">
+              <div class="section-title">Popular Range</div>
+              <div class="price-ranges-grid">
+                <button
+                  *ngFor="let range of priceRanges"
+                  class="price-range-btn"
+                  type="button"
+                  (mousedown)="isClickingSuggestion = true"
+                  (click)="selectPriceRange(range)">
+                  {{ range.label }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Popular Searches (Fallback) -->
+        <div class="popular-searches-section">
+          <div class="section-title">Popular Searches</div>
+          <div class="popular-tags">
+            <button
+              *ngFor="let popular of popularSearches"
+              class="popular-tag"
+              type="button"
+              (mousedown)="isClickingSuggestion = true"
+              (click)="selectSuggestion(popular, $event)">
+              {{ popular.label }}
+              <span class="tag-count">{{ popular.count }}</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -1,0 +1,242 @@
+<div class="travel-planner-container">
+  <!-- Hero Banner Section -->
+  <section class="planner-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">Plan Your Perfect Trip</h1>
+      <p class="hero-subtitle">Let us help you create an unforgettable travel experience</p>
+    </div>
+  </section>
+
+  <!-- Progress Indicator -->
+  <div class="progress-container">
+    <div class="progress-steps">
+      <div 
+        *ngFor="let step of steps" 
+        class="step-indicator"
+        [class.active]="currentStep === step.id"
+        [class.completed]="step.completed"
+        (click)="goToStep(step.id)">
+        <div class="step-icon-wrapper">
+          <i class="bi" [ngClass]="step.icon"></i>
+        </div>
+        <span class="step-label">{{ step.title }}</span>
+      </div>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" [style.width.%]="(currentStep / totalSteps) * 100"></div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="planner-content">
+    <div class="container">
+      
+      <!-- Step 1: Destination Selection -->
+      <div class="planner-step" *ngIf="currentStep === 1">
+        <h2 class="step-title">Where would you like to go?</h2>
+        <p class="step-description">Select your dream destination</p>
+        <div class="destinations-grid">
+          <div 
+            *ngFor="let dest of destinations"
+            class="destination-card"
+            [class.selected]="selectedDestination?.id === dest.id"
+            (click)="selectDestination(dest)">
+            <div class="destination-image" [style.background-image]="'url(' + dest.image + ')'">
+              <div class="destination-overlay"></div>
+            </div>
+            <div class="destination-info">
+              <h3>{{ dest.name }}</h3>
+              <span class="destination-type">{{ dest.type }}</span>
+            </div>
+            <div class="destination-check" *ngIf="selectedDestination?.id === dest.id">
+              <i class="bi bi-check-circle-fill"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Date Selection -->
+      <div class="planner-step" *ngIf="currentStep === 2">
+        <h2 class="step-title">When would you like to travel?</h2>
+        <p class="step-description">Select your travel dates</p>
+        <div class="date-selection">
+          <div class="date-input-group">
+            <label>
+              <i class="bi bi-calendar-event me-2"></i>
+              Start Date
+            </label>
+            <input 
+              type="date" 
+              [(ngModel)]="startDate"
+              [min]="minDate"
+              class="date-input">
+          </div>
+          <div class="date-input-group">
+            <label>
+              <i class="bi bi-calendar-check me-2"></i>
+              End Date
+            </label>
+            <input 
+              type="date" 
+              [(ngModel)]="endDate"
+              [min]="startDate || minDate"
+              class="date-input">
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Travelers -->
+      <div class="planner-step" *ngIf="currentStep === 3">
+        <h2 class="step-title">How many travelers?</h2>
+        <p class="step-description">Tell us about your group</p>
+        <div class="travelers-selection">
+          <div class="traveler-group">
+            <div class="traveler-info">
+              <i class="bi bi-person-fill traveler-icon"></i>
+              <div>
+                <h3>Adults</h3>
+                <p>Ages 12+</p>
+              </div>
+            </div>
+            <div class="counter-controls">
+              <button class="counter-btn" (click)="decrementAdults()">-</button>
+              <span class="counter-value">{{ adults }}</span>
+              <button class="counter-btn" (click)="incrementAdults()">+</button>
+            </div>
+          </div>
+          <div class="traveler-group">
+            <div class="traveler-info">
+              <i class="bi bi-person traveler-icon"></i>
+              <div>
+                <h3>Children</h3>
+                <p>Ages 2-11</p>
+              </div>
+            </div>
+            <div class="counter-controls">
+              <button class="counter-btn" (click)="decrementChildren()">-</button>
+              <span class="counter-value">{{ children }}</span>
+              <button class="counter-btn" (click)="incrementChildren()">+</button>
+            </div>
+          </div>
+          <div class="traveler-group">
+            <div class="traveler-info">
+              <i class="bi bi-heart-fill traveler-icon"></i>
+              <div>
+                <h3>Infants</h3>
+                <p>Under 2</p>
+              </div>
+            </div>
+            <div class="counter-controls">
+              <button class="counter-btn" (click)="decrementInfants()">-</button>
+              <span class="counter-value">{{ infants }}</span>
+              <button class="counter-btn" (click)="incrementInfants()">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4: Budget -->
+      <div class="planner-step" *ngIf="currentStep === 4">
+        <h2 class="step-title">What's your budget?</h2>
+        <p class="step-description">Select your preferred budget range</p>
+        <div class="budget-selection">
+          <div class="budget-display">
+            <span class="budget-label">Budget per person</span>
+            <span class="budget-value">{{ budgetLabel }}</span>
+          </div>
+          <input 
+            type="range" 
+            [(ngModel)]="budgetRange"
+            [min]="minBudget"
+            [max]="maxBudget"
+            [step]="5000"
+            (input)="updateBudgetLabel()"
+            class="budget-slider">
+          <div class="budget-range">
+            <span>₹{{ (minBudget / 1000).toFixed(0) }}K</span>
+            <span>₹{{ (maxBudget / 1000).toFixed(0) }}K</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5: Preferences -->
+      <div class="planner-step" *ngIf="currentStep === 5">
+        <h2 class="step-title">What are you looking for?</h2>
+        <p class="step-description">Select your travel preferences (optional)</p>
+        <div class="preferences-grid">
+          <div 
+            *ngFor="let pref of preferences"
+            class="preference-card"
+            [class.selected]="pref.selected"
+            (click)="togglePreference(pref)">
+            <i class="bi" [ngClass]="pref.icon"></i>
+            <span>{{ pref.label }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 6: Results -->
+      <div class="planner-step results-step" *ngIf="currentStep === 6">
+        <h2 class="step-title">Perfect Packages for You</h2>
+        <p class="step-description">Based on your preferences, here are our recommendations</p>
+        
+        <div *ngIf="loading" class="loading-state">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+
+        <div *ngIf="!loading && suggestedPackages.length > 0" class="packages-grid">
+          <div 
+            *ngFor="let pkg of suggestedPackages"
+            class="package-result-card"
+            (click)="viewPackage(pkg.slug)">
+            <div class="package-image" [style.background-image]="'url(' + pkg.imageUrl + ')'"></div>
+            <div class="package-content">
+              <h3>{{ pkg.name }}</h3>
+              <p class="package-destinations">{{ pkg.destinations.join(', ') }}</p>
+              <div class="package-footer">
+                <span class="package-duration">{{ pkg.days }} Days / {{ pkg.nights }} Nights</span>
+                <span class="package-price">₹{{ pkg.basePrice.toLocaleString('en-IN') }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!loading && suggestedPackages.length === 0" class="no-results">
+          <i class="bi bi-inbox"></i>
+          <h3>No packages found</h3>
+          <p>Try adjusting your preferences</p>
+          <button class="btn btn-primary" (click)="resetPlanner()">Start Over</button>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="planner-navigation" *ngIf="currentStep < 6">
+        <button 
+          class="btn btn-outline-secondary"
+          (click)="previousStep()"
+          [disabled]="currentStep === 1">
+          <i class="bi bi-arrow-left me-2"></i>Previous
+        </button>
+        <button 
+          class="btn btn-primary"
+          (click)="nextStep()"
+          [disabled]="!canProceed()">
+          {{ currentStep === totalSteps ? 'Find Packages' : 'Next' }}
+          <i class="bi bi-arrow-right ms-2"></i>
+        </button>
+      </div>
+
+      <!-- Reset Button (on results) -->
+      <div class="planner-navigation" *ngIf="currentStep === 6">
+        <button class="btn btn-outline-primary" (click)="resetPlanner()">
+          <i class="bi bi-arrow-clockwise me-2"></i>Plan Another Trip
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+

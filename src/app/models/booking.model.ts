@@ -52,4 +52,7 @@ export interface Booking {
   // NEW: Step tracking
   currentStep: number;
   completedSteps: number[];
+
+  // NEW: Add-ons
+  addOns?: string[];
 }

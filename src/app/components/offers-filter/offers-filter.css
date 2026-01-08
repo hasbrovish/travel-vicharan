@@ -1,15 +1,20 @@
 .offers-filter-section {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+
+.offers-filter-section:hover {
+  box-shadow: var(--shadow-md);
 }
 
 .filter-header {
-  margin-bottom: 1.25rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-light);
 }
 
 .active-filters-badge {
@@ -17,10 +22,10 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 0.875rem;
-  background: #eff6ff;
-  border: 1px solid #3b82f6;
-  color: #3b82f6;
-  border-radius: 6px;
+  background: var(--accent-100);
+  border: 1px solid var(--accent-600);
+  color: var(--accent-700);
+  border-radius: var(--radius-sm);
   font-size: 0.8rem;
   font-weight: 600;
 }
@@ -44,7 +49,7 @@
 .filter-label {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #374151;
+  color: var(--text-primary);
   margin: 0;
   text-transform: uppercase;
   letter-spacing: 0.025em;
@@ -60,14 +65,14 @@
 .tag-btn {
   width: 100%;
   padding: 0.75rem 1rem;
-  border: 2px solid #e5e7eb;
-  background: #ffffff;
-  border-radius: 8px;
+  border: 2px solid var(--border-light);
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
   font-size: 0.875rem;
   font-weight: 600;
-  color: #6b7280;
+  color: var(--text-secondary);
   cursor: pointer;
-  transition: all 250ms ease;
+  transition: all var(--transition-base);
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -79,46 +84,46 @@
 }
 
 .tag-btn:hover {
-  border-color: #3b82f6;
-  color: #3b82f6;
-  background: #eff6ff;
+  border-color: var(--primary-600);
+  color: var(--primary-700);
+  background: var(--primary-50);
 }
 
 .tag-btn.active {
-  border-color: #3b82f6;
-  background: #3b82f6;
-  color: #ffffff;
+  border-color: var(--primary-700);
+  background: var(--gradient-primary);
+  color: var(--text-on-primary);
 }
 
 /* Select Dropdowns */
 .filter-select {
   width: 100%;
   padding: 0.75rem 0.875rem;
-  border: 2px solid #e5e7eb;
-  border-radius: 8px;
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-md);
   font-size: 0.875rem;
-  color: #374151;
-  background: #ffffff;
+  color: var(--text-primary);
+  background: var(--bg-primary);
   cursor: pointer;
-  transition: all 250ms ease;
+  transition: all var(--transition-base);
   font-weight: 500;
 }
 
 .filter-select:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: var(--primary-600);
+  box-shadow: 0 0 0 3px rgba(13, 77, 82, 0.1);
 }
 
 .filter-select:hover {
-  border-color: #9ca3af;
+  border-color: var(--border-medium);
 }
 
 /* Active state for selects with values */
 .filter-select.filter-active {
-  border-color: #3b82f6;
-  background: #eff6ff;
-  color: #1e40af;
+  border-color: var(--primary-600);
+  background: var(--primary-50);
+  color: var(--primary-800);
   font-weight: 600;
 }
 
@@ -136,36 +141,36 @@
 .filter-date {
   width: 100%;
   padding: 0.75rem 0.875rem;
-  border: 2px solid #e5e7eb;
-  border-radius: 8px;
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-md);
   font-size: 0.875rem;
-  color: #374151;
-  background: #ffffff;
+  color: var(--text-primary);
+  background: var(--bg-primary);
   cursor: pointer;
-  transition: all 250ms ease;
+  transition: all var(--transition-base);
   font-weight: 500;
 }
 
 .filter-date:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: var(--primary-600);
+  box-shadow: 0 0 0 3px rgba(13, 77, 82, 0.1);
 }
 
 .filter-date:hover {
-  border-color: #9ca3af;
+  border-color: var(--border-medium);
 }
 
 .filter-date.filter-active {
-  border-color: #3b82f6;
-  background: #eff6ff;
-  color: #1e40af;
+  border-color: var(--primary-600);
+  background: var(--primary-50);
+  color: var(--primary-800);
   font-weight: 600;
 }
 
 .date-separator {
   font-size: 0.75rem;
-  color: #6b7280;
+  color: var(--text-tertiary);
   font-weight: 500;
   text-align: center;
   padding: 0.25rem 0;
@@ -173,21 +178,21 @@
 
 /* Clear Filters Button */
 .filter-actions {
-  padding-top: 0.5rem;
-  border-top: 1px solid #e5e7eb;
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--border-light);
 }
 
 .clear-filters-btn {
   width: 100%;
   padding: 0.75rem 1.25rem;
-  border: 2px solid #ef4444;
-  background: #ffffff;
-  border-radius: 8px;
+  border: 2px solid var(--error-500);
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
   font-size: 0.875rem;
   font-weight: 600;
-  color: #ef4444;
+  color: var(--error-600);
   cursor: pointer;
-  transition: all 250ms ease;
+  transition: all var(--transition-base);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -195,8 +200,10 @@
 }
 
 .clear-filters-btn:hover {
-  background: #ef4444;
-  color: #ffffff;
+  background: var(--error-500);
+  color: var(--text-on-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
 }
 
 .clear-filters-btn i {

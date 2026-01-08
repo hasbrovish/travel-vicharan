@@ -13,6 +13,19 @@ export interface ItineraryDay {
   description: string;
   activities: string[];
   meals: string[];
+  transport?: string; // Optional transport information
+  accommodation?: string; // Optional accommodation information
+  // Enhanced fields from tour docs
+  tips?: string[]; // Travel tips for this day
+  importantNotes?: string[]; // Important information
+  timeSchedule?: { activity: string; time: string }[]; // Activity timings
+  photos?: string[]; // Day-specific photos
+  distance?: string; // Distance covered
+  duration?: string; // Duration of travel
+  highlights?: string[]; // Day-specific highlights
+  optionalActivities?: string[]; // Optional activities
+  localInsights?: string; // Cultural/local information
+  packingSuggestions?: string[]; // What to pack for this day
 }
 
 export interface Departure {

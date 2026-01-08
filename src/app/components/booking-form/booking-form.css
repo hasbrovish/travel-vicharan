@@ -3,89 +3,309 @@
   min-height: 100vh;
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
   padding-top: 0;
-  padding-bottom: 3rem;
-  position: relative;
+  padding-bottom: 2rem;
   overflow-x: hidden;
 }
 
 .booking-container .container {
-  padding-top: 2rem;
+  padding-top: 1.5rem; /* Spacing after breadcrumb */
 }
 
-/* Progress Steps */
-.booking-progress {
+/* Premium Progress Steps - Sticky only after breadcrumb scrolls */
+.booking-progress-premium {
   background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-  border-radius: 20px;
-  padding: 2rem;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
-  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem 1.5rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-light);
   margin-bottom: 2rem;
+  margin-top: 0;
+  position: static; /* Start as static */
+  z-index: 998; /* Below header (999) */
+  align-self: flex-start;
+  transition: position 0s, top 0.3s ease;
 }
 
-.progress-steps {
+/* Become sticky only when scrolled past breadcrumb */
+.booking-progress-premium.sticky-active {
+  position: sticky;
+  top: 72px; /* Below header only (header height) */
+  z-index: 998;
+}
+
+/* When banner is dismissed */
+body.banner-dismissed .booking-progress-premium.sticky-active {
+  top: 72px; /* Same - header height */
+}
+
+.progress-steps-premium {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 600px;
+  align-items: flex-start;
+  justify-content: space-between;
+  max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  padding: 0 0.5rem;
 }
 
-.step {
+.step-premium {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  gap: 0.625rem;
   flex: 1;
+  min-width: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
 }
 
-.step-number {
-  width: 56px;
-  height: 56px;
+.step-premium:not(.active):not(.completed) {
+  opacity: 0.5;
+}
+
+.step-icon-wrapper {
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
-  color: #64748b;
+  background: rgba(13, 77, 82, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  font-size: 1.25rem;
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  border: 3px solid transparent;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid transparent;
+  color: var(--text-secondary);
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 3;
 }
 
-.step.active .step-number {
-  background: var(--gradient-primary);
-  color: var(--text-on-primary);
-  box-shadow: var(--shadow-primary-lg), 0 0 0 4px rgba(99, 102, 241, 0.15);
-  border-color: rgba(255, 255, 255, 0.3);
+.step-premium.active .step-icon-wrapper {
+  background: linear-gradient(135deg, var(--primary-800) 0%, var(--primary-600) 100%);
+  color: white;
+  border-color: var(--primary-400);
   transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(13, 77, 82, 0.25);
+}
+
+.step-premium.completed .step-icon-wrapper {
+  background: var(--success-600);
+  color: white;
+  border-color: var(--success-400);
+}
+
+.step-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  width: 100%;
+  min-height: 3rem;
+}
+
+.step-number {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1;
+  min-height: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-premium.active .step-number {
+  color: var(--primary-800);
+}
+
+.step-premium.completed .step-number {
+  color: var(--success-600);
 }
 
 .step-label {
-  margin-top: 0.75rem;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   color: var(--text-secondary);
-  font-weight: 500;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+  line-height: 1.3;
+  margin: 0;
+  padding: 0 0.25rem;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.step.active .step-label {
-  color: var(--primary-700);
+.step-premium.active .step-label {
+  color: var(--primary-800);
   font-weight: 700;
-  transform: translateY(-2px);
 }
 
-.step-line {
+.step-premium.completed .step-label {
+  color: var(--success-600);
+}
+
+.step-connector {
   flex: 1;
-  height: 4px;
-  background: linear-gradient(90deg, #e2e8f0 0%, #cbd5e1 100%);
-  margin: 0 1rem;
-  margin-top: -1.5rem;
-  border-radius: 2px;
+  height: 3px;
+  background: rgba(13, 77, 82, 0.1);
+  margin: 0 0.75rem;
+  margin-top: -1.75rem;
+  border-radius: 3px;
+  transition: all 0.3s ease;
   position: relative;
+  z-index: 1;
+  align-self: flex-start;
+  max-width: calc(100% - 104px);
+}
+
+.step-connector.completed {
+  background: linear-gradient(90deg, var(--success-600) 0%, var(--success-500) 100%);
+}
+
+.progress-bar-premium {
+  width: 100%;
+  height: 4px;
+  background: rgba(13, 77, 82, 0.1);
+  border-radius: 2px;
+  margin-top: 1.5rem;
   overflow: hidden;
 }
 
-.step.active ~ .step-line {
-  background: var(--gradient-accent);
+.progress-fill-premium {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-800) 0%, var(--primary-600) 100%);
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 10px rgba(13, 77, 82, 0.3);
+}
+
+/* Booking Step Content */
+.booking-step-content {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.step-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-800);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.step-description {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+/* Room Option Cards */
+.room-option-card-premium {
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 3px solid transparent !important;
+}
+
+.room-option-card-premium:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(13, 77, 82, 0.15) !important;
+  border-color: var(--primary-400) !important;
+}
+
+.room-option-card-premium.selected {
+  border-color: var(--primary-600) !important;
+  background: linear-gradient(135deg, var(--primary-50) 0%, var(--accent-50) 100%);
+  box-shadow: 0 8px 24px rgba(13, 77, 82, 0.2) !important;
+}
+
+/* Add-on Cards */
+.addon-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(13, 77, 82, 0.1) !important;
+}
+
+.addon-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(13, 77, 82, 0.15) !important;
+  border-color: var(--primary-400) !important;
+}
+
+.addon-card.selected {
+  border-color: var(--primary-600) !important;
+  background: linear-gradient(135deg, var(--primary-50) 0%, var(--accent-50) 100%);
+}
+
+.addon-price {
+  font-size: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+/* Review Section - Premium Styling */
+.review-section {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+  background: var(--primary-50);
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  border-left: 4px solid var(--primary-600);
+  margin-bottom: 1.5rem;
+}
+
+.review-section strong {
+  color: var(--primary-800);
+  font-weight: 600;
+  min-width: 120px;
+  display: inline-block;
+}
+
+.review-total {
+  background: linear-gradient(135deg, var(--primary-50) 0%, #ffffff 100%);
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--border-light);
+  margin-top: 1rem;
+}
+
+.review-total hr {
+  border-color: var(--border-medium);
+  margin: 1rem 0;
+}
+
+.review-total h4,
+.review-total h5 {
+  color: var(--primary-800);
+  font-weight: 700;
+}
+
+.review-total .text-primary {
+  color: var(--primary-700) !important;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+/* Booking Navigation */
+.booking-navigation {
+  padding: 2rem 0;
+  border-top: 1px solid rgba(13, 77, 82, 0.1);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Booking Header */
@@ -306,17 +526,27 @@
   margin-top: 0.25rem;
 }
 
-/* Booking Summary Card */
+/* Booking Summary Card - Properly positioned in layout */
 .booking-summary-card {
-  border-radius: 16px;
+  border-radius: var(--radius-xl);
   overflow: hidden;
   position: sticky;
-  top: 128px; /* Below header (80px) + breadcrumb (48px) */
-  z-index: 50; /* Below header (999) and dropdown (1000+) */
+  top: 120px; /* Below header (72px) + progress bar (~48px) when sticky */
+  z-index: 997; /* Below progress bar (998) */
   background: linear-gradient(135deg, var(--primary-800) 0%, var(--primary-700) 100%);
-  box-shadow: 0 8px 24px rgba(13, 77, 82, 0.25);
+  box-shadow: var(--shadow-lg);
   border: none;
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: top 0.3s ease;
+  align-self: flex-start;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+  margin-top: 0;
+  will-change: transform;
+}
+
+/* When progress bar is not sticky, summary aligns with content start */
+.booking-progress-premium:not(.sticky-active) ~ .row .booking-summary-card {
+  top: 0; /* Align with content when progress bar is static */
 }
 
 .booking-summary-card:hover {
@@ -325,10 +555,10 @@
 }
 
 .booking-summary-card .card-header {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.08);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 16px 16px 0 0;
-  padding: 1.5rem;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding: 1.25rem 1.5rem;
   box-shadow: none;
 }
 
@@ -356,30 +586,32 @@
   padding: 1.5rem;
   background: transparent;
   color: white;
+  line-height: 1.6;
 }
 
 .summary-section {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
 }
 
 .summary-section-title {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 700;
-  color: white;
+  color: rgba(255, 255, 255, 0.95);
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.2px;
   padding-bottom: 0.75rem;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-  margin-bottom: 1rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.25);
+  margin-bottom: 1.25rem;
 }
 
 .summary-item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 0;
+  align-items: flex-start;
+  padding: 0.75rem 0;
   font-size: 0.9rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  gap: 1rem;
 }
 
 .summary-item:last-child {
@@ -387,45 +619,67 @@
 }
 
 .summary-item .text-muted {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.75);
   font-weight: 500;
+  flex-shrink: 0;
+  min-width: 140px;
 }
 
 .summary-item strong {
   color: white;
   font-weight: 600;
   font-size: 0.95rem;
+  text-align: right;
+  flex: 1;
 }
 
 .summary-total {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-lg);
   padding: 1.5rem;
   margin-top: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  position: relative;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.summary-total::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%);
 }
 
 .summary-total h5,
 .summary-total h4 {
   color: white !important;
   font-weight: 700;
+  margin: 0;
 }
 
 .summary-total h3 {
   color: white !important;
   font-weight: 800;
   font-size: 1.75rem;
+  margin: 0;
+  background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.9) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .summary-total .small {
-  color: rgba(255, 255, 255, 0.9) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-size: 0.875rem;
 }
 
 .summary-total hr {
-  border-color: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  margin: 1rem 0;
 }
 
 .trust-badges {
@@ -461,7 +715,6 @@
   color: var(--text-on-primary);
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  position: relative;
   overflow: hidden;
 }
 
@@ -515,32 +768,87 @@
   font-size: 1.5rem;
 }
 
-/* Ensure no scrollbars */
-.booking-summary-card,
-.booking-summary-card .card-body,
-.booking-summary-card .card-header {
-  overflow: visible !important;
-  max-height: none !important;
-}
 
 .booking-summary-card::-webkit-scrollbar {
-  display: none !important;
+  width: 6px;
 }
 
-.booking-summary-card {
-  -ms-overflow-style: none !important;
-  scrollbar-width: none !important;
+.booking-summary-card::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
 }
 
-/* Responsive */
+.booking-summary-card::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.booking-summary-card::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive - Tablet and Below */
 @media (max-width: 992px) {
-  .booking-container {
-    flex-direction: column;
+  .booking-container .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
-  .booking-form-section {
-    width: 100%;
-    margin-bottom: 2rem;
+  .booking-progress-premium {
+    padding: 1.25rem 1rem;
+    margin-bottom: 1.5rem;
+    position: static;
+  }
+
+  .booking-progress-premium.sticky-active {
+    position: sticky;
+    top: 64px; /* Mobile header height */
+    z-index: 998;
+  }
+
+  .booking-summary-card {
+    top: 112px !important; /* Below header (64px) + progress bar (~48px) when sticky */
+    z-index: 997 !important;
+  }
+
+  .booking-progress-premium:not(.sticky-active) ~ .row .booking-summary-card {
+    top: 0 !important;
+  }
+
+  .progress-steps-premium {
+    gap: 0.5rem;
+    padding: 0 0.25rem;
+  }
+
+  .step-premium {
+    gap: 0.5rem;
+  }
+
+  .step-icon-wrapper {
+    width: 46px;
+    height: 46px;
+    font-size: 1.15rem;
+  }
+
+  .step-content {
+    gap: 0.25rem;
+    min-height: 2.5rem;
+  }
+
+  .step-label {
+    font-size: 0.7rem;
+    padding: 0 0.15rem;
+  }
+
+  .step-number {
+    font-size: 0.75rem;
+  }
+
+  .step-connector {
+    height: 3px;
+    margin: 0 0.5rem;
+    margin-top: -1.5rem;
+    max-width: calc(100% - 92px);
   }
 
   .booking-summary-card {
@@ -549,99 +857,544 @@
     width: 100%;
     margin-top: 2rem;
   }
-}
 
-@media (max-width: 768px) {
-  .booking-title {
-    font-size: 1.5rem;
+  .row {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
   }
 
-  .progress-steps {
+  .row > * {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .booking-container {
+    padding-bottom: 1.5rem;
+  }
+
+  .booking-container .container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  .booking-progress-premium {
+    padding: 1rem 0.75rem;
+    margin-bottom: 1.25rem;
+    position: static;
+    border-radius: var(--radius-lg);
+  }
+
+  .booking-progress-premium.sticky-active {
+    position: sticky;
+    top: 64px;
+    z-index: 998;
+  }
+
+  .booking-summary-card {
+    top: 112px !important;
+    z-index: 997 !important;
+    position: relative !important;
+    max-height: none !important;
+  }
+
+  .booking-progress-premium:not(.sticky-active) ~ .row .booking-summary-card {
+    top: 0 !important;
+    position: relative !important;
+  }
+
+
+
+
+
+
+
+  .progress-steps-premium {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+  }
+
+  .step-premium {
+    flex: 0 0 auto;
+    min-width: 70px;
+    max-width: 90px;
+  }
+
+  .step-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+    margin-bottom: 1.5rem;
+  }
+
+  .package-summary-card .card-body {
+    padding: 1rem;
+  }
+
+  .package-image {
+    width: 100%;
+    height: 150px;
+    margin-bottom: 1rem;
+  }
+
+  .package-name {
+    font-size: 1.25rem;
+  }
+
+  .package-meta {
     flex-wrap: wrap;
     gap: 0.5rem;
   }
 
-  .step {
-    flex: 1 1 calc(50% - 0.5rem);
-    min-width: 120px;
+  /* Room Options */
+  .room-option-card-premium {
+    margin-bottom: 1rem;
   }
 
-  .passenger-card {
+  .room-option-card-premium .card-body {
     padding: 1rem;
   }
 
-  .form-control-lg,
-  .form-select-lg {
-    font-size: 16px; /* Prevents zoom on iOS */
-    padding: 0.75rem;
+  /* Passenger Cards */
+  .passenger-card {
+    margin-bottom: 1.25rem;
   }
 
+  .passenger-card .card-header {
+    padding: 1rem 1.25rem;
+  }
+
+  .passenger-card .card-header h5 {
+    font-size: 1.1rem;
+    flex-wrap: wrap;
+  }
+
+  .passenger-card .card-body {
+    padding: 1rem;
+  }
+
+  /* Form Controls */
+  .form-label {
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-control,
+  .form-select {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+  }
+
+  /* Form Rows */
+  .row {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+  }
+
+  .row > * {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Make all columns full width on mobile */
+  .col-md-2,
+  .col-md-3,
+  .col-md-5,
+  .col-md-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  /* Booking Summary Card */
   .booking-summary-card {
+    position: sticky !important; /* Keep sticky on mobile */
+    top: 220px !important; /* Below progress bar */
+    z-index: 998 !important; /* Above content */
+    margin-top: 1.5rem;
+    border-radius: var(--radius-lg);
+    max-height: calc(100vh - 240px); /* Limit height */
+    overflow-y: auto; /* Enable scrolling */
+  }
+
+  .booking-summary-card .card-header {
+    padding: 1rem;
+  }
+
+  .booking-summary-card .card-header h5 {
+    font-size: 1.15rem;
+  }
+
+  .booking-summary-card .card-body {
     padding: 1.25rem;
   }
 
   .summary-section-title {
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 
+  .summary-item {
+    font-size: 0.85rem;
+    padding: 0.625rem 0;
+  }
+
+  .summary-item .text-muted {
+    min-width: 120px;
+    font-size: 0.8rem;
+  }
+
+  .summary-item strong {
+    font-size: 0.9rem;
+  }
+
+  .summary-total {
+    padding: 1.25rem;
+  }
+
+  .summary-total h3 {
+    font-size: 1.5rem;
+  }
+
+  /* Review Section */
+  .review-section {
+    padding: 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .review-total {
+    padding: 1.25rem;
+  }
+
+  .review-total h4 {
+    font-size: 1.35rem;
+  }
+
+  /* Add-ons Cards */
+  .addon-card {
+    margin-bottom: 1rem;
+  }
+
+  .addon-card .card-body {
+    padding: 1rem;
+  }
+
+  /* Navigation Buttons */
+  .booking-navigation {
+    padding: 1.5rem 0;
+  }
+
+  .booking-navigation .btn {
+    font-size: 0.95rem;
+    padding: 0.75rem 1.25rem;
+  }
+
+  /* Success Modal */
   .success-modal-content {
     padding: 1.5rem;
     margin: 1rem;
     max-width: 95%;
-  }
-}
-
-@media (max-width: 480px) {
-  .booking-title {
-    font-size: 1.25rem;
-  }
-
-  .step {
-    flex: 1 1 100%;
-  }
-
-  .step-label {
-    font-size: 0.75rem;
-  }
-
-  .passenger-card {
-    padding: 0.875rem;
-  }
-
-  .form-control-lg,
-  .form-select-lg {
-    font-size: 16px;
-    padding: 0.625rem;
-  }
-
-  .btn-primary {
-    width: 100%;
-    padding: 0.875rem;
+    border-radius: var(--radius-lg);
   }
 
   .success-actions {
     flex-direction: column;
+    gap: 0.75rem;
   }
 
   .success-actions .btn {
     width: 100%;
     min-width: auto;
   }
+
+/* Responsive - Small Mobile */
+@media (max-width: 480px) {
+  .booking-container .container {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .booking-progress-premium {
+    padding: 0.875rem 0.5rem;
+    top: 120px;
+  }
+
+  .progress-steps-premium {
+    gap: 0.5rem;
+  }
+
+  .step-premium {
+    min-width: 65px;
+    max-width: 80px;
+    gap: 0.4rem;
+  }
+
+  .step-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .step-content {
+    gap: 0.15rem;
+    min-height: 2rem;
+  }
+
+  .step-number {
+    font-size: 0.65rem;
+  }
+
+  .step-label {
+    font-size: 0.6rem;
+    padding: 0 0.05rem;
+  }
+
+  .step-title {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .step-description {
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Package Summary */
+  .package-summary-card .card-body {
+    padding: 0.875rem;
+  }
+
+  .package-image {
+    height: 120px;
+  }
+
+  .package-name {
+    font-size: 1.1rem;
+  }
+
+  /* Passenger Cards */
+  .passenger-card .card-header {
+    padding: 0.875rem 1rem;
+  }
+
+  .passenger-card .card-header h5 {
+    font-size: 1rem;
+  }
+
+  .passenger-card .card-body {
+    padding: 0.875rem;
+  }
+
+  /* Form Controls */
+  .form-label {
+    font-size: 0.9rem;
+  }
+
+  .form-control,
+  .form-select {
+    font-size: 16px;
+    padding: 0.625rem 0.875rem;
+  }
+
+  /* Booking Summary */
+  .booking-summary-card .card-header {
+    padding: 0.875rem;
+  }
+
+  .booking-summary-card .card-header h5 {
+    font-size: 1.05rem;
+  }
+
+  .booking-summary-card .card-body {
+    padding: 1rem;
+  }
+
+  .summary-section-title {
+    font-size: 0.75rem;
+  }
+
+  .summary-item {
+    font-size: 0.8rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .summary-item .text-muted {
+    min-width: auto;
+  }
+
+  .summary-total {
+    padding: 1rem;
+  }
+
+  .summary-total h3 {
+    font-size: 1.35rem;
+  }
+
+  /* Review Section */
+  .review-section {
+    padding: 1rem;
+    font-size: 0.85rem;
+  }
+
+  .review-section strong {
+    min-width: 100px;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .review-total {
+    padding: 1rem;
+  }
+
+  .review-total h4 {
+    font-size: 1.25rem;
+  }
+
+  /* Buttons */
+  .btn-primary,
+  .btn-outline-primary {
+    width: 100%;
+    padding: 0.875rem;
+    font-size: 0.95rem;
+  }
+
+  .btn-lg {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  /* Navigation */
+  .booking-navigation {
+    padding: 1.25rem 0;
+  }
+
+  .booking-navigation .d-flex {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .booking-navigation .btn {
+    width: 100%;
+  }
+
+  /* Success Modal */
+  .success-modal-content {
+    padding: 1.25rem;
+    margin: 0.75rem;
+  }
 }
 
+/* Landscape Mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .booking-progress-premium {
+    top: 120px;
+  }
+
+  .step-premium {
+    min-width: 80px;
+  }
+
+  .step-icon-wrapper {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+/* Touch-friendly improvements for mobile */
 @media (max-width: 768px) {
-  .booking-summary-card {
-    position: static;
-    margin-top: 2rem;
+  /* Ensure minimum touch target size (44x44px) */
+  button,
+  .btn,
+  .form-control,
+  .form-select,
+  .room-option-card-premium,
+  .addon-card,
+  .step-premium {
+    min-height: 44px;
   }
 
-  .progress-steps {
+  /* Better spacing for touch */
+  .form-control,
+  .form-select {
+    margin-bottom: 0.75rem;
+  }
+
+  /* Larger clickable areas */
+  .room-option-card-premium,
+  .addon-card {
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(13, 77, 82, 0.1);
+  }
+
+  /* Prevent text selection on cards */
+  .room-option-card-premium,
+  .addon-card,
+  .passenger-card {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* Better form field spacing */
+  .row > * {
+    margin-bottom: 1rem;
+  }
+
+  /* Full-width buttons on mobile */
+  .btn {
+    width: 100%;
+    margin-bottom: 0.75rem;
+  }
+
+  .btn:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Stack navigation buttons vertically */
+  .booking-navigation .d-flex {
     flex-direction: column;
-    gap: 1rem;
   }
 
-  .step-line {
-    display: none;
+  .booking-navigation .btn {
+    width: 100%;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+  .booking-progress-premium {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .step-premium {
+    min-width: 55px;
+    max-width: 65px;
+  }
+
+  .step-icon-wrapper {
+    width: 32px;
+    height: 32px;
+    font-size: 0.85rem;
+  }
+
+  .step-label {
+    font-size: 0.5rem;
+  }
+
+  .step-title {
+    font-size: 1.05rem;
+  }
+
+  .package-name {
+    font-size: 1rem;
   }
 }
 
@@ -770,3 +1523,126 @@
   padding-top: 0;
 }
 
+
+
+
+.booking-summary-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+.booking-summary-card::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.booking-summary-card::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.booking-summary-card::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Booking Summary Card Scrollbar Styling */
+.booking-summary-card .card-body {
+  overflow: visible;
+}
+
+.booking-summary-card .card-header {
+  overflow: visible;
+}
+
+.booking-summary-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+.booking-summary-card::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.booking-summary-card::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.booking-summary-card::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+  .progress-steps-premium {
+    gap: 0.5rem;
+    padding: 0 0.25rem;
+  }
+
+  .step-premium {
+    gap: 0.5rem;
+  }
+
+  .step-icon-wrapper {
+    width: 46px;
+    height: 46px;
+    font-size: 1.15rem;
+  }
+
+  .step-content {
+    gap: 0.25rem;
+    min-height: 2.5rem;
+  }
+
+  .step-label {
+    font-size: 0.7rem;
+    padding: 0 0.15rem;
+  }
+
+  .step-number {
+    font-size: 0.75rem;
+  }
+
+  .step-connector {
+    height: 3px;
+    margin: 0 0.5rem;
+    margin-top: -1.5rem;
+    max-width: calc(100% - 92px);
+  }
+
+  .progress-steps-premium {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .step-premium {
+    flex: 0 0 auto;
+    min-width: 75px;
+    max-width: 100px;
+    gap: 0.5rem;
+  }
+
+  .step-icon-wrapper {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+  }
+
+  .step-content {
+    gap: 0.2rem;
+    min-height: 2.25rem;
+  }
+
+  .step-number {
+    font-size: 0.7rem;
+  }
+
+  .step-label {
+    font-size: 0.65rem;
+    text-align: center;
+    line-height: 1.25;
+    padding: 0 0.1rem;
+  }
+
+  .step-connector {
+    display: none; /* Hide connectors on mobile for cleaner look */
+  }

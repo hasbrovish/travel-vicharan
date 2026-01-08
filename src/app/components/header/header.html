@@ -3,11 +3,10 @@
     <!-- Top Row: Logo, Search, Contact, Profile - All in One Line -->
     <div class="navbar-top-row">
       <!-- Logo -->
-      <a class="navbar-brand fw-bold d-flex align-items-center" routerLink="/">
+      <a class="navbar-brand fw-bold d-flex align-items-center" routerLink="/" [attr.aria-label]="'Home'">
         <div class="logo-container">
-          <img src="/new-logo.png" alt="VichranTrip" class="logo-image">
+          <img src="/new-logo.png" alt="Travel Booking Logo" class="logo-image">
         </div>
-        <span class="brand-text">VichranTrip</span>
       </a>
 
       <!-- Advanced Search (Center) -->
@@ -88,9 +87,9 @@
                 (keydown.enter)="navItem.hasDropdown ? showDropdown(navItem.id) : null"
                 (keydown.escape)="navItem.hasDropdown ? hideDropdown(navItem.id) : null"
                 tabindex="0">
+                <i class="bi" [ngClass]="getNavIcon(navItem.id)" *ngIf="getNavIcon(navItem.id)" aria-hidden="true"></i>
                 {{ navItem.label }}
-                <i class="bi bi-check-lg ms-1" *ngIf="navItem.hasDropdown"></i>
-                <i class="bi bi-chevron-down ms-1" *ngIf="navItem.hasDropdown"></i>
+                <i class="bi bi-chevron-down ms-1" *ngIf="navItem.hasDropdown" style="font-size: 0.75rem;"></i>
               </a>
               <ul 
                 class="dropdown-menu" 
@@ -99,8 +98,8 @@
                 [class.show]="activeDropdown === navItem.id">
                 <li *ngFor="let subItem of navItem.subItems">
                   <a class="dropdown-item" [routerLink]="subItem.route" [queryParams]="subItem.queryParams" (click)="hideDropdown(navItem.id); closeMobileMenu()">
-                    <i class="bi" [ngClass]="subItem.icon" *ngIf="subItem.icon"></i>
-                    {{ subItem.label }}
+                    <i class="bi" [ngClass]="subItem.icon" *ngIf="subItem.icon" aria-hidden="true"></i>
+                    <span>{{ subItem.label }}</span>
                   </a>
                 </li>
               </ul>

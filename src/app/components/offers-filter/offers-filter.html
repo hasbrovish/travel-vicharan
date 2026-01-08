@@ -40,10 +40,12 @@
           [(ngModel)]="selectedPriceRange"
           (change)="onFilterChange()">
           <option value="">All Prices</option>
-          <option value="0-25000">₹0 - ₹25,000</option>
-          <option value="25000-50000">₹25,000 - ₹50,000</option>
-          <option value="50000-100000">₹50,000 - ₹1,00,000</option>
-          <option value="100000+">₹1,00,000+</option>
+          <option value="0-35000">Below ₹35,000</option>
+          <option value="35000-50000">₹35,000 - ₹50,000</option>
+          <option value="50000-100000">₹50,000 - ₹1L</option>
+          <option value="100000-200000">₹1L - ₹2L</option>
+          <option value="200000-300000">₹2L - ₹3L</option>
+          <option value="300000+">₹3L & above</option>
         </select>
       </div>
 

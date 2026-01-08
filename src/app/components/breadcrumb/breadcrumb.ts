@@ -160,7 +160,11 @@ export class Breadcrumb implements OnInit {
       'my-wishlist': { label: 'My Wishlist', icon: 'bi-heart-fill' },
       'gift-cards': { label: 'Gift Cards', icon: 'bi-gift-fill' },
       'pre-departure-videos': { label: 'Pre-departure Videos', icon: 'bi-camera-video-fill' },
-      'contact-us': { label: 'Contact Us', icon: 'bi-telephone-fill' }
+      'about-us': { label: 'About Us', icon: 'bi-info-circle-fill' },
+      'contact-us': { label: 'Contact Us', icon: 'bi-telephone-fill' },
+      'terms-conditions': { label: 'Terms & Conditions', icon: 'bi-file-text-fill' },
+      'privacy-policy': { label: 'Privacy Policy', icon: 'bi-shield-lock-fill' },
+      'faqs': { label: 'FAQs', icon: 'bi-question-circle-fill' }
     };
 
     if (urlSegments[0] && accountPages[urlSegments[0]]) {

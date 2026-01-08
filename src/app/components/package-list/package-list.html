@@ -57,13 +57,36 @@
         </div>
       </div>
 
+      <!-- Search Results Summary -->
+      <div *ngIf="!loading && currentSearchQuery && filteredPackages.length > 0" class="search-results-summary mb-4">
+        <div class="alert alert-info d-flex align-items-center">
+          <i class="bi bi-search me-2"></i>
+          <span>
+            Found <strong>{{ filteredPackages.length }}</strong> package{{ filteredPackages.length !== 1 ? 's' : '' }} 
+            for "<strong>{{ currentSearchQuery }}</strong>"
+          </span>
+          <button 
+            class="btn btn-sm btn-outline-secondary ms-auto"
+            (click)="clearSearch()"
+            title="Clear search">
+            <i class="bi bi-x"></i> Clear
+          </button>
+        </div>
+      </div>
+
       <!-- No Results -->
       <div *ngIf="!loading && filteredPackages.length === 0" class="empty-packages-state">
         <div class="empty-icon">
           <i class="bi bi-search"></i>
         </div>
         <h3>No Packages Found</h3>
-        <p>We couldn't find any packages matching your criteria. Try adjusting your filters.</p>
+        <p *ngIf="currentSearchQuery">
+          We couldn't find any packages matching "<strong>{{ currentSearchQuery }}</strong>". 
+          Try a different search term or adjust your filters.
+        </p>
+        <p *ngIf="!currentSearchQuery">
+          We couldn't find any packages matching your criteria. Try adjusting your filters.
+        </p>
         <button class="btn btn-outline-primary" (click)="clearFilters()">
           <i class="bi bi-arrow-clockwise me-2"></i>Clear Filters
         </button>

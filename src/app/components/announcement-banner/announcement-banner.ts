@@ -39,8 +39,8 @@ export class AnnouncementBanner implements OnInit, OnDestroy {
   ];
 
   ngOnInit(): void {
-    // Check localStorage for dismissed state
-    const dismissed = localStorage.getItem('announcement-banner-dismissed');
+    // Check sessionStorage for dismissed state (only for current session, not persistent)
+    const dismissed = sessionStorage.getItem('announcement-banner-dismissed');
     if (dismissed === 'true') {
       this.showBanner = false;
       document.body.classList.add('banner-dismissed');
@@ -49,6 +49,7 @@ export class AnnouncementBanner implements OnInit, OnDestroy {
 
     // Show banner by default
     this.showBanner = true;
+    document.body.classList.remove('banner-dismissed');
 
     // Auto-rotate announcements every 5 seconds
     this.rotationSubscription = interval(5000).subscribe(() => {
@@ -67,10 +68,13 @@ export class AnnouncementBanner implements OnInit, OnDestroy {
   }
 
   closeBanner(): void {
-    // Hide banner with smooth transition
+    // Remove banner from DOM immediately - no gap
     this.showBanner = false;
-    document.body.classList.add('banner-dismissed');
-    // Persist dismissal in localStorage
-    localStorage.setItem('announcement-banner-dismissed', 'true');
+    // Add dismissed class immediately after DOM update
+    setTimeout(() => {
+      document.body.classList.add('banner-dismissed');
+    }, 0);
+    // Store dismissal in sessionStorage (only for current session, will reappear on new session/page refresh)
+    sessionStorage.setItem('announcement-banner-dismissed', 'true');
   }
 }

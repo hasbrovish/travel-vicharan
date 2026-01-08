@@ -8,57 +8,91 @@ app-announcement-banner {
   display: block;
 }
 
+/* Hide announcement banner wrapper when dismissed - no gap */
+body.banner-dismissed app-announcement-banner {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
 app-header {
   display: block;
 }
 
 /* Main content wrapper - pushes content below fixed header and banner */
 .main-content {
-  padding-top: 180px !important; /* ~36px (announcement) + ~104px (header) + ~40px (extra padding for visibility) */
+  padding-top: 190px !important; /* ~36px (announcement) + ~154px (header: top row ~100px + bottom nav ~54px) */
   transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  min-height: calc(100vh - 180px);
+  min-height: calc(100vh - 190px);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
-/* When banner is dismissed, reduce padding smoothly */
+/* When banner is dismissed, reduce padding smoothly - no gap */
 body.banner-dismissed .main-content {
-  padding-top: 144px !important; /* Only header height (104px) + extra padding (40px) */
-  min-height: calc(100vh - 144px);
+  padding-top: 154px !important; /* Only header height (~100px top row + ~54px bottom nav) */
+  min-height: calc(100vh - 154px);
   transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Ensure no gap at top when banner is dismissed */
+body.banner-dismissed {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+html body.banner-dismissed {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
 }
 
 /* Mobile responsive adjustments */
 @media (max-width: 992px) {
   .main-content {
-    padding-top: 170px !important; /* ~36px (banner) + ~94px (mobile header) + ~40px (extra padding) */
+    padding-top: 190px !important; /* ~36px (banner) + ~154px (header with logo + navigation) */
     transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   body.banner-dismissed .main-content {
-    padding-top: 134px !important; /* Only mobile header height + extra padding */
+    padding-top: 154px !important; /* Only header height (~154px with logo + navigation) */
     transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
 @media (max-width: 768px) {
   .main-content {
-    padding-top: 160px !important; /* ~36px (banner) + ~84px (small mobile header) + ~40px (extra padding) */
+    padding-top: 160px !important; /* ~36px (banner) + ~124px (mobile header with logo + navigation) */
     transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   body.banner-dismissed .main-content {
-    padding-top: 124px !important; /* Only small mobile header height + extra padding */
+    padding-top: 124px !important; /* Only mobile header height (~124px with logo + navigation) */
     transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
 @media (max-width: 480px) {
   .main-content {
-    padding-top: 130px !important; /* ~36px (banner) + ~54px (smallest mobile header) + ~40px (extra padding) */
+    padding-top: 150px !important; /* ~36px (banner) + ~114px (smallest mobile header with logo + navigation) */
     transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   body.banner-dismissed .main-content {
-    padding-top: 94px !important; /* Only smallest mobile header height + extra padding */
+    padding-top: 114px !important; /* Only smallest mobile header height (~114px with logo + navigation) */
     transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
+}
+
+/* Fix scrolling */
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  position: relative;
 }

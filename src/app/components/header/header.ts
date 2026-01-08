@@ -46,14 +46,14 @@ export class Header implements OnInit {
       hasDropdown: true,
       queryParams: { type: 'DOMESTIC' },
       subItems: [
-        { label: 'North India', route: '/packages', queryParams: { type: 'DOMESTIC', destination: 'North India' }, icon: 'bi-mountain' },
-        { label: 'South India', route: '/packages', queryParams: { type: 'DOMESTIC', destination: 'South India' }, icon: 'bi-tree' },
-        { label: 'East India', route: '/packages', queryParams: { type: 'DOMESTIC', destination: 'East India' }, icon: 'bi-sunrise' },
-        { label: 'West India', route: '/packages', queryParams: { type: 'DOMESTIC', destination: 'West India' }, icon: 'bi-sunset' },
-        { label: 'Himachal Pradesh', route: '/packages', queryParams: { type: 'DOMESTIC', destination: 'Himachal' }, icon: 'bi-snow' },
+        { label: 'North India', route: '/packages', queryParams: { type: 'DOMESTIC', destination: 'North India' }, icon: 'bi-geo-alt-fill' },
+        { label: 'South India', route: '/packages', queryParams: { type: 'DOMESTIC', destination: 'South India' }, icon: 'bi-tree-fill' },
+        { label: 'East India', route: '/packages', queryParams: { type: 'DOMESTIC', destination: 'East India' }, icon: 'bi-sunrise-fill' },
+        { label: 'West India', route: '/packages', queryParams: { type: 'DOMESTIC', destination: 'West India' }, icon: 'bi-sunset-fill' },
+        { label: 'Himachal Pradesh', route: '/packages', queryParams: { type: 'DOMESTIC', destination: 'Himachal' }, icon: 'bi-mountains' },
         { label: 'Kerala', route: '/packages', queryParams: { type: 'DOMESTIC', destination: 'Kerala' }, icon: 'bi-water' },
         { label: 'Rajasthan', route: '/packages', queryParams: { type: 'DOMESTIC', destination: 'Rajasthan' }, icon: 'bi-building' },
-        { label: 'Goa', route: '/packages', queryParams: { type: 'DOMESTIC', destination: 'Goa' }, icon: 'bi-beach' }
+        { label: 'Goa', route: '/packages', queryParams: { type: 'DOMESTIC', destination: 'Goa' }, icon: 'bi-umbrella-fill' }
       ]
     },
     {
@@ -63,14 +63,14 @@ export class Header implements OnInit {
       hasDropdown: true,
       queryParams: { type: 'INTERNATIONAL' },
       subItems: [
-        { label: 'Europe', route: '/packages', queryParams: { type: 'INTERNATIONAL', destination: 'Europe' }, icon: 'bi-globe-europe-africa' },
-        { label: 'Asia', route: '/packages', queryParams: { type: 'INTERNATIONAL', destination: 'Asia' }, icon: 'bi-globe-asia-australia' },
+        { label: 'Europe', route: '/packages', queryParams: { type: 'INTERNATIONAL', destination: 'Europe' }, icon: 'bi-globe' },
+        { label: 'Asia', route: '/packages', queryParams: { type: 'INTERNATIONAL', destination: 'Asia' }, icon: 'bi-globe2' },
         { label: 'Dubai & UAE', route: '/packages', queryParams: { type: 'INTERNATIONAL', destination: 'Dubai' }, icon: 'bi-building' },
         { label: 'Thailand', route: '/packages', queryParams: { type: 'INTERNATIONAL', destination: 'Thailand' }, icon: 'bi-tropical-storm' },
         { label: 'Singapore', route: '/packages', queryParams: { type: 'INTERNATIONAL', destination: 'Singapore' }, icon: 'bi-building' },
         { label: 'Bali', route: '/packages', queryParams: { type: 'INTERNATIONAL', destination: 'Bali' }, icon: 'bi-water' },
         { label: 'Maldives', route: '/packages', queryParams: { type: 'INTERNATIONAL', destination: 'Maldives' }, icon: 'bi-water' },
-        { label: 'Vietnam', route: '/packages', queryParams: { type: 'INTERNATIONAL', destination: 'Vietnam' }, icon: 'bi-tree' }
+        { label: 'Vietnam', route: '/packages', queryParams: { type: 'INTERNATIONAL', destination: 'Vietnam' }, icon: 'bi-tree-fill' }
       ]
     },
     {
@@ -94,13 +94,13 @@ export class Header implements OnInit {
       hasDropdown: true,
       queryParams: { customized: true },
       subItems: [
-        { label: 'Family Fun', route: '/packages', queryParams: { customized: true, theme: 'family' }, icon: 'bi-suitcase' },
-        { label: 'Romantic Holidays', route: '/packages', queryParams: { customized: true, theme: 'romantic' }, icon: 'bi-heart' },
-        { label: 'Getaways', route: '/packages', queryParams: { customized: true, theme: 'getaway' }, icon: 'bi-tent' },
-        { label: 'Hidden Gems', route: '/packages', queryParams: { customized: true, theme: 'hidden' }, icon: 'bi-geo-alt' },
-        { label: 'Self Drive Holidays', route: '/packages', queryParams: { customized: true, theme: 'self-drive' }, icon: 'bi-car-front' },
-        { label: 'Air Inclusive Holidays', route: '/packages', queryParams: { customized: true, theme: 'air-inclusive' }, icon: 'bi-airplane' },
-        { label: 'Cruise Holidays', route: '/packages', queryParams: { customized: true, theme: 'cruise' }, icon: 'bi-ship' }
+        { label: 'Family Fun', route: '/packages', queryParams: { customized: true, theme: 'family' }, icon: 'bi-suitcase-fill' },
+        { label: 'Romantic Holidays', route: '/packages', queryParams: { customized: true, theme: 'romantic' }, icon: 'bi-heart-fill' },
+        { label: 'Getaways', route: '/packages', queryParams: { customized: true, theme: 'getaway' }, icon: 'bi-calendar-week' },
+        { label: 'Hidden Gems', route: '/packages', queryParams: { customized: true, theme: 'hidden' }, icon: 'bi-geo-alt-fill' },
+        { label: 'Self Drive Holidays', route: '/packages', queryParams: { customized: true, theme: 'self-drive' }, icon: 'bi-car-front-fill' },
+        { label: 'Air Inclusive Holidays', route: '/packages', queryParams: { customized: true, theme: 'air-inclusive' }, icon: 'bi-airplane-fill' },
+        { label: 'Cruise Holidays', route: '/packages', queryParams: { customized: true, theme: 'cruise' }, icon: 'bi-water' }
       ]
     },
     {
@@ -116,9 +116,9 @@ export class Header implements OnInit {
       route: '/packages',
       hasDropdown: true,
       subItems: [
-        { label: 'India Tours', route: '/packages', queryParams: { type: 'DOMESTIC' }, icon: 'bi-geo-alt' },
+        { label: 'India Tours', route: '/packages', queryParams: { type: 'DOMESTIC' }, icon: 'bi-geo-alt-fill' },
         { label: 'Cultural Tours', route: '/packages', queryParams: { category: 'CULTURAL' }, icon: 'bi-building' },
-        { label: 'Heritage Tours', route: '/packages', queryParams: { category: 'HERITAGE' }, icon: 'bi-castle' }
+        { label: 'Heritage Tours', route: '/packages', queryParams: { category: 'HERITAGE' }, icon: 'bi-shop-window' }
       ]
     },
     {
@@ -127,7 +127,7 @@ export class Header implements OnInit {
       route: '/packages',
       hasDropdown: true,
       subItems: [
-        { label: 'Currency Exchange', route: '/packages', queryParams: { forex: true }, icon: 'bi-currency-exchange' },
+        { label: 'Currency Exchange', route: '/packages', queryParams: { forex: true }, icon: 'bi-cash-coin' },
         { label: 'Travel Cards', route: '/packages', queryParams: { forex: true, type: 'card' }, icon: 'bi-credit-card' }
       ]
     },
@@ -259,5 +259,21 @@ export class Header implements OnInit {
   closeMobileMenu(): void {
     this.isMobileMenuOpen = false;
     document.body.style.overflow = '';
+  }
+
+  // Get travel-related icons for main navigation items
+  getNavIcon(navId: string): string {
+    const iconMap: { [key: string]: string } = {
+      'india': 'bi-geo-alt-fill', // Map pin for India
+      'world': 'bi-globe', // Globe for World
+      'speciality': 'bi-star-fill', // Star for Speciality Tours
+      'customized': 'bi-pencil-square', // Edit icon for Customized
+      'corporate': 'bi-briefcase-fill', // Briefcase for Corporate
+      'inbound': 'bi-arrow-down-circle-fill', // Arrow down for Inbound
+      'forex': 'bi-currency-exchange', // Currency for Forex
+      'gift-cards': 'bi-gift-fill', // Gift for Gift Cards
+      'contact': 'bi-telephone-fill' // Phone for Contact
+    };
+    return iconMap[navId] || '';
   }
 }

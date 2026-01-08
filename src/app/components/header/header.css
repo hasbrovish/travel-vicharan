@@ -1,48 +1,47 @@
-/* Make header sticky below the announcement banner */
+/* Make header sticky below the announcement banner - Same as footer */
 .navbar {
   position: fixed !important;
-  top: 36px; /* Height of announcement banner (8px padding * 2 + ~20px content) */
+  top: 36px; /* Height of announcement banner */
   left: 0;
   right: 0;
   width: 100%;
-  z-index: 999; /* Below announcement banner (1000) */
+  z-index: 999;
   padding: 0;
-  transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-              background 0.3s ease,
-              box-shadow 0.3s ease,
-              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: top 0.3s ease, box-shadow 0.3s ease;
   min-height: auto;
-  /* Premium glassmorphism effect */
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  background: var(--gradient-primary-dark) !important; /* Same as footer */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Subtle shadow */
 }
 
 /* When banner is dismissed, move header to top with smooth upward animation */
 body.banner-dismissed .navbar {
   top: 0 !important;
   transform: translateY(0);
+  margin-top: 0 !important;
   transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1),
               background 0.3s ease,
               box-shadow 0.3s ease,
-              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              margin-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Ensure navbar styling with glassmorphism */
+/* Simple clean navbar styling */
 .navbar-dark.bg-primary {
-  background: linear-gradient(135deg, rgba(10, 61, 66, 0.95) 0%, rgba(13, 77, 82, 0.92) 100%) !important;
-  box-shadow: 0 4px 20px rgba(13, 77, 82, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--gradient-primary-dark) !important; /* Same as footer */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Light border with transparency */
 }
 
-/* Scroll behavior - header becomes more opaque */
+/* Scroll behavior - slightly stronger shadow */
 .navbar.scrolled {
-  background: linear-gradient(135deg, rgba(10, 61, 66, 0.98) 0%, rgba(13, 77, 82, 0.96) 100%) !important;
-  box-shadow: 0 8px 32px rgba(13, 77, 82, 0.25);
+  background: var(--gradient-primary-dark) !important; /* Same as footer */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .navbar.scrolled .navbar-top-row {
-  min-height: 56px; /* Slightly smaller when scrolled */
-  padding: 0.4rem 0;
+  max-height: none; /* Allow logo to expand */
+  min-height: 80px; /* Accommodate logo */
+  height: auto; /* Auto height to accommodate logo */
+  padding: 0.75rem 0.75rem; /* Top padding: 0.75rem, horizontal padding */
 }
 
 /* Ensure container displays rows vertically */
@@ -54,30 +53,35 @@ body.banner-dismissed .navbar {
 
 /* Top Row: Logo, Search, Contact, Profile - All in One Line */
 .navbar-top-row {
+  max-height: none; /* Prevent overflow */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 0;
+  padding: 0.75rem 0.75rem; /* Added top padding: 0.75rem top, horizontal padding */
   gap: 1rem;
-  min-height: 60px;
+  height: auto; /* Fixed height desktop */
   width: 100%;
   flex-wrap: nowrap; /* Prevent wrapping to next line */
 }
 
-/* Logo Container - Premium Styling */
+/* Logo Container - White Background Box */
 .logo-container {
-  background: white;
-  padding: 6px 10px;
-  border-radius: 8px;
-  margin-right: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  background: #ffffff !important; /* Pure white background - ensure it's always white */
+  padding: 0.5rem 1rem; /* Padding around logo */
+  border-radius: 8px; /* Rounded corners */
+  margin-right: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 200ms ease-out;
+  transition: all 0.2s ease;
   flex-shrink: 0;
-  /* Premium fade-in animation on load */
-  animation: fadeInLogo 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  height: fit-content;
+  max-height: none; /* Allow logo to expand */
+  overflow: visible; /* Allow logo to be visible */
+  border: 1px solid rgba(0, 0, 0, 0.05); /* Subtle border */
+  position: relative;
+  z-index: 10; /* Ensure it's above navbar background */
 }
 
 @keyframes fadeInLogo {
@@ -92,31 +96,50 @@ body.banner-dismissed .navbar {
 }
 
 .logo-container:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
-  transform: scale(1.03) translateY(-1px); /* Premium hover scale */
+  background: #ffffff !important; /* Maintain white background on hover */
+  opacity: 1; /* Full opacity - no transparency */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+  transform: translateY(-1px); /* Slight lift effect */
+}
+
+.logo-container:hover .logo-image {
+  width: auto !important;
+  filter: none; /* No filter effects */
+  transform: none !important;
+  height: 60px !important; /* Maintain consistent height */
 }
 
 .logo-image {
-  height: 45px;
-  width: auto;
+  height: 60px !important; /* Adjusted height for better proportion */
+  width: auto !important;
+  max-width: none !important;
   display: block;
-  object-fit: contain;
+  object-fit: contain !important;
+  object-position: center;
+  transition: opacity 0.2s ease;
+  filter: none; /* No filter effects - clean logo */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 0 !important;
 }
 
+/* Brand text removed - logo only branding */
 .brand-text {
-  font-size: 18px;
-  font-weight: 700;
-  color: white;
-  letter-spacing: 0.5px;
-  transition: all 200ms ease-out;
-  white-space: nowrap;
+  display: none;
 }
 
 .navbar-brand {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-shrink: 0;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 100%;
+  padding: 0 0.75rem; /* Horizontal padding only - no vertical padding */
+  margin: 0;
 }
 
 .navbar-brand:focus {
@@ -125,9 +148,7 @@ body.banner-dismissed .navbar {
   border-radius: 8px;
 }
 
-.navbar-brand:hover .brand-text {
-  transform: translateX(2px);
-}
+/* Removed brand text hover effect */
 
 /* Search Center - Prominent and Centered - Elongated */
 .navbar-search-center {
@@ -164,35 +185,16 @@ body.banner-dismissed .navbar {
   white-space: nowrap;
   box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25), 0 0 0 0 rgba(14, 165, 233, 0.4);
   position: relative;
-  overflow: hidden;
-}
-
-.btn-contact::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
+  overflow: visible;
 }
 
 .btn-contact:hover {
-  background: linear-gradient(135deg, var(--accent-800) 0%, var(--accent-700) 100%);
+  background: #0284c7; /* Darker blue on hover */
   color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(14, 165, 233, 0.4), 0 0 0 4px rgba(14, 165, 233, 0.1); /* Glow effect */
-}
-
-.btn-contact:active {
-  transform: translateY(0);
 }
 
 .btn-contact:focus {
-  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline: 2px solid #0ea5e9;
   outline-offset: 2px;
 }
 
@@ -213,38 +215,38 @@ body.banner-dismissed .navbar {
   min-width: 40px;
   height: 40px;
   padding: 0.5rem 1rem;
-  border-radius: 24px; /* Pill shape to match premium design */
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  transition: background 0.2s ease, border-color 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Light border with transparency */
+  background: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+  color: var(--text-on-primary); /* White text */
 }
 
 .btn-signin:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.6);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: var(--text-on-primary);
 }
 
 .btn-signin i {
   font-size: 1.1rem;
+  color: var(--text-on-primary);
 }
 
-/* Bottom Row: Navigation Menu */
+/* Bottom Row: Navigation Menu - Same as footer */
 .navbar-bottom-row {
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 0.5rem 0;
-  background: rgba(0, 0, 0, 0.12); /* Slightly lighter shade than top row */
+  border-top: 1px solid rgba(255, 255, 255, 0.1); /* Light border with transparency */
+  padding: 0;
+  background: transparent; /* Inherit gradient from navbar */
   display: flex;
   align-items: center;
   width: 100%;
-  clear: both; /* Ensure it's on a new line */
-  flex-shrink: 0; /* Prevent shrinking */
+  clear: both;
+  flex-shrink: 0;
+  min-height: 48px;
 }
 
 .navbar-bottom-row .navbar-toggler {
@@ -277,54 +279,33 @@ body.banner-dismissed .navbar {
 }
 
 .navbar-nav .nav-link {
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
   font-size: 0.9rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.95);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: 6px;
+  color: var(--text-on-primary); /* White text like footer */
+  transition: color 0.2s ease, background 0.2s ease;
+  border-radius: 0;
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.5rem;
   cursor: pointer;
   white-space: nowrap;
   position: relative;
 }
 
-/* Premium hover underline animation */
-.navbar-nav .nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0.25rem;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.9);
-  transform: translateX(-50%);
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: 2px;
-}
-
-.navbar-nav .nav-link:hover::after,
-.navbar-nav .nav-link.active::after {
-  width: calc(100% - 2rem);
-}
-
+/* Simple hover effect */
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.active,
 .navbar-nav .nav-link:focus {
-  color: white;
-  background: rgba(255, 255, 255, 0.15);
-  outline: 2px solid rgba(255, 255, 255, 0.3);
-  outline-offset: 2px;
+  color: var(--text-on-primary); /* White text */
+  background: rgba(255, 255, 255, 0.1); /* Light overlay */
 }
 
 .navbar-nav .nav-item.dropdown:hover .nav-link,
-.navbar-nav .nav-item.dropdown .nav-link.active,
-.navbar-nav .nav-link.active {
-  color: white;
-  background: rgba(255, 255, 255, 0.25);
-  font-weight: 600;
+.navbar-nav .nav-item.dropdown .nav-link.active {
+  color: var(--text-on-primary);
+  background: rgba(255, 255, 255, 0.1);
+  font-weight: 500;
 }
 
 .navbar-nav .nav-link.dropdown-toggle::after {
@@ -341,6 +322,7 @@ body.banner-dismissed .navbar {
   font-size: 0.65rem;
   transition: transform 200ms ease;
   margin-left: 0.1rem;
+  color: var(--text-on-primary); /* White chevron */
 }
 
 .navbar-nav .nav-item.dropdown:hover .nav-link i.bi-chevron-down,
@@ -351,24 +333,22 @@ body.banner-dismissed .navbar {
 
 /* Dropdown Menu - Premium Mega-Menu Style */
 .dropdown-menu {
-  background: white;
-  border: none;
-  border-radius: 16px;
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15), 0 4px 16px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
-  margin-top: 0.75rem;
-  min-width: 280px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  min-width: 240px;
   display: none;
   position: absolute;
   top: 100%;
   left: 0;
   z-index: 1000;
   opacity: 0;
-  transform: translateY(-12px) scale(0.95);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
   pointer-events: none;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
 }
 
 .dropdown-menu.show {
@@ -379,37 +359,74 @@ body.banner-dismissed .navbar {
 }
 
 .dropdown-item {
-  padding: 0.75rem 1.25rem;
-  border-radius: 10px;
-  font-size: 0.9rem;
-  color: var(--text-primary);
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0.625rem 0.875rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  color: #374151;
+  transition: background 0.2s ease, color 0.2s ease;
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
 
 .dropdown-item:hover {
-  background: linear-gradient(90deg, var(--primary-100) 0%, var(--primary-50) 100%);
-  color: var(--primary-800);
-  transform: translateX(6px);
-  box-shadow: 0 2px 8px rgba(13, 77, 82, 0.1);
+  background: #f0f9ff;
+  color: #0ea5e9;
 }
 
 .dropdown-item i {
-  color: var(--primary-700);
+  color: #6b7280;
   font-size: 0.9rem;
   width: 18px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
 }
 
-/* Mobile adjustments */
+.dropdown-item:hover i {
+  color: #0ea5e9;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media (max-width: 992px) {
   .navbar-top-row {
+    max-height: none; /* Prevent overflow mobile */
     flex-wrap: wrap;
     gap: 1rem;
-    min-height: auto;
-    padding: 0.75rem 0;
+    height: auto; /* Fixed height mobile */
+    padding: 0 0.75rem; /* Horizontal padding only - no vertical padding */
   }
 
   .navbar-search-center {
@@ -426,11 +443,22 @@ body.banner-dismissed .navbar {
   }
 
   .logo-image {
-    height: 45px;
+    height: 60px !important; /* Adjusted height for better proportion */
+    width: auto !important;
+    max-width: none !important;
   }
 
-  .brand-text {
-    font-size: 18px;
+  .logo-container {
+    height: fit-content;
+    max-height: none; /* Prevent overflow on mobile */
+    padding: 0.4rem 0.75rem; /* Padding around logo */
+    overflow: visible;
+    background: #ffffff !important; /* Pure white background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border: 1px solid rgba(0, 0, 0, 0.05); /* Subtle border */
+    position: relative;
+    z-index: 10;
   }
 
   .navbar-bottom-row {
@@ -469,14 +497,12 @@ body.banner-dismissed .navbar {
     left: 0;
     width: 280px;
     height: 100vh;
-    background: linear-gradient(135deg, rgba(10, 61, 66, 0.98) 0%, rgba(13, 77, 82, 0.96) 100%);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: #ffffff; /* Clean white background */
     z-index: 10000;
     padding: 2rem 1.5rem;
-    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.1);
     transform: translateX(-100%);
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.3s ease;
     overflow-y: auto;
   }
 
@@ -532,9 +558,10 @@ body.banner-dismissed .navbar {
 
   .navbar-nav .nav-link {
     padding: 1rem 1.25rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
+    border-bottom: 1px solid #e5e7eb; /* Light gray border */
+    border-radius: 0;
     font-size: 1rem;
+    color: #374151; /* Dark gray text */
   }
 
   .navbar-nav .nav-link::after {
@@ -549,13 +576,14 @@ body.banner-dismissed .navbar {
     position: static !important;
     transform: none !important;
     box-shadow: none;
-    background: rgba(0, 0, 0, 0.1);
+    background: #f9fafb; /* Light gray background */
+    border: none;
     margin: 0;
     padding: 0.5rem 0 0.5rem 1.5rem;
   }
 
   .dropdown-item {
-    color: rgba(255, 255, 255, 0.9);
+    color: #374151; /* Dark gray text */
     padding: 0.5rem 1rem;
   }
 
@@ -568,25 +596,33 @@ body.banner-dismissed .navbar {
 @media (max-width: 768px) {
   .navbar {
     top: 0; /* Remove banner offset on mobile */
-    padding: 0;
+    padding: 0 0.75rem; /* Horizontal padding only - no vertical padding */
   }
 
   .navbar-top-row {
-    padding: 0.5rem 0;
-    min-height: 60px;
+  max-height: none; /* Prevent overflow */
+    height: auto; /* Fixed height mobile */
+    padding: 0.5rem 0.75rem; /* Top padding: 0.5rem, horizontal padding */
   }
 
   .logo-image {
-    height: 40px;
-  }
-
-  .brand-text {
-    font-size: 16px;
+    height: 60px !important; /* Adjusted height for better proportion */
+    width: auto !important;
+    max-width: none !important;
   }
 
   .logo-container {
-    padding: 4px 8px;
-    margin-right: 8px;
+    height: fit-content;
+    max-height: none; /* Prevent overflow on mobile */
+    padding: 0.35rem 0.6rem; /* Padding around logo */
+    margin-right: 0;
+    border-radius: 8px;
+    overflow: visible;
+    background: #ffffff !important; /* Pure white background */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border: 1px solid rgba(0, 0, 0, 0.05); /* Subtle border */
+    position: relative;
+    z-index: 10;
   }
 
   .btn-contact {
@@ -615,21 +651,29 @@ body.banner-dismissed .navbar {
 
 @media (max-width: 480px) {
   .navbar-top-row {
-    min-height: 55px;
-    padding: 0.4rem 0;
+  max-height: none; /* Prevent overflow */
+    height: auto; /* Fixed height small mobile */
+    padding: 0.5rem 0.75rem; /* Top padding: 0.5rem, horizontal padding */
   }
 
   .logo-image {
-    height: 35px;
-  }
-
-  .brand-text {
-    font-size: 14px;
+    height: 36px !important; /* Increased from 30px - small mobile - controlled by height only */
+    width: auto !important;
+    max-width: none !important;
   }
 
   .logo-container {
-    padding: 3px 6px;
-    margin-right: 6px;
+    height: fit-content;
+    max-height: none; /* Prevent overflow on small mobile */
+    padding: 0.3rem 0.5rem; /* Padding around logo */
+    margin-right: 0;
+    border-radius: 8px;
+    overflow: visible;
+    background: #ffffff !important; /* Pure white background */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border: 1px solid rgba(0, 0, 0, 0.05); /* Subtle border */
+    position: relative;
+    z-index: 10;
   }
 
   .btn-contact {
@@ -641,4 +685,21 @@ body.banner-dismissed .navbar {
     padding: 0.35rem 0.875rem;
     font-size: 0.8rem;
   }
+}
+/* Scrolled logo - maintain same size */
+.navbar.scrolled .logo-image {
+  height: 60px !important; /* Adjusted height for better proportion */
+  width: auto !important;
+  max-width: none !important;
+}
+
+/* Scrolled logo container - maintain white background */
+.navbar.scrolled .logo-container {
+  max-height: none; /* Prevent overflow when scrolled */
+  background: #ffffff !important; /* Pure white background - always white */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  border: 1px solid rgba(0, 0, 0, 0.05); /* Subtle border */
+  opacity: 1 !important; /* Full opacity - no transparency */
+  position: relative;
+  z-index: 10;
 }

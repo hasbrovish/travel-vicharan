@@ -1,22 +1,19 @@
-/* Breadcrumb Navigation */
+/* Breadcrumb Navigation - Non-Sticky */
 .breadcrumb-nav {
   background: var(--bg-primary);
   border-bottom: 1px solid var(--border-light);
-  padding: 1rem 0 0.5rem 0; /* Increased top padding for visibility */
-  position: sticky;
-  top: 145px; /* Below banner (36px) + header (109px: 60px top row + 49px bottom row with padding) */
+  padding: 0.75rem 0;
+  position: relative; /* Changed from static to relative for z-index to work */
   z-index: 998; /* Below header (999) but above content */
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
   margin-bottom: 0;
   margin-top: 0;
-  transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
 }
 
-/* When banner is dismissed, header moves up */
+/* When banner is dismissed - no change needed as breadcrumb is static */
 body.banner-dismissed .breadcrumb-nav {
-  top: 109px; /* Only header height (60px top row + 49px bottom row with padding) */
-  padding-top: 1rem; /* Maintain top padding */
-  transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  /* No special handling needed */
 }
 
 .breadcrumb-list {
@@ -106,34 +103,25 @@ body.banner-dismissed .breadcrumb-nav {
 @media (max-width: 992px) {
   .breadcrumb-nav {
     padding: 0.875rem 0 0.4rem 0; /* Increased top padding */
-    top: 135px; /* Adjusted for mobile header (36px banner + ~99px header) */
-    position: sticky;
+    position: relative; /* Changed to relative - breadcrumb should be in flow */
     margin-top: 0;
-    transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 998;
   }
 
   body.banner-dismissed .breadcrumb-nav {
-    top: 99px; /* Only mobile header height */
     padding-top: 0.875rem; /* Maintain top padding */
-    transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
 @media (max-width: 768px) {
   .breadcrumb-nav {
-    padding: 0.75rem 0 0.4rem 0; /* Increased top padding */
-    top: 125px; /* Adjusted for small mobile header (36px banner + ~89px header) */
-    position: sticky;
+    padding: 0.5rem 0;
+    position: static; /* Non-sticky */
     margin-top: 0;
-    transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 998;
   }
 
   body.banner-dismissed .breadcrumb-nav {
-    top: 89px; /* Only small mobile header height */
-    padding-top: 0.75rem; /* Maintain top padding */
-    transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    /* No special handling needed */
   }
 
   .breadcrumb-list {
@@ -165,17 +153,13 @@ body.banner-dismissed .breadcrumb-nav {
 
 @media (max-width: 480px) {
   .breadcrumb-nav {
-    padding: 0.625rem 0 0.3rem 0; /* Increased top padding */
-    top: 95px; /* Small mobile (36px banner + ~59px header) */
+    padding: 0.5rem 0;
+    position: static; /* Non-sticky */
     margin-top: 0;
-    transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 998;
   }
 
   body.banner-dismissed .breadcrumb-nav {
-    top: 59px; /* Only small mobile header height */
-    padding-top: 0.625rem; /* Maintain top padding */
-    transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    /* No special handling needed */
   }
 
   .breadcrumb-list {

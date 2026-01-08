@@ -1,0 +1,379 @@
+.about-us-page {
+  min-height: calc(100vh - 180px);
+  background: var(--bg-primary);
+}
+
+.page-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--primary-800);
+  margin-bottom: 1rem;
+}
+
+.page-subtitle {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Alert Section */
+.alert-section {
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 152, 0, 0.1) 100%);
+  border-left: 4px solid var(--warning);
+  border-radius: 12px;
+  padding: 2rem;
+  display: flex;
+  gap: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.alert-icon {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  background: var(--warning);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.alert-content {
+  flex: 1;
+}
+
+.alert-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-800);
+  margin-bottom: 1rem;
+}
+
+.alert-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* CTA Section */
+.cta-section {
+  background: linear-gradient(135deg, var(--primary-50) 0%, var(--accent-50) 100%);
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.cta-text {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Content Sections */
+.content-section {
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-800);
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid var(--primary-200);
+}
+
+.subsection-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary-700);
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+}
+
+.section-text {
+  font-size: 1.1rem;
+  line-height: 1.9;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+/* Values List */
+.values-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.value-item {
+  display: flex;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.value-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.value-icon {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--accent-600) 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.value-content {
+  flex: 1;
+}
+
+.value-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-800);
+  margin-bottom: 0.75rem;
+}
+
+.value-text {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* Invitation Section */
+.invitation-section {
+  background: linear-gradient(135deg, var(--primary-50) 0%, var(--accent-50) 100%);
+  border-radius: 16px;
+  padding: 3rem;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.invitation-text {
+  font-size: 1.2rem;
+  line-height: 1.9;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+}
+
+.quote-section {
+  margin: 2.5rem 0;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.quote-text {
+  font-size: 1.5rem;
+  font-style: italic;
+  color: var(--primary-700);
+  margin: 0;
+  line-height: 1.8;
+  font-weight: 500;
+}
+
+.quote-author {
+  display: block;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  font-style: normal;
+}
+
+.invitation-closing {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--primary-800);
+  margin-top: 2rem;
+  margin-bottom: 0;
+}
+
+/* Explore Button */
+.explore-btn {
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 50px;
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--accent-600) 100%);
+  border: none;
+  box-shadow: 0 4px 16px rgba(15, 118, 110, 0.3);
+  transition: all 0.3s ease;
+}
+
+.explore-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(15, 118, 110, 0.4);
+  background: linear-gradient(135deg, var(--primary-700) 0%, var(--accent-700) 100%);
+}
+
+.explore-btn i {
+  font-size: 1.3rem;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .page-title {
+    font-size: 2.5rem;
+  }
+
+  .page-subtitle {
+    font-size: 1.3rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .alert-section {
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+
+  .alert-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+  }
+
+  .value-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .value-icon {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-us-page {
+    min-height: calc(100vh - 160px);
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .page-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+  }
+
+  .subsection-title {
+    font-size: 1.3rem;
+  }
+
+  .alert-section {
+    padding: 1.25rem;
+  }
+
+  .alert-title {
+    font-size: 1.25rem;
+  }
+
+  .alert-text,
+  .section-text {
+    font-size: 1rem;
+  }
+
+  .cta-section {
+    padding: 2rem 1.5rem;
+  }
+
+  .cta-text {
+    font-size: 1.1rem;
+  }
+
+  .value-item {
+    padding: 1.5rem;
+  }
+
+  .value-title {
+    font-size: 1.25rem;
+  }
+
+  .invitation-section {
+    padding: 2rem 1.5rem;
+  }
+
+  .quote-text {
+    font-size: 1.25rem;
+  }
+
+  .explore-btn {
+    padding: 0.875rem 2rem;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-us-page {
+    min-height: calc(100vh - 130px);
+  }
+
+  .page-title {
+    font-size: 1.75rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .alert-section {
+    padding: 1rem;
+  }
+
+  .alert-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+  }
+
+  .cta-section {
+    padding: 1.5rem 1rem;
+  }
+
+  .value-item {
+    padding: 1.25rem;
+  }
+
+  .invitation-section {
+    padding: 1.5rem 1rem;
+  }
+
+  .quote-section {
+    padding: 1.5rem;
+  }
+
+  .quote-text {
+    font-size: 1.1rem;
+  }
+
+  .explore-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    width: 100%;
+  }
+}
+
+
