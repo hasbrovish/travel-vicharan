@@ -233,20 +233,67 @@
               </div>
             </div>
             
-            <!-- Premium Timeline Itinerary -->
-            <div class="premium-itinerary-timeline">
-              <div class="timeline-line"></div>
-              
-              <div class="itinerary-day-card-premium" *ngFor="let day of package.itinerary; let i = index; let isLast = last" 
+            <!-- Journey Map Itinerary -->
+            <div class="journey-map-wrapper">
+              <!-- SVG Background with winding horizontal path -->
+              <svg class="journey-map-svg" viewBox="0 0 1200 1400" preserveAspectRatio="xMidYMid meet">
+                <!-- Horizontal zigzag path -->
+                <path class="journey-path-line"
+                      d="M 50,200 Q 180,180 300,220 Q 420,260 550,200 Q 680,140 800,200 Q 920,260 1050,220 Q 1100,200 1150,200
+                         M 1150,200 Q 1120,300 1000,350 Q 880,400 750,350 Q 620,300 500,370 Q 380,440 250,380 Q 150,340 80,400
+                         M 80,400 Q 180,420 300,480 Q 420,540 550,500 Q 680,460 800,520 Q 920,580 1050,540 Q 1100,520 1150,540
+                         M 1150,540 Q 1120,640 1000,690 Q 880,740 750,690 Q 620,640 500,710 Q 380,780 250,720 Q 150,680 80,740
+                         M 80,740 Q 180,760 300,820 Q 420,880 550,840 Q 680,800 800,860 Q 920,920 1050,880 Q 1100,860 1150,880"
+                      fill="none"
+                      stroke="#d1d5db"
+                      stroke-width="4"
+                      stroke-dasharray="10,10"
+                      stroke-linecap="round"
+                      opacity="0.6"/>
+
+                <!-- Decorative elements -->
+                <g class="journey-decorations">
+                  <!-- Airplane -->
+                  <g transform="translate(40, 190)">
+                    <path d="M0,0 L12,-3 L15,0 L12,3 Z M6,-2 L6,-5 M6,2 L6,5"
+                          stroke="#9ca3af" stroke-width="1.5" fill="none"/>
+                  </g>
+
+                  <!-- Clouds -->
+                  <g opacity="0.4">
+                    <ellipse cx="400" cy="150" rx="20" ry="10" fill="#cbd5e1"/>
+                    <ellipse cx="415" cy="150" rx="16" ry="12" fill="#cbd5e1"/>
+                    <ellipse cx="392" cy="158" rx="14" ry="8" fill="#cbd5e1"/>
+                  </g>
+
+                  <g opacity="0.4">
+                    <ellipse cx="900" cy="280" rx="22" ry="11" fill="#cbd5e1"/>
+                    <ellipse cx="918" cy="280" rx="18" ry="13" fill="#cbd5e1"/>
+                  </g>
+
+                  <!-- Hot air balloon -->
+                  <g transform="translate(1050, 360)">
+                    <ellipse cx="0" cy="0" rx="14" ry="18" fill="#fb923c" opacity="0.6"/>
+                    <path d="M-10,14 L-6,22 L6,22 L10,14" fill="#fde68a" stroke="#92400e" stroke-width="1"/>
+                  </g>
+
+                  <!-- Mountain -->
+                  <g transform="translate(600, 600)" opacity="0.3">
+                    <path d="M0,30 L15,5 L30,30" stroke="#94a3b8" stroke-width="2" fill="none"/>
+                  </g>
+                </g>
+              </svg>
+
+              <!-- Day stops positioned along the map -->
+              <div class="journey-day-item" *ngFor="let day of package.itinerary; let i = index; let isLast = last"
                    [class.last-day]="isLast"
                    [class.first-day]="i === 0">
-                
-                <!-- Timeline Node -->
-                <div class="timeline-node">
-                  <div class="node-circle">
-                    <span class="node-day-number">{{ day.day }}</span>
+
+                <!-- Map Pin -->
+                <div class="map-pin">
+                  <div class="pin-circle">
+                    <span class="pin-day-number">{{ day.day }}</span>
                   </div>
-                  <div class="node-connector" *ngIf="!isLast"></div>
                 </div>
 
                 <!-- Day Card -->

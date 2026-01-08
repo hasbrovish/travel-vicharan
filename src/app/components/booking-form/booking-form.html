@@ -97,24 +97,10 @@
               </div>
             </div>
           </div>
+        </div>
 
         <!-- Step 2: Room Selection -->
-        <!-- Debug info - Force re-evaluation -->
-        <div class="alert alert-info mb-3" *ngIf="true" style="font-size: 0.9rem;">
-          <strong>🔍 TEMPLATE DEBUG:</strong><br>
-          currentStep={{ currentStep }} (type: {{ getCurrentStepType() }})<br>
-          isStep(2)={{ isStep(2) }}<br>
-          package={{ !!package }}<br>
-          roomOptions={{ (package.roomOptions && package.roomOptions.length) || 0 }}<br>
-          timestamp={{ getCurrentTime() }}<br>
-          <small>Template evaluated at: {{ getCurrentTime() }}</small>
-        </div>
-        
-        <!-- Force visibility test -->
-        <div *ngIf="isStep(2)" class="booking-step-content" style="border: 3px solid #28a745; background: #f0fff4; padding: 1rem;">
-          <div class="alert alert-success mb-3">
-            <strong>✅ STEP 2 IS ACTIVE!</strong> currentStep={{ currentStep }}, isStep(2)={{ isStep(2) }}
-          </div>
+        <div *ngIf="isStep(2)" class="booking-step-content">
           <h3 class="step-title mb-4">
             <i class="bi bi-door-open me-2"></i>
             Select Your Room Configuration
