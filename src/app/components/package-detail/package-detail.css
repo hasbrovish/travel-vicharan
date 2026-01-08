@@ -2962,7 +2962,7 @@ html {
 }
 
 /* Prevent itinerary from overlapping content below */
-*ngIf="activeTab === 'itinerary'" {
+.fade-in {
   overflow: visible;
   position: relative;
 }
