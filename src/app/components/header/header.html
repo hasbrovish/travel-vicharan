@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
-    <!-- Top Row: Logo, Search, Contact, Profile - All in One Line -->
+    <!-- Top Row: Logo, Search, Contact, Profile, Menu - All in One Line -->
     <div class="navbar-top-row">
       <!-- Logo -->
       <a class="navbar-brand fw-bold d-flex align-items-center" routerLink="/" [attr.aria-label]="'Home'">
@@ -9,15 +9,15 @@
         </div>
       </a>
 
-      <!-- Advanced Search (Center) -->
-      <div class="navbar-search-center">
+      <!-- Advanced Search (Center) - Hidden on Mobile -->
+      <div class="navbar-search-center d-none d-md-block">
         <app-advanced-search (search)="onSearch($event)"></app-advanced-search>
       </div>
 
-      <!-- Right Section: Contact & Profile -->
+      <!-- Right Section: Contact, Profile, Menu -->
       <div class="header-right-section">
-        <!-- Contact Button -->
-        <a href="tel:+919929443313" class="btn-contact">
+        <!-- Contact Button - Hidden on Mobile -->
+        <a href="tel:+919929443313" class="btn-contact d-none d-md-flex">
           <i class="bi bi-telephone-fill"></i>
           <span class="contact-number">+91 9929443313</span>
         </a>
@@ -39,32 +39,43 @@
             [user]="user$ | async">
           </app-profile-dropdown>
         </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button 
+          class="navbar-toggler d-md-none" 
+          type="button" 
+          (click)="toggleMobileMenu()"
+          [attr.aria-expanded]="isMobileMenuOpen"
+          aria-label="Toggle navigation menu"
+          aria-controls="navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
       </div>
     </div>
 
     <!-- Bottom Row: Navigation Menu -->
-    <div class="navbar-bottom-row">
-      <button 
-        class="navbar-toggler" 
-        type="button" 
-        (click)="toggleMobileMenu()"
-        [attr.aria-expanded]="isMobileMenuOpen"
-        aria-label="Toggle navigation menu"
-        aria-controls="navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <div class="navbar-bottom-row d-none d-md-flex">
       <div 
         class="collapse navbar-collapse" 
         id="navbarNav"
         [class.show]="isMobileMenuOpen">
-        <!-- Mobile Menu Close Button -->
-        <button 
-          class="mobile-menu-close d-md-none"
-          (click)="closeMobileMenu()"
-          aria-label="Close menu"
-          type="button">
-          <i class="bi bi-x-lg"></i>
-        </button>
+        <!-- Mobile Menu Header -->
+        <div class="mobile-menu-header d-md-none">
+          <h5 class="mobile-menu-title">Menu</h5>
+          <button 
+            class="mobile-menu-close"
+            (click)="closeMobileMenu()"
+            aria-label="Close menu"
+            type="button">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+
+        <!-- Mobile Search Section -->
+        <div class="mobile-search-section d-md-none">
+          <app-advanced-search (search)="onSearch($event); closeMobileMenu()"></app-advanced-search>
+        </div>
+
         <ul class="navbar-nav">
           <li class="nav-item" [class.dropdown]="navItem.hasDropdown" *ngFor="let navItem of navigationItems">
             <!-- Wrapper div for dropdown hover area -->

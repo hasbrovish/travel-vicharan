@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,6 +7,7 @@ import { BookingService } from '../../services/booking.service';
 import { EmailService } from '../../services/email.service';
 import { TourPackage, Booking, Passenger, PassengerTitle, Gender } from '../../models';
 import { Breadcrumb } from '../breadcrumb/breadcrumb';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-booking-form',
@@ -15,20 +16,29 @@ import { Breadcrumb } from '../breadcrumb/breadcrumb';
   templateUrl: './booking-form.html',
   styleUrl: './booking-form.css',
 })
-export class BookingForm implements OnInit {
+export class BookingForm implements OnInit, OnDestroy {
+  // Form and package data
   bookingForm!: FormGroup;
   package: TourPackage | null = null;
   departureDate: string = '';
   numberOfPassengers: number = 1;
+  
+  // Step management - SIMPLIFIED: Just a number, no complex logic
+  // Explicitly type as number to avoid literal type inference
+  currentStep!: number;
+  readonly totalSteps = 5;
+  
+  // UI state
   submitting = false;
   showSuccessModal = false;
   bookingReference = '';
-  currentStep: number = 1;
-  totalSteps: number = 5;
+  isProgressSticky = false;
+  
+  // Selection state
   selectedRoomOption: string | null = null;
   selectedAddOns: string[] = [];
-  isProgressSticky = false; // Track if progress bar should be sticky
-
+  
+  // Form options
   titles: PassengerTitle[] = ['Mr', 'Ms', 'Mrs', 'Master'];
   genders: Gender[] = ['Male', 'Female', 'Other'];
   
@@ -39,113 +49,257 @@ export class BookingForm implements OnInit {
     { id: 'guide', name: 'Local Guide', price: 3000, description: 'Experienced local guide for better experience' }
   ];
 
+  private subscriptions = new Subscription();
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private packagesDataService: PackagesDataService,
     private bookingService: BookingService,
-    private emailService: EmailService
+    private emailService: EmailService,
+    private cdr: ChangeDetectorRef,
+    private ngZone: NgZone
   ) {}
 
   ngOnInit(): void {
-    // Setup scroll listener for sticky progress bar
+    console.log('🔵 ngOnInit() CALLED - Component initializing');
+    console.log('🔵 ngOnInit() - currentStep BEFORE init:', this.currentStep);
+    
     this.setupStickyProgressBar();
-    this.route.params.subscribe(params => {
-      const slug = params['slug'];
-      this.route.queryParams.subscribe(qParams => {
-        this.departureDate = qParams['departure'];
-        this.numberOfPassengers = +qParams['passengers'] || 1;
-        const stepValue = qParams['step'];
-        this.currentStep = stepValue ? +stepValue : 1;
-
-        if (slug) {
-          this.loadPackage(slug);
-        }
-      });
-    });
+    this.initializeForm();
+    
+    // Initialize currentStep FIRST (before reading from route)
+    this.currentStep = 1;
+    console.log('🔵 ngOnInit() - currentStep set to 1:', this.currentStep);
+    
+    // Read initial data from route ONCE using snapshot
+    const params = this.route.snapshot.params;
+    const qParams = this.route.snapshot.queryParams;
+    
+    console.log('🔵 ngOnInit() - URL queryParams:', qParams);
+    console.log('🔵 ngOnInit() - URL step param:', qParams['step']);
+    
+    // Read step from URL ONLY on initial load - set it ONCE
+    // After this, step is controlled ONLY by goToStep() method
+    if (qParams['step']) {
+      const step = Number(qParams['step']);
+      console.log('🔵 ngOnInit() - Found step in URL:', step);
+      if (step >= 1 && step <= 5) {
+        this.currentStep = step;
+        console.log('🔵 ngOnInit() - currentStep set from URL:', this.currentStep);
+      }
+    }
+    
+    console.log('🔵 ngOnInit() - currentStep FINAL:', this.currentStep);
+    
+    this.departureDate = qParams['departure'] || '';
+    this.numberOfPassengers = +(qParams['passengers'] || 1);
+    
+    // Load package if slug exists
+    if (params['slug']) {
+      this.loadPackage(params['slug']);
+    }
+    
+    // DO NOT subscribe to route.params or route.queryParams
+    // This causes interference with step management
+    // Step is now 100% component-controlled via goToStep()
   }
 
+  ngOnDestroy(): void {
+    console.log('🔴 ngOnDestroy() CALLED - Component being destroyed');
+    console.log('🔴 ngOnDestroy() - currentStep at destruction:', this.currentStep);
+    this.subscriptions.unsubscribe();
+  }
+
+  // SIMPLIFIED: Direct step navigation - no complex logic
   nextStep(): void {
-    if (this.canProceedToNextStep()) {
-      if (this.currentStep < this.totalSteps) {
-        let nextStep: number = this.currentStep + 1;
-        
-        // Skip step 2 (room selection) if no room options available
-        if (nextStep === 2 && (!this.package?.roomOptions || this.package.roomOptions.length === 0)) {
-          nextStep = 3;
-        }
-        
-        // Auto-select room if only one option exists when moving to step 2
-        if (nextStep === 2 && this.package?.roomOptions && this.package.roomOptions.length === 1) {
-          this.selectedRoomOption = this.package.roomOptions[0].id;
-        }
-        
-        this.currentStep = nextStep;
-        this.updateURL();
+    if (this.currentStep >= this.totalSteps) return;
+    
+    // Handle step 2 skip logic
+    if (this.currentStep === 1) {
+      const nextStep = 2;
+      
+      // Skip step 2 if no room options
+      if (this.package && (!this.package.roomOptions || this.package.roomOptions.length === 0)) {
+        this.goToStep(3);
+        return;
       }
+      
+      // Auto-select if only one room option
+      if (this.package?.roomOptions?.length === 1) {
+        this.selectedRoomOption = this.package.roomOptions[0].id;
+      }
+      
+      this.goToStep(nextStep);
+    } else {
+      this.goToStep(this.currentStep + 1);
     }
   }
 
   previousStep(): void {
-    if (this.currentStep > 1) {
-      let prevStep: number = this.currentStep - 1;
-      
-      // Skip step 2 (room selection) if no room options available when going backwards
-      if (prevStep === 2 && (!this.package?.roomOptions || this.package.roomOptions.length === 0)) {
-        prevStep = 1;
-      }
-      
-      this.currentStep = prevStep;
-      this.updateURL();
+    if (this.currentStep <= 1) return;
+    
+    let prevStep = this.currentStep - 1;
+    
+    // Skip step 2 when going backwards if no room options
+    if (prevStep === 2 && this.package && (!this.package.roomOptions || this.package.roomOptions.length === 0)) {
+      prevStep = 1;
     }
+    
+    this.goToStep(prevStep);
   }
 
   goToStep(step: number): void {
-    if (step >= 1 && step <= this.totalSteps) {
-      // Skip step 2 if no room options available
-      if (step === 2 && (!this.package?.roomOptions || this.package.roomOptions.length === 0)) {
-        // If trying to go to step 2 but no room options, go to step 3 instead
-        if (step < this.currentStep) {
-          // Going backwards, skip to step 1
-          this.currentStep = 1;
-        } else {
-          // Going forwards, skip to step 3
-          this.currentStep = 3;
-        }
-      } else {
-        this.currentStep = step;
-      }
-      this.updateURL();
-    }
+    if (step < 1 || step > this.totalSteps) return;
+    
+    console.log('🔄 goToStep() CALLED');
+    console.log('🔄 goToStep() - currentStep BEFORE:', this.currentStep);
+    console.log('🔄 goToStep() - target step:', step);
+    
+    // CRITICAL: Set step FIRST, synchronously
+    this.currentStep = Number(step);
+    console.log('🔄 goToStep() - currentStep AFTER assignment:', this.currentStep);
+    console.log('🔄 goToStep() - typeof currentStep:', typeof this.currentStep);
+    
+    // Force change detection IMMEDIATELY - multiple times to ensure it sticks
+    console.log('🔄 goToStep() - Calling markForCheck()');
+    this.cdr.markForCheck();
+    console.log('🔄 goToStep() - Calling detectChanges()');
+    this.cdr.detectChanges();
+    console.log('🔄 goToStep() - After detectChanges, currentStep:', this.currentStep);
+    
+    // Use requestAnimationFrame to ensure DOM update happens
+    requestAnimationFrame(() => {
+      console.log('🔄 goToStep() - Inside requestAnimationFrame, currentStep:', this.currentStep);
+      this.cdr.markForCheck();
+      this.cdr.detectChanges();
+      console.log('📍 After requestAnimationFrame - currentStep:', this.currentStep, 'isStep(2):', this.isStep(2));
+    });
+    
+    // Update URL AFTER step is set
+    console.log('🔄 goToStep() - Starting router.navigate()');
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { step: this.currentStep },
+      queryParamsHandling: 'merge',
+      replaceUrl: true
+    }).then(() => {
+      console.log('✅ URL updated, currentStep:', this.currentStep);
+      console.log('✅ Router navigation complete, checking if component was recreated...');
+      // Force change detection again after navigation
+      this.cdr.markForCheck();
+      this.cdr.detectChanges();
+      
+      // Final check with another animation frame
+      requestAnimationFrame(() => {
+        this.cdr.markForCheck();
+        this.cdr.detectChanges();
+        console.log('🔍 Final check - currentStep:', this.currentStep, 'isStep(2):', this.isStep(2));
+      });
+    });
   }
 
-  getCurrentStep(): number {
-    return this.currentStep;
+  // Helper method for template comparisons - ensures proper type checking
+  isStep(step: number): boolean {
+    const current = Number(this.currentStep);
+    const target = Number(step);
+    const result = current === target;
+    
+    // Debug logging for step 2
+    if (step === 2) {
+      console.log('🔍 isStep(2) CALLED - currentStep:', this.currentStep, 'type:', typeof this.currentStep);
+      console.log('🔍 isStep(2) - current:', current, 'target:', target, 'result:', result);
+    }
+    
+    return result;
+  }
+  
+  // Helper for debug timestamp
+  getCurrentTime(): string {
+    return new Date().getTime().toString();
+  }
+  
+  // Helper to get type of currentStep for template
+  getCurrentStepType(): string {
+    return typeof this.currentStep;
   }
 
   canProceedToNextStep(): boolean {
     switch (this.currentStep) {
       case 1: return !!this.departureDate;
-      case 2: 
-        // Allow proceeding if no room options or a room is selected
-        if (!this.package?.roomOptions || this.package.roomOptions.length === 0) {
-          return true; // Skip room selection if no options
-        }
-        return !!this.selectedRoomOption;
+      case 2: return true;
       case 3: return this.bookingForm?.valid || false;
-      case 4: return true; // Add-ons optional
+      case 4: return true;
       case 5: return true;
       default: return false;
     }
   }
 
-  updateURL(): void {
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { step: this.currentStep },
-      queryParamsHandling: 'merge'
+  loadPackage(slug: string): void {
+    this.packagesDataService.getPackageBySlug(slug).subscribe({
+      next: (pkg) => {
+        if (pkg) {
+          this.package = pkg;
+          
+          // Auto-select room if only one option
+          if (pkg.roomOptions && pkg.roomOptions.length === 1) {
+            this.selectedRoomOption = pkg.roomOptions[0].id;
+          }
+          
+          // If on step 2 and no room options, skip to step 3
+          if (this.currentStep === 2 && (!pkg.roomOptions || pkg.roomOptions.length === 0)) {
+            setTimeout(() => this.goToStep(3), 0);
+          }
+          
+          this.cdr.detectChanges();
+        }
+      },
+      error: (error) => {
+        console.error('Error loading package:', error);
+      }
     });
+  }
+
+  initializeForm(): void {
+    this.bookingForm = this.fb.group({
+      passengers: this.fb.array([
+        this.fb.group({
+          title: ['Mr', Validators.required],
+          firstName: ['', [Validators.required, Validators.minLength(2)]],
+          lastName: ['', [Validators.required, Validators.minLength(2)]],
+          age: [18, [Validators.required, Validators.min(1), Validators.max(120)]],
+          gender: ['Male', Validators.required],
+          email: ['', [Validators.required, Validators.email]],
+          phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]]
+        })
+      ])
+    });
+  }
+
+  get passengers(): FormArray {
+    return this.bookingForm.get('passengers') as FormArray;
+  }
+
+  addPassenger(): void {
+    if (this.passengers.length < 10) {
+      const passengerGroup = this.fb.group({
+        title: ['Mr', Validators.required],
+        firstName: ['', [Validators.required, Validators.minLength(2)]],
+        lastName: ['', [Validators.required, Validators.minLength(2)]],
+        age: [18, [Validators.required, Validators.min(1), Validators.max(120)]],
+        gender: ['Male', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]]
+      });
+      this.passengers.push(passengerGroup);
+    }
+  }
+
+  removePassenger(index: number): void {
+    if (this.passengers.length > 1) {
+      this.passengers.removeAt(index);
+    }
   }
 
   toggleAddOn(addOnId: string): void {
@@ -157,91 +311,27 @@ export class BookingForm implements OnInit {
     }
   }
 
-  get addOnsTotal(): number {
-    return this.addOns
-      .filter(addon => this.selectedAddOns.includes(addon.id))
-      .reduce((sum, addon) => sum + addon.price, 0);
-  }
-
-  get selectedRoomName(): string {
-    if (!this.package || !this.selectedRoomOption) {
-      return 'Standard';
-    }
-    const room = this.package.roomOptions.find(r => r.id === this.selectedRoomOption);
-    return room?.name || 'Standard';
-  }
-
-  loadPackage(slug: string): void {
-    this.packagesDataService.getPackageBySlug(slug).subscribe({
-      next: (pkg) => {
-        if (pkg) {
-          this.package = pkg;
-          this.initializeForm();
-          
-          // Auto-select first room option if available and only one option exists
-          if (this.package.roomOptions && this.package.roomOptions.length > 0) {
-            if (this.package.roomOptions.length === 1) {
-              // Auto-select the only room option
-              this.selectedRoomOption = this.package.roomOptions[0].id;
-            } else if (!this.selectedRoomOption && this.currentStep === 2) {
-              // Pre-select first room option when on step 2
-              this.selectedRoomOption = this.package.roomOptions[0].id;
-            }
-          }
-          
-          // If no room options and we're on step 2, auto-advance to step 3
-          if ((!this.package.roomOptions || this.package.roomOptions.length === 0) && this.currentStep === 2) {
-            this.currentStep = 3;
-            this.updateURL();
-          }
-        }
-      }
-    });
-  }
-
-  initializeForm(): void {
-    this.bookingForm = this.fb.group({
-      passengers: this.fb.array([])
-    });
-
-    for (let i = 0; i < this.numberOfPassengers; i++) {
-      this.addPassenger();
-    }
-  }
-
-  get passengers(): FormArray {
-    return this.bookingForm.get('passengers') as FormArray;
-  }
-
-  createPassengerForm(): FormGroup {
-    return this.fb.group({
-      title: ['Mr', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      age: ['', [Validators.required, Validators.min(1), Validators.max(120)]],
-      gender: ['Male', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]]
-    });
-  }
-
-  addPassenger(): void {
-    this.passengers.push(this.createPassengerForm());
-  }
-
-  removePassenger(index: number): void {
-    if (this.passengers.length > 1) {
-      this.passengers.removeAt(index);
-    }
-  }
-
   get totalAmount(): number {
     if (!this.package) return 0;
     return this.package.basePrice * this.numberOfPassengers;
   }
 
   get totalWithGST(): number {
-    return this.totalAmount * 1.05; // 5% GST
+    return this.totalAmount * 1.05;
+  }
+
+  get selectedRoomName(): string {
+    if (!this.package || !this.selectedRoomOption) return '';
+    const room = this.package.roomOptions?.find(r => r.id === this.selectedRoomOption);
+    return room?.name || '';
+  }
+
+  get addOnsTotal(): number {
+    if (!this.selectedAddOns || this.selectedAddOns.length === 0) return 0;
+    return this.selectedAddOns.reduce((total, addOnId) => {
+      const addOn = this.addOns.find(a => a.id === addOnId);
+      return total + (addOn?.price || 0);
+    }, 0);
   }
 
   onSubmit(): void {
@@ -265,7 +355,6 @@ export class BookingForm implements OnInit {
         addOns: this.selectedAddOns,
         status: 'CONFIRMED',
         createdAt: new Date(),
-        // Room configuration - use selected room option
         roomConfiguration: {
           optionId: this.selectedRoomOption || this.package.roomOptions?.[0]?.id || 'default',
           rooms: Math.ceil(this.numberOfPassengers / 2),
@@ -273,15 +362,11 @@ export class BookingForm implements OnInit {
                        this.package.roomOptions?.[0]?.name || 'Standard Room',
           totalCost: this.totalAmount
         },
-        // Payment details - default to full payment
         paymentOption: 'FULL',
         convenienceFee: 0,
-        // GST - not required by default
         gstRequired: false,
-        // Agreement flags
         termsAccepted: true,
         communicationConsent: true,
-        // Step tracking - simple booking is single step
         currentStep: 1,
         completedSteps: [1]
       };
@@ -290,7 +375,6 @@ export class BookingForm implements OnInit {
         next: (success) => {
           if (success) {
             this.bookingReference = booking.bookingReference;
-            // Send confirmation email
             this.emailService.sendBookingConfirmation(booking).subscribe({
               next: (emailResponse) => {
                 if (emailResponse.success) {
@@ -299,10 +383,8 @@ export class BookingForm implements OnInit {
               },
               error: (error) => {
                 console.error('Email sending failed:', error);
-                // Continue with booking even if email fails
               }
             });
-            // Show success modal
             this.showSuccessModal = true;
             this.submitting = false;
           } else {
@@ -310,50 +392,44 @@ export class BookingForm implements OnInit {
             this.submitting = false;
           }
         },
-        error: () => {
-          alert('Booking failed. Please try again.');
+        error: (error) => {
+          console.error('Booking error:', error);
+          alert('An error occurred. Please try again.');
           this.submitting = false;
         }
       });
-    } else {
-      alert('Please fill all required fields correctly.');
     }
+  }
+
+  onSearch(searchParams: any): void {
+    this.router.navigate(['/packages'], { queryParams: searchParams });
+  }
+
+  openLoginModal(): void {
+    console.log('Open login modal');
   }
 
   closeSuccessModal(): void {
     this.showSuccessModal = false;
-    // Just close the modal, don't navigate
   }
 
   viewMyBookings(): void {
-    this.showSuccessModal = false;
-    // Navigate to bookings page
     this.router.navigate(['/my-bookings']);
   }
 
-  // Setup sticky progress bar - becomes sticky only after breadcrumb scrolls out
   setupStickyProgressBar(): void {
-    // Use setTimeout to ensure DOM is ready
-    setTimeout(() => {
-      const progressBar = document.querySelector('.booking-progress-premium');
-      const breadcrumb = document.querySelector('.breadcrumb-nav');
-      
-      if (!progressBar || !breadcrumb) return;
-
-      const checkSticky = () => {
-        const breadcrumbRect = breadcrumb.getBoundingClientRect();
-        const headerHeight = window.innerWidth > 992 ? 72 : 64; // Header height (desktop vs mobile)
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', () => {
+        const breadcrumb = document.querySelector('.breadcrumb-nav');
+        const progressBar = document.querySelector('.booking-progress-premium');
         
-        // Become sticky only when breadcrumb has scrolled past the top
-        this.isProgressSticky = breadcrumbRect.bottom <= headerHeight;
-      };
-
-      // Check on scroll
-      window.addEventListener('scroll', checkSticky, { passive: true });
-      // Initial check
-      checkSticky();
-      // Check on resize
-      window.addEventListener('resize', checkSticky, { passive: true });
-    }, 100);
+        if (breadcrumb && progressBar) {
+          const breadcrumbRect = breadcrumb.getBoundingClientRect();
+          const shouldBeSticky = breadcrumbRect.bottom <= 0;
+          this.isProgressSticky = shouldBeSticky;
+          this.cdr.markForCheck();
+        }
+      });
+    }
   }
 }

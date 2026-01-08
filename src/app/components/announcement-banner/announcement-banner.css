@@ -7,7 +7,7 @@
   left: 0;
   right: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 1000; /* Below header (1001) */
   box-shadow: 0 1px 4px rgba(0,0,0,0.08);
   opacity: 1;
   transform: translateY(0);

@@ -2,11 +2,11 @@
   <!-- Breadcrumb Navigation -->
   <app-breadcrumb></app-breadcrumb>
   
-  <div class="container my-5" *ngIf="package">
-    <!-- Premium Progress Steps -->
+  <!-- Premium Progress Steps - Always visible -->
+  <div class="container my-5">
     <div class="booking-progress-premium mb-5" [class.sticky-active]="isProgressSticky">
       <div class="progress-steps-premium">
-        <div class="step-premium" [class.active]="currentStep === 1" [class.completed]="currentStep > 1">
+        <div class="step-premium" [class.active]="isStep(1)" [class.completed]="currentStep > 1">
           <div class="step-icon-wrapper">
             <i class="bi bi-calendar-check"></i>
           </div>
@@ -16,7 +16,7 @@
           </div>
         </div>
         <div class="step-connector" [class.completed]="currentStep > 1"></div>
-        <div class="step-premium" [class.active]="currentStep === 2" [class.completed]="currentStep > 2">
+        <div class="step-premium" [class.active]="isStep(2)" [class.completed]="currentStep > 2">
           <div class="step-icon-wrapper">
             <i class="bi bi-door-open"></i>
           </div>
@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="step-connector" [class.completed]="currentStep > 2"></div>
-        <div class="step-premium" [class.active]="currentStep === 3" [class.completed]="currentStep > 3">
+        <div class="step-premium" [class.active]="isStep(3)" [class.completed]="currentStep > 3">
           <div class="step-icon-wrapper">
             <i class="bi bi-person-check"></i>
           </div>
@@ -36,7 +36,7 @@
           </div>
         </div>
         <div class="step-connector" [class.completed]="currentStep > 3"></div>
-        <div class="step-premium" [class.active]="currentStep === 4" [class.completed]="currentStep > 4">
+        <div class="step-premium" [class.active]="isStep(4)" [class.completed]="currentStep > 4">
           <div class="step-icon-wrapper">
             <i class="bi bi-plus-circle"></i>
           </div>
@@ -46,7 +46,7 @@
           </div>
         </div>
         <div class="step-connector" [class.completed]="currentStep > 4"></div>
-        <div class="step-premium" [class.active]="currentStep === 5" [class.completed]="currentStep > 5">
+        <div class="step-premium" [class.active]="isStep(5)" [class.completed]="currentStep > 5">
           <div class="step-icon-wrapper">
             <i class="bi bi-check2-square"></i>
           </div>
@@ -61,42 +61,60 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-lg-8">
+    <!-- Step Content - Only show when package is loaded -->
+    <div class="row g-4" *ngIf="package">
+      <!-- Form Content - Left Side -->
+      <div class="col-12 col-lg-8">
+        
         <!-- Step 1: Package & Dates -->
-        <div *ngIf="getCurrentStep() === 1" class="booking-step-content">
-          <h3 class="step-title mb-4">
-            <i class="bi bi-calendar-check me-2"></i>
-            Confirm Your Package & Dates
-          </h3>
-          <div class="card border-0 shadow-sm mb-4 package-summary-card">
-          <div class="card-body p-4">
-            <div class="row align-items-center">
-              <div class="col-md-3">
-                <img [src]="package.imageUrl" [alt]="package.name" class="package-image rounded-3">
-              </div>
-              <div class="col-md-9">
-                <h4 class="package-name mb-2">{{ package.name }}</h4>
-                <div class="package-meta mb-3">
-                  <span class="badge badge-type me-2">{{ package.type }}</span>
-                  <span class="badge badge-category me-2">{{ package.category }}</span>
-                  <span class="package-duration">
-                    {{ package.days }}D / {{ package.nights }}N
-                  </span>
+        <div *ngIf="isStep(1)" class="booking-step-content">
+            <h3 class="step-title mb-4">
+              <i class="bi bi-calendar-check me-2"></i>
+              Confirm Your Package & Dates
+            </h3>
+            <div class="card border-0 shadow-sm mb-4 package-summary-card">
+            <div class="card-body p-4">
+              <div class="row align-items-center">
+                <div class="col-md-3">
+                  <img [src]="package!.imageUrl" [alt]="package!.name" class="package-image rounded-3">
                 </div>
-                <div class="package-details">
-                  <p class="mb-0 departure-date">
-                    <i class="bi bi-calendar-event me-2"></i>
-                    {{ departureDate | date:'EEEE, MMMM d, yyyy' }}
-                  </p>
+                <div class="col-md-9">
+                  <h4 class="package-name mb-2">{{ package!.name }}</h4>
+                  <div class="package-meta mb-3">
+                    <span class="badge badge-type me-2">{{ package!.type }}</span>
+                    <span class="badge badge-category me-2">{{ package!.category }}</span>
+                    <span class="package-duration">
+                      {{ package!.days }}D / {{ package!.nights }}N
+                    </span>
+                  </div>
+                  <div class="package-details">
+                    <p class="mb-0 departure-date">
+                      <i class="bi bi-calendar-event me-2"></i>
+                      {{ departureDate | date:'EEEE, MMMM d, yyyy' }}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
         <!-- Step 2: Room Selection -->
-        <div *ngIf="currentStep === 2" class="booking-step-content">
+        <!-- Debug info - Force re-evaluation -->
+        <div class="alert alert-info mb-3" *ngIf="true" style="font-size: 0.9rem;">
+          <strong>🔍 TEMPLATE DEBUG:</strong><br>
+          currentStep={{ currentStep }} (type: {{ getCurrentStepType() }})<br>
+          isStep(2)={{ isStep(2) }}<br>
+          package={{ !!package }}<br>
+          roomOptions={{ (package.roomOptions && package.roomOptions.length) || 0 }}<br>
+          timestamp={{ getCurrentTime() }}<br>
+          <small>Template evaluated at: {{ getCurrentTime() }}</small>
+        </div>
+        
+        <!-- Force visibility test -->
+        <div *ngIf="isStep(2)" class="booking-step-content" style="border: 3px solid #28a745; background: #f0fff4; padding: 1rem;">
+          <div class="alert alert-success mb-3">
+            <strong>✅ STEP 2 IS ACTIVE!</strong> currentStep={{ currentStep }}, isStep(2)={{ isStep(2) }}
+          </div>
           <h3 class="step-title mb-4">
             <i class="bi bi-door-open me-2"></i>
             Select Your Room Configuration
@@ -104,13 +122,18 @@
           <p class="step-description mb-4">Choose the room type that suits your needs</p>
           
           <!-- No Room Options Available -->
-          <div *ngIf="!package.roomOptions || package.roomOptions.length === 0" class="alert alert-info">
+          <div *ngIf="package && (!package.roomOptions || package.roomOptions.length === 0)" class="alert alert-info">
             <i class="bi bi-info-circle me-2"></i>
             No room options available for this package. Standard room configuration will be applied.
+            <div class="mt-3">
+              <button class="btn btn-primary" (click)="nextStep()">
+                Continue to Passenger Details <i class="bi bi-arrow-right ms-2"></i>
+              </button>
+            </div>
           </div>
           
           <!-- Room Options Available -->
-          <div *ngIf="package.roomOptions && package.roomOptions.length > 0" class="row g-3 g-md-4">
+          <div *ngIf="package && package.roomOptions && package.roomOptions.length > 0" class="row g-3 g-md-4">
             <div class="col-12 col-md-6" *ngFor="let room of package.roomOptions">
               <div class="card border-0 shadow-sm h-100 room-option-card-premium" 
                    [class.selected]="selectedRoomOption === room.id"
@@ -147,14 +170,14 @@
           </div>
 
           <!-- Auto-selected message for single room option -->
-          <div *ngIf="package.roomOptions && package.roomOptions.length === 1 && selectedRoomOption" class="alert alert-success mt-3">
+          <div *ngIf="package && package.roomOptions && package.roomOptions.length === 1 && selectedRoomOption" class="alert alert-success mt-3">
             <i class="bi bi-check-circle me-2"></i>
             Room option automatically selected. Click "Next" to continue.
           </div>
         </div>
 
         <!-- Step 3: Passenger Details -->
-        <div *ngIf="getCurrentStep() === 3" class="booking-step-content">
+        <div *ngIf="isStep(3)" class="booking-step-content">
           <h3 class="step-title mb-4">
             <i class="bi bi-person-check me-2"></i>
             Passenger Information
@@ -258,10 +281,10 @@
               </button>
             </div>
           </form>
-        </div>
+          </div>
 
         <!-- Step 4: Add-ons -->
-        <div *ngIf="getCurrentStep() === 4" class="booking-step-content">
+        <div *ngIf="isStep(4)" class="booking-step-content">
           <h3 class="step-title mb-4">
             <i class="bi bi-plus-circle me-2"></i>
             Enhance Your Trip (Optional)
@@ -290,10 +313,10 @@
               </div>
             </div>
           </div>
-        </div>
+          </div>
 
         <!-- Step 5: Review & Payment -->
-        <div *ngIf="getCurrentStep() === 5" class="booking-step-content">
+        <div *ngIf="isStep(5)" class="booking-step-content">
           <h3 class="step-title mb-4">
             <i class="bi bi-check2-square me-2"></i>
             Review & Confirm Booking
@@ -382,7 +405,7 @@
         <!-- Navigation Buttons -->
         <div class="booking-navigation mt-4" *ngIf="currentStep < 5">
           <div class="d-flex justify-content-between flex-column flex-md-row gap-2 gap-md-0">
-            <button class="btn btn-outline-secondary order-2 order-md-1" (click)="previousStep()" [disabled]="currentStep === 1">
+            <button class="btn btn-outline-secondary order-2 order-md-1" (click)="previousStep()" [disabled]="isStep(1)">
               <i class="bi bi-arrow-left me-2"></i>Previous
             </button>
             <button class="btn btn-primary order-1 order-md-2" (click)="nextStep()" [disabled]="!canProceedToNextStep()">
@@ -393,7 +416,7 @@
         </div>
       </div>
 
-      <!-- Booking Summary Sidebar -->
+      <!-- Booking Summary Sidebar - Right Side -->
       <div class="col-12 col-lg-4">
         <div class="card border-0 shadow-lg booking-summary-card">
           <div class="card-header text-white py-3">
