@@ -2832,83 +2832,90 @@ html {
   margin: 0;
 }
 
-/* Journey Map Container */
+/* Journey Map Container - ensures path fills all vertical space */
 .journey-map-container {
   position: relative;
-  min-height: 2500px;
+  min-height: 2800px;
   background: #faf8f5;
   border-radius: 16px;
-  padding: 3rem 2rem;
+  padding: 3rem 2rem 4rem 2rem;
   overflow: visible;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   margin-bottom: 4rem;
   z-index: 1;
 }
 
-/* Dynamic height based on number of days */
+/* Dynamic height based on number of days - NO DEAD ZONES */
 .journey-map-container[style*="height"] {
   height: auto !important;
-  min-height: 1200px;
+  min-height: 1800px;
+  padding-bottom: 6rem;
 }
 
-/* Doodle Elements */
+/* Doodle Elements - Enhanced visibility */
 .journey-doodles {
   pointer-events: none;
+  z-index: 2;
 }
 
-.doodle-airplane,
-.doodle-star,
-.doodle-sun,
-.doodle-cloud,
-.doodle-arrow,
-.doodle-dot,
-.doodle-map-pin,
-.doodle-day-pin,
-.doodle-leaf,
-.doodle-wave {
-  animation: float 8s ease-in-out infinite;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.05));
+.doodle-airplane {
+  animation: float 6s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(249, 115, 22, 0.25));
+  opacity: 1;
 }
 
 .doodle-star {
+  animation: twinkle 3s ease-in-out infinite;
+  filter: drop-shadow(0 1px 3px rgba(249, 115, 22, 0.3));
+}
+
+.doodle-star:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.doodle-star:nth-child(3) {
+  animation-delay: 1s;
+}
+
+.doodle-star:nth-child(4) {
   animation-delay: 1.5s;
 }
 
-.doodle-cloud {
-  animation-delay: 3s;
-}
-
-.doodle-leaf {
-  animation-delay: 2s;
-  animation-duration: 10s;
-}
-
-.doodle-wave {
-  animation-delay: 1s;
-  animation-duration: 6s;
-}
-
-.doodle-day-pin {
-  animation: pulse 4s ease-in-out infinite;
+.doodle-destination {
+  animation: pulse 2.5s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(249, 115, 22, 0.3));
 }
 
 @keyframes float {
   0%, 100% {
     transform: translateY(0) rotate(0deg);
+    opacity: 1;
   }
   50% {
-    transform: translateY(-6px) rotate(1deg);
+    transform: translateY(-8px) rotate(2deg);
+    opacity: 0.95;
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15) rotate(15deg);
   }
 }
 
 @keyframes pulse {
   0%, 100% {
-    opacity: 0.4;
+    opacity: 0.6;
     transform: scale(1);
   }
   50% {
-    opacity: 0.6;
-    transform: scale(1.05);
+    opacity: 1;
+    transform: scale(1.2);
   }
 }
 
@@ -2918,19 +2925,26 @@ html {
   left: 0;
   width: 100%;
   height: 100%;
-  min-height: 2500px;
+  min-height: 2800px;
   pointer-events: none;
   z-index: 1;
   overflow: visible;
 }
 
-/* Ensure path flows behind cards */
+/* Ensure path flows behind cards - CRITICAL: path must be visible and continuous */
 .journey-path {
   z-index: 1;
+  stroke: #f97316 !important;
+  stroke-width: 3.5 !important;
+  opacity: 0.58 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  filter: drop-shadow(0 1px 3px rgba(249, 115, 22, 0.18));
 }
 
 .journey-doodles {
   z-index: 2;
+  pointer-events: none;
 }
 
 /* Ensure FAQ section is visible above itinerary */
@@ -2976,12 +2990,12 @@ html {
   z-index: 1;
 }
 
-/* Journey Days Container */
+/* Journey Days Container - ensures NO vertical gaps without path */
 .journey-days-container {
   position: relative;
   z-index: 3;
-  min-height: 2500px;
-  padding-bottom: 4rem;
+  min-height: 2700px;
+  padding-bottom: 5rem;
   height: auto;
 }
 
@@ -2993,6 +3007,11 @@ html {
   min-height: 200px;
 }
 
+/* When a day is expanded, bring it to front above FAQ (z-index > 200) */
+.journey-day-stop.expanded {
+  z-index: 300 !important;
+}
+
 .journey-day-stop.left {
   left: 0;
 }
@@ -3001,7 +3020,7 @@ html {
   right: 0;
 }
 
-/* Map Pin */
+/* Map Pin - True teardrop/location pin shape */
 .map-pin-stop {
   position: absolute;
   top: 0;
@@ -3021,72 +3040,75 @@ html {
 }
 
 .pin-circle-stop {
-  width: 36px;
-  height: 36px;
-  background: #f97316;
+  width: 42px;
+  height: 42px;
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
   border-radius: 50% 50% 50% 0;
   transform: rotate(-45deg);
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #faf8f5;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  border: 3px solid #fff;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.35), 0 2px 6px rgba(0, 0, 0, 0.15);
   position: relative;
+  transition: all 0.3s ease;
 }
 
-/* Map pin tail/point */
-.pin-circle-stop::before {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 8px solid #f97316;
-  bottom: -6px;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0.9;
+.pin-circle-stop:hover {
+  transform: rotate(-45deg) scale(1.1);
+  box-shadow: 0 6px 16px rgba(249, 115, 22, 0.45), 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Slightly imperfect outline ring */
+/* Subtle ring highlight around pin */
 .pin-circle-stop::after {
   content: '';
   position: absolute;
-  width: 42px;
-  height: 42px;
+  width: 50px;
+  height: 50px;
   border-radius: 50% 50% 50% 0;
-  border: 1.5px dashed #f97316;
-  opacity: 0.25;
-  top: -3px;
-  left: -3px;
-  transform: rotate(-45deg);
+  border: 2px solid #f97316;
+  opacity: 0.2;
+  top: -4px;
+  left: -4px;
+  animation: pin-pulse 3s ease-in-out infinite;
+}
+
+@keyframes pin-pulse {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(1.08);
+  }
 }
 
 .pin-number {
   color: white;
-  font-weight: 700;
-  font-size: 1.1rem;
+  font-weight: 800;
+  font-size: 1.15rem;
   transform: rotate(45deg);
   position: relative;
   z-index: 2;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 /* Day Card Minimal (Collapsed) - Label pinned on map */
 .day-card-minimal {
-  background: white;
-  border: 1px solid #e5e0d8;
-  border-radius: 12px;
-  padding: 1.25rem;
+  background: #ffffff;
+  border: 1.5px solid #e5e0d8;
+  border-radius: 14px;
+  padding: 1.4rem;
   margin-top: 24px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
   position: relative;
   z-index: 5;
 }
 
-/* Subtle paper texture effect */
+/* Subtle paper texture effect - softer */
 .day-card-minimal::before {
   content: '';
   position: absolute;
@@ -3094,16 +3116,36 @@ html {
   left: 0;
   right: 0;
   bottom: 0;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.015) 100%);
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(249,115,22,0.008) 100%);
   pointer-events: none;
-  opacity: 0.4;
+  opacity: 0.6;
+}
+
+/* Visual connection line from pin to card (subtle) */
+.day-card-minimal::after {
+  content: '';
+  position: absolute;
+  top: -24px;
+  width: 2px;
+  height: 24px;
+  background: linear-gradient(to bottom, #f97316, transparent);
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.journey-day-stop.left .day-card-minimal::after {
+  right: -1px;
+}
+
+.journey-day-stop.right .day-card-minimal::after {
+  left: -1px;
 }
 
 .day-card-minimal:hover {
-  border-color: #f97316;
-  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.15);
-  transform: translateY(-2px);
+  border-color: #f9731680;
+  box-shadow: 0 6px 18px rgba(249, 115, 22, 0.12), 0 3px 8px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
 }
 
 .day-card-header {
@@ -3193,9 +3235,9 @@ html {
   margin-left: 0;
   padding: 16px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
   position: relative;
-  z-index: 6;
+  z-index: 301 !important;
   animation: slideDown 0.3s ease;
 }
 

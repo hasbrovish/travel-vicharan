@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, delay, from } from 'rxjs';
+import { Observable, of, delay, from, forkJoin } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Booking } from '../models/booking.model';
 import { Enquiry } from '../models/enquiry.model';
@@ -19,17 +19,17 @@ export class EmailService {
   // 📧 SETUP INSTRUCTIONS: See EMAILJS_SETUP_COMPLETE_GUIDE.md
   // Get these from: https://www.emailjs.com/
   private readonly EMAILJS_CONFIG = {
-    serviceId: 'YOUR_SERVICE_ID_HERE', // ← Step 2: Get from Email Services
-    templateId_booking: 'YOUR_BOOKING_TEMPLATE_ID', // ← Step 3: Booking template ID
-    templateId_newsletter: 'YOUR_NEWSLETTER_TEMPLATE_ID', // ← Step 3: Newsletter template ID
-    templateId_enquiry: 'YOUR_ENQUIRY_TEMPLATE_ID', // ← Step 3: Enquiry template ID
-    userId: 'YOUR_PUBLIC_KEY_HERE', // ← Step 4: Get from Account → API Keys
-    toEmail: 'VichranTrip.info@gmail.com'
+    serviceId: 'service_4s2lwju', // ✅ Service ID configured
+    templateId_booking: 'template_svg84wl', // ✅ Booking template configured
+    templateId_newsletter: 'DISABLED_FOR_NOW', // ⚠️ Newsletter template not yet created (free tier limit)
+    templateId_enquiry: 'template_56n9a7q', // ✅ Enquiry template configured
+    userId: 'GdTxsPfYlBBT4P-WE', // ✅ Public Key configured
+    toEmail: 'jayantivishnoi31@gmail.com' // Testing email - will change to VichranTrip.info@gmail.com later
   };
 
   // Enable/disable real email sending
   // ✅ Set to true after completing EmailJS setup (see guide above)
-  private readonly USE_REAL_EMAILS = false; // ← Change to true after setup
+  private readonly USE_REAL_EMAILS = true; // ✅ ENABLED - Booking & Enquiry emails working!
 
   constructor() {
     if (this.USE_REAL_EMAILS) {
@@ -39,16 +39,15 @@ export class EmailService {
 
   /**
    * Send booking confirmation email
+   * Sends to BOTH customer AND VichranTrip team
    * Uses EmailJS if configured, otherwise logs to console (mock mode)
    */
   sendBookingConfirmation(booking: Booking): Observable<EmailResponse> {
     const leadPassenger = booking.passengers[0];
 
     if (this.USE_REAL_EMAILS) {
-      // Real EmailJS implementation
-      const templateParams = {
-        to_email: leadPassenger.email,
-        to_name: `${leadPassenger.firstName} ${leadPassenger.lastName}`,
+      // Prepare template parameters
+      const baseParams = {
         booking_reference: booking.bookingReference,
         package_name: booking.packageName,
         departure_date: booking.departureDate,
@@ -63,24 +62,62 @@ export class EmailService {
         reply_to: this.EMAILJS_CONFIG.toEmail
       };
 
-      return from(
+      // Email 1: To Customer
+      const customerParams = {
+        ...baseParams,
+        to_email: leadPassenger.email,
+        to_name: `${leadPassenger.firstName} ${leadPassenger.lastName}`
+      };
+
+      // Email 2: To VichranTrip (internal notification)
+      const vichranTripParams = {
+        ...baseParams,
+        to_email: this.EMAILJS_CONFIG.toEmail,
+        to_name: 'VichranTrip Team',
+        // Add customer contact info for internal reference
+        customer_email: leadPassenger.email,
+        customer_name: `${leadPassenger.firstName} ${leadPassenger.lastName}`,
+        customer_phone: leadPassenger.phone
+      };
+
+      // Send both emails in parallel using forkJoin
+      const customerEmail$ = from(
         emailjs.send(
           this.EMAILJS_CONFIG.serviceId,
           this.EMAILJS_CONFIG.templateId_booking,
-          templateParams,
+          customerParams,
           this.EMAILJS_CONFIG.userId
         )
-      ).pipe(
-        map((response) => ({
-          success: true,
-          message: 'Booking confirmation email sent successfully',
-          emailId: response.text
-        })),
+      );
+
+      const vichranTripEmail$ = from(
+        emailjs.send(
+          this.EMAILJS_CONFIG.serviceId,
+          this.EMAILJS_CONFIG.templateId_booking,
+          vichranTripParams,
+          this.EMAILJS_CONFIG.userId
+        )
+      );
+
+      // Wait for both emails to complete
+      return forkJoin({
+        customer: customerEmail$,
+        vichranTrip: vichranTripEmail$
+      }).pipe(
+        map((responses) => {
+          console.log('✅ Booking confirmation sent to customer:', leadPassenger.email);
+          console.log('✅ Booking notification sent to VichranTrip:', this.EMAILJS_CONFIG.toEmail);
+          return {
+            success: true,
+            message: `Booking confirmation sent to both customer (${leadPassenger.email}) and VichranTrip team`,
+            emailId: `${responses.customer.text}, ${responses.vichranTrip.text}`
+          };
+        }),
         catchError((error) => {
           console.error('EmailJS Error:', error);
           return of({
             success: false,
-            message: 'Failed to send email. Please contact support.',
+            message: 'Failed to send booking confirmation emails. Please contact support.',
             emailId: undefined
           });
         })

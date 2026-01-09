@@ -1,24 +1,68 @@
 <!-- Journey Map Component Template -->
 <div class="journey-map-wrapper">
-  <!-- SVG Path - Zig-zag connecting days -->
+  <!-- SVG Path - Continuous vertical journey line with semantic doodles -->
   <svg class="journey-path-svg" viewBox="0 0 1200 2000" preserveAspectRatio="xMidYMid meet">
-    <!-- Zig-zag path connecting all days -->
-    <path class="journey-path" 
+    <!-- Main continuous journey path (behind everything) -->
+    <path class="journey-path"
           [attr.d]="getJourneyPath(package.itinerary.length)"
           fill="none"
-          stroke="#d1d5db"
+          stroke="#f97316"
           stroke-width="3"
-          stroke-dasharray="8,8"
+          stroke-dasharray="10,5"
           stroke-linecap="round"
-          opacity="0.4"/>
+          opacity="0.5"/>
+
+    <!-- Semantic Doodles Layer - Made MUCH more visible -->
+    <g class="journey-doodles">
+      <!-- Airplane with dotted trail near Day 1 (journey start) -->
+      <!-- Position: near start of path (5% of 2000 = 100, so y=80 is just before) -->
+      <g class="doodle-airplane" transform="translate(700, 80)">
+        <!-- Airplane body - larger and bolder -->
+        <path d="M 0,-12 L 5,-7 L 5,7 L 0,12 L -5,7 L -5,-7 Z"
+              fill="#f97316" fill-opacity="0.3" stroke="#f97316" stroke-width="2.5" stroke-linejoin="round"/>
+        <!-- Wings -->
+        <path d="M -12,0 L 12,0 M -5,-5 L -5,5"
+              stroke="#f97316" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Dotted trail - longer and more visible -->
+        <path d="M -18,0 L -35,3 L -52,1 L -70,4 L -88,2"
+              stroke="#f97316" stroke-width="2" stroke-dasharray="4,5"
+              stroke-linecap="round" opacity="0.8"/>
+      </g>
+
+      <!-- Stars between days - MUCH larger and more visible -->
+      <!-- Star 1: Between Day 1 and Day 2 (around 25% = 500) -->
+      <g class="doodle-star" transform="translate(480, 450)">
+        <path d="M 0,-10 L 2.5,-2.5 L 10,0 L 2.5,2.5 L 0,10 L -2.5,2.5 L -10,0 L -2.5,-2.5 Z"
+              fill="#f97316" fill-opacity="0.2" stroke="#f97316" stroke-width="2.5" opacity="0.85"/>
+      </g>
+
+      <!-- Star 2: Between Day 2 and Day 3 (around 50% = 1000) -->
+      <g class="doodle-star" transform="translate(720, 900)">
+        <path d="M 0,-8 L 2,-2 L 8,0 L 2,2 L 0,8 L -2,2 L -8,0 L -2,-2 Z"
+              fill="#f97316" fill-opacity="0.2" stroke="#f97316" stroke-width="2.5" opacity="0.85"/>
+      </g>
+
+      <!-- Star 3: Between Day 3 and Day 4 (around 65% = 1300) -->
+      <g class="doodle-star" transform="translate(500, 1350)">
+        <path d="M 0,-10 L 2.5,-2.5 L 10,0 L 2.5,2.5 L 0,10 L -2.5,2.5 L -10,0 L -2.5,-2.5 Z"
+              fill="#f97316" fill-opacity="0.2" stroke="#f97316" stroke-width="2.5" opacity="0.85"/>
+      </g>
+
+      <!-- Destination marker near last day (around 85% = 1700) -->
+      <g class="doodle-destination" transform="translate(710, 1750)">
+        <circle cx="0" cy="0" r="8" fill="none" stroke="#f97316" stroke-width="2.5" opacity="0.8"/>
+        <circle cx="0" cy="0" r="4" fill="#f97316" opacity="0.6"/>
+      </g>
+    </g>
   </svg>
 
   <!-- Day Stops - Alternating left/right -->
   <div class="journey-days-container">
-    <div class="journey-day-stop" 
+    <div class="journey-day-stop"
          *ngFor="let day of package.itinerary; let i = index"
          [class.left]="i % 2 === 0"
          [class.right]="i % 2 === 1"
+         [class.expanded]="expandedDay === day.day"
          [style.top.%]="getDayPosition(i, package.itinerary.length)">
       
       <!-- Map Pin -->

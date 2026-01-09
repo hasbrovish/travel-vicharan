@@ -232,43 +232,63 @@ export class PackageDetail implements OnInit {
   getDayPosition(index: number, totalDays: number): number {
     // Calculate vertical position percentage for each day
     // Even spacing along the journey path
-    // Handle single day case
-    if (totalDays === 1) return 0;
-    // Distribute days evenly from 0% to 100%
-    return (index / (totalDays - 1)) * 100;
+    // Keep all days within container bounds (0% to 85%)
+    if (totalDays === 1) return 5;
+    // Distribute days evenly from 5% to 85% to prevent overflow
+    const range = 80; // Use 80% of container (leave 15% buffer at bottom)
+    const startOffset = 5; // Start 5% from top
+    return startOffset + (index / (totalDays - 1)) * range;
   }
 
   getJourneyPath(totalDays: number): string {
-    // Generate hand-drawn zig-zag path flowing behind cards
-    // Path alternates left and right, positioned to flow behind day cards
+    // Generate ONE continuous hand-drawn path flowing vertically through all days
+    // Path flows top → bottom with subtle organic curves (not zig-zag)
+    // Matches getDayPosition() distribution (5% to 85% of viewBox height)
+
+    const viewBoxHeight = 2000; // SVG viewBox height
+    const startPercent = 0.05; // Start at 5%
+    const endPercent = 0.85; // End at 85%
+    const startY = viewBoxHeight * startPercent; // 100
+    const endY = viewBoxHeight * endPercent; // 1700
+    const totalRange = endY - startY; // 1600
+
     if (totalDays === 1) {
-      return 'M 50,50 Q 55,52 50,50';
+      // For single day, extend path above and below
+      const preStartY = Math.max(startY - 80, 20);
+      const postEndY = Math.min(startY + 180, viewBoxHeight - 20);
+      return `M 600,${preStartY} L 600,${startY} Q 605,${startY + 50} 600,${startY + 100} L 600,${postEndY}`;
     }
-    
-    let path = 'M 50,50'; // Start point (center, top)
-    const stepX = 200; // Horizontal offset for zig-zag
-    const stepY = 500; // Vertical spacing between days
-    
-    for (let i = 1; i < totalDays; i++) {
-      const x = 50 + (i % 2 === 0 ? stepX : -stepX);
-      const y = 50 + (i * stepY);
-      
-      // Previous point
-      const prevX = i > 1 ? (50 + ((i-1) % 2 === 0 ? stepX : -stepX)) : 50;
-      const prevY = i > 1 ? (50 + ((i-1) * stepY)) : 50;
-      
-      // Midpoint for curve
-      const midX = (prevX + x) / 2;
-      const midY = (prevY + y) / 2;
-      
-      // Subtle hand-drawn irregularity (very subtle)
-      const offsetX = (i % 3 === 0 ? 2 : i % 2 === 0 ? -1.5 : 1.5);
-      const offsetY = (i % 4 === 0 ? -2 : i % 3 === 0 ? 1.5 : -1.5);
-      
-      // Smooth quadratic curve for hand-drawn feel
-      path += ` Q ${midX + offsetX},${midY + offsetY} ${x},${y}`;
+
+    const centerX = 600;
+    const stepY = totalDays > 1 ? totalRange / (totalDays - 1) : 0;
+
+    // Start path BEFORE first day for visual continuity
+    const preStartY = Math.max(startY - 80, 20); // 80px before first day
+    let path = `M ${centerX},${preStartY} L ${centerX},${startY}`;
+
+    // Draw curves connecting all days
+    for (let i = 0; i < totalDays - 1; i++) {
+      const y = startY + (i * stepY);
+      const nextY = startY + ((i + 1) * stepY);
+
+      // Add subtle hand-drawn curves - stays near center
+      const curveOffset1 = (i % 3 === 0 ? 15 : i % 2 === 0 ? -12 : 10);
+      const curveOffset2 = (i % 4 === 0 ? -10 : i % 3 === 0 ? 12 : -8);
+
+      // Control points for smooth S-curve between days
+      const cp1X = centerX + curveOffset1;
+      const cp1Y = y + stepY * 0.3;
+      const cp2X = centerX + curveOffset2;
+      const cp2Y = y + stepY * 0.7;
+
+      // Cubic bezier for smooth organic curves
+      path += ` C ${cp1X},${cp1Y} ${cp2X},${cp2Y} ${centerX},${nextY}`;
     }
-    
+
+    // Extend path AFTER last day for visual continuity
+    const postEndY = Math.min(endY + 120, viewBoxHeight - 20); // 120px after last day
+    path += ` L ${centerX},${postEndY}`;
+
     return path;
   }
 
