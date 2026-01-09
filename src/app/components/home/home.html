@@ -7,18 +7,25 @@
   </div>
 </section>
 
-<!-- Premium Offers Section (3 Cards) -->
-<app-premium-offers></app-premium-offers>
-
 <!-- Hero + Category Carousel Section -->
 <app-home-hero-carousel></app-home-hero-carousel>
 
-<!-- Featured Packages Section -->
-<section class="py-5">
+<!-- Quick Category Discovery -->
+<app-quick-category-discovery></app-quick-category-discovery>
+
+<!-- Guided Decision Section - Traveler Type Guide -->
+<app-traveler-type-guide></app-traveler-type-guide>
+
+<!-- Premium Offers - 3 Card Strip -->
+<app-premium-offers></app-premium-offers>
+
+<!-- Curated Journeys - Story Rail -->
+<section class="curated-journeys-section">
   <div class="container">
-    <div class="text-center mb-5">
-      <h2 class="display-6 fw-bold mb-3">Featured Tour Packages</h2>
-      <p class="text-muted">Handpicked destinations for unforgettable experiences</p>
+    <div class="section-header">
+      <p class="section-warm-intro">✨ Stories waiting to be written</p>
+      <h2 class="section-title">Curated Journeys</h2>
+      <p class="section-subtitle">Handpicked trips our travelers love</p>
     </div>
 
     <div *ngIf="loading" class="text-center py-5">
@@ -27,98 +34,172 @@
       </div>
     </div>
 
-    <div class="row g-4" *ngIf="!loading">
-      <div class="col-md-6 col-lg-4" *ngFor="let package of featuredPackages">
-        <app-package-card [package]="package"></app-package-card>
+    <!-- Story Rail - Horizontal Scroll -->
+    <div class="story-rail-wrapper" *ngIf="!loading">
+      <button class="rail-nav rail-nav-left" 
+              (click)="scrollStoryRail('left')"
+              *ngIf="featuredPackages.length > 3"
+              aria-label="Scroll left">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+
+      <div class="story-rail-container">
+        <div class="story-rail-track">
+          <div class="story-rail-item featured-card" *ngIf="featuredPackages[0]">
+            <div class="featured-badge">
+              <i class="bi bi-star-fill"></i> Editor's Pick
+            </div>
+            <app-package-card [package]="featuredPackages[0]"></app-package-card>
+          </div>
+          <div class="story-rail-item" *ngFor="let package of featuredPackages.slice(1)">
+            <app-package-card [package]="package"></app-package-card>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<!-- Explore Packages by Type -->
-<section class="bg-light py-5">
-  <div class="container">
-    <div class="text-center mb-4">
-      <h2 class="display-6 fw-bold mb-3">Explore Tour Packages</h2>
+      <button class="rail-nav rail-nav-right" 
+              (click)="scrollStoryRail('right')"
+              *ngIf="featuredPackages.length > 3"
+              aria-label="Scroll right">
+        <i class="bi bi-chevron-right"></i>
+      </button>
     </div>
 
-    <!-- Tabs -->
-    <ul class="nav nav-pills justify-content-center mb-4">
-      <li class="nav-item">
-        <button class="nav-link"
-                [class.active]="selectedType === 'DOMESTIC'"
-                (click)="switchType('DOMESTIC')">
-          <i class="bi bi-flag-fill me-2"></i>Domestic Tours
-        </button>
-      </li>
-      <li class="nav-item ms-2">
-        <button class="nav-link"
-                [class.active]="selectedType === 'INTERNATIONAL'"
-                (click)="switchType('INTERNATIONAL')">
-          <i class="bi bi-globe-americas me-2"></i>International Tours
-        </button>
-      </li>
-    </ul>
-
-    <!-- Packages Grid -->
-    <div class="row g-4">
-      <div class="col-md-6 col-lg-4" *ngFor="let package of displayedPackages">
-        <app-package-card [package]="package"></app-package-card>
-      </div>
-    </div>
-
-    <div class="text-center mt-4">
-      <a routerLink="/packages" class="btn btn-primary btn-lg">
-        View All Packages <i class="bi bi-arrow-right ms-2"></i>
+    <div class="text-end mt-4" *ngIf="!loading">
+      <a routerLink="/packages" class="btn btn-secondary-cta">
+        View All Journeys <i class="bi bi-arrow-right ms-2"></i>
       </a>
     </div>
   </div>
 </section>
 
-<!-- Trust Badges -->
-<app-trust-badges></app-trust-badges>
+<!-- Explore Packages by Type -->
+<section class="explore-packages-section">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-warm-intro">🗺️ Where would you like to go today?</p>
+      <h2 class="section-title">Explore by Destination</h2>
+      <p class="section-subtitle">Every destination has a story. Let's find yours.</p>
+    </div>
 
-<!-- Featured Destinations -->
-<app-featured-destinations></app-featured-destinations>
+    <!-- Tabs with Emotional Subtitles -->
+    <div class="destination-tabs-wrapper">
+      <ul class="nav nav-pills justify-content-center mb-4">
+        <li class="nav-item">
+          <button class="nav-link destination-tab"
+                  [class.active]="selectedType === 'DOMESTIC'"
+                  (click)="switchType('DOMESTIC')">
+            <i class="bi bi-flag-fill me-2"></i>Domestic Tours
+          </button>
+        </li>
+        <li class="nav-item ms-2">
+          <button class="nav-link destination-tab"
+                  [class.active]="selectedType === 'INTERNATIONAL'"
+                  (click)="switchType('INTERNATIONAL')">
+            <i class="bi bi-globe-americas me-2"></i>International Tours
+          </button>
+        </li>
+      </ul>
+      
+      <!-- Emotional Subtitles per Category -->
+      <div class="destination-subtitle" *ngIf="selectedType === 'DOMESTIC'">
+        <p class="subtitle-text">Breathe deeper, feel lighter</p>
+      </div>
+      <div class="destination-subtitle" *ngIf="selectedType === 'INTERNATIONAL'">
+        <p class="subtitle-text">Where cultures meet and stories begin</p>
+      </div>
+    </div>
+
+    <!-- Packages Carousel -->
+    <div class="explore-carousel-wrapper">
+      <button class="carousel-nav-btn carousel-nav-left" 
+              (click)="scrollCarousel('left')"
+              *ngIf="displayedPackages.length > 3"
+              aria-label="Scroll left">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+
+      <div class="explore-carousel-container">
+        <div class="row g-4 packages-grid explore-carousel-track">
+          <div class="col-md-6 col-lg-4 explore-carousel-item" *ngFor="let package of displayedPackages">
+            <app-package-card [package]="package"></app-package-card>
+          </div>
+        </div>
+      </div>
+
+      <button class="carousel-nav-btn carousel-nav-right" 
+              (click)="scrollCarousel('right')"
+              *ngIf="displayedPackages.length > 3"
+              aria-label="Scroll right">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+
+    <div class="text-center mt-5">
+      <a routerLink="/packages" class="btn btn-secondary-cta">
+        Discover More Destinations <i class="bi bi-arrow-right ms-2"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Brand Story Section -->
+<app-brand-story></app-brand-story>
 
 <!-- Why Choose Us -->
-<section class="py-5">
+<section class="why-choose-section">
   <div class="container">
-    <div class="text-center mb-5">
-      <h2 class="display-6 fw-bold mb-3">Why Choose Vichran Trip?</h2>
+    <div class="section-header">
+      <p class="section-warm-intro">💚 We're here to make your travel dreams real</p>
+      <h2 class="section-title">Why Choose Vichran Trip?</h2>
+      <p class="section-subtitle">Because your journey matters, and so do you</p>
     </div>
-    <div class="row g-4">
-      <div class="col-md-3 col-6 text-center">
-        <div class="mb-3">
+    <div class="row g-4 why-choose-grid">
+      <div class="col-md-3 col-6 text-center why-choose-item" 
+           [attr.data-index]="0"
+           style="animation-delay: 0s;">
+        <div class="mb-3 why-choose-icon">
           <i class="bi bi-shield-check text-primary" style="font-size: 3rem;"></i>
         </div>
         <h5>Trusted Service</h5>
-        <p class="text-muted small">25+ years of excellence</p>
+        <p class="text-muted small">25+ years of making travelers happy</p>
       </div>
-      <div class="col-md-3 col-6 text-center">
-        <div class="mb-3">
+      <div class="col-md-3 col-6 text-center why-choose-item" 
+           [attr.data-index]="1"
+           style="animation-delay: 0.1s;">
+        <div class="mb-3 why-choose-icon">
           <i class="bi bi-currency-rupee text-primary" style="font-size: 3rem;"></i>
         </div>
         <h5>Best Prices</h5>
-        <p class="text-muted small">Competitive rates guaranteed</p>
+        <p class="text-muted small">Great value, no hidden surprises</p>
       </div>
-      <div class="col-md-3 col-6 text-center">
-        <div class="mb-3">
+      <div class="col-md-3 col-6 text-center why-choose-item" 
+           [attr.data-index]="2"
+           style="animation-delay: 0.2s;">
+        <div class="mb-3 why-choose-icon">
           <i class="bi bi-headset text-primary" style="font-size: 3rem;"></i>
         </div>
         <h5>24/7 Support</h5>
-        <p class="text-muted small">We're here to help anytime</p>
+        <p class="text-muted small">We're here whenever you need us</p>
       </div>
-      <div class="col-md-3 col-6 text-center">
-        <div class="mb-3">
+      <div class="col-md-3 col-6 text-center why-choose-item" 
+           [attr.data-index]="3"
+           style="animation-delay: 0.3s;">
+        <div class="mb-3 why-choose-icon">
           <i class="bi bi-star-fill text-primary" style="font-size: 3rem;"></i>
         </div>
         <h5>Quality Tours</h5>
-        <p class="text-muted small">Curated experiences</p>
+        <p class="text-muted small">Every detail, thoughtfully planned</p>
       </div>
     </div>
   </div>
 </section>
+
+<!-- Featured Destinations -->
+<app-featured-destinations></app-featured-destinations>
+
+<!-- Trust Badges -->
+<app-trust-badges></app-trust-badges>
 
 <!-- Testimonials -->
 <app-testimonials></app-testimonials>

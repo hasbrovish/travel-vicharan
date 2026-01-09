@@ -367,50 +367,50 @@ const shimlaManali5N6D: TourPackage = {
 const shimlaManaliDharamshala6N7D_Itinerary: ItineraryDay[] = [
   {
     day: 1,
-    title: 'Chandigarh to Shimla',
-    description: 'Scenic drive to Shimla, the Queen of Hills. Evening Mall Road and Ridge exploration.',
+    title: 'Day 1 – Arrival & Mountain Journey to Shimla',
+    description: 'Welcome to the Queen of Hills! Begin your complete Himachal adventure (115 km / ~4 hours). • Pickup from Chandigarh Railway Station/Airport/Hotel • Scenic drive through Kalka and winding mountain roads • Pass through Solan (Mushroom City of India) • Arrive in Shimla and hotel check-in • Evening walk on Mall Road (colonial-era shopping street) • Visit The Ridge (open space with Christ Church and mountain views) • Overnight stay in Shimla',
     activities: ['Chandigarh departure', 'Mountain drive', 'Check-in', 'Mall Road', 'The Ridge', 'Christ Church'],
     meals: ['Dinner']
   },
   {
     day: 2,
-    title: 'Kufri Excursion + Shimla Local',
-    description: 'Morning Kufri visit for nature and adventure. Afternoon Shimla heritage sightseeing.',
+    title: 'Day 2 – Kufri Winter Wonderland & Shimla Heritage',
+    description: 'Explore Shimla\'s highest point and colonial treasures. • Morning excursion to Kufri (16 km / ~30 minutes at 2,743m) • Visit Himalayan Nature Park (rare Himalayan wildlife) • Mahasu Peak trek for panoramic views • Afternoon Shimla sightseeing: Indian Institute of Advanced Studies (former Viceregal Lodge) • Jakhoo Temple (ancient Hanuman temple at 2,455m) • Sankat Mochan Temple • Evening free for Mall Road shopping • Overnight stay in Shimla',
     activities: ['Kufri', 'Himalayan Nature Park', 'Mahasu Peak', 'Jakhoo Temple', 'Sankat Mochan', 'Indian Institute'],
     meals: ['Breakfast', 'Dinner']
   },
   {
     day: 3,
-    title: 'Shimla to Manali via Kullu',
-    description: 'Beautiful drive through valleys and riverside. Stopover at Pandoh Dam and Kullu.',
+    title: 'Day 3 – Scenic Transfer to Manali via Kullu Valley',
+    description: 'Journey through breathtaking Himalayan landscapes to the Valley of Gods (265 km / ~7-8 hours). • Morning checkout from Shimla • Scenic mountain drive through Himachal\'s most beautiful route • Photo stop at Sundernagar Lake • Pandoh Dam (reservoir on Beas River) • Drive through Kullu Valley (Valley of Gods with apple orchards) • Visit traditional Kullu shawl factory • Beautiful Beas River views throughout • Arrive in Manali and hotel check-in • Overnight stay in Manali',
     activities: ['Sundernagar Lake', 'Pandoh Dam', 'Kullu shawl factory', 'Beas River', 'Manali arrival'],
     meals: ['Breakfast', 'Dinner']
   },
   {
     day: 4,
-    title: 'Solang Valley / Atal Tunnel Adventure',
-    description: 'Full day at Solang Valley with adventure activities and optional Atal Tunnel visit.',
+    title: 'Day 4 – Solang Valley Adventure Playground',
+    description: 'Experience the thrill of Himalayan adventure sports! • Full day excursion to Solang Valley (14 km at 2,560m) • Paragliding over snow-capped mountains (optional) • Zorbing (rolling down in a transparent ball) • ATV (All-Terrain Vehicle) rides on mountain slopes • Ropeway/Cable car ride for valley views • Optional: Atal Tunnel excursion (world\'s longest highway tunnel at 3,000m) • Snow activities (seasonal: December-March) • Overnight stay in Manali',
     activities: ['Solang Valley', 'Paragliding', 'Zorbing', 'ATV rides', 'Atal Tunnel', 'Mountain views'],
     meals: ['Breakfast', 'Dinner']
   },
   {
     day: 5,
-    title: 'Manali Local + Transfer to Dharamshala',
-    description: 'Morning Manali sightseeing. Afternoon scenic drive to Dharamshala.',
+    title: 'Day 5 – Manali Heritage Tour & Transfer to Dharamshala',
+    description: 'Explore Manali\'s spiritual sites before journeying to the spiritual capital (200 km / ~6 hours). • Morning Manali local sightseeing: Hadimba Devi Temple (ancient wooden temple) • Vashisht Hot Water Springs (natural sulfur springs) • Van Vihar (peaceful park with tall deodar trees) • Tibetan Monastery (Buddhist monastery with colorful prayer wheels) • Afternoon scenic drive to Dharamshala through mountain roads • Arrive in Dharamshala and hotel check-in • Overnight stay in Dharamshala',
     activities: ['Hadimba Temple', 'Vashisht Hot Springs', 'Van Vihar', 'Tibetan Monastery', 'Drive to Dharamshala'],
     meals: ['Breakfast', 'Dinner']
   },
   {
     day: 6,
-    title: 'Dharamshala Local Sightseeing',
-    description: 'Explore spiritual McLeod Ganj, Dalai Lama Temple, and scenic viewpoints.',
+    title: 'Day 6 – Dharamshala Spiritual & Scenic Exploration',
+    description: 'Discover the spiritual heart of Himachal Pradesh. • Visit Dalai Lama Temple (Tibetan Buddhist monastery complex) • Explore McLeod Ganj (Little Lhasa with Tibetan culture) • Bhagsu Nag Temple & Waterfall (ancient temple with cascading waterfall) • St. John Church (colonial-era church in the wilderness) • Naddi Viewpoint (panoramic views of Dhauladhar ranges) • Tibetan market shopping (handicrafts, prayer flags, souvenirs) • Overnight stay in Dharamshala',
     activities: ['Dalai Lama Temple', 'McLeod Ganj', 'Bhagsu Nag Temple & Waterfall', 'St. John Church', 'Naddi Viewpoint'],
     meals: ['Breakfast', 'Dinner']
   },
   {
     day: 7,
-    title: 'Dharamshala to Chandigarh Drop',
-    description: 'Morning at leisure. Drive back to Chandigarh with wonderful Himachal memories.',
+    title: 'Day 7 – Dharamshala Heritage Tour & Departure',
+    description: 'Final spiritual moments before returning to the plains (250 km / ~7 hours). • Morning at leisure (optional last-minute shopping or temple visit) • Checkout and begin return journey to Chandigarh • Drive through Kangra Valley and Mandi • Drop at Chandigarh Railway Station/Airport with wonderful Himachal memories • Tour ends',
     activities: ['Leisure time', 'Return journey', 'Chandigarh drop'],
     meals: ['Breakfast']
   }

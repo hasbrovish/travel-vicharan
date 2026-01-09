@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" [class.header--expanded]="isSearchExpanded" [class.header--collapsed]="!isSearchExpanded">
   <div class="container">
     <!-- Top Row: Logo, Search, Contact, Profile, Menu - All in One Line -->
     <div class="navbar-top-row">
@@ -11,7 +11,7 @@
 
       <!-- Advanced Search (Center) - Hidden on Mobile -->
       <div class="navbar-search-center d-none d-md-block">
-        <app-advanced-search (search)="onSearch($event)"></app-advanced-search>
+        <app-advanced-search (search)="onSearch($event)" (expanded)="onSearchExpanded($event)"></app-advanced-search>
       </div>
 
       <!-- Right Section: Contact, Profile, Menu -->

@@ -1,11 +1,18 @@
 <section class="testimonials-section py-5 bg-light">
   <div class="container">
     <div class="text-center mb-5">
+      <p class="section-warm-intro">💬 Real stories from real travelers</p>
       <h2 class="display-6 fw-bold mb-3">Hear from Our Travelers</h2>
-      <p class="text-muted">Real experiences from real travelers</p>
+      <p class="text-muted">Real journeys. Real stories.</p>
     </div>
 
-    <div class="testimonials-carousel position-relative">
+    <div class="testimonials-carousel position-relative"
+         (mouseenter)="pauseAutoRotate()"
+         (mouseleave)="resumeAutoRotate()"
+         (keydown)="handleKeydown($event)"
+         tabindex="0"
+         role="region"
+         aria-label="Testimonials carousel">
       <!-- Navigation Arrows -->
       <button class="carousel-nav carousel-nav-prev" 
               (click)="previous()" 
@@ -21,31 +28,35 @@
         <i class="bi bi-chevron-right"></i>
       </button>
 
-      <!-- Testimonial Cards -->
-      <div class="row g-4">
-        <div class="col-md-4" *ngFor="let testimonial of visibleTestimonials">
-          <div class="testimonial-card h-100">
-            <div class="card-body">
-              <!-- Rating Stars -->
-              <div class="rating mb-3">
-                <i class="bi bi-star-fill text-warning" *ngFor="let star of getStarArray(testimonial.rating)"></i>
-              </div>
+      <!-- Single Centered Testimonial -->
+      <div class="testimonial-center-wrapper">
+        <div class="testimonial-card-centered" 
+             [@fadeSlide]="currentIndex"
+             role="article"
+             [attr.aria-label]="'Testimonial ' + (currentIndex + 1) + ' of ' + testimonials.length">
+          <div class="card-body">
+            <!-- Rating Stars -->
+            <div class="rating mb-4">
+              <i class="bi bi-star-fill text-warning" *ngFor="let star of getStarArray(currentTestimonial.rating)"></i>
+            </div>
 
-              <!-- Quote Text -->
-              <p class="testimonial-text">"{{ testimonial.text }}"</p>
+            <!-- Quote Text -->
+            <p class="testimonial-text-centered">"{{ currentTestimonial.text }}"</p>
 
-              <!-- Customer Info -->
-              <div class="customer-info d-flex align-items-center mt-4">
-                <img [src]="testimonial.image" [alt]="testimonial.name" class="customer-avatar">
-                <div class="ms-3">
-                  <h6 class="mb-0 fw-bold">{{ testimonial.name }}</h6>
-                  <small class="text-muted">{{ testimonial.trip }}</small>
-                  <div class="d-flex align-items-center mt-1">
-                    <small class="text-muted me-2">{{ testimonial.date }}</small>
-                    <span class="verified-badge" *ngIf="testimonial.verified">
-                      <i class="bi bi-patch-check-fill text-primary"></i> Verified
-                    </span>
-                  </div>
+            <!-- Customer Info -->
+            <div class="customer-info-centered d-flex flex-column align-items-center mt-4">
+              <img [src]="currentTestimonial.image" 
+                   [alt]="currentTestimonial.name" 
+                   class="customer-avatar-centered mb-3"
+                   loading="lazy">
+              <div class="text-center">
+                <h6 class="mb-1 fw-bold">{{ currentTestimonial.name }}</h6>
+                <small class="text-muted d-block">{{ currentTestimonial.trip }}</small>
+                <div class="d-flex align-items-center justify-content-center mt-2">
+                  <small class="text-muted me-2">{{ currentTestimonial.date }}</small>
+                  <span class="verified-badge" *ngIf="currentTestimonial.verified">
+                    <i class="bi bi-patch-check-fill text-primary"></i> Verified
+                  </span>
                 </div>
               </div>
             </div>

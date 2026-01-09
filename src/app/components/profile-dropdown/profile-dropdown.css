@@ -1,6 +1,8 @@
 .profile-dropdown-container {
   position: relative;
-  z-index: 1000;
+  z-index: 10003 !important; /* FIXED: Higher than navigation dropdowns */
+  /* FIXED: Allow dropdown to overflow */
+  overflow: visible !important;
 }
 
 /* Profile Trigger - Just the Icon */
@@ -66,8 +68,8 @@
 
 /* Dropdown Menu */
 .dropdown-menu {
-  position: absolute;
-  top: calc(100% + 0.75rem);
+  position: absolute; /* Absolute relative to profile-dropdown-container */
+  top: calc(100% + 0.75rem); /* Position below trigger */
   right: 0;
   background: #ffffff;
   border-radius: 16px;
@@ -75,9 +77,11 @@
   min-width: 320px;
   max-width: 360px;
   padding: 0;
-  z-index: 10000;
+  z-index: 10003 !important; /* FIXED: Higher than navigation dropdowns */
   transform-origin: top right;
-  overflow: hidden;
+  overflow-y: auto; /* Allow scrolling inside dropdown if needed */
+  overflow-x: hidden;
+  max-height: 80vh; /* Limit height to viewport */
   display: block;
 }
 

@@ -314,13 +314,12 @@
                 </g>
               </svg>
 
-              <!-- Day Stops - Alternating Left/Right -->
+              <!-- Day Stops - Vertical Timeline Layout -->
               <div class="journey-days-container">
                 <div class="journey-day-stop" 
                      *ngFor="let day of package.itinerary; let i = index"
-                     [class.left]="i % 2 === 0"
-                     [class.right]="i % 2 === 1"
-                     [style.top.%]="getDayPosition(i, package.itinerary.length)">
+                     [class.expanded]="expandedDay === day.day"
+                     [attr.data-day]="day.day">
                   
                   <!-- Map Pin -->
                   <div class="map-pin-stop">
@@ -356,7 +355,9 @@
 
                   <!-- Day Detail Panel (Expanded) -->
                   <div class="day-detail-panel" 
-                       *ngIf="expandedDay === day.day">
+                       *ngIf="expandedDay === day.day"
+                       [attr.data-day]="day.day"
+                       [@slideDown]>
                     <div class="detail-panel-header">
                       <h4 class="detail-panel-title">Day {{ day.day }}: {{ day.title }}</h4>
                       <button class="close-detail-btn" (click)="closeDay()">

@@ -1,0 +1,59 @@
+<section class="quick-category-section"
+         (mouseenter)="pauseAutoScroll()"
+         (mouseleave)="resumeAutoScroll()">
+  <div class="container">
+    <div class="category-header">
+      <p class="section-warm-intro">🎯 Find your perfect travel style</p>
+      <h3 class="category-title">Explore by Category</h3>
+      <p class="category-subtitle">Every journey starts with a choice. What calls to you?</p>
+    </div>
+
+    <div class="category-scroll-wrapper">
+      <button class="scroll-nav scroll-nav-left" 
+              (click)="scrollLeft()"
+              aria-label="Scroll left">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+
+      <div class="category-scroll-container">
+        <div class="category-scroll-track">
+          <a *ngFor="let category of categories; let i = index"
+             [routerLink]="category.link"
+             class="category-item"
+             [attr.data-index]="i"
+             (mouseenter)="pauseAutoScroll()"
+             (mouseleave)="resumeAutoScroll()">
+            <div class="category-icon-wrapper">
+              <i class="bi" [ngClass]="category.icon"></i>
+            </div>
+            <div class="category-info">
+              <h4 class="category-name">{{ category.name }}</h4>
+              <span class="category-count">{{ category.count }} tours</span>
+            </div>
+          </a>
+          <!-- Duplicate for seamless loop -->
+          <a *ngFor="let category of categories; let i = index"
+             [routerLink]="category.link"
+             class="category-item"
+             [attr.data-index]="i + categories.length"
+             (mouseenter)="pauseAutoScroll()"
+             (mouseleave)="resumeAutoScroll()">
+            <div class="category-icon-wrapper">
+              <i class="bi" [ngClass]="category.icon"></i>
+            </div>
+            <div class="category-info">
+              <h4 class="category-name">{{ category.name }}</h4>
+              <span class="category-count">{{ category.count }} tours</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <button class="scroll-nav scroll-nav-right" 
+              (click)="scrollRight()"
+              aria-label="Scroll right">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</section>

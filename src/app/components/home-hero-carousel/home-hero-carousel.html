@@ -1,25 +1,39 @@
-<section class="hero-carousel-section" *ngIf="!loading && currentHeroSlide">
-  <div class="container">
+<section class="hero-carousel-section" 
+         *ngIf="!loading && currentHeroSlide"
+         (mouseenter)="pauseAutoScroll()"
+         (mouseleave)="resumeAutoScroll()"
+         (keydown)="handleKeydown($event)"
+         tabindex="0"
+         role="region"
+         aria-label="Hero carousel">
+  <div class="hero-carousel-fullwidth">
     <div class="hero-carousel-container" [@fadeSlideUp]>
       <!-- Left: Hero Card -->
       <div 
         class="hero-card"
         [@heroSlide]="currentHeroIndex">
-        <div class="hero-background" [style.background-image]="'url(' + currentHeroSlide.backgroundImage + ')'">
+        <div class="hero-background" 
+             [style.background-image]="'url(' + currentHeroSlide.backgroundImage + ')'"
+             [attr.aria-label]="currentHeroSlide.title">
           <div class="hero-overlay"></div>
+          <div class="hero-parallax-layer"></div>
         </div>
         
         <div class="hero-content">
-          <!-- Badge -->
-          <div class="hero-badge" *ngIf="currentHeroSlide.badgeText">
-            {{ currentHeroSlide.badgeText }}
-          </div>
+          <!-- Brand Promise Line -->
+          <p class="hero-brand-promise" [@fadeIn]="currentHeroIndex">
+            <span class="emoji-sparkle">✨</span> Thoughtfully planned journeys, beautifully executed
+          </p>
           
           <!-- Title -->
-          <h1 class="hero-title">{{ currentHeroSlide.title }}</h1>
+          <h1 class="hero-title" [@fadeSlideIn]="currentHeroIndex">
+            {{ currentHeroSlide.title }}
+          </h1>
           
           <!-- Subtitle -->
-          <p class="hero-subtitle" *ngIf="currentHeroSlide.subtitle">
+          <p class="hero-subtitle" 
+             *ngIf="currentHeroSlide.subtitle"
+             [@fadeSlideIn]="currentHeroIndex">
             {{ currentHeroSlide.subtitle }}
           </p>
           
@@ -29,10 +43,10 @@
             <span class="price-amount">{{ formatPrice(currentHeroSlide.price) }}</span>
           </div>
           
-          <!-- CTA Button -->
+          <!-- Primary CTA Button -->
           <a
             [routerLink]="currentHeroSlide.ctaLink || '/packages'"
-            class="btn btn-hero-cta">
+            class="btn btn-hero-cta btn-primary-cta">
             {{ currentHeroSlide.ctaText || 'Explore Now' }}
             <i class="bi bi-arrow-right ms-2"></i>
           </a>
@@ -55,14 +69,16 @@
           <i class="bi bi-chevron-right"></i>
         </button>
 
-        <!-- Carousel Indicators -->
+        <!-- Carousel Indicators with Progress -->
         <div class="hero-indicators" *ngIf="heroSlides.length > 1">
           <button
             *ngFor="let slide of heroSlides; let i = index"
             class="indicator-dot"
             [class.active]="i === currentHeroIndex"
             (click)="goToHeroSlide(i)"
-            [attr.aria-label]="'Go to slide ' + (i + 1)">
+            [attr.aria-label]="'Go to slide ' + (i + 1)"
+            [attr.aria-current]="i === currentHeroIndex ? 'true' : 'false'">
+            <span class="indicator-progress" *ngIf="i === currentHeroIndex && !isPaused"></span>
           </button>
         </div>
       </div>
@@ -71,12 +87,16 @@
       <div class="category-grid-section">
         <div class="category-grid">
           <div 
-            *ngFor="let category of categories" 
+            *ngFor="let category of categories; let i = index" 
             class="category-card-premium"
             [routerLink]="'/packages'"
             [queryParams]="{destination: category.name}">
             <div class="category-image-wrapper">
-              <img [src]="category.imageUrl" [alt]="category.name" class="category-image">
+              <img [src]="category.imageUrl" 
+                   [alt]="category.name" 
+                   class="category-image"
+                   loading="lazy"
+                   [attr.fetchpriority]="i === 0 ? 'high' : 'low'">
               <div class="category-overlay"></div>
             </div>
             <div class="category-content">

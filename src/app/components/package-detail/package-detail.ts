@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { PackagesDataService } from '../../services/packages-data.service';
 import { CartService } from '../../services/cart.service';
 import { WishlistService } from '../../services/wishlist.service';
@@ -13,7 +14,45 @@ import { Breadcrumb } from '../breadcrumb/breadcrumb';
   standalone: true,
   imports: [CommonModule, FormsModule, Breadcrumb],
   templateUrl: './package-detail.html',
-  styleUrl: './package-detail.css'
+  styleUrl: './package-detail.css',
+  animations: [
+    trigger('slideDown', [
+      state('void', style({
+        opacity: 0,
+        transform: 'translateY(-10px) scale(0.98)',
+        maxHeight: '0px',
+        overflow: 'hidden',
+        marginTop: '0px',
+        paddingTop: '0px'
+      })),
+      state('*', style({
+        opacity: 1,
+        transform: 'translateY(0) scale(1)',
+        maxHeight: '2000px',
+        overflow: 'visible',
+        marginTop: '0.75rem',
+        paddingTop: '24px'
+      })),
+      transition('void => *', [
+        animate('400ms cubic-bezier(0.4, 0, 0.2, 1)', style({
+          opacity: 1,
+          transform: 'translateY(0) scale(1)',
+          maxHeight: '2000px',
+          marginTop: '0.75rem',
+          paddingTop: '24px'
+        }))
+      ]),
+      transition('* => void', [
+        animate('300ms cubic-bezier(0.4, 0, 0.2, 1)', style({
+          opacity: 0,
+          transform: 'translateY(-10px) scale(0.98)',
+          maxHeight: '0px',
+          marginTop: '0px',
+          paddingTop: '0px'
+        }))
+      ])
+    ])
+  ]
 })
 export class PackageDetail implements OnInit {
   package: TourPackage | null = null;
@@ -222,6 +261,34 @@ export class PackageDetail implements OnInit {
       this.expandedDay = null; // Collapse
     } else {
       this.expandedDay = dayNumber; // Expand (only one at a time)
+      
+      // Scroll to expanded day panel after animation starts
+      // Use requestAnimationFrame to ensure DOM is updated
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          const element = document.querySelector(`[data-day="${dayNumber}"]`);
+          if (element) {
+            // Scroll to show the pin and panel - use 'start' to ensure pin is visible
+            element.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'start', 
+              inline: 'nearest' 
+            });
+            
+            // Additional scroll adjustment to account for pin height
+            setTimeout(() => {
+              const rect = element.getBoundingClientRect();
+              const pinHeight = 42; // Pin height + margin
+              if (rect.top < pinHeight + 20) {
+                window.scrollBy({ 
+                  top: rect.top - pinHeight - 20, 
+                  behavior: 'smooth' 
+                });
+              }
+            }, 50);
+          }
+        }, 150);
+      });
     }
   }
 
@@ -230,50 +297,45 @@ export class PackageDetail implements OnInit {
   }
 
   getDayPosition(index: number, totalDays: number): number {
-    // Calculate vertical position percentage for each day
-    // Even spacing along the journey path
-    // Keep all days within container bounds (0% to 85%)
-    if (totalDays === 1) return 5;
-    // Distribute days evenly from 5% to 85% to prevent overflow
-    const range = 80; // Use 80% of container (leave 15% buffer at bottom)
-    const startOffset = 5; // Start 5% from top
-    return startOffset + (index / (totalDays - 1)) * range;
+    // No longer needed - using flexbox vertical layout instead of absolute positioning
+    // Keeping method for backward compatibility but returning 0
+    return 0;
   }
 
   getJourneyPath(totalDays: number): string {
     // Generate ONE continuous hand-drawn path flowing vertically through all days
-    // Path flows top → bottom with subtle organic curves (not zig-zag)
-    // Matches getDayPosition() distribution (5% to 85% of viewBox height)
+    // Path flows top → bottom covering the ENTIRE SVG height
+    // Uses actual SVG height from getJourneySvgHeight() for proper coverage
 
-    const viewBoxHeight = 2000; // SVG viewBox height
-    const startPercent = 0.05; // Start at 5%
-    const endPercent = 0.85; // End at 85%
-    const startY = viewBoxHeight * startPercent; // 100
-    const endY = viewBoxHeight * endPercent; // 1700
-    const totalRange = endY - startY; // 1600
+    const svgHeight = this.getJourneySvgHeight(totalDays); // Use actual SVG height
+    const centerX = 600;
+    const startPercent = 0.03; // Start at 3% from top
+    const endPercent = 0.97; // End at 97% from top (full coverage)
+    const startY = svgHeight * startPercent;
+    const endY = svgHeight * endPercent;
+    const totalRange = endY - startY;
 
     if (totalDays === 1) {
-      // For single day, extend path above and below
-      const preStartY = Math.max(startY - 80, 20);
-      const postEndY = Math.min(startY + 180, viewBoxHeight - 20);
-      return `M 600,${preStartY} L 600,${startY} Q 605,${startY + 50} 600,${startY + 100} L 600,${postEndY}`;
+      // For single day, extend path above and below for full coverage
+      const preStartY = Math.max(startY - 100, 20);
+      const postEndY = Math.min(endY + 100, svgHeight - 20);
+      return `M ${centerX},${preStartY} L ${centerX},${startY} Q ${centerX + 5},${startY + 50} ${centerX},${startY + 100} L ${centerX},${postEndY}`;
     }
 
-    const centerX = 600;
     const stepY = totalDays > 1 ? totalRange / (totalDays - 1) : 0;
 
-    // Start path BEFORE first day for visual continuity
-    const preStartY = Math.max(startY - 80, 20); // 80px before first day
+    // Start path BEFORE first day for visual continuity (extends to top)
+    const preStartY = Math.max(startY - 100, 20);
     let path = `M ${centerX},${preStartY} L ${centerX},${startY}`;
 
-    // Draw curves connecting all days
+    // Draw curves connecting all days with hand-drawn feel
     for (let i = 0; i < totalDays - 1; i++) {
       const y = startY + (i * stepY);
       const nextY = startY + ((i + 1) * stepY);
 
-      // Add subtle hand-drawn curves - stays near center
-      const curveOffset1 = (i % 3 === 0 ? 15 : i % 2 === 0 ? -12 : 10);
-      const curveOffset2 = (i % 4 === 0 ? -10 : i % 3 === 0 ? 12 : -8);
+      // Add subtle hand-drawn curves - stays near center with organic feel
+      const curveOffset1 = (i % 3 === 0 ? 18 : i % 2 === 0 ? -15 : 12);
+      const curveOffset2 = (i % 4 === 0 ? -12 : i % 3 === 0 ? 15 : -10);
 
       // Control points for smooth S-curve between days
       const cp1X = centerX + curveOffset1;
@@ -285,8 +347,8 @@ export class PackageDetail implements OnInit {
       path += ` C ${cp1X},${cp1Y} ${cp2X},${cp2Y} ${centerX},${nextY}`;
     }
 
-    // Extend path AFTER last day for visual continuity
-    const postEndY = Math.min(endY + 120, viewBoxHeight - 20); // 120px after last day
+    // Extend path AFTER last day for visual continuity (extends to bottom)
+    const postEndY = Math.min(endY + 150, svgHeight - 20); // 150px after last day
     path += ` L ${centerX},${postEndY}`;
 
     return path;
@@ -294,8 +356,9 @@ export class PackageDetail implements OnInit {
 
   getJourneySvgHeight(totalDays: number): number {
     // Calculate SVG height based on number of days
-    // Each day needs ~500px vertical space for proper spacing
-    return totalDays * 500 + 300;
+    // Each day needs ~250px vertical space (reduced 30% from 350px for tighter spacing)
+    // Add minimal padding for path extension above and below
+    return totalDays * 250 + 150; // Tighter spacing for better visual density
   }
 
   getDayHighlights(day: any): string[] {

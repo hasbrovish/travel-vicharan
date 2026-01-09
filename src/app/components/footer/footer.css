@@ -28,9 +28,9 @@ footer {
 }
 
 .footer-logo {
-  height: 60px !important; /* Same height as header logo */
+  height: clamp(3rem, 3.5rem + 0.5vw, 3.75rem) !important; /* Responsive, same as header */
   width: auto !important;
-  max-width: none !important;
+  max-width: 100% !important; /* Prevent overflow */
   display: block;
   object-fit: contain !important;
   object-position: center;

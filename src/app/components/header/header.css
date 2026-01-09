@@ -1,16 +1,43 @@
 /* Make header sticky below the announcement banner - Same as footer */
 .navbar {
   position: fixed !important;
-  top: 36px; /* Height of announcement banner */
+  top: clamp(2.25rem, 2.25rem + 0.5vw, 2.5rem); /* Responsive banner height */
   left: 0;
   right: 0;
   width: 100%;
+  max-width: 100%; /* Use 100% instead of 100vw to respect parent */
   z-index: 1001; /* Above banner (1000) */
   padding: 0;
-  transition: top 0.3s ease, box-shadow 0.3s ease;
+  transition: top 0.3s ease, box-shadow 0.3s ease, z-index 0s; /* Instant z-index changes */
   min-height: auto;
+  height: auto; /* Natural height - doesn't change */
   background: var(--gradient-primary-dark) !important; /* Same as footer */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+  /* FIXED: Allow dropdowns to overflow outside header - NO SCROLLBAR */
+  overflow: visible !important; /* Allow dropdowns to overflow */
+  max-height: none !important; /* No max height restriction */
+}
+
+/* Header collapsed state (default) */
+.navbar.header--collapsed {
+  height: auto;
+  max-height: none;
+  z-index: 1001; /* Normal z-index */
+}
+
+/* Header expanded state (when search is open) */
+.navbar.header--expanded {
+  height: auto !important;
+  max-height: none;
+  background: var(--gradient-primary-dark) !important;
+  min-height: fit-content;
+  /* Normal z-index - search dropdown is in document flow */
+  z-index: 1001;
+}
+
+/* Search center remains unchanged - dropdown floats above */
+.navbar.header--expanded .navbar-search-center {
+  /* No changes needed - dropdown is absolutely positioned */
 }
 
 /* When banner is dismissed, move header to top with smooth upward animation */
@@ -55,6 +82,10 @@ body.banner-dismissed .navbar {
   display: flex;
   flex-direction: column;
   width: 100%;
+  /* FIXED: Allow dropdowns to overflow outside container - NO SCROLLBAR */
+  overflow: visible !important; /* Allow dropdowns to overflow */
+  max-height: none !important; /* No max height restriction */
+  position: relative; /* Positioning context */
 }
 
 /* Top Row: Logo, Search, Contact, Profile - All in One Line */
@@ -63,11 +94,28 @@ body.banner-dismissed .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 0.75rem; /* Added top padding: 0.75rem top, horizontal padding */
-  gap: 1rem;
+  padding: 0.75rem clamp(0.75rem, 2vw, 1rem); /* Responsive horizontal padding */
+  gap: clamp(0.5rem, 1.5vw, 1rem); /* Responsive gap */
   height: auto; /* Fixed height desktop */
   width: 100%;
+  min-width: 0; /* Allow flex children to shrink */
   flex-wrap: nowrap; /* Prevent wrapping to next line */
+  /* Ensure row expands when search is open */
+  flex-shrink: 0;
+  /* Ensure top row doesn't block bottom row navigation */
+  position: relative;
+  z-index: 0; /* Lower z-index than navigation - BELOW navigation */
+  /* FIXED: Don't expand when search opens */
+  min-height: fit-content;
+  max-height: fit-content;
+  /* FIXED: Allow dropdowns to overflow - NO SCROLLBAR */
+  overflow: visible !important; /* Allow dropdowns to overflow */
+}
+
+/* When header is expanded, keep top row unchanged */
+.navbar.header--expanded .navbar-top-row {
+  /* No changes - header height stays the same */
+  align-items: center; /* Keep center alignment */
 }
 
 /* Logo Container - White Background Box */
@@ -116,9 +164,9 @@ body.banner-dismissed .navbar {
 }
 
 .logo-image {
-  height: 60px !important; /* Adjusted height for better proportion */
+  height: clamp(3rem, 3.5rem + 0.5vw, 3.75rem) !important; /* Responsive height */
   width: auto !important;
-  max-width: none !important;
+  max-width: 100% !important; /* Prevent overflow */
   display: block;
   object-fit: contain !important;
   object-position: center;
@@ -158,11 +206,29 @@ body.banner-dismissed .navbar {
 
 /* Search Center - Prominent and Centered - Elongated */
 .navbar-search-center {
-  flex: 1 1 auto;
+  flex: 1 1 0; /* Allow shrinking below content size */
   max-width: 100%;
-  min-width: 400px;
+  min-width: 0; /* Critical: allow flex child to shrink */
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 clamp(0.5rem, 1vw, 1rem); /* Reduced padding to prevent overflow */
+  position: relative; /* Positioning context for dropdown */
+  /* Allow dropdown to overflow */
+  overflow: visible;
+  z-index: 0; /* Very low z-index when search is closed - BELOW navigation */
+  display: flex; /* Ensure it's displayed */
+  flex-direction: column; /* Stack search input and dropdown */
+  /* Don't block pointer events - let search container handle it */
+  pointer-events: none; /* Default: don't block interactions */
+  /* Ensure search center doesn't create blocking area - FIXED HEIGHT */
+  height: auto;
+  min-height: 0;
+  max-height: fit-content; /* Don't expand */
+}
+
+/* When header has search expanded, raise z-index and allow pointer events */
+.navbar-search-center {
+  z-index: 200; /* Above navigation (100-102) but within header */
+  pointer-events: auto;
 }
 
 /* Right Section: Contact & Profile */
@@ -215,6 +281,9 @@ body.banner-dismissed .navbar {
 .profile-section {
   display: flex;
   align-items: center;
+  /* FIXED: Allow profile dropdown to overflow */
+  overflow: visible !important;
+  position: relative;
 }
 
 .btn-signin {
@@ -247,12 +316,26 @@ body.banner-dismissed .navbar {
   border-top: 1px solid rgba(255, 255, 255, 0.1); /* Light border with transparency */
   padding: 0;
   background: transparent; /* Inherit gradient from navbar */
+  position: relative; /* Positioning context for dropdowns */
+  z-index: 100 !important; /* REDUCED - below search dropdown when active */
+  overflow: visible !important; /* FIXED: Allow dropdowns to overflow - NO SCROLLBAR */
   display: flex;
   align-items: center;
   width: 100%;
   clear: both;
   flex-shrink: 0;
   min-height: 48px;
+  max-height: none !important; /* FIXED: No max height restriction */
+  /* Ensure navigation always receives pointer events */
+  pointer-events: auto !important; /* Navigation must always be interactive */
+  /* FIXED: Ensure navigation is always on top */
+  isolation: isolate; /* Create new stacking context */
+  transition: z-index 0s; /* Instant z-index changes */
+}
+
+/* Navigation row positioning */
+.navbar-bottom-row {
+  z-index: 100; /* Normal z-index within header */
 }
 
 .navbar-bottom-row .navbar-toggler {
@@ -282,6 +365,9 @@ body.banner-dismissed .navbar {
 .dropdown-wrapper {
   position: relative;
   display: inline-block;
+  z-index: 101; /* Normal z-index */
+  pointer-events: auto;
+  isolation: isolate;
 }
 
 .navbar-nav .nav-link {
@@ -347,14 +433,25 @@ body.banner-dismissed .navbar {
   margin-top: 0.5rem;
   min-width: 240px;
   display: none;
-  position: absolute;
-  top: 100%;
+  position: absolute; /* Absolute relative to dropdown-wrapper */
+  top: 100%; /* Position below trigger */
   left: 0;
-  z-index: 1000;
+  z-index: 102 !important; /* Inherits parent z-index behavior */
   opacity: 0;
   transform: translateY(-8px);
   transition: opacity 0.2s ease, transform 0.2s ease;
   pointer-events: none;
+  /* FIXED: Ensure dropdown menu is always on top */
+  isolation: isolate; /* Create new stacking context */
+  /* FIXED: No overflow restrictions - allow content to show */
+  overflow-y: auto; /* Allow scrolling inside dropdown if content is long */
+  overflow-x: hidden;
+  max-height: 70vh; /* Limit to viewport height */
+}
+
+/* When search is NOT active, dropdown menu gets higher z-index */
+.dropdown-menu {
+  z-index: 102; /* Normal z-index within dropdown-wrapper */
 }
 
 .dropdown-menu.show {
@@ -447,9 +544,9 @@ body.banner-dismissed .navbar {
   }
 
   .logo-image {
-    height: 50px !important; /* Smaller logo on mobile */
+    height: clamp(2.75rem, 3rem + 0.5vw, 3.125rem) !important; /* Responsive mobile */
     width: auto !important;
-    max-width: none !important;
+    max-width: 100% !important;
   }
 
   .logo-container {
@@ -727,9 +824,9 @@ body.banner-dismissed .navbar {
   }
 
   .logo-image {
-    height: 48px !important; /* Smaller on small mobile */
+    height: clamp(2.5rem, 2.75rem + 0.5vw, 3rem) !important; /* Responsive small mobile */
     width: auto !important;
-    max-width: none !important;
+    max-width: 100% !important;
   }
 
   .logo-container {
@@ -775,9 +872,9 @@ body.banner-dismissed .navbar {
   }
 
   .logo-image {
-    height: 42px !important; /* Smaller logo on very small screens */
+    height: clamp(2.25rem, 2.5rem + 0.5vw, 2.75rem) !important; /* Responsive very small */
     width: auto !important;
-    max-width: none !important;
+    max-width: 100% !important;
   }
 
   .logo-container {
@@ -813,9 +910,9 @@ body.banner-dismissed .navbar {
 }
 /* Scrolled logo - maintain same size */
 .navbar.scrolled .logo-image {
-  height: 60px !important; /* Adjusted height for better proportion */
+  height: clamp(3rem, 3.5rem + 0.5vw, 3.75rem) !important; /* Responsive scrolled */
   width: auto !important;
-  max-width: none !important;
+  max-width: 100% !important;
 }
 
 /* Scrolled logo container - maintain white background */

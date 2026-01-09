@@ -37,6 +37,7 @@ export class Header implements OnInit {
   user$: Observable<User | null>;
   activeDropdown: string | null = null;
   isMobileMenuOpen = false;
+  isSearchExpanded = false; // Track search expansion state
 
   navigationItems: NavigationItem[] = [
     {
@@ -179,6 +180,16 @@ export class Header implements OnInit {
       this.router.navigate(['/packages'], {
         queryParams: { search: query }
       });
+    }
+  }
+
+  onSearchExpanded(expanded: boolean): void {
+    this.isSearchExpanded = expanded;
+    // Add/remove class to body for main content padding adjustment
+    if (expanded) {
+      document.body.classList.add('header-search-expanded');
+    } else {
+      document.body.classList.remove('header-search-expanded');
     }
   }
 

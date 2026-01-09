@@ -1,0 +1,25 @@
+<section class="traveler-type-guide-section">
+  <div class="container">
+    <div class="section-header text-center">
+      <h2 class="section-title">What kind of traveller are you today?</h2>
+      <p class="section-subtitle">Let us guide you to the right journey</p>
+    </div>
+
+    <div class="traveler-types-grid">
+      <button 
+        *ngFor="let type of travelerTypes"
+        class="traveler-type-card"
+        [class.selected]="selectedTypeId === type.id"
+        (click)="selectTravelerType(type)"
+        [attr.aria-label]="type.title"
+        [attr.aria-pressed]="selectedTypeId === type.id">
+        <div class="traveler-emoji">{{ type.emoji }}</div>
+        <h3 class="traveler-title">{{ type.title }}</h3>
+        <p class="traveler-description">{{ type.description }}</p>
+        <div class="traveler-arrow">
+          <i class="bi bi-arrow-right"></i>
+        </div>
+      </button>
+    </div>
+  </div>
+</section>

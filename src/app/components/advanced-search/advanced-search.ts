@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Output, EventEmitter, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -42,7 +42,10 @@ interface MonthFilter {
   templateUrl: './advanced-search.html',
   styleUrl: './advanced-search.css'
 })
-export class AdvancedSearch implements OnInit {
+export class AdvancedSearch implements OnInit, AfterViewInit {
+  @ViewChild('searchInputGroup', { static: false }) searchInputGroup!: ElementRef;
+  @ViewChild('searchSuggestions', { static: false }) searchSuggestions!: ElementRef;
+  
   searchQuery: string = '';
   showSuggestions: boolean = false;
   suggestions: SearchSuggestion[] = [];
@@ -57,8 +60,31 @@ export class AdvancedSearch implements OnInit {
   allPackages: TourPackage[] = [];
   isFocused: boolean = false;
   private searchDebounceTimer: any = null;
+  private positionUpdateTimer: any = null;
+  
+  // Progressive disclosure state
+  showInspirationSection: boolean = false;
+  showRefineSection: boolean = false;
+  
+  // Popular quick chips (always visible)
+  quickChips: SearchSuggestion[] = [];
+  
+  // Trip count for CTA
+  get tripCount(): number {
+    // Calculate based on active filters/search
+    if (this.searchQuery.trim().length > 0) {
+      return this.allPackages.filter(pkg => 
+        pkg.isActive && (
+          pkg.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          pkg.destinations.some(d => d.toLowerCase().includes(this.searchQuery.toLowerCase()))
+        )
+      ).length;
+    }
+    return this.allPackages.filter(pkg => pkg.isActive).length;
+  }
 
   @Output() search = new EventEmitter<string>();
+  @Output() expanded = new EventEmitter<boolean>(); // Emit when search expands/collapses
 
   constructor(
     private router: Router,
@@ -69,7 +95,26 @@ export class AdvancedSearch implements OnInit {
     this.loadPopularSearches();
     this.loadPriceRanges();
     this.loadRecentSearches();
+    this.loadQuickChips();
     this.loadAllPackages(); // This will trigger loading of category tags, hot destinations, etc.
+  }
+  
+  loadQuickChips(): void {
+    // Popular quick chips - always visible
+    this.quickChips = [
+      { type: 'popular', label: 'Kerala', value: 'Kerala', count: 22 },
+      { type: 'popular', label: 'Goa', value: 'Goa', count: 20 },
+      { type: 'popular', label: 'Dubai', value: 'Dubai', count: 45 },
+      { type: 'popular', label: 'Europe', value: 'Europe', count: 25 }
+    ];
+  }
+  
+  toggleInspirationSection(): void {
+    this.showInspirationSection = !this.showInspirationSection;
+  }
+  
+  toggleRefineSection(): void {
+    this.showRefineSection = !this.showRefineSection;
   }
 
   loadAllPackages(): void {
@@ -121,6 +166,8 @@ export class AdvancedSearch implements OnInit {
       } else if (this.searchQuery.trim().length === 0) {
         this.showSuggestions = true;
         this.suggestions = [];
+        // Update dropdown position
+        setTimeout(() => this.updateDropdownPosition(), 50);
       } else {
         this.showSuggestions = false;
       }
@@ -251,6 +298,10 @@ export class AdvancedSearch implements OnInit {
       this.generateSuggestions();
       this.showSuggestions = true;
     }
+    // Notify header that search is expanded
+    this.expanded.emit(true);
+    // Position dropdown dynamically after DOM update
+    setTimeout(() => this.updateDropdownPosition(), 50);
   }
 
   onBlur(): void {
@@ -259,6 +310,8 @@ export class AdvancedSearch implements OnInit {
       if (!this.isClickingSuggestion) {
         this.isFocused = false;
         this.showSuggestions = false;
+        // Notify header that search is collapsed
+        this.expanded.emit(false);
       }
       this.isClickingSuggestion = false;
     }, 200);
@@ -287,6 +340,8 @@ export class AdvancedSearch implements OnInit {
         this.router.navigate(['/packages'], {
           queryParams: attraction.queryParams || { attraction: attraction.value }
         });
+        // Notify header that search is collapsed
+        this.expanded.emit(false);
         return;
       }
     }
@@ -314,6 +369,8 @@ export class AdvancedSearch implements OnInit {
       });
       this.showSuggestions = false;
       this.isFocused = false;
+      // Notify header that search is collapsed
+      this.expanded.emit(false);
     }
   }
 
@@ -322,7 +379,8 @@ export class AdvancedSearch implements OnInit {
       const recent = localStorage.getItem('recent-searches');
       if (recent) {
         const recentArray = JSON.parse(recent);
-        this.recentSearches = recentArray.slice(0, 5).map((search: string) => ({
+        // Show max 2 recent searches
+        this.recentSearches = recentArray.slice(0, 2).map((search: string) => ({
           type: 'popular' as const,
           label: search,
           value: search
@@ -597,7 +655,49 @@ export class AdvancedSearch implements OnInit {
       this.performSearch();
     } else if (event.key === 'Escape') {
       this.showSuggestions = false;
+      this.isFocused = false;
+      // Notify header that search is collapsed
+      this.expanded.emit(false);
+      // Blur input on ESC
+      const searchInput = document.querySelector('.search-input') as HTMLInputElement;
+      if (searchInput) {
+        searchInput.blur();
+      }
     }
+  }
+  
+  // Auto-focus search input when component is shown
+  ngAfterViewInit(): void {
+    // Focus search input on mount (if not mobile)
+    if (window.innerWidth > 768) {
+      setTimeout(() => {
+        const searchInput = document.querySelector('.search-input') as HTMLInputElement;
+        if (searchInput) {
+          searchInput.focus();
+        }
+      }, 100);
+    }
+    // Start placeholder rotation
+    this.startPlaceholderRotation();
+    // Initialize dropdown position on first render
+    setTimeout(() => this.updateDropdownPosition(), 100);
+  }
+
+  private updateDropdownPosition(): void {
+    // Position is now handled by CSS (position: absolute)
+    // Dropdown automatically positions below search input using CSS
+    // No JavaScript positioning needed
+    return;
+  }
+
+  @HostListener('window:resize')
+  onResize(): void {
+    // Position is now CSS-based, no need to update on resize
+  }
+
+  @HostListener('window:scroll')
+  onScroll(): void {
+    // Position is now CSS-based, no need to update on scroll
   }
 
   @HostListener('document:click', ['$event'])
@@ -606,6 +706,8 @@ export class AdvancedSearch implements OnInit {
     if (!target.closest('.advanced-search-container')) {
       this.showSuggestions = false;
       this.isFocused = false;
+      // Notify header that search is collapsed
+      this.expanded.emit(false);
     }
   }
 
@@ -638,28 +740,28 @@ export class AdvancedSearch implements OnInit {
       event.preventDefault();
       event.stopPropagation();
     }
-    
+
     // Voice search functionality
     try {
       const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
-      
+
       if (!SpeechRecognition) {
         // Fallback if speech recognition is not available
         alert('Voice search is not supported in your browser. Please type your search query.');
         return;
       }
-      
+
       const recognition = new SpeechRecognition();
-      
+
       recognition.continuous = false;
       recognition.interimResults = false;
       recognition.lang = 'en-US';
-      
+
       recognition.onstart = () => {
         console.log('Voice recognition started');
         // Visual feedback - you can add a loading state here
       };
-      
+
       recognition.onresult = (event: any) => {
         const transcript = event.results[0][0].transcript;
         this.searchQuery = transcript;
@@ -669,23 +771,125 @@ export class AdvancedSearch implements OnInit {
           this.performSearch();
         }, 100);
       };
-      
+
       recognition.onerror = (event: any) => {
         console.error('Voice recognition error:', event.error);
         if (event.error !== 'no-speech') {
           alert('Voice search encountered an error. Please try typing your search query.');
         }
       };
-      
+
       recognition.onend = () => {
         console.log('Voice recognition ended');
       };
-      
+
       recognition.start();
     } catch (error) {
       console.error('Voice search initialization error:', error);
       alert('Voice search is not available. Please type your search query.');
     }
+  }
+
+  // New methods for redesigned search dropdown
+
+  // Rotating placeholder text
+  private placeholderTexts = [
+    "Search 'Bali Adventure'",
+    "Try 'Beach Holidays'",
+    "Explore 'Kashmir Paradise'",
+    "Find 'Honeymoon Packages'",
+    "Discover 'Dubai Luxury'"
+  ];
+
+  private placeholderIndex = 0;
+  private placeholderTimer: any = null;
+
+  currentPlaceholder: string = this.placeholderTexts[0];
+
+  ngOnDestroy(): void {
+    if (this.placeholderTimer) {
+      clearInterval(this.placeholderTimer);
+    }
+  }
+
+  startPlaceholderRotation(): void {
+    this.placeholderTimer = setInterval(() => {
+      this.placeholderIndex = (this.placeholderIndex + 1) % this.placeholderTexts.length;
+      this.currentPlaceholder = this.placeholderTexts[this.placeholderIndex];
+    }, 3000); // Rotate every 3 seconds
+  }
+
+  clearSearch(): void {
+    this.searchQuery = '';
+    this.showSuggestions = false;
+    this.suggestions = [];
+    this.onInputChange();
+  }
+
+  highlightMatch(text: string): string {
+    if (!this.searchQuery || this.searchQuery.trim().length === 0) {
+      return text;
+    }
+
+    const query = this.searchQuery.trim();
+    const regex = new RegExp(`(${this.escapeRegExp(query)})`, 'gi');
+    return text.replace(regex, '<mark class="highlight-match">$1</mark>');
+  }
+
+  private escapeRegExp(str: string): string {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  getTypeLabel(type: string): string {
+    const labels: { [key: string]: string } = {
+      'destination': 'Destination',
+      'package': 'Package',
+      'popular': 'Popular',
+      'category': 'Category',
+      'departure-city': 'Departure City'
+    };
+    return labels[type] || 'Result';
+  }
+
+  getDestinationIcon(destination: string): string {
+    const iconMap: { [key: string]: string } = {
+      'Kerala': 'bi-water',
+      'Goa': 'bi-sun',
+      'Dubai': 'bi-buildings',
+      'Bali': 'bi-flower1',
+      'Thailand': 'bi-flower2',
+      'Singapore': 'bi-building',
+      'Kashmir': 'bi-snow',
+      'Manali': 'bi-snow2',
+      'Europe': 'bi-geo-alt',
+      'Maldives': 'bi-water',
+      'Andaman': 'bi-water',
+      'Himachal': 'bi-mountain',
+      'Rajasthan': 'bi-building-gear'
+    };
+
+    return iconMap[destination] || 'bi-geo-alt-fill';
+  }
+
+  // Inspiration categories with icons
+  inspirationCategories = [
+    { label: 'Beach', icon: 'bi-water', count: 45, value: 'beach', queryParams: { category: 'beach' } },
+    { label: 'Mountains', icon: 'bi-snow', count: 38, value: 'mountains', queryParams: { category: 'mountains' } },
+    { label: 'Honeymoon', icon: 'bi-heart', count: 32, value: 'honeymoon', queryParams: { category: 'honeymoon' } },
+    { label: 'Family', icon: 'bi-people', count: 56, value: 'family', queryParams: { category: 'family' } },
+    { label: 'Adventure', icon: 'bi-compass', count: 28, value: 'adventure', queryParams: { category: 'adventure' } }
+  ];
+
+  selectInspiration(category: any): void {
+    this.router.navigate(['/packages'], { queryParams: category.queryParams });
+    this.showSuggestions = false;
+    this.isFocused = false;
+  }
+
+  exploreAllTrips(): void {
+    this.router.navigate(['/packages']);
+    this.showSuggestions = false;
+    this.isFocused = false;
   }
 }
 

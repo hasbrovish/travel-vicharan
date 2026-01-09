@@ -50,43 +50,43 @@ const vietnamRoomOptions: RoomOption[] = [
 const vietnam5N6D_Itinerary: ItineraryDay[] = [
   {
     day: 1,
-    title: 'Arrival in Hanoi - Hoan Kiem Lake & Old Quarter',
-    description: 'Arrive at Noi Bai International Airport, transfer to hotel. Evening explore Hoan Kiem Lake and bustling Old Quarter.',
+    title: 'Day 1 – Arrival & Hanoi Old Quarter Exploration',
+    description: 'Welcome to Vietnam! Begin your journey in the charming capital city. • Arrive at Noi Bai International Airport and transfer to hotel • Hotel check-in and freshen up • Evening explore Hoan Kiem Lake (Lake of the Restored Sword with Ngoc Son Temple) • Stroll through bustling Old Quarter (36 ancient streets with traditional architecture) • Experience local street food culture • Discover Vietnamese coffee culture • Overnight stay in Hanoi',
     activities: ['Airport transfer', 'Hotel check-in', 'Hoan Kiem Lake', 'Old Quarter exploration', 'Local street food'],
     meals: []
   },
   {
     day: 2,
-    title: 'Hanoi City Tour & Water Puppet Show',
-    description: 'Full day Hanoi tour visiting Ho Chi Minh Mausoleum, One Pillar Pagoda, Temple of Literature. Evening Water Puppet Show.',
+    title: 'Day 2 – Hanoi Heritage Tour & Traditional Water Puppet Show',
+    description: 'Discover Hanoi\'s rich history and cultural heritage. • Full day city tour: Ho Chi Minh Mausoleum (final resting place of Vietnam\'s beloved leader) • Presidential Palace (French colonial architecture) • One Pillar Pagoda (unique Buddhist temple on single pillar) • Temple of Literature (Vietnam\'s first university, 1070 AD) • Hanoi Opera House (French colonial landmark) • Evening traditional Water Puppet Show (unique Vietnamese art form) • Overnight stay in Hanoi',
     activities: ['Ho Chi Minh Mausoleum', 'Presidential Palace', 'One Pillar Pagoda', 'Temple of Literature', 'Hanoi Opera House', 'Water Puppet Show'],
     meals: ['Breakfast']
   },
   {
     day: 3,
-    title: 'Halong Bay Day Cruise with Lunch',
-    description: 'Full day Halong Bay cruise exploring limestone karsts, floating villages, kayaking, and swimming in emerald waters.',
+    title: 'Day 3 – Halong Bay UNESCO World Heritage Cruise',
+    description: 'Experience Vietnam\'s most iconic natural wonder – Halong Bay (170 km / ~3.5 hours). • Morning drive to Halong Bay through scenic countryside • Board day cruise boat • Explore limestone karsts and islets (thousands of limestone formations) • Visit floating fishing villages (traditional way of life) • Optional kayaking through caves and lagoons • Swimming in emerald waters • Buffet lunch served on board with Vietnamese cuisine • Return to Hanoi • Overnight stay in Hanoi',
     activities: ['Drive to Halong Bay', 'Day cruise boarding', 'Limestone karst viewing', 'Floating village visit', 'Kayaking (optional)', 'Buffet lunch on board'],
     meals: ['Breakfast', 'Lunch']
   },
   {
     day: 4,
-    title: 'Hanoi to Ho Chi Minh City - Cu Chi Tunnels & City Tour',
-    description: 'Fly to Ho Chi Minh City. Visit Reunification Palace, Notre Dame Cathedral, Central Post Office, and Cu Chi Tunnels.',
+    title: 'Day 4 – Flight to Ho Chi Minh City & Cu Chi Tunnels History',
+    description: 'Journey to Vietnam\'s vibrant southern capital and explore war history. • Morning transfer to airport for domestic flight to Ho Chi Minh City • Arrive in Saigon and transfer to hotel • Afternoon city tour: Reunification Palace (historic site of Vietnam War end) • Notre Dame Cathedral (French colonial architecture) • Central Post Office (designed by Gustave Eiffel) • Visit Cu Chi Tunnels (underground network used during Vietnam War) • Ben Thanh Market (local market experience) • Overnight stay in Ho Chi Minh City',
     activities: ['Flight to Saigon', 'Reunification Palace', 'Notre Dame Cathedral', 'Central Post Office', 'Cu Chi Tunnels', 'Ben Thanh Market'],
     meals: ['Breakfast']
   },
   {
     day: 5,
-    title: 'Mekong Delta Tour with Lunch',
-    description: 'Full day Mekong Delta tour exploring lush delta, traditional villages, local handicrafts, and boat rides through canals.',
+    title: 'Day 5 – Mekong Delta River Life Experience',
+    description: 'Discover the "Rice Bowl of Vietnam" – the Mekong Delta (70 km / ~2 hours). • Morning drive to Mekong Delta through lush countryside • Visit traditional villages (experience local life) • Explore local handicrafts (coconut products, rice paper making) • Boat ride through narrow canals (navigate through water channels) • Visit coconut candy factory (see traditional candy making) • Enjoy riverside lunch with local specialties • Experience delta culture and hospitality • Return to Ho Chi Minh City • Overnight stay in Ho Chi Minh City',
     activities: ['Drive to Mekong Delta', 'Village visits', 'Local handicrafts', 'Boat ride through canals', 'Coconut candy factory', 'Riverside lunch'],
     meals: ['Breakfast', 'Lunch']
   },
   {
     day: 6,
-    title: 'Departure from Ho Chi Minh City',
-    description: 'Check out and transfer to Tan Son Nhat Airport for departure.',
+    title: 'Day 6 – Departure with Vietnamese Memories',
+    description: 'Bid farewell to Vietnam with unforgettable memories. • Hotel checkout after breakfast • Last minute shopping (optional) • Transfer to Tan Son Nhat Airport • Tour ends',
     activities: ['Hotel checkout', 'Last minute shopping', 'Airport transfer'],
     meals: ['Breakfast']
   }

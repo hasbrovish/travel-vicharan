@@ -23,17 +23,32 @@ app-header {
 
 /* Main content wrapper - pushes content below fixed header and banner */
 .main-content {
-  padding-top: 190px !important; /* ~36px (announcement) + ~154px (header: top row ~100px + bottom nav ~54px) */
+  /* Use clamp for responsive padding that adapts to zoom */
+  padding-top: clamp(11.875rem, 11.875rem + 1vw, 12.5rem) !important; /* ~190px responsive */
   transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  min-height: calc(100vh - 190px);
+  min-height: calc(100vh - clamp(11.875rem, 11.875rem + 1vw, 12.5rem));
   overflow-x: hidden;
   scroll-behavior: smooth;
+  width: 100%;
+  max-width: 100vw;
+}
+
+/* When header search is expanded, keep padding unchanged (dropdown floats) */
+body.header-search-expanded .main-content {
+  /* No padding change needed - dropdown floats above content */
+  /* Keep original padding */
+}
+
+/* When banner is dismissed AND search is expanded */
+body.banner-dismissed.header-search-expanded .main-content {
+  /* No padding change needed - dropdown floats above content */
+  /* Keep original padding */
 }
 
 /* When banner is dismissed, reduce padding smoothly - no gap */
 body.banner-dismissed .main-content {
-  padding-top: 154px !important; /* Only header height (~100px top row + ~54px bottom nav) */
-  min-height: calc(100vh - 154px);
+  padding-top: clamp(9.625rem, 9.625rem + 1vw, 10rem) !important; /* ~154px responsive */
+  min-height: calc(100vh - clamp(9.625rem, 9.625rem + 1vw, 10rem));
   transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -48,39 +63,39 @@ html body.banner-dismissed {
   margin-top: 0 !important;
 }
 
-/* Mobile responsive adjustments */
+/* Mobile responsive adjustments - using rem for zoom safety */
 @media (max-width: 992px) {
   .main-content {
-    padding-top: 190px !important; /* ~36px (banner) + ~154px (header with logo + navigation) */
+    padding-top: clamp(11.875rem, 11.5rem + 2vw, 12rem) !important;
     transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   body.banner-dismissed .main-content {
-    padding-top: 154px !important; /* Only header height (~154px with logo + navigation) */
+    padding-top: clamp(9.625rem, 9.5rem + 1vw, 10rem) !important;
     transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
 @media (max-width: 768px) {
   .main-content {
-    padding-top: 160px !important; /* ~36px (banner) + ~124px (mobile header with logo + navigation) */
+    padding-top: clamp(10rem, 9.5rem + 2vw, 10.5rem) !important;
     transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   body.banner-dismissed .main-content {
-    padding-top: 124px !important; /* Only mobile header height (~124px with logo + navigation) */
+    padding-top: clamp(7.75rem, 7.5rem + 1vw, 8rem) !important;
     transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
 @media (max-width: 480px) {
   .main-content {
-    padding-top: 150px !important; /* ~36px (banner) + ~114px (smallest mobile header with logo + navigation) */
+    padding-top: clamp(9.375rem, 9rem + 2vw, 9.75rem) !important;
     transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   body.banner-dismissed .main-content {
-    padding-top: 114px !important; /* Only smallest mobile header height (~114px with logo + navigation) */
+    padding-top: clamp(7.125rem, 7rem + 1vw, 7.5rem) !important;
     transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 }

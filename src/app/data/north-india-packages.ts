@@ -50,36 +50,36 @@ const northIndiaRoomOptions: RoomOption[] = [
 const uttarakhand4N5D_Itinerary: ItineraryDay[] = [
   {
     day: 1,
-    title: 'Arrival in Haridwar - Ganga Aarti',
-    description: 'Arrive and transfer to hotel. Visit Har Ki Pauri, Mansa Devi Temple, Daksh Temple. Evening attend divine Ganga Aarti.',
+    title: 'Day 1 – Arrival & Divine Ganga Aarti Experience',
+    description: 'Welcome to the spiritual gateway of Uttarakhand! Begin your divine journey. • Pickup from Dehradun Airport or Haridwar Railway Station • Transfer to hotel and check-in • Visit Har Ki Pauri (sacred ghat where Ganga touches the plains) • Mansa Devi Temple (cable car ride to hilltop temple) • Daksh Temple (ancient Shiva temple) • Evening attend divine Ganga Aarti ceremony (spiritual light ceremony on the riverbank) • Overnight stay in Haridwar',
     activities: ['Hotel check-in', 'Har Ki Pauri', 'Mansa Devi Temple', 'Daksh Temple', 'Ganga Aarti ceremony'],
     meals: ['Dinner']
   },
   {
     day: 2,
-    title: 'Haridwar to Rishikesh - Transfer to Mussoorie',
-    description: 'Visit Rishikesh attractions including Ram Jhula, Laxman Jhula, Beatles Ashram. Drive to Mussoorie and explore Mall Road.',
+    title: 'Day 2 – Rishikesh Yoga Capital & Scenic Drive to Mussoorie',
+    description: 'Explore the world\'s yoga capital before ascending to the Queen of Hills (80 km / ~2.5 hours). • Morning visit to Rishikesh: Ram Jhula (iconic suspension bridge over Ganga) • Laxman Jhula (twin bridge with spiritual significance) • Parmarth Niketan (famous ashram with evening Ganga Aarti) • Triveni Ghat (sacred bathing ghat) • Beatles Ashram (where the Beatles learned meditation) • Afternoon scenic drive to Mussoorie through mountain roads • Arrive in Mussoorie and hotel check-in • Evening walk on Mall Road • Overnight stay in Mussoorie',
     activities: ['Ram Jhula', 'Laxman Jhula', 'Parmarth Niketan', 'Triveni Ghat', 'Beatles Ashram', 'Transfer to Mussoorie', 'Mall Road'],
     meals: ['Breakfast', 'Dinner']
   },
   {
     day: 3,
-    title: 'Mussoorie Local Sightseeing',
-    description: 'Full day Mussoorie tour covering Kempty Falls, Gun Hill Point, Company Garden, Lal Tibba, and Camel\'s Back Road.',
+    title: 'Day 3 – Mussoorie Hill Station Exploration',
+    description: 'Discover the charm of Mussoorie, the Queen of Hills. • Full day sightseeing: Kempty Falls (picturesque waterfall perfect for photography) • Gun Hill Point (ropeway ride to highest point with panoramic views) • Company Garden (beautiful botanical garden with flowers) • Lal Tibba (highest point in Mussoorie with telescope views) • Camel\'s Back Road (scenic walking trail with mountain views) • Mussoorie Lake (serene lake with boating) • Evening free for shopping on Mall Road • Overnight stay in Mussoorie',
     activities: ['Kempty Falls', 'Gun Hill ropeway', 'Company Garden', 'Lal Tibba viewpoint', 'Camel\'s Back Road', 'Mussoorie Lake'],
     meals: ['Breakfast', 'Dinner']
   },
   {
     day: 4,
-    title: 'Mussoorie - Dehradun Sightseeing - Haridwar',
-    description: 'Visit Dehradun attractions including Robber\'s Cave, Sahastradhara, Forest Research Institute, and Tapkeshwar Temple.',
+    title: 'Day 4 – Dehradun City Tour & Return to Haridwar',
+    description: 'Explore Dehradun\'s natural wonders before returning to Haridwar (35 km / ~1 hour). • Morning visit to Dehradun: Robber\'s Cave (natural cave formation with stream) • Sahastradhara (thousand-fold spring with therapeutic properties) • Forest Research Institute (colonial architecture and museum) • Tapkeshwar Temple (cave temple dedicated to Lord Shiva) • Afternoon drive back to Haridwar • Evening at leisure • Overnight stay in Haridwar',
     activities: ['Robber\'s Cave', 'Sahastradhara', 'Forest Research Institute', 'Tapkeshwar Temple', 'Transfer to Haridwar'],
     meals: ['Breakfast', 'Dinner']
   },
   {
     day: 5,
-    title: 'Departure',
-    description: 'Check out and transfer to Haridwar Railway Station or Dehradun Airport.',
+    title: 'Day 5 – Departure with Spiritual Memories',
+    description: 'Bid farewell to the divine land of Uttarakhand. • Hotel checkout after breakfast • Transfer to Haridwar Railway Station or Dehradun Airport • Tour ends',
     activities: ['Hotel checkout', 'Departure transfer'],
     meals: ['Breakfast']
   }
@@ -207,43 +207,43 @@ const uttarakhand4N5D: TourPackage = {
 const kashmir5N6D_Itinerary: ItineraryDay[] = [
   {
     day: 1,
-    title: 'Arrival in Srinagar - Dal Lake Shikara Ride',
-    description: 'Arrive at Srinagar Airport, transfer to hotel/houseboat. Evening enjoy peaceful Shikara ride on Dal Lake with floating gardens.',
+    title: 'Day 1 – Arrival & Iconic Dal Lake Shikara Experience',
+    description: 'Welcome to Paradise on Earth! Begin your Kashmir journey with its most iconic experience. • Arrive at Srinagar Airport and transfer to hotel/houseboat • Check-in to your accommodation (traditional houseboat stay available) • Evening peaceful Shikara ride on Dal Lake (traditional wooden boat) • Float through floating gardens (unique vegetable gardens on water) • Witness local life on the lake • Visit Lal Chowk market for local shopping • Overnight stay in Srinagar',
     activities: ['Airport transfer', 'Hotel/houseboat check-in', 'Shikara ride on Dal Lake', 'Floating gardens', 'Lal Chowk market'],
     meals: []
   },
   {
     day: 2,
-    title: 'Srinagar - Gulmarg Excursion',
-    description: 'Full day trip to Gulmarg, the Meadow of Flowers. Enjoy Gondola ride to Khilanmarg and optional skiing activities.',
+    title: 'Day 2 – Gulmarg Meadow of Flowers & Gondola Adventure',
+    description: 'Experience the breathtaking beauty of Gulmarg, the Meadow of Flowers (52 km / ~2 hours). • Morning drive to Gulmarg through scenic mountain roads • Gondola ride to Khilanmarg/Apharwat Peak (Asia\'s highest cable car) • Marvel at snow-capped peaks and alpine meadows • Optional skiing activities (seasonal: December-March) • Snow activities and photography • Enjoy the pristine mountain air • Return to Srinagar • Overnight stay in Srinagar',
     activities: ['Drive to Gulmarg', 'Gondola ride to Khilanmarg/Apharwat', 'Skiing (seasonal)', 'Snow activities', 'Meadow views'],
     meals: ['Breakfast']
   },
   {
     day: 3,
-    title: 'Srinagar - Pahalgam Day Trip',
-    description: 'Visit Pahalgam - Valley of Shepherds. Explore Betaab Valley, Aru Valley, and Baisaran with stunning landscapes.',
+    title: 'Day 3 – Pahalgam Valley of Shepherds Exploration',
+    description: 'Discover the stunning Valley of Shepherds with its pristine landscapes (95 km / ~3 hours). • Morning drive to Pahalgam through beautiful countryside • Visit Betaab Valley (named after the Bollywood movie, surrounded by pine forests) • Aru Valley (picturesque meadow with grazing horses) • Baisaran meadows (alpine meadow perfect for picnics) • Walk along Lidder River (crystal-clear mountain river) • Nature walks and photography • Return to Srinagar • Overnight stay in Srinagar',
     activities: ['Drive to Pahalgam', 'Betaab Valley', 'Aru Valley', 'Baisaran meadows', 'Lidder River', 'Nature walks'],
     meals: ['Breakfast']
   },
   {
     day: 4,
-    title: 'Srinagar - Sonamarg Day Excursion',
-    description: 'Visit Sonamarg - Meadow of Gold. Marvel at glaciers, snow-capped mountains. Optional pony rides and short treks.',
+    title: 'Day 4 – Sonamarg Meadow of Gold & Glacier Views',
+    description: 'Journey to the Meadow of Gold and witness nature\'s grandeur (80 km / ~2.5 hours). • Morning drive to Sonamarg through winding mountain roads • Marvel at Thajiwas Glacier views (stunning glacier surrounded by peaks) • Optional pony rides to glacier base (traditional way to explore) • Mountain photography and nature walks • Enjoy glacial streams and alpine flowers • Experience the raw beauty of Kashmir • Return to Srinagar • Overnight stay in Srinagar',
     activities: ['Drive to Sonamarg', 'Thajiwas Glacier views', 'Pony rides (optional)', 'Mountain photography', 'Glacial streams'],
     meals: ['Breakfast']
   },
   {
     day: 5,
-    title: 'Srinagar - Mughal Gardens & Local Sightseeing',
-    description: 'Explore famous Mughal Gardens including Shalimar Bagh, Nishat Bagh, Chashme Shahi. Visit Shankaracharya Temple.',
+    title: 'Day 5 – Mughal Gardens Heritage & Spiritual Sites',
+    description: 'Explore Kashmir\'s Mughal heritage and spiritual landmarks. • Visit Shalimar Bagh (Mughal garden built by Emperor Jahangir) • Nishat Bagh (Garden of Joy with terraced lawns) • Chashme Shahi (Royal Spring with natural spring water) • Shankaracharya Temple (ancient Hindu temple on hilltop) • Pashmina shawl shopping (famous Kashmiri handicrafts) • Explore local markets for souvenirs • Evening at leisure • Overnight stay in Srinagar',
     activities: ['Shalimar Bagh', 'Nishat Bagh', 'Chashme Shahi', 'Shankaracharya Temple', 'Pashmina shopping', 'Local markets'],
     meals: ['Breakfast']
   },
   {
     day: 6,
-    title: 'Departure from Srinagar',
-    description: 'Check out from hotel/houseboat and transfer to Srinagar Airport for departure.',
+    title: 'Day 6 – Departure with Paradise Memories',
+    description: 'Bid farewell to Paradise on Earth with cherished memories. • Hotel/houseboat checkout after breakfast • Last minute shopping (optional) • Transfer to Srinagar Airport • Tour ends',
     activities: ['Checkout', 'Last minute shopping', 'Airport transfer'],
     meals: ['Breakfast']
   }

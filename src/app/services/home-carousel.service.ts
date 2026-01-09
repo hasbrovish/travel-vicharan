@@ -19,29 +19,29 @@ export class HomeCarouselService {
   private mockHeroSlides: HeroSlide[] = [
     {
       id: 'hero-1',
-      title: 'Discover Amazing Destinations',
-      subtitle: 'Curated tours for unforgettable experiences',
+      title: 'Where will your next story begin?',
+      subtitle: 'Your journey deserves more than just bookings',
       backgroundImage: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=1920',
       price: 45999,
       priceLabel: 'Starting from',
-      ctaText: 'Explore Now',
+      ctaText: 'Start Your Journey',
       ctaLink: '/packages',
-      badgeText: 'Best Seller'
+      badgeText: 'Most Loved'
     },
     {
       id: 'hero-2',
-      title: 'Europe Awaits You',
-      subtitle: 'Explore 12 stunning European destinations',
+      title: 'Every destination has a story',
+      subtitle: 'We help you write yours, one memory at a time',
       backgroundImage: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=1920',
       price: 89999,
       priceLabel: 'Starting from',
-      ctaText: 'View Packages',
+      ctaText: 'Explore Europe',
       ctaLink: '/packages?type=INTERNATIONAL&region=europe'
     },
     {
       id: 'hero-3',
-      title: 'Incredible India',
-      subtitle: 'Experience the beauty of diverse landscapes',
+      title: 'Travel is the only thing you buy that makes you richer',
+      subtitle: 'Let us help you collect moments, not just miles',
       backgroundImage: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1920',
       price: 25999,
       priceLabel: 'Starting from',

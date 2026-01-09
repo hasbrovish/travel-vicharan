@@ -360,39 +360,56 @@
   transform: rotate(-45deg);
 }
 
-/* Alternating Left/Right Grid Layout */
+/* Vertical Timeline Layout - One Day = One Step = One Card */
 .itinerary-day-card-premium {
   position: relative;
-  margin-bottom: 6rem;
-  display: grid;
-  grid-template-columns: 1fr 140px 1fr;
-  gap: 2.5rem;
-  align-items: center;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 2rem;
   z-index: 2;
+  padding-left: 80px; /* Space for timeline marker */
+  width: 100%;
 }
 
 .itinerary-day-card-premium:last-child {
   margin-bottom: 2rem;
 }
 
-/* Odd days: Content on LEFT */
-.itinerary-day-card-premium:nth-child(odd) .day-card-wrapper {
-  grid-column: 1;
-  text-align: right;
+/* Vertical timeline connector line */
+.itinerary-day-card-premium:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 29px; /* Center of pin */
+  top: 110px; /* Below pin circle */
+  width: 2px;
+  height: calc(100% + 3rem);
+  background: linear-gradient(to bottom, #f97316, rgba(249, 115, 22, 0.3));
+  opacity: 0.4;
+  z-index: 1;
+  pointer-events: none;
 }
 
-.itinerary-day-card-premium:nth-child(odd) .timeline-node {
-  grid-column: 2;
+.itinerary-day-card-premium:last-child::after {
+  display: none;
 }
 
-/* Even days: Content on RIGHT */
-.itinerary-day-card-premium:nth-child(even) .day-card-wrapper {
-  grid-column: 3;
+/* All days use same layout - no left/right alternation */
+.itinerary-day-card-premium .day-card-wrapper {
+  flex: 1;
   text-align: left;
+  max-width: 100%;
 }
 
-.itinerary-day-card-premium:nth-child(even) .timeline-node {
-  grid-column: 2;
+.itinerary-day-card-premium .timeline-node {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 /* Journey Milestone Pin */
@@ -466,23 +483,24 @@
     left: 200%;
   }
 
-  /* Single column layout */
+  /* Vertical timeline layout maintained on mobile */
   .itinerary-day-card-premium {
-    grid-template-columns: 100px 1fr;
+    padding-left: 70px;
     gap: 1.5rem;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
   }
 
-  /* All content goes to the right */
-  .itinerary-day-card-premium:nth-child(odd) .day-card-wrapper,
-  .itinerary-day-card-premium:nth-child(even) .day-card-wrapper {
-    grid-column: 2;
+  .itinerary-day-card-premium:not(:last-child)::after {
+    left: 24px; /* Center of smaller pin */
+  }
+
+  .itinerary-day-card-premium .timeline-node {
+    width: 50px;
+  }
+
+  .itinerary-day-card-premium .day-card-wrapper {
+    flex: 1;
     text-align: left;
-  }
-
-  .itinerary-day-card-premium:nth-child(odd) .timeline-node,
-  .itinerary-day-card-premium:nth-child(even) .timeline-node {
-    grid-column: 1;
   }
 
   .node-circle {
@@ -2835,21 +2853,21 @@ html {
 /* Journey Map Container - ensures path fills all vertical space */
 .journey-map-container {
   position: relative;
-  min-height: 2800px;
+  min-height: auto;
   background: #faf8f5;
   border-radius: 16px;
-  padding: 3rem 2rem 4rem 2rem;
+  padding: 3rem 2rem 2rem 2rem;
   overflow: visible;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
   z-index: 1;
 }
 
 /* Dynamic height based on number of days - NO DEAD ZONES */
 .journey-map-container[style*="height"] {
   height: auto !important;
-  min-height: 1800px;
-  padding-bottom: 6rem;
+  min-height: auto;
+  padding-bottom: 2rem;
 }
 
 /* Doodle Elements - Enhanced visibility */
@@ -2925,21 +2943,25 @@ html {
   left: 0;
   width: 100%;
   height: 100%;
-  min-height: 2800px;
+  min-height: auto;
   pointer-events: none;
   z-index: 1;
   overflow: visible;
+  /* Ensure SVG covers full container */
+  min-width: 100%;
 }
 
-/* Ensure path flows behind cards - CRITICAL: path must be visible and continuous */
+/* Ensure path flows behind cards - Enhanced visibility for better connection */
 .journey-path {
   z-index: 1;
   stroke: #f97316 !important;
-  stroke-width: 3.5 !important;
-  opacity: 0.58 !important;
+  stroke-width: 3px !important;
+  opacity: 0.65 !important;
   stroke-linecap: round !important;
   stroke-linejoin: round !important;
-  filter: drop-shadow(0 1px 3px rgba(249, 115, 22, 0.18));
+  filter: drop-shadow(0 2px 4px rgba(249, 115, 22, 0.25));
+  stroke-dasharray: 8, 6;
+  vector-effect: non-scaling-stroke;
 }
 
 .journey-doodles {
@@ -2947,12 +2969,12 @@ html {
   pointer-events: none;
 }
 
-/* Ensure FAQ section is visible above itinerary */
+/* Ensure FAQ section is visible above itinerary but below expanded day panels */
 .row.mt-5 {
   position: relative;
   z-index: 200 !important;
   clear: both;
-  margin-top: 3rem !important;
+  margin-top: 2rem !important;
   margin-bottom: 2rem !important;
   background: white;
   padding-top: 2rem;
@@ -2983,60 +3005,109 @@ html {
 
 .journey-path {
   stroke: #f97316;
-  stroke-width: 2;
-  stroke-dasharray: 5,8,2,8;
+  stroke-width: 2.5;
+  stroke-dasharray: 6,10,3,10;
   fill: none;
-  opacity: 0.4;
+  opacity: 0.5;
   z-index: 1;
+  /* Ensure path is visible and continuous */
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
 }
 
-/* Journey Days Container - ensures NO vertical gaps without path */
+/* Journey Days Container - Vertical Timeline Layout */
 .journey-days-container {
   position: relative;
   z-index: 3;
-  min-height: 2700px;
-  padding-bottom: 5rem;
-  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding-bottom: 2rem;
+  overflow: visible;
+  margin-bottom: 1rem;
 }
 
+/* Vertical Timeline - One Day = One Step = One Card */
 .journey-day-stop {
-  position: absolute;
-  width: 45%;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: clamp(1rem, 1.5rem + 1vw, 2rem); /* Responsive gap */
   transition: all 0.3s ease;
   z-index: 5;
-  min-height: 200px;
+  min-height: auto;
+  overflow: visible;
+  padding-left: clamp(4rem, 5rem + 1vw, 5.5rem); /* Responsive padding for marker */
+  /* Prevent overflow */
+  min-width: 0;
 }
 
 /* When a day is expanded, bring it to front above FAQ (z-index > 200) */
 .journey-day-stop.expanded {
-  z-index: 300 !important;
+  z-index: 400 !important;
+  overflow: visible;
 }
 
-.journey-day-stop.left {
-  left: 0;
+/* Ensure expanded day card and panel are fully visible */
+.journey-day-stop.expanded .day-card-minimal {
+  z-index: 11;
 }
 
+.journey-day-stop.expanded .map-pin-stop {
+  z-index: 15 !important;
+}
+
+.journey-day-stop.expanded .day-detail-panel {
+  z-index: 12 !important;
+  position: relative;
+  overflow: visible;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  width: 100%;
+  flex: 1;
+}
+
+/* Remove left/right positioning - all days flow vertically */
+.journey-day-stop.left,
 .journey-day-stop.right {
-  right: 0;
+  /* No special positioning - all days use same layout */
 }
 
-/* Map Pin - True teardrop/location pin shape */
+/* Map Pin - Fixed position on left side of timeline */
 .map-pin-stop {
   position: absolute;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
+  left: 0;
+  transform: none;
+  z-index: 15;
+  pointer-events: none;
+  width: clamp(3rem, 3.5rem + 0.5vw, 3.75rem); /* Responsive width */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-shrink: 0;
 }
 
-.journey-day-stop.left .map-pin-stop {
-  left: 100%;
+/* Vertical timeline connector line */
+.journey-day-stop:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: clamp(1.75rem, 1.8125rem + 0.125vw, 1.875rem); /* Responsive center of pin */
+  top: clamp(2.5rem, 2.625rem + 0.25vw, 2.75rem); /* Responsive below pin */
+  width: clamp(1px, 2px, 3px); /* Responsive line width */
+  height: calc(100% + clamp(2rem, 3rem + 1vw, 3rem)); /* Responsive extension */
+  background: linear-gradient(to bottom, #f97316, rgba(249, 115, 22, 0.3));
+  opacity: 0.4;
+  z-index: 1;
+  pointer-events: none;
 }
 
-.journey-day-stop.right .map-pin-stop {
-  right: 100%;
-  left: auto;
-  transform: translateX(50%);
+.journey-day-stop:last-child::before {
+  display: none; /* No connector after last day */
 }
 
 .pin-circle-stop {
@@ -3094,52 +3165,54 @@ html {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-/* Day Card Minimal (Collapsed) - Label pinned on map */
+/* Day Card Minimal (Collapsed) - Full width card in vertical timeline */
 .day-card-minimal {
-  background: #ffffff;
-  border: 1.5px solid #e5e0d8;
-  border-radius: 14px;
-  padding: 1.4rem;
-  margin-top: 24px;
+  background: linear-gradient(to bottom, #ffffff 0%, #fefcf9 100%);
+  border: clamp(1px, 1.5px, 2px) solid #e5e0d8; /* Responsive border */
+  border-radius: clamp(0.75rem, 0.875rem + 0.25vw, 1rem); /* Responsive radius */
+  padding: clamp(0.875rem, 1rem + 0.25vw, 1.1rem); /* Responsive padding */
+  margin-top: 0;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
   position: relative;
   z-index: 5;
+  flex: 1;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0; /* Prevent flex overflow */
 }
 
-/* Subtle paper texture effect - softer */
+/* Horizontal connection line from pin to card */
+.day-card-minimal::after {
+  content: '';
+  position: absolute;
+  top: clamp(1.25rem, 1.3125rem + 0.125vw, 1.375rem); /* Responsive align with pin */
+  left: clamp(-5rem, -5.125rem - 0.5vw, -5.5rem); /* Responsive extension */
+  width: clamp(1.25rem, 1.375rem + 0.25vw, 1.5rem); /* Responsive width */
+  height: clamp(1px, 2px, 3px); /* Responsive height */
+  background: linear-gradient(to right, #f97316, rgba(249, 115, 22, 0.3));
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* When expanded, ensure connection line doesn't interfere */
+.journey-day-stop.expanded .day-card-minimal::after {
+  opacity: 0.3;
+}
+
 .day-card-minimal::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  border-radius: 14px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(249,115,22,0.008) 100%);
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, rgba(249, 115, 22, 0.15) 20%, rgba(249, 115, 22, 0.15) 80%, transparent 100%);
+  border-radius: 14px 14px 0 0;
   pointer-events: none;
   opacity: 0.6;
-}
-
-/* Visual connection line from pin to card (subtle) */
-.day-card-minimal::after {
-  content: '';
-  position: absolute;
-  top: -24px;
-  width: 2px;
-  height: 24px;
-  background: linear-gradient(to bottom, #f97316, transparent);
-  opacity: 0.25;
-  pointer-events: none;
-}
-
-.journey-day-stop.left .day-card-minimal::after {
-  right: -1px;
-}
-
-.journey-day-stop.right .day-card-minimal::after {
-  left: -1px;
 }
 
 .day-card-minimal:hover {
@@ -3155,8 +3228,8 @@ html {
 }
 
 .day-number-badge {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
   border-radius: 8px;
   display: flex;
@@ -3164,8 +3237,9 @@ html {
   justify-content: center;
   color: white;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(249, 115, 22, 0.2);
 }
 
 .day-card-content {
@@ -3173,18 +3247,18 @@ html {
 }
 
 .day-card-title {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: #374151;
-  margin: 0 0 0.75rem 0;
-  line-height: 1.4;
+  margin: 0 0 0.6rem 0;
+  line-height: 1.35;
 }
 
 .day-highlights {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
 }
 
 .highlight-line {
@@ -3196,16 +3270,16 @@ html {
 .day-duration {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
+  gap: 0.4rem;
+  font-size: 0.85rem;
   color: #f97316;
   font-weight: 600;
 }
 
 .view-plan-btn {
   width: 100%;
-  margin-top: 1rem;
-  padding: 0.75rem 1rem;
+  margin-top: 0.85rem;
+  padding: 0.65rem 0.9rem;
   background: #faf8f5;
   border: 1px solid #e5e0d8;
   border-radius: 8px;
@@ -3217,6 +3291,7 @@ html {
   gap: 0.5rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  font-size: 0.9rem;
 }
 
 .view-plan-btn:hover {
@@ -3225,32 +3300,41 @@ html {
   border-color: #f97316;
 }
 
-/* Day Detail Panel (Expanded) - Note attached to journey */
+/* Day Detail Panel (Expanded) - Full width in vertical timeline */
 .day-detail-panel {
   background: #fff7ed;
   border: none;
   border-left: 3px solid #f97316;
   border-radius: 0 12px 12px 0;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   margin-left: 0;
-  padding: 16px;
-  overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1rem;
+  padding: 20px;
+  padding-top: 24px;
+  overflow: visible;
+  box-shadow: 0 8px 24px rgba(249, 115, 22, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1);
   position: relative;
-  z-index: 301 !important;
-  animation: slideDown 0.3s ease;
+  z-index: 12;
+  transform-origin: top;
+  will-change: transform, opacity;
+  min-height: auto;
+  width: 100%;
+  max-width: 100%;
+  flex: 1;
 }
 
-/* Visual connection to day card */
+/* Visual connection to day card - ensure it doesn't overlap pin */
 .day-detail-panel::before {
   content: '';
   position: absolute;
-  top: -0.5rem;
+  top: -0.75rem;
   left: -3px;
   width: 3px;
-  height: 0.5rem;
+  height: 0.75rem;
   background: #f97316;
-  opacity: 0.6;
+  opacity: 0.8;
+  border-radius: 0 0 0 3px;
+  z-index: 1;
 }
 
 @keyframes slideDown {
@@ -3299,7 +3383,14 @@ html {
 }
 
 .detail-panel-content {
-  padding: 2rem;
+  padding: 1.5rem 1rem;
+  animation: fadeIn 0.4s ease 0.2s both;
+  /* Ensure content is fully visible */
+  overflow: visible !important;
+  max-height: none !important;
+  height: auto !important;
+  position: relative;
+  z-index: 1;
 }
 
 /* Journey Overview */
@@ -3319,6 +3410,9 @@ html {
 /* Operational Schedule */
 .operational-schedule {
   margin-bottom: 2rem;
+  overflow: visible !important;
+  max-height: none !important;
+  height: auto !important;
 }
 
 .time-period-detail {
@@ -3328,6 +3422,9 @@ html {
   margin-bottom: 1.25rem;
   border: none;
   border-bottom: 1px solid #e5e0d8;
+  overflow: visible !important;
+  max-height: none !important;
+  height: auto !important;
 }
 
 .time-period-detail:last-child {
@@ -3432,12 +3529,19 @@ html {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  overflow: visible;
+  max-height: none !important;
+  height: auto !important;
 }
 
 .detail-section {
-  background: white;
-  padding: 1rem;
-  border-radius: 8px;
+  background: transparent;
+  padding: 0.75rem 0;
+  border-radius: 0;
+  margin-bottom: 1rem;
+  overflow: visible;
+  max-height: none !important;
+  height: auto !important;
 }
 
 .detail-section-title {
@@ -3456,6 +3560,9 @@ html {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  overflow: visible;
+  max-height: none !important;
+  height: auto !important;
 }
 
 .detail-list li {
@@ -3463,6 +3570,9 @@ html {
   position: relative;
   color: #374151;
   line-height: 1.6;
+  display: block;
+  visibility: visible;
+  opacity: 1;
 }
 
 .detail-list li::before {
@@ -3478,6 +3588,9 @@ html {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  overflow: visible;
+  max-height: none !important;
+  height: auto !important;
 }
 
 .meal-tag {
@@ -3487,6 +3600,9 @@ html {
   border-radius: 20px;
   font-size: 0.875rem;
   font-weight: 600;
+  display: inline-block;
+  visibility: visible;
+  opacity: 1;
 }
 
 .inclusions-list {
@@ -3496,6 +3612,9 @@ html {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  overflow: visible;
+  max-height: none !important;
+  height: auto !important;
 }
 
 .inclusions-list li {
@@ -3504,6 +3623,8 @@ html {
   gap: 0.75rem;
   color: #374151;
   line-height: 1.6;
+  visibility: visible;
+  opacity: 1;
 }
 
 .inclusions-list li i {
@@ -3656,18 +3777,22 @@ html {
 /* Responsive */
 @media (max-width: 992px) {
   .journey-day-stop {
-    width: 100%;
-    position: relative !important;
-    left: auto !important;
-    right: auto !important;
-    margin-bottom: 3rem;
+    padding-left: 70px; /* Reduced padding for mobile */
+    gap: 1.5rem;
   }
 
-  .journey-day-stop.left .map-pin-stop,
-  .journey-day-stop.right .map-pin-stop {
-    left: 50% !important;
-    right: auto !important;
-    transform: translateX(-50%);
+  .map-pin-stop {
+    width: 50px;
+    left: 0;
+  }
+
+  .journey-day-stop:not(:last-child)::before {
+    left: 24px; /* Center of smaller pin */
+  }
+
+  .day-card-minimal::after {
+    left: -72px; /* Adjusted for mobile spacing */
+    width: 22px;
   }
 
   .journey-path-svg {
@@ -3681,13 +3806,7 @@ html {
   }
   
   .journey-days-container {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-  
-  .journey-day-stop {
-    top: auto !important;
+    gap: 2.5rem; /* Slightly tighter on mobile */
   }
 }
 
