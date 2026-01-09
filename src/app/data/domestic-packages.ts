@@ -51,36 +51,36 @@ const domesticRoomOptions: RoomOption[] = [
 const andaman4N5D_Itinerary: ItineraryDay[] = [
   {
     day: 1,
-    title: 'Arrival Port Blair – Cellular Jail – Light & Sound Show',
-    description: 'Arrive at Port Blair, visit historic Cellular Jail and Corbyn\'s Cove Beach. Evening Light & Sound Show.',
+    title: 'Day 1 – Arrival & Historic Port Blair Experience',
+    description: 'Welcome to the Emerald Islands! Begin your Andaman adventure with history and heritage. • Airport pickup and transfer to hotel • Visit the historic Cellular Jail (National Memorial) • Relax at Corbyn\'s Cove Beach • Evening Light & Sound Show at Cellular Jail (moving tribute to freedom fighters) • Overnight stay in Port Blair',
     activities: ['Airport transfer', 'Cellular Jail visit', 'Corbyn\'s Cove Beach', 'Light & Sound Show'],
     meals: ['Dinner']
   },
   {
     day: 2,
-    title: 'Port Blair → Havelock Island – Radhanagar Beach',
-    description: 'Ferry to Havelock Island and visit Asia\'s best beach - Radhanagar Beach.',
+    title: 'Day 2 – Ferry to Havelock & Asia\'s Best Beach',
+    description: 'Journey to paradise island through turquoise waters! • Morning ferry to Havelock Island (~2 hours scenic cruise) • Hotel check-in • Afternoon visit to Radhanagar Beach (ranked Asia\'s #1 beach) • Pristine white sands and crystal-clear waters • Sunset viewing and beach relaxation • Overnight stay in Havelock',
     activities: ['Ferry to Havelock', 'Hotel check-in', 'Radhanagar Beach visit', 'Sunset viewing'],
     meals: ['Breakfast', 'Dinner']
   },
   {
     day: 3,
-    title: 'Elephant Beach Trip – Return to Port Blair',
-    description: 'Speedboat to Elephant Beach for snorkeling and water sports. Return ferry to Port Blair.',
+    title: 'Day 3 – Elephant Beach Snorkeling & Return Journey',
+    description: 'Underwater adventure and island hopping! • Morning speedboat to Elephant Beach • Complimentary snorkeling in coral reefs (witness colorful marine life) • Optional water sports: Sea Walk, Banana Ride, Jet Ski • Afternoon return ferry to Port Blair • Overnight stay in Port Blair',
     activities: ['Speedboat to Elephant Beach', 'Complimentary snorkeling', 'Optional water sports', 'Return ferry to Port Blair'],
     meals: ['Breakfast', 'Dinner']
   },
   {
     day: 4,
-    title: 'North Bay & Ross Island Excursion',
-    description: 'Boat trip to North Bay Island for corals and Ross Island for British ruins.',
+    title: 'Day 4 – Island Hopping & Colonial Heritage',
+    description: 'Explore two iconic islands in one day! • Morning boat ride to North Bay Island • Glass-bottom boat ride over vibrant coral gardens • Visit Ross Island (British colonial ruins & museums) • Explore abandoned British settlement overtaken by nature • Japanese bunkers and heritage buildings • Overnight stay in Port Blair',
     activities: ['North Bay Island visit', 'Glass-bottom boat', 'Ross Island exploration', 'Heritage ruins'],
     meals: ['Breakfast', 'Dinner']
   },
   {
     day: 5,
-    title: 'Departure from Port Blair',
-    description: 'Check out and airport transfer.',
+    title: 'Day 5 – Departure with Island Memories',
+    description: 'Final moments in paradise before heading home. • Hotel checkout after breakfast • Last-minute shopping at Aberdeen Bazaar (optional) • Airport transfer with memories of pristine beaches and turquoise waters • Tour ends',
     activities: ['Hotel checkout', 'Airport transfer'],
     meals: ['Breakfast']
   }
@@ -209,29 +209,29 @@ const andaman4N5D: TourPackage = {
 const goa3N4D_Itinerary: ItineraryDay[] = [
   {
     day: 1,
-    title: 'Arrival in Goa',
-    description: 'Arrive and transfer to beach resort. Evening free for beach leisure.',
+    title: 'Day 1 – Arrival & Beach Sunset Welcome',
+    description: 'Welcome to the land of sun, sand, and sea! Your Goa beach escape begins. • Airport/Railway station pickup and transfer to beachside resort • Resort check-in and refresh • Relax on the beach with sunset views • Welcome dinner at resort • Overnight stay in Goa',
     activities: ['Airport/Railway pickup', 'Resort check-in', 'Beach relaxation'],
     meals: ['Dinner']
   },
   {
     day: 2,
-    title: 'North Goa Tour',
-    description: 'Visit Fort Aguada, Calangute, Baga & Anjuna beaches. Evening at leisure.',
+    title: 'Day 2 – North Goa Beach Trail & Portuguese Heritage',
+    description: 'Explore the vibrant beaches and colonial history of North Goa. • Visit historic Fort Aguada (17th-century Portuguese fort with sea views) • Calangute Beach (Queen of Beaches) • Baga Beach (water sports and beach shacks) • Anjuna Beach (famous for its hippie culture) • Optional: Parasailing, jet-skiing, or banana boat rides • Evening free for beach relaxation or nightlife • Overnight stay in Goa',
     activities: ['Fort Aguada', 'Calangute Beach', 'Baga Beach', 'Anjuna Beach', 'Optional water sports'],
     meals: ['Breakfast']
   },
   {
     day: 3,
-    title: 'South Goa Tour',
-    description: 'Explore Old Goa churches, Mangueshi Temple, and South Goa beaches.',
+    title: 'Day 3 – South Goa Heritage & Serene Beaches',
+    description: 'Discover the spiritual and peaceful side of Goa with UNESCO heritage and pristine southern beaches. • Visit Basilica of Bom Jesus (UNESCO World Heritage Site) • Se Cathedral (largest church in Asia) • Mangueshi Temple (Hindu temple with unique architecture) • Colva Beach (white sands and calm waters) • Palolem Beach (crescent-shaped paradise beach) • Evening free for shopping or beach sunset • Overnight stay in Goa',
     activities: ['Basilica of Bom Jesus', 'Se Cathedral', 'Mangueshi Temple', 'Colva Beach', 'Palolem Beach'],
     meals: ['Breakfast']
   },
   {
     day: 4,
-    title: 'Departure',
-    description: 'Check out and airport/railway transfer.',
+    title: 'Day 4 – Departure with Beach Memories',
+    description: 'Final moments in coastal paradise before heading home. • Hotel checkout after breakfast • Last beach walk or souvenir shopping (optional) • Airport/Railway transfer with memories of golden beaches and Portuguese charm • Tour ends',
     activities: ['Hotel checkout', 'Departure transfer'],
     meals: ['Breakfast']
   }
@@ -395,36 +395,36 @@ const goa4N5D: TourPackage = {
   itinerary: [
     {
       day: 1,
-      title: 'Arrival & Leisure',
-      description: 'Arrive and check in. Visit Calangute/Baga beaches.',
+      title: 'Day 1 – Arrival & First Beach Vibes',
+      description: 'Welcome to Goa – where the party meets paradise! Begin your beach adventure. • Airport/Railway pickup and hotel check-in • Afternoon visit to Calangute Beach (Queen of Beaches) or Baga Beach • Evening free for beach shacks, live music, or nightlife exploration • Overnight stay in North Goa',
       activities: ['Airport pickup', 'Hotel check-in', 'Beach leisure', 'Nightlife exploration'],
       meals: ['Dinner']
     },
     {
       day: 2,
-      title: 'North Goa Full Day',
-      description: 'Fort Aguada, Calangute, Baga, Anjuna, Vagator, Chapora Fort.',
+      title: 'Day 2 – North Goa Beach Circuit & Fort Views',
+      description: 'Explore the iconic beaches and colonial landmarks of North Goa. • Morning visit to Fort Aguada (17th-century Portuguese fort with panoramic sea views) • Beach hopping: Calangute → Baga → Anjuna → Vagator • Optional water sports (parasailing, jet-skiing, banana boat) • Sunset at Chapora Fort (famous "Dil Chahta Hai" fort) • Evening free for shopping or beach parties • Overnight stay in North Goa',
       activities: ['Fort Aguada', 'Beach hopping', 'Water sports (optional)', 'Sunset at Chapora'],
       meals: ['Breakfast']
     },
     {
       day: 3,
-      title: 'South Goa Tour',
-      description: 'Old Goa churches, Miramar, Dona Paula, Colva Beach.',
+      title: 'Day 3 – South Goa Heritage Trail & Serene Beaches',
+      description: 'Discover the spiritual and tranquil side of Goa with UNESCO sites and pristine southern coastline. • Visit Basilica of Bom Jesus (UNESCO World Heritage Site, houses St. Francis Xavier\'s relics) • Se Cathedral (largest church in Asia) • Miramar Beach (city beach with golden sands) • Dona Paula viewpoint (romantic spot with Arabian Sea panorama) • Colva Beach (white sands and calm waters) • Overnight stay in South Goa',
       activities: ['Basilica of Bom Jesus', 'Se Cathedral', 'Temples', 'South Goa beaches'],
       meals: ['Breakfast']
     },
     {
       day: 4,
-      title: 'Adventure Day',
-      description: 'Leisure or optional activities - water sports, Grand Island.',
+      title: 'Day 4 – Adventure & Leisure Day',
+      description: 'Your day, your way! Choose your own Goa adventure. • Free day for personalized experiences • Optional: Grand Island boat trip (dolphin spotting, snorkeling, water sports) • Optional: Spice plantation tour with traditional Goan lunch • Shopping at Anjuna Flea Market or Mapusa Market • Beach relaxation and sunset views • Overnight stay in Goa',
       activities: ['Free time', 'Optional water sports', 'Shopping', 'Beach relaxation'],
       meals: ['Breakfast']
     },
     {
       day: 5,
-      title: 'Departure',
-      description: 'Check out and departure transfer.',
+      title: 'Day 5 – Departure with Coastal Memories',
+      description: 'Final beach moments before bidding farewell to Goa. • Hotel checkout after breakfast • Last-minute souvenir shopping or beach visit • Airport/Railway transfer with memories of sun-kissed beaches, Portuguese heritage, and vibrant nightlife • Tour ends',
       activities: ['Checkout', 'Last minute shopping', 'Departure'],
       meals: ['Breakfast']
     }
@@ -500,12 +500,12 @@ const rajasthan5N6D: TourPackage = {
     'GST (5%) as applicable'
   ],
   itinerary: [
-    {day: 1, title: 'Jaipur Arrival & City Tour', description: 'City Palace, Jantar Mantar, Hawa Mahal, local markets.', activities: ['City Palace', 'Jantar Mantar', 'Hawa Mahal', 'Shopping'], meals: ['Dinner']},
-    {day: 2, title: 'Jaipur Forts → Bikaner', description: 'Amber Fort, Jal Mahal, drive to Bikaner.', activities: ['Amber Fort', 'Jal Mahal photo stop', 'Drive to Bikaner'], meals: ['Breakfast']},
-    {day: 3, title: 'Bikaner → Jaisalmer', description: 'Junagarh Fort, Karni Mata Temple, drive to Golden City.', activities: ['Junagarh Fort', 'Rat Temple', 'Gadisar Lake'], meals: ['Breakfast']},
-    {day: 4, title: 'Jaisalmer Fort & Desert Safari', description: 'Golden Fort, Havelis, Sam Sand Dunes camel safari.', activities: ['Jaisalmer Fort', 'Patwon ki Haveli', 'Camel safari', 'Cultural show', 'BBQ dinner'], meals: ['Breakfast', 'Dinner']},
-    {day: 5, title: 'Desert to Jodhpur', description: 'Morning in desert, drive to Blue City.', activities: ['Desert sunrise', 'Drive to Jodhpur', 'Leisure'], meals: ['Breakfast']},
-    {day: 6, title: 'Departure', description: 'Checkout and departure.', activities: ['Shopping', 'Departure'], meals: ['Breakfast']}
+    {day: 1, title: 'Day 1 – Jaipur Arrival & Pink City Heritage', description: 'Welcome to the Pink City of India! Begin your royal Rajasthan journey. • Airport/Railway pickup and hotel check-in • Visit City Palace (royal residence with museums and courtyards) • Jantar Mantar (UNESCO World Heritage astronomical observatory) • Hawa Mahal photo stop (Palace of Winds with 953 windows) • Evening shopping at local bazaars (jewelry, textiles, handicrafts) • Overnight stay in Jaipur', activities: ['City Palace', 'Jantar Mantar', 'Hawa Mahal', 'Shopping'], meals: ['Dinner']},
+    {day: 2, title: 'Day 2 – Jaipur Forts & Drive to Bikaner', description: 'Explore majestic Rajput forts before journeying to the desert city (330 km / ~6 hours). • Morning visit to Amber Fort (hilltop fort with elephant rides and mirror palace) • Photo stop at Jal Mahal (Water Palace in Man Sagar Lake) • Scenic drive to Bikaner through Thar Desert landscape • Evening arrival and hotel check-in • Overnight stay in Bikaner', activities: ['Amber Fort', 'Jal Mahal photo stop', 'Drive to Bikaner'], meals: ['Breakfast']},
+    {day: 3, title: 'Day 3 – Bikaner Temples & Journey to Golden City', description: 'Discover the unique heritage of Bikaner before heading to Jaisalmer (330 km / ~6 hours). • Morning visit to Junagarh Fort (unconquered fort with intricate architecture) • Visit Karni Mata Temple (famous Rat Temple with 20,000 holy rats) • Scenic drive to Jaisalmer (Golden City) • Evening at Gadisar Lake (artificial lake with temples and ghats) • Overnight stay in Jaisalmer', activities: ['Junagarh Fort', 'Rat Temple', 'Gadisar Lake'], meals: ['Breakfast']},
+    {day: 4, title: 'Day 4 – Jaisalmer Fort & Thar Desert Safari', description: 'Experience the magic of the Golden Fort and the vast Thar Desert. • Morning exploration of Jaisalmer Fort (living fort with shops and homes inside) • Visit Patwon ki Haveli (ornate merchant mansions with intricate carvings) • Afternoon drive to Sam Sand Dunes (45 km from city) • Camel safari on golden sand dunes during sunset • Cultural folk dance and music performances • BBQ dinner under the stars at desert camp • Overnight stay in desert camp', activities: ['Jaisalmer Fort', 'Patwon ki Haveli', 'Camel safari', 'Cultural show', 'BBQ dinner'], meals: ['Breakfast', 'Dinner']},
+    {day: 5, title: 'Day 5 – Desert Sunrise & Blue City Journey', description: 'Witness the desert awakening before traveling to Jodhpur (285 km / ~5 hours). • Sunrise over sand dunes (magical desert morning) • Morning leisure at desert camp • Drive to Jodhpur (Blue City) through desert highways • Evening free for leisure or optional shopping • Overnight stay in Jodhpur', activities: ['Desert sunrise', 'Drive to Jodhpur', 'Leisure'], meals: ['Breakfast']},
+    {day: 6, title: 'Day 6 – Departure with Royal Memories', description: 'Final moments in the land of kings before heading home. • Hotel checkout after breakfast • Optional: Last-minute shopping at local markets (spices, handicrafts, textiles) • Airport/Railway transfer with memories of forts, deserts, and royal heritage • Tour ends', activities: ['Shopping', 'Departure'], meals: ['Breakfast']}
   ],
   departures: [],
   imageUrl: 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800',

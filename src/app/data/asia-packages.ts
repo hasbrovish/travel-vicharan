@@ -50,43 +50,43 @@ const asiaRoomOptions: RoomOption[] = [
 const sriLanka5N6D_Itinerary: ItineraryDay[] = [
   {
     day: 1,
-    title: 'Arrival in Colombo - Transfer to Negombo',
-    description: 'Arrive at Bandaranaike International Airport, transfer to Negombo beach hotel. Explore Negombo Beach and local fish market.',
+    title: 'Day 1 – Colombo Arrival & Negombo Beach Welcome',
+    description: 'Ayubowan! Welcome to the Pearl of the Indian Ocean! Your Sri Lankan adventure begins. • Bandaranaike International Airport (Colombo) arrival • Transfer to Negombo beach town (10 km / ~20 minutes) • Hotel check-in and refresh • Afternoon leisure at Negombo Beach (golden sand and calm waters) • Visit the famous Dutch Canal and fish market (bustling local life) • Sunset at the beach • Overnight stay in Negombo',
     activities: ['Airport pickup', 'Transfer to Negombo', 'Beach leisure', 'Fish market visit'],
     meals: []
   },
   {
     day: 2,
-    title: 'Negombo to Sigiriya via Pinnawala & Dambulla',
-    description: 'Visit Pinnawala Elephant Orphanage to see elephants bathing. Explore Dambulla Cave Temple and ancient rock temples.',
+    title: 'Day 2 – Elephants at Pinnawala & Dambulla Golden Temple',
+    description: 'Journey into the heart of Sri Lanka with elephants and ancient cave temples (150 km / ~4 hours total). • Morning drive to Pinnawala Elephant Orphanage (largest herd of captive elephants - 70+ elephants) • Watch elephants bathing in the river • Feeding time with baby elephants • Continue to Dambulla Cave Temple (UNESCO World Heritage Site) • Explore 5 rock caves with 150+ Buddha statues and ancient murals • Transfer to Sigiriya area • Overnight stay in Sigiriya',
     activities: ['Pinnawala Elephant Orphanage', 'Elephant bathing & feeding', 'Dambulla Cave Temple', 'Ancient Buddha statues'],
     meals: ['Breakfast']
   },
   {
     day: 3,
-    title: 'Sigiriya Rock Fortress & Polonnaruwa Ancient City',
-    description: 'Early morning climb Sigiriya Rock Fortress (UNESCO site) for panoramic views. Explore Polonnaruwa Ancient City with royal palaces.',
+    title: 'Day 3 – Sigiriya Rock Fortress Climb & Polonnaruwa Ruins',
+    description: 'Explore two UNESCO World Heritage Sites in one incredible day. • Early morning climb Sigiriya Rock Fortress (Lion Rock - 200m high, 1,200 steps) • Ancient frescoes of Sigiriya maidens • Panoramic views from the summit (former royal palace) • Afternoon visit to Polonnaruwa Ancient City (medieval capital from 11th century) • Gal Vihara (massive rock-carved reclining Buddha - 14m long) • Royal Palace ruins and Parakrama Samudra lake • Overnight stay in Sigiriya',
     activities: ['Sigiriya Rock climb', 'Panoramic views', 'Polonnaruwa Ancient City', 'Gal Vihara Buddha', 'Royal palaces'],
     meals: ['Breakfast']
   },
   {
     day: 4,
-    title: 'Sigiriya to Kandy via Matale Spice Garden',
-    description: 'Transfer to Kandy visiting Matale Spice Garden. Explore Temple of the Tooth Relic and attend evening puja ceremony.',
+    title: 'Day 4 – Spice Garden Experience & Sacred Kandy',
+    description: 'Travel through aromatic spice gardens to Sri Lanka\'s spiritual capital (85 km / ~2.5 hours). • Morning drive to Kandy via Matale • Visit Matale Spice Garden (learn about cinnamon, cardamom, vanilla, pepper) • Spice and herbal product demonstrations • Continue to Kandy (last kingdom of ancient Sri Lanka) • Visit Temple of the Tooth Relic (sacred Buddhist temple housing Buddha\'s tooth) • Attend evening puja ceremony (prayer ritual with drums and chanting) • Walk around Kandy Lake • Overnight stay in Kandy',
     activities: ['Matale Spice Garden', 'Spice & herb learning', 'Temple of the Tooth Relic', 'Evening puja ceremony', 'Kandy Lake'],
     meals: ['Breakfast']
   },
   {
     day: 5,
-    title: 'Kandy to Nuwara Eliya via Tea Plantations',
-    description: 'Scenic drive to Nuwara Eliya through tea country. Visit tea plantations & factory. Explore Gregory Lake and hill town.',
+    title: 'Day 5 – Scenic Tea Country Journey to Nuwara Eliya',
+    description: 'Ascend to the misty hills of Ceylon tea country - Little England of Sri Lanka (77 km / ~2.5 hours). • Morning drive through breathtaking mountain roads • Visit tea plantations with carpets of green tea bushes • Tour tea factory to see Ceylon tea production process • Tea tasting session (orange pekoe, white tea, black tea) • Photo stop at Ramboda Falls • Explore Nuwara Eliya town (British colonial architecture and cool climate) • Visit Gregory Lake for boating (optional) • Overnight stay in Nuwara Eliya',
     activities: ['Tea Plantations & Factory', 'Ceylon tea tasting', 'Ramboda Falls', 'Gregory Lake', 'Nuwara Eliya town tour'],
     meals: ['Breakfast']
   },
   {
     day: 6,
-    title: 'Nuwara Eliya to Colombo - Departure',
-    description: 'Early breakfast and scenic drive to Colombo. Transfer to airport for departure.',
+    title: 'Day 6 – Departure with Island Memories',
+    description: 'Farewell to the beautiful island nation. • Early breakfast at hotel • Scenic drive back to Colombo through hill country and winding roads (180 km / ~5 hours) • Airport transfer for departure • Tour ends with memories of ancient fortresses, sacred temples, elephants, and Ceylon tea',
     activities: ['Scenic drive through hill country', 'Airport transfer'],
     meals: ['Breakfast']
   }
@@ -220,36 +220,36 @@ const sriLanka5N6D: TourPackage = {
 const bali4N5D_Itinerary: ItineraryDay[] = [
   {
     day: 1,
-    title: 'Arrival in Bali - Kuta/Seminyak Beach Leisure',
-    description: 'Arrive at Ngurah Rai International Airport, transfer to hotel in Kuta/Seminyak. Evening beach leisure and sunset.',
+    title: 'Day 1 – Bali Arrival & Beach Sunset Experience',
+    description: 'Selamat Datang! Welcome to the Island of Gods. Your Balinese adventure begins. • Ngurah Rai International Airport (Denpasar) arrival • Transfer to Kuta or Seminyak beach area hotel • Hotel check-in and refresh • Afternoon leisure at Kuta Beach or Seminyak Beach (famous surf spots and beachfront) • Sunset views over the Indian Ocean • Explore beachfront cafes and local restaurants • Overnight stay in Kuta/Seminyak',
     activities: ['Airport pickup', 'Hotel check-in', 'Kuta/Seminyak Beach', 'Sunset views', 'Local cafes'],
     meals: []
   },
   {
     day: 2,
-    title: 'Ubud Sightseeing & Tanah Lot Temple',
-    description: 'Full day Ubud tour visiting Monkey Forest, Tegalalang Rice Terrace, Art Market, and Tirta Empul Temple. Evening sunset at Tanah Lot Temple.',
+    title: 'Day 2 – Ubud Cultural Heart & Tanah Lot Sunset Temple',
+    description: 'Discover Bali\'s artistic soul and most photographed temple. • Morning drive to Ubud (cultural capital) • Visit Sacred Monkey Forest Sanctuary (700+ playful long-tailed macaques in temple jungle) • Tegalalang Rice Terrace (Instagram-famous emerald green rice paddies with traditional Subak irrigation) • Ubud Art Market (handmade crafts, paintings, batik, and jewelry) • Ubud Royal Palace • Tirta Empul Temple (holy spring water temple for purification rituals) • Evening: Tanah Lot Temple (iconic sea temple on rock formation) • Sunset photography at this 16th-century Hindu temple • Overnight stay in Kuta/Seminyak',
     activities: ['Ubud Monkey Forest', 'Tegalalang Rice Terrace', 'Ubud Art Market', 'Royal Palace', 'Tirta Empul Temple', 'Tanah Lot sunset'],
     meals: ['Breakfast']
   },
   {
     day: 3,
-    title: 'Nusa Dua Water Sports & Uluwatu Temple with Kecak Dance',
-    description: 'Morning at Nusa Dua Beach with optional water sports. Afternoon visit Uluwatu Temple on cliff and watch spectacular Kecak Dance performance.',
+    title: 'Day 3 – Nusa Dua Beach Water Sports & Uluwatu Kecak Dance',
+    description: 'Experience Bali\'s pristine beaches and mesmerizing cultural performance. • Morning at Nusa Dua Beach (white sand and crystal-clear turquoise waters) • Optional water sports: Parasailing, jet-skiing, banana boat, fly-fish, snorkeling • Beach relaxation and swimming • Lunch included • Afternoon visit to Uluwatu Temple (perched on 70m high cliff above the ocean) • Watch the spectacular Kecak Fire Dance performance at sunset (traditional Balinese dance-drama with 50+ male performers chanting) • Stunning cliff views of Indian Ocean • Overnight stay in Kuta/Seminyak',
     activities: ['Nusa Dua Beach', 'Optional water sports', 'Uluwatu Temple', 'Kecak Dance Performance', 'Cliff views'],
     meals: ['Breakfast', 'Lunch']
   },
   {
     day: 4,
-    title: 'Mount Batur Sunrise Trek & Tegenungan Waterfall',
-    description: 'Early morning Mount Batur sunrise trek with breakfast on mountain. Visit Tegenungan Waterfall and explore local markets.',
+    title: 'Day 4 – Mount Batur Sunrise Trek & Waterfall Adventure',
+    description: 'Witness an unforgettable volcanic sunrise and explore nature\'s beauty. • Very early morning (3:00 AM) departure for Mount Batur trek • Climb active volcano Mount Batur (1,717m) for sunrise (moderate 2-hour trek) • Breakfast cooked with volcanic steam on the summit • Panoramic views of Lake Batur and surrounding mountains • Descend and visit Tegenungan Waterfall (cascading jungle waterfall perfect for photos) • Optional swim in the natural pool • Explore Ubud markets for last-minute shopping • Overnight stay in Kuta/Seminyak',
     activities: ['Mount Batur sunrise trek', 'Mountain breakfast', 'Lake Batur views', 'Tegenungan Waterfall', 'Ubud markets'],
     meals: ['Breakfast']
   },
   {
     day: 5,
-    title: 'Departure from Bali',
-    description: 'Check out and transfer to Ngurah Rai International Airport for departure.',
+    title: 'Day 5 – Departure with Island Blessings',
+    description: 'Sampai Jumpa! Farewell to the Island of Gods. • Hotel checkout after breakfast • Last-minute beach walk or souvenir shopping (optional) • Transfer to Ngurah Rai International Airport • Depart with memories of temples, rice terraces, volcanic sunrises, and Balinese culture • Tour ends',
     activities: ['Hotel checkout', 'Airport transfer'],
     meals: ['Breakfast']
   }
@@ -381,43 +381,43 @@ const bali4N5D: TourPackage = {
 const singaporeMalaysia5N6D_Itinerary: ItineraryDay[] = [
   {
     day: 1,
-    title: 'Arrival in Singapore + Night Safari',
-    description: 'Arrive at Changi Airport, transfer to hotel. Evening experience world-famous Night Safari with Tram Ride and Creatures of the Night Show.',
+    title: 'Day 1 – Singapore Arrival & Night Safari Adventure',
+    description: 'Welcome to the Lion City – Asia\'s modern marvel! Begin your two-country adventure. • Changi Airport (world\'s best airport) arrival • Transfer to hotel and check-in • Afternoon rest and freshen up • Evening: World\'s first nocturnal wildlife park - Night Safari • Open-air tram ride through 7 geographical zones with 2,500+ animals • Creatures of the Night Show (amazing animal performances) • Walk trails to see lions, elephants, tigers in natural habitat • Overnight stay in Singapore',
     activities: ['Airport pickup', 'Hotel check-in', 'Night Safari', 'Tram Ride', 'Animal shows'],
     meals: []
   },
   {
     day: 2,
-    title: 'Singapore City Tour + Sentosa Island',
-    description: 'Morning Singapore City Tour covering Merlion, Marina Bay, Little India. Afternoon Sentosa Island with Madame Tussauds and Wings of Time Show.',
+    title: 'Day 2 – Singapore City Icons & Sentosa Island Wonders',
+    description: 'Explore futuristic Singapore and Asia\'s premier island resort. • Morning Singapore City Tour: Merlion Park (Singapore\'s iconic symbol - half-lion, half-fish) • Marina Bay Sands (famous rooftop infinity pool and SkyPark) • Little India (colorful streets and Indian culture) • Chinatown (heritage shophouses and temples) • Afternoon: Cable car ride to Sentosa Island (Asia\'s favorite playground) • Madame Tussauds Singapore (wax museum with celebrity figures) • Evening: Wings of Time Show (spectacular water, laser, and fire show over the sea) • Overnight stay in Singapore',
     activities: ['Merlion Park', 'Marina Bay Sands', 'Little India', 'Chinatown', 'Sentosa Cable Car', 'Madame Tussauds', 'Wings of Time Show'],
     meals: ['Breakfast']
   },
   {
     day: 3,
-    title: 'Universal Studios Singapore',
-    description: 'Full day at Universal Studios with thrilling rides in Hollywood, Sci-Fi City, Ancient Egypt, and Jurassic Park zones.',
+    title: 'Day 3 – Universal Studios Singapore Full-Day Thrills',
+    description: 'Experience Southeast Asia\'s only Universal Studios theme park! • Full day at Universal Studios Singapore on Sentosa Island • Hollywood zone with movie magic • Sci-Fi City: Transformers The Ride 3D (mind-blowing ride) • Ancient Egypt: Revenge of the Mummy roller coaster • The Lost World: Jurassic Park Rapids Adventure • Madagascar zone and Far Far Away castle • WaterWorld live stunt show (explosive action) • New York street sets and shopping • Overnight stay in Singapore',
     activities: ['Universal Studios all zones', 'Transformers ride', 'Jurassic Park', 'Waterworld show', 'Theme park attractions'],
     meals: ['Breakfast']
   },
   {
     day: 4,
-    title: 'Singapore to Kuala Lumpur + Putrajaya Tour',
-    description: 'Transfer to Kuala Lumpur by luxury coach (5-6 hrs). Afternoon Putrajaya tour visiting Putra Mosque, bridges, and government buildings.',
+    title: 'Day 4 – Cross-Border Journey to Malaysia & Putrajaya',
+    description: 'Travel from Singapore to Malaysia\'s capital and federal administrative city (350 km / ~5-6 hours). • Morning checkout from Singapore hotel • Luxury coach transfer to Kuala Lumpur via Malaysia-Singapore border (immigration clearance) • Afternoon arrival in Kuala Lumpur • Visit Putrajaya (Malaysia\'s planned federal city with futuristic architecture) • Putra Mosque (pink-domed mosque - one of Asia\'s most beautiful) • Putra Bridge (resembling Middle Eastern architecture) • Photo stop at Prime Minister\'s Office and Palace of Justice • Hotel check-in in KL • Overnight stay in Kuala Lumpur',
     activities: ['Singapore-KL transfer', 'Border crossing', 'Putrajaya Putra Mosque', 'Putra Bridge', 'Prime Minister Office', 'KL check-in'],
     meals: ['Breakfast']
   },
   {
     day: 5,
-    title: 'KL City Tour + Genting Highlands',
-    description: 'Morning Kuala Lumpur City Tour. Afternoon Genting Highlands with cable car ride and SkyAvenue Mall.',
+    title: 'Day 5 – Kuala Lumpur Highlights & Genting Highlands',
+    description: 'Discover Malaysia\'s vibrant capital and mountain resort paradise. • Morning Kuala Lumpur City Tour: King\'s Palace (Istana Negara) • Independence Square (Dataran Merdeka with colonial buildings) • Photo stop at Petronas Twin Towers (world\'s tallest twin towers, 88 floors) • KL Tower (Menara KL telecommunications tower) • Afternoon: Drive to Genting Highlands (50 km / ~1 hour to 6,000 feet elevation) • Scenic Genting Skyway cable car ride (Asia\'s longest and fastest gondola lift) • SkyAvenue Mall shopping and entertainment • Skytropolis Indoor Theme Park • Return to KL • Overnight stay in Kuala Lumpur',
     activities: ['King\'s Palace', 'Independence Square', 'Petronas Towers', 'KL Tower', 'Genting Cable Car', 'SkyAvenue Mall', 'Skytropolis'],
     meals: ['Breakfast']
   },
   {
     day: 6,
-    title: 'Departure from Kuala Lumpur',
-    description: 'Check out and transfer to Kuala Lumpur International Airport for return journey.',
+    title: 'Day 6 – Departure with Southeast Asian Memories',
+    description: 'Selamat Jalan! Farewell to Malaysia and Singapore. • Hotel checkout after breakfast • Last-minute shopping at Central Market or Pavilion KL (optional) • Transfer to Kuala Lumpur International Airport (KLIA) • Depart with memories of two incredible countries - Singapore\'s futuristic marvels and Malaysia\'s cultural richness • Tour ends',
     activities: ['Hotel checkout', 'Airport transfer'],
     meals: ['Breakfast']
   }

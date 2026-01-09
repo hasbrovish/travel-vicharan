@@ -51,36 +51,36 @@ const internationalRoomOptions: RoomOption[] = [
 const dubai4N5D_Itinerary: ItineraryDay[] = [
   {
     day: 1,
-    title: 'Arrival in Dubai + Dhow Cruise Dinner',
-    description: 'Arrive at Dubai Airport, transfer to hotel. Evening Dhow Cruise at Dubai Creek/Marina with buffet dinner and live shows.',
+    title: 'Day 1 – Arrival & Dhow Cruise Dinner Experience',
+    description: 'Welcome to the City of Gold! Your Dubai adventure begins with Arabian hospitality. • Dubai International Airport arrival and transfer to hotel • Hotel check-in and refresh • Evening traditional Dhow Cruise at Dubai Creek or Marina • Buffet dinner on board with stunning skyline views • Live Tanoura dance performance • Overnight stay in Dubai',
     activities: ['Airport transfer', 'Hotel check-in', 'Dhow Cruise at Creek/Marina', 'Buffet dinner', 'Tanoura show'],
     meals: ['Dinner']
   },
   {
     day: 2,
-    title: 'Dubai City Tour + Desert Safari',
-    description: 'Morning city tour covering major attractions. Afternoon desert safari with dune bashing, camel ride, and BBQ dinner.',
+    title: 'Day 2 – Dubai City Icons & Desert Safari Adventure',
+    description: 'Experience both modern Dubai and desert thrills in one incredible day. • Morning city tour: Palm Jumeirah (man-made island wonder) • Photo stop at Burj Al Arab (iconic 7-star hotel) • Jumeirah Mosque and Dubai Museum • Afternoon: Thrilling desert safari with 4x4 dune bashing • Camel riding on golden sand dunes • Sunset views over the desert • BBQ dinner with cultural performances (belly dance, fire show) • Overnight stay in Dubai',
     activities: ['Palm Jumeirah visit', 'Burj Al Arab photo stop', 'Jumeirah Mosque', 'Dubai Museum', 'Dune bashing', 'Camel riding', 'BBQ dinner', 'Cultural shows'],
     meals: ['Breakfast', 'Dinner']
   },
   {
     day: 3,
-    title: 'Burj Khalifa + Dubai Mall + Fountain Show',
-    description: 'Visit world\'s tallest building Burj Khalifa 124th floor. Explore Dubai Mall and watch spectacular Fountain Show.',
+    title: 'Day 3 – Burj Khalifa Heights & Dubai Mall Shopping',
+    description: 'Reach new heights at the world\'s tallest building and explore mega shopping. • Morning visit to Burj Khalifa 124th/125th floor observation deck (828 meters high!) • Panoramic views of Dubai skyline and Persian Gulf • Explore Dubai Mall (world\'s largest shopping destination) • Optional: Dubai Aquarium & Underwater Zoo • Evening: Watch the spectacular Dubai Fountain Show (choreographed with music and lights) • Overnight stay in Dubai',
     activities: ['Burj Khalifa 124/125th floor', 'Dubai Mall shopping', 'Dubai Aquarium (optional)', 'Musical Fountain Show'],
     meals: ['Breakfast']
   },
   {
     day: 4,
-    title: 'Abu Dhabi City Tour + Grand Mosque',
-    description: 'Full day Abu Dhabi tour including Sheikh Zayed Grand Mosque, Corniche, and Emirates Palace.',
+    title: 'Day 4 – Abu Dhabi Capital Tour & Grand Mosque',
+    description: 'Discover the cultural heart of UAE with a full-day Abu Dhabi excursion (140 km / ~1.5 hours each way). • Visit Sheikh Zayed Grand Mosque (stunning white marble masterpiece with 82 domes) • Corniche drive along the waterfront • Photo stop at Emirates Palace (luxurious 7-star hotel) • Optional: Ferrari World theme park visit • Heritage Village (traditional Bedouin lifestyle) • Return to Dubai • Overnight stay in Dubai',
     activities: ['Sheikh Zayed Grand Mosque', 'Corniche drive', 'Emirates Palace photo stop', 'Ferrari World (optional)', 'Heritage Village'],
     meals: ['Breakfast']
   },
   {
     day: 5,
-    title: 'Departure from Dubai',
-    description: 'Check out and airport transfer.',
+    title: 'Day 5 – Departure with Dubai Memories',
+    description: 'Final moments in this futuristic desert city before heading home. • Hotel checkout after breakfast • Last-minute shopping at Gold Souk or Spice Souk (optional) • Dubai International Airport transfer with memories of skyscrapers, deserts, and Arabian nights • Tour ends',
     activities: ['Hotel checkout', 'Airport transfer'],
     meals: ['Breakfast']
   }
@@ -212,43 +212,43 @@ const dubai4N5D: TourPackage = {
 const dubai5N6D_Itinerary: ItineraryDay[] = [
   {
     day: 1,
-    title: 'Arrival + Dhow Cruise Dinner',
-    description: 'Airport transfer, check-in. Evening Dhow Cruise with international buffet and shows.',
+    title: 'Day 1 – Arrival & Traditional Dhow Cruise',
+    description: 'Welcome to Dubai – the jewel of the Middle East! Begin your premium Arabian experience. • Dubai International Airport arrival with warm reception • Transfer to hotel and check-in • Relax and freshen up • Evening: Traditional Dhow Cruise at Dubai Creek or Marina • International buffet dinner on board • Live Tanoura and Tanura dance performances • Overnight stay in Dubai',
     activities: ['Airport reception', 'Hotel check-in', 'Dhow Cruise dinner', 'Live Tanoura show'],
     meals: ['Dinner']
   },
   {
     day: 2,
-    title: 'Dubai City Tour + Burj Khalifa + Fountain Show',
-    description: 'Morning city tour, evening Burj Khalifa visit and fountain show.',
+    title: 'Day 2 – Dubai City Highlights & Burj Khalifa',
+    description: 'Explore the modern marvels of Dubai from ground to sky. • Morning city tour: Palm Jumeirah (The Palm Island) • Dubai Marina waterfront promenade • Jumeirah Mosque (stunning Islamic architecture) • Photo stop at Burj Al Arab (iconic 7-star sail-shaped hotel) • Evening: Burj Khalifa 124th/125th floor observation deck (world\'s tallest building at 828m) • Dubai Mall shopping time • Watch Dubai Fountain Show (world\'s largest choreographed fountain) • Overnight stay in Dubai',
     activities: ['Palm Jumeirah', 'Dubai Marina', 'Jumeirah Mosque', 'Burj Al Arab', 'Burj Khalifa 124/125', 'Dubai Fountain Show'],
     meals: ['Breakfast']
   },
   {
     day: 3,
-    title: 'Desert Safari with BBQ Dinner',
-    description: 'Free morning. Afternoon desert adventure with activities and dinner.',
+    title: 'Day 3 – Desert Safari Adventure & BBQ Under Stars',
+    description: 'Experience the Arabian desert like never before! • Morning free for leisure or optional Dubai Mall shopping • Afternoon: Pick-up for desert safari adventure • Thrilling 4x4 dune bashing on red sand dunes • Camel riding experience • Sand boarding and quad biking (optional) • Henna painting and traditional costumes • Sunset photography in the desert • BBQ dinner buffet at desert camp • Cultural shows: Belly dance, Tanoura, and fire show • Overnight stay in Dubai',
     activities: ['Leisure time/shopping', 'Dune bashing', 'Camel ride', 'Sand boarding', 'Henna painting', 'Cultural shows', 'BBQ dinner'],
     meals: ['Breakfast', 'Dinner']
   },
   {
     day: 4,
-    title: 'Abu Dhabi Tour + BAPS Hindu Mandir',
-    description: 'Full day Abu Dhabi tour highlighting the stunning BAPS Mandir.',
+    title: 'Day 4 – Abu Dhabi Capital & BAPS Hindu Mandir',
+    description: 'Discover the cultural capital of UAE with Hindu temple and Grand Mosque (140 km / ~1.5 hours each way). • Morning drive to Abu Dhabi • Visit BAPS Hindu Mandir (stunning traditional stone-carved temple, opened 2024) • Sheikh Zayed Grand Mosque (white marble architectural masterpiece with 82 domes) • Corniche Beach drive along waterfront • Emirates Palace photo stop (luxurious 7-star hotel) • Heritage Village (traditional Bedouin culture) • Ferrari World photo stop • Return to Dubai • Overnight stay in Dubai',
     activities: ['BAPS Hindu Mandir visit', 'Sheikh Zayed Grand Mosque', 'Corniche Beach', 'Emirates Palace', 'Heritage Village', 'Ferrari World photo stop'],
     meals: ['Breakfast']
   },
   {
     day: 5,
-    title: 'Miracle Garden + Dubai Frame + Global Village',
-    description: 'Visit iconic Dubai attractions and cultural theme park.',
+    title: 'Day 5 – Miracle Garden, Dubai Frame & Global Village',
+    description: 'Experience Dubai\'s unique attractions and cultural wonderland. • Morning visit to Dubai Miracle Garden (world\'s largest flower garden with 50 million flowers - seasonal: Nov to May) • Visit Dubai Frame (150m tall golden frame with panoramic views of old and new Dubai) • Evening: Global Village (cultural theme park with pavilions from 75+ countries - seasonal: Oct to Apr) • International shopping, food, and entertainment • Cultural shows and thrilling rides • Overnight stay in Dubai',
     activities: ['Dubai Miracle Garden (seasonal)', 'Dubai Frame panoramic views', 'Global Village (seasonal)', 'Shopping & rides'],
     meals: ['Breakfast']
   },
   {
     day: 6,
-    title: 'Departure',
-    description: 'Check out and airport transfer.',
+    title: 'Day 6 – Departure with Arabian Memories',
+    description: 'Final farewell to the city of superlatives. • Hotel checkout after breakfast • Last-minute shopping or relaxation (optional) • Dubai International Airport transfer with unforgettable memories of skyscrapers, deserts, temples, and Arabian culture • Tour ends',
     activities: ['Checkout', 'Airport drop'],
     meals: ['Breakfast']
   }
@@ -384,43 +384,43 @@ const dubai5N6D: TourPackage = {
 const thailand5N6D_Itinerary: ItineraryDay[] = [
   {
     day: 1,
-    title: 'Arrival in Bangkok - Transfer to Pattaya + Alcazar Show',
-    description: 'Arrive at Bangkok Airport, meet your driver and transfer to Pattaya (2 hrs). Evening enjoy the spectacular Alcazar Cabaret Show.',
+    title: 'Day 1 – Bangkok Arrival & Pattaya Transfer with Alcazar Show',
+    description: 'Sawadee Ka! Welcome to the Land of Smiles. Your Thai adventure begins. • Bangkok Suvarnabhumi Airport arrival and warm welcome • Transfer to Pattaya beach city (150 km / ~2 hours scenic drive) • Hotel check-in and refresh • Evening: World-famous Alcazar Cabaret Show (spectacular performances with dazzling costumes and choreography) • Overnight stay in Pattaya',
     activities: ['Airport pickup', 'Transfer to Pattaya', 'Hotel check-in', 'Alcazar Cabaret Show'],
     meals: ['Dinner']
   },
   {
     day: 2,
-    title: 'Coral Island Tour with Indian Lunch',
-    description: 'Speedboat tour to Coral Island with optional water sports. Enjoy swimming, beach activities, and Indian lunch.',
+    title: 'Day 2 – Coral Island Beach Escape & Water Adventures',
+    description: 'Explore the crystal-clear waters and coral reefs of Thailand\'s tropical paradise. • Morning speedboat ride to Coral Island (Koh Larn) • Swimming and snorkeling in turquoise waters • Beach activities: Beach volleyball, sunbathing on white sands • Optional water sports: Parasailing, jet-skiing, sea walking, banana boat rides • Indian buffet lunch on the island • Return to Pattaya in the afternoon • Evening free for shopping or beach walk • Overnight stay in Pattaya',
     activities: ['Speedboat to Coral Island', 'Beach activities', 'Optional water sports', 'Indian lunch', 'Return to hotel'],
     meals: ['Breakfast', 'Lunch']
   },
   {
     day: 3,
-    title: 'Pattaya to Bangkok + City & Temple Tour',
-    description: 'Transfer to Bangkok. Visit Wat Traimit (Golden Buddha) and Wat Pho (Reclining Buddha). Panoramic city tour covering Gems Gallery and markets.',
+    title: 'Day 3 – Pattaya to Bangkok & Golden Temples Tour',
+    description: 'Journey to Thailand\'s vibrant capital and discover ancient Buddhist temples (147 km / ~2 hours). • Morning checkout from Pattaya • Transfer to Bangkok (capital city) • Visit Wat Traimit (Temple of the Golden Buddha - world\'s largest solid gold Buddha statue, 5.5 tons) • Visit Wat Pho (Temple of the Reclining Buddha - 46m long golden Buddha) • Bangkok panoramic city tour • Stop at Gems Gallery (Thailand\'s largest jewelry center) • Hotel check-in • Overnight stay in Bangkok',
     activities: ['Check out Pattaya', 'Transfer to Bangkok', 'Wat Traimit visit', 'Wat Pho visit', 'Bangkok City Tour', 'Hotel check-in'],
     meals: ['Breakfast']
   },
   {
     day: 4,
-    title: 'Safari World & Marine Park Full Day',
-    description: 'Full day at Safari World with Safari Drive and live shows including Dolphin, Sea Lion, Bird, and Cowboy Stunt shows.',
+    title: 'Day 4 – Safari World & Marine Park Full-Day Adventure',
+    description: 'Experience Africa in Asia with wildlife safaris and spectacular shows! • Full day at Safari World (Thailand\'s largest open zoo and leisure park) • Safari Drive through wildlife zones (giraffes, zebras, lions, tigers) • Marine Park with amazing live shows: • Dolphin Show (intelligent tricks and acrobatics) • Sea Lion Show (comedy and tricks) • Bird Show (trained parrots and eagles) • Orangutan Boxing Show • Hollywood Cowboy Stunt Show • Indian/International buffet lunch included • Overnight stay in Bangkok',
     activities: ['Safari Drive', 'Dolphin Show', 'Sea Lion Show', 'Bird Show', 'Orangutan Show', 'Cowboy Stunt Show', 'Buffet lunch'],
     meals: ['Breakfast', 'Lunch']
   },
   {
     day: 5,
-    title: 'Bangkok Free Day / Optional Tours',
-    description: 'Leisure day for shopping or optional tours. Explore Platinum Mall, Indra Market, MBK Center, or choose from various optional activities.',
+    title: 'Day 5 – Bangkok Shopping & Leisure Day',
+    description: 'Your day, your way! Explore Bangkok\'s famous shopping scene or relax. • Free day for shopping and exploration • Visit Platinum Fashion Mall (wholesale fashion hub) • Indra Market (local Thai products and street food) • MBK Center (electronics and souvenirs) • Siam Paragon or CentralWorld (luxury shopping) • Optional tours available: Floating Market, Ayutthaya, Dream World, or Chao Phraya River Cruise • Evening free for street food or Khao San Road • Overnight stay in Bangkok',
     activities: ['Free day', 'Shopping', 'Optional tours available'],
     meals: ['Breakfast']
   },
   {
     day: 6,
-    title: 'Departure from Bangkok',
-    description: 'Check out and transfer to Bangkok Airport for your return flight.',
+    title: 'Day 6 – Departure with Thai Memories',
+    description: 'Kob Khun Ka! Farewell to the Land of Smiles. • Hotel checkout after breakfast • Last-minute shopping or relaxation (optional) • Bangkok Airport transfer with memories of beaches, temples, shows, and Thai hospitality • Tour ends',
     activities: ['Hotel checkout', 'Airport transfer'],
     meals: ['Breakfast']
   }
@@ -552,36 +552,36 @@ const thailand5N6D: TourPackage = {
 const phuketKrabi4N5D_Itinerary: ItineraryDay[] = [
   {
     day: 1,
-    title: 'Arrival in Phuket + City Tour + Patong Beach',
-    description: 'Arrive at Phuket Airport, transfer to hotel. Afternoon Phuket City Tour including Karon Viewpoint, Big Buddha, Wat Chalong, and Old Town. Evening at Patong Beach.',
+    title: 'Day 1 – Phuket Arrival & City Highlights Tour',
+    description: 'Welcome to Thailand\'s largest island – the Pearl of the Andaman! Your tropical island adventure begins. • Phuket International Airport arrival and hotel transfer • Hotel check-in and refresh • Afternoon Phuket City Tour: Karon Viewpoint (panoramic views of 3 beaches) • Big Buddha (45m tall white marble statue on Nakkerd Hill) • Wat Chalong (Phuket\'s largest and most important Buddhist temple) • Old Phuket Town (Sino-Portuguese architecture and colorful streets) • Evening at Patong Beach (famous beach with vibrant nightlife) • Optional: Bangla Road walking street • Overnight stay in Phuket',
     activities: ['Airport transfer', 'Hotel check-in', 'Karon Viewpoint', 'Big Buddha', 'Wat Chalong', 'Old Phuket Town', 'Patong Beach', 'Bangla Road'],
     meals: []
   },
   {
     day: 2,
-    title: 'Phi Phi Island Tour by Speedboat with Lunch',
-    description: 'Full day Phi Phi Island tour visiting Maya Bay, Pileh Lagoon, Viking Cave, Monkey Beach with snorkeling and buffet lunch.',
+    title: 'Day 2 – Phi Phi Islands Paradise Tour by Speedboat',
+    description: 'Experience the world-famous Phi Phi Islands made iconic by "The Beach" movie. • Early morning speedboat departure to Phi Phi Islands • Maya Bay (Leonardo DiCaprio\'s "The Beach" filming location) • Pileh Lagoon (emerald green waters surrounded by limestone cliffs) • Viking Cave (bird\'s nest harvesting site) • Monkey Beach (wild monkeys on the beach) • Snorkeling in crystal-clear waters with colorful coral reefs • Beachtime on pristine white sands • Indian/Thai buffet lunch included • Return to Phuket in the evening • Overnight stay in Phuket',
     activities: ['Speedboat to Phi Phi', 'Maya Bay', 'Pileh Lagoon', 'Viking Cave', 'Monkey Beach', 'Snorkeling', 'Buffet lunch', 'Beach time'],
     meals: ['Breakfast', 'Lunch']
   },
   {
     day: 3,
-    title: 'Phuket to Krabi Transfer + Ao Nang Beach',
-    description: 'Transfer to Krabi by road (3 hrs). Check in and explore Ao Nang Beach, local markets, and sunset views.',
+    title: 'Day 3 – Transfer to Krabi & Ao Nang Beach Leisure',
+    description: 'Journey to the stunning limestone cliffs and beaches of Krabi Province (165 km / ~3 hours). • Morning checkout from Phuket • Scenic road transfer to Krabi via coastal route • Hotel check-in in Ao Nang area • Afternoon leisure at Ao Nang Beach (long sandy beach with dramatic cliff backdrop) • Explore local markets and beachside shops • Sunset views and beachfront dining • Overnight stay in Krabi',
     activities: ['Check out Phuket', 'Transfer to Krabi', 'Hotel check-in', 'Ao Nang Beach', 'Local markets'],
     meals: ['Breakfast']
   },
   {
     day: 4,
-    title: 'Four Island Tour by Speedboat with Lunch',
-    description: 'Explore 4 beautiful islands: Phra Nang Cave Beach, Chicken Island, Tup Island, and Poda Island. Swimming, snorkeling, and beach relaxation.',
+    title: 'Day 4 – Krabi Four Islands Tour by Speedboat',
+    description: 'Discover Krabi\'s most photogenic islands and beaches. • Morning speedboat departure for Four Island Tour • Phra Nang Cave Beach (stunning beach with stalactite cave and turquoise waters) • Chicken Island (named for its chicken-shaped rock formation) • Tup Island (sandbar connecting two islands, appears at low tide) • Poda Island (postcard-perfect white sand beach with limestone cliffs) • Snorkeling with tropical fish and coral • Swimming and beach relaxation • Indian/Thai buffet lunch included • Return to hotel in the evening • Overnight stay in Krabi',
     activities: ['Phra Nang Cave Beach', 'Chicken Island', 'Tup Island', 'Poda Island', 'Snorkeling', 'Buffet lunch'],
     meals: ['Breakfast', 'Lunch']
   },
   {
     day: 5,
-    title: 'Departure from Krabi / Phuket Airport',
-    description: 'Check out and transfer to Krabi or Phuket Airport depending on flight schedule.',
+    title: 'Day 5 – Departure with Island Memories',
+    description: 'Final farewell to Thailand\'s tropical paradise islands. • Hotel checkout after breakfast • Last beach walk or souvenir shopping (optional) • Transfer to Krabi Airport or Phuket Airport (depending on flight schedule) • Depart with memories of turquoise waters, limestone cliffs, and island adventures • Tour ends',
     activities: ['Hotel checkout', 'Airport transfer'],
     meals: ['Breakfast']
   }

@@ -65,29 +65,29 @@ const keralaInclusions: TourInclusion[] = [
 const kerala3N4D_Itinerary: ItineraryDay[] = [
   {
     day: 1,
-    title: 'Kochi → Munnar (130 km / 4 hours)',
-    description: 'Arrive in Kochi and drive to Munnar through picturesque tea gardens and waterfalls. Visit Valara and Cheeyappara Waterfalls en route. Check in at hotel and relax.',
+    title: 'Day 1 – Arrival & Scenic Drive to Munnar Hills',
+    description: 'Welcome to God\'s Own Country! Your journey begins with a beautiful drive to the hill station of Munnar (130 km / ~4 hours). • Airport/Railway station pickup from Kochi • En-route photo stops at Valara & Cheeyappara Waterfalls • Scenic drive through Western Ghats and tea plantations • Hotel check-in and relax • Overnight stay in Munnar',
     activities: ['Airport/Railway pickup', 'Scenic drive through Western Ghats', 'Valara Waterfalls stop', 'Cheeyappara Waterfalls stop', 'Hotel check-in'],
     meals: ['Dinner']
   },
   {
     day: 2,
-    title: 'Full-Day Munnar Sightseeing',
-    description: 'Explore Eravikulam National Park, Tea Museum, Mattupetty Dam, Echo Point, and Kundala Lake. Enjoy scenic mountain views and tea plantations.',
+    title: 'Day 2 – Munnar Hill Station & Tea Country',
+    description: 'Immerse yourself in Munnar\'s natural beauty and tea heritage. • Full-day sightseeing of mountain landscapes • Eravikulam National Park – home to endangered Nilgiri Tahr • Tea Museum tour (learn about tea-making) • Mattupetty Dam, Echo Point, and Kundala Lake • Walk through lush tea plantations • Overnight stay in Munnar',
     activities: ['Eravikulam National Park', 'Tea Museum visit', 'Mattupetty Dam', 'Echo Point', 'Kundala Lake', 'Tea plantation walk'],
     meals: ['Breakfast', 'Dinner']
   },
   {
     day: 3,
-    title: 'Munnar → Thekkady (95 km / 3 hours)',
-    description: 'Drive to Thekkady and enjoy boat ride at Periyar Wildlife Sanctuary. Optional spice plantation tour, Kathakali show, or elephant ride.',
+    title: 'Day 3 – Thekkady Wildlife & Spice Plantations',
+    description: 'Journey to Thekkady, Kerala\'s wildlife and spice haven (95 km / ~3 hours). • Scenic drive through aromatic spice plantations • Afternoon Periyar Lake boat safari (spot elephants, deer, and birds) • Optional activities: Spice plantation guided tour, Kathakali cultural show, or elephant interaction • Overnight stay in Thekkady',
     activities: ['Scenic drive through spice plantations', 'Periyar Lake boat ride', 'Wildlife spotting', 'Optional activities (spice tour, cultural shows)'],
     meals: ['Breakfast', 'Dinner']
   },
   {
     day: 4,
-    title: 'Thekkady → Alleppey → Kochi Departure',
-    description: 'Travel to Alleppey for houseboat cruise through backwaters. Enjoy lunch onboard and scenic village views. Return to Kochi for departure.',
+    title: 'Day 4 – Alleppey Backwater Cruise & Departure',
+    description: 'Experience Kerala\'s famous backwaters before departing. • Morning drive to Alleppey • Board traditional houseboat for backwater cruise • Glide through serene canals and paddy fields • Watch village life along the waterways • Traditional Kerala lunch served onboard • Afternoon drive back to Kochi • Airport/Railway drop – tour ends',
     activities: ['Houseboat boarding', 'Backwater cruise', 'Village life observation', 'Lunch on houseboat', 'Drive to Kochi', 'Airport/Railway drop'],
     meals: ['Breakfast', 'Lunch (Houseboat)']
   }
@@ -210,36 +210,36 @@ const kerala3N4D: TourPackage = {
 const kerala4N5D_Itinerary: ItineraryDay[] = [
   {
     day: 1,
-    title: 'Kochi → Munnar (130 km / 4 hours)',
-    description: 'Scenic drive to Munnar with stops at Valara and Cheeyappara Waterfalls. Check in and relax at hill resort.',
+    title: 'Day 1 – Arrival & Mountain Journey to Munnar',
+    description: 'Your Kerala adventure begins with a scenic drive to the hill station of Munnar (130 km / ~4 hours). • Airport/Railway station pickup • Photo stops at Valara & Cheeyappara Waterfalls • Drive through expansive tea estates • Check-in at hillside resort • Evening walk through tea gardens • Overnight stay in Munnar',
     activities: ['Airport/Railway pickup', 'Waterfall photography', 'Tea estate views', 'Hotel check-in', 'Evening tea walk'],
     meals: ['Dinner']
   },
   {
     day: 2,
-    title: 'Full-Day Munnar Sightseeing',
-    description: 'Visit Eravikulam National Park, Tea Museum, Mattupetty Dam, Echo Point, Kundala Lake, and Blossom Park.',
+    title: 'Day 2 – Munnar Sightseeing & Tea Gardens',
+    description: 'Discover Munnar\'s breathtaking landscapes and tea heritage. • Full-day tour of Munnar\'s iconic attractions • Eravikulam National Park (Nilgiri Tahr habitat) • Tea Museum – witness tea processing • Mattupetty Dam, Echo Point, and Kundala Lake • Blossom Park gardens • Overnight stay in Munnar',
     activities: ['Eravikulam National Park', 'Tea Museum', 'Mattupetty Dam visit', 'Echo Point', 'Kundala Lake boating', 'Blossom Park'],
     meals: ['Breakfast', 'Dinner']
   },
   {
     day: 3,
-    title: 'Munnar → Thekkady (95 km / 3 hours)',
-    description: 'Transfer to Thekkady and explore Periyar Wildlife Sanctuary with boat cruise. Optional cultural shows and activities.',
+    title: 'Day 3 – Spice Route to Thekkady & Wildlife Cruise',
+    description: 'Travel through Kerala\'s spice-rich heartland to Thekkady (95 km / ~3 hours). • Scenic drive past cardamom hills and pepper vines • Afternoon Periyar Lake boat safari (elephant & deer spotting) • Optional: Spice plantation guided tour • Evening cultural shows (Kathakali dance/Kalaripayattu martial arts) • Overnight stay in Thekkady',
     activities: ['Spice plantation drive', 'Periyar boat cruise', 'Wildlife spotting', 'Spice plantation tour', 'Kathakali/Kalaripayattu shows'],
     meals: ['Breakfast', 'Dinner']
   },
   {
     day: 4,
-    title: 'Thekkady → Alleppey Houseboat',
-    description: 'Board traditional Kerala houseboat and cruise through serene backwaters. Overnight stay on houseboat.',
+    title: 'Day 4 – Alleppey Houseboat & Backwater Experience',
+    description: 'Kerala\'s most iconic experience awaits – a houseboat journey through tranquil backwaters! • Board your private traditional Kerala houseboat • Glide through palm-fringed canals • Watch rural life along the waterways • Traditional Kerala meals served onboard • Evening sunset from the deck • Overnight stay on houseboat',
     activities: ['Houseboat check-in', 'Backwater cruising', 'Village life viewing', 'Traditional Kerala lunch', 'Sunset on deck', 'Overnight on water'],
     meals: ['Breakfast', 'Lunch', 'Snacks', 'Dinner']
   },
   {
     day: 5,
-    title: 'Alleppey → Kochi (60 km / 1.5 hours) - Departure',
-    description: 'Morning on houseboat, then Kochi city tour including Chinese Fishing Nets, Fort Kochi, and Mattancherry Palace. Airport drop.',
+    title: 'Day 5 – Kochi Heritage Tour & Departure',
+    description: 'Explore the historic port city of Kochi before your journey home (60 km / ~1.5 hours from Alleppey). • Morning on houseboat, then check-out • Visit Chinese Fishing Nets (400-year-old tradition) • Fort Kochi heritage walk • Santa Cruz Basilica and Mattancherry Palace • Marine Drive promenade • Airport/Railway drop – tour ends',
     activities: ['Breakfast on houseboat', 'Chinese Fishing Nets', 'Fort Kochi Beach', 'Santa Cruz Basilica', 'Mattancherry Palace', 'Marine Drive', 'Departure transfer'],
     meals: ['Breakfast']
   }
@@ -361,43 +361,43 @@ const kerala4N5D: TourPackage = {
 const kerala5N6D_Itinerary: ItineraryDay[] = [
   {
     day: 1,
-    title: 'Kochi → Munnar (130 km / 4 hours)',
-    description: 'Arrival and scenic mountain journey to Munnar with waterfall stops.',
+    title: 'Day 1 – Arrival & Scenic Drive to Munnar',
+    description: 'Welcome to Kerala! Begin your journey with a picturesque drive to the misty hills of Munnar (130 km / ~4 hours). • Stop at Valara & Cheeyappara Waterfalls for photos • Drive through lush tea gardens • Check-in at your hillside resort • Evening at leisure • Overnight stay in Munnar',
     activities: ['Airport pickup', 'Valara & Cheeyappara Waterfalls', 'Tea garden views', 'Check-in at resort'],
     meals: ['Dinner']
   },
   {
     day: 2,
-    title: 'Full-Day Munnar Sightseeing',
-    description: 'Comprehensive sightseeing covering all major Munnar attractions.',
+    title: 'Day 2 – Munnar Hill Station Exploration',
+    description: 'Experience the best of Munnar\'s natural beauty and tea culture. • Full-day sightseeing covering mountains, lakes, and gardens • Visit Eravikulam National Park (home to Nilgiri Tahr) • Explore Tea Museum and learn tea-making process • Enjoy Echo Point, Mattupetty Dam, and Kundala Lake • Overnight stay in Munnar',
     activities: ['Eravikulam National Park', 'Tea Museum', 'Mattupetty Dam', 'Echo Point', 'Kundala Lake', 'Rose Garden', 'Photo Point'],
     meals: ['Breakfast', 'Dinner']
   },
   {
     day: 3,
-    title: 'Munnar → Thekkady (95 km / 3 hours)',
-    description: 'Transfer to wildlife haven with Periyar boat cruise and spice plantation visit.',
+    title: 'Day 3 – Scenic Transfer & Thekkady Wildlife Experience',
+    description: 'Journey through spice plantations to Thekkady (95 km / ~3 hours). • Scenic drive surrounded by cardamom and pepper estates • Afternoon boat cruise on Periyar Lake (wildlife spotting) • Optional: Spice plantation tour & cultural shows (Kathakali/Kalaripayattu) • Overnight stay in Thekkady',
     activities: ['Scenic drive', 'Periyar boat ride', 'Spice plantation tour', 'Kathakali/Kalaripayattu shows', 'Elephant ride option'],
     meals: ['Breakfast', 'Dinner']
   },
   {
     day: 4,
-    title: 'Thekkady → Alleppey Houseboat',
-    description: 'Backwater cruise with overnight stay on traditional houseboat.',
+    title: 'Day 4 – Houseboat Experience on Alleppey Backwaters',
+    description: 'Kerala\'s signature experience – a day on the serene backwaters! • Board your private traditional houseboat • Cruise through tranquil canals and paddy fields • Watch village life unfold along the banks • All meals served onboard (authentic Kerala cuisine) • Sunset views from the deck • Overnight stay on houseboat',
     activities: ['Houseboat boarding', 'Canal cruising', 'Paddy field views', 'Village observation', 'Sunset watching', 'Dinner on deck'],
     meals: ['Breakfast', 'Lunch', 'Snacks', 'Dinner']
   },
   {
     day: 5,
-    title: 'Alleppey → Kovalam (160 km / 4.5 hours)',
-    description: 'Transfer to beach paradise. Relax at Lighthouse Beach and enjoy sunset.',
+    title: 'Day 5 – Coastal Drive & Kovalam Beach Relaxation',
+    description: 'From backwaters to beaches – travel along Kerala\'s beautiful coastline (160 km / ~4.5 hours). • Morning moments on houseboat before check-out • Scenic coastal drive to Kovalam • Arrive at Lighthouse Beach • Relax by the golden sands • Optional: Ayurvedic spa massage • Evening sunset viewing • Overnight stay in Kovalam',
     activities: ['Morning on houseboat', 'Coastal drive', 'Beach relaxation', 'Ayurvedic massage option', 'Sunset viewing'],
     meals: ['Breakfast', 'Dinner']
   },
   {
     day: 6,
-    title: 'Kovalam → Trivandrum City Tour → Departure',
-    description: 'Trivandrum sightseeing and departure transfer.',
+    title: 'Day 6 – Trivandrum City Tour & Departure',
+    description: 'Explore Kerala\'s capital city before your journey home. • Hotel checkout after breakfast • Visit Padmanabhaswamy Temple (architectural marvel) • Napier Museum & Art Gallery • Brief zoo visit or local market shopping • Airport drop with cherished memories • Tour ends',
     activities: ['Padmanabhaswamy Temple', 'Napier Museum', 'Art Gallery', 'Zoo visit', 'Local market shopping', 'Airport drop'],
     meals: ['Breakfast']
   }
