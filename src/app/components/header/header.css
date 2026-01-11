@@ -237,7 +237,7 @@ body.banner-dismissed .navbar {
   align-items: center;
   gap: 0.75rem;
   position: relative;
-  z-index: 100;
+  z-index: 103; /* Above navigation dropdowns (101-102) */
   flex-shrink: 0;
 }
 
@@ -284,6 +284,7 @@ body.banner-dismissed .navbar {
   /* FIXED: Allow profile dropdown to overflow */
   overflow: visible !important;
   position: relative;
+  z-index: 104; /* Above header-right-section (103) and navigation (101-102) */
 }
 
 .btn-signin {
