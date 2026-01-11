@@ -370,6 +370,39 @@ body.banner-dismissed .navbar {
   isolation: isolate;
 }
 
+/* When header is expanded (search active), lower navigation z-index and disable dropdowns */
+.navbar.header--expanded .dropdown-wrapper {
+  z-index: 1; /* Below search dropdown */
+  pointer-events: none !important; /* Disable all interactions */
+}
+
+.navbar.header--expanded .navbar-bottom-row {
+  z-index: 1; /* Below search dropdown */
+}
+
+/* Disable navigation links hover when search is active */
+.navbar.header--expanded .nav-link {
+  pointer-events: none !important; /* Disable hover/click */
+  cursor: default !important;
+}
+
+/* Hide navigation dropdowns when search is active to prevent overlap */
+.navbar.header--expanded .dropdown-menu {
+  display: none !important; /* Force hide when search is active */
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: none !important; /* Disable transitions */
+}
+
+/* Prevent hover state on dropdown wrapper when search is active */
+.navbar.header--expanded .dropdown-wrapper:hover .dropdown-menu,
+.navbar.header--expanded .dropdown-wrapper:focus-within .dropdown-menu {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
 .navbar-nav .nav-link {
   padding: 0.75rem 1rem;
   font-size: 0.9rem;
@@ -436,7 +469,7 @@ body.banner-dismissed .navbar {
   position: absolute; /* Absolute relative to dropdown-wrapper */
   top: 100%; /* Position below trigger */
   left: 0;
-  z-index: 102 !important; /* Inherits parent z-index behavior */
+  z-index: 102; /* Normal state */
   opacity: 0;
   transform: translateY(-8px);
   transition: opacity 0.2s ease, transform 0.2s ease;

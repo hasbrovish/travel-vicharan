@@ -3,9 +3,8 @@
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
-  /* Prevent overflow at any zoom */
-  overflow-x: hidden;
-  overflow-y: visible; /* Allow dropdown to extend */
+  /* Allow dropdown to extend outside */
+  overflow: visible; /* Must be visible for dropdown to show */
   /* Container for floating dropdown */
   z-index: 0; /* Very low z-index when search is closed - BELOW navigation */
   /* Allow pointer events to reach children */
@@ -1480,6 +1479,20 @@
     margin-top: 0;
     transform: translateY(100%);
     opacity: 1;
+    z-index: 10003 !important; /* Above mobile menu */
+  }
+
+  /* Add drag handle for mobile */
+  .journey-discovery-dropdown::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
   }
 
   .journey-discovery-dropdown.visible {
@@ -1487,29 +1500,75 @@
   }
 
   .journey-content {
-    padding: 1.25rem 1rem;
+    padding: 1.75rem 1.25rem 1rem 1.25rem; /* Extra top padding for drag handle */
+    max-height: calc(85vh - 8rem); /* Account for header and footer */
+  }
+
+  .search-results-section {
+    padding: 1.75rem 1rem 0.75rem 1rem; /* Extra top padding for drag handle */
+    max-height: calc(85vh - 8rem);
   }
 
   .inspiration-grid {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .inspiration-card {
+    padding: 1rem;
   }
 
   .destination-chips {
-    gap: 0.5rem;
+    gap: 0.625rem;
   }
 
   .destination-chip {
-    padding: 0.5rem 0.875rem;
-    font-size: 0.8rem;
+    padding: 0.625rem 1rem;
+    font-size: 0.875rem;
+    min-height: 44px; /* Touch-friendly height */
+  }
+
+  .recent-item {
+    padding: 0.875rem 1rem;
+    min-height: 48px; /* Touch-friendly */
+    font-size: 0.9375rem;
+  }
+
+  .result-item {
+    padding: 1rem;
+    margin-bottom: 0.625rem;
+    min-height: 64px; /* Touch-friendly */
   }
 
   .discovery-footer {
-    padding: 0.875rem 1rem 1.5rem 1rem;
+    padding: 1rem 1.25rem 1.75rem 1.25rem; /* Extra bottom padding for safe area */
   }
 
   .explore-all-btn {
-    padding: 0.875rem 1.25rem;
-    font-size: 0.9rem;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    min-height: 52px; /* Touch-friendly */
+  }
+
+  /* Search input adjustments for mobile */
+  .search-input {
+    font-size: 16px; /* Prevent zoom on iOS */
+    padding: 0.875rem 0.625rem;
+  }
+
+  .search-input-group {
+    border-radius: 1.5rem;
+  }
+
+  .search-button-text {
+    display: none; /* Hide text on mobile, show only icon */
+  }
+
+  .search-button,
+  .search-voice,
+  .search-clear {
+    min-width: 44px; /* Touch-friendly */
+    min-height: 44px;
   }
 }
 
