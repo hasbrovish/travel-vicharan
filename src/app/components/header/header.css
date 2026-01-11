@@ -674,7 +674,7 @@ body.banner-dismissed .navbar {
     max-width: 320px;
     height: 100vh;
     background: #ffffff;
-    z-index: 10002; /* Above everything */
+    z-index: 10004; /* Above profile dropdown (10003) */
     padding: 0;
     box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
     transform: translateX(-100%);
@@ -749,7 +749,7 @@ body.banner-dismissed .navbar {
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 10001;
+    z-index: 10003; /* Below mobile menu (10004) but blocks profile dropdown */
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
   }
