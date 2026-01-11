@@ -600,6 +600,13 @@ body.banner-dismissed .navbar {
   .header-right-section {
     gap: 0.5rem; /* Reduced gap */
     flex-shrink: 0; /* Prevent shrinking */
+    z-index: 1; /* Lower on mobile to let hamburger be on top */
+  }
+
+  /* Profile section - lower z-index on mobile */
+  .profile-section {
+    z-index: 1 !important; /* Lower on mobile */
+    pointer-events: auto;
   }
 
   /* Mobile Menu Toggle Button in Top Row */
@@ -617,8 +624,9 @@ body.banner-dismissed .navbar {
     height: 44px;
     flex-shrink: 0;
     position: relative;
-    z-index: 105; /* Above profile section (104) to ensure clickability */
-    pointer-events: auto; /* Ensure clicks register */
+    z-index: 106 !important; /* Higher than everything on mobile */
+    pointer-events: auto !important; /* Ensure clicks register */
+    isolation: isolate; /* Create new stacking context */
   }
 
   .navbar-toggler:hover,
