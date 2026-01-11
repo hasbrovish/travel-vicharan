@@ -616,6 +616,9 @@ body.banner-dismissed .navbar {
     width: 44px;
     height: 44px;
     flex-shrink: 0;
+    position: relative;
+    z-index: 105; /* Above profile section (104) to ensure clickability */
+    pointer-events: auto; /* Ensure clicks register */
   }
 
   .navbar-toggler:hover,
