@@ -600,12 +600,20 @@ body.banner-dismissed .navbar {
   .header-right-section {
     gap: 0.5rem; /* Reduced gap */
     flex-shrink: 0; /* Prevent shrinking */
-    z-index: 1; /* Lower on mobile to let hamburger be on top */
+    z-index: auto; /* Reset z-index */
+    pointer-events: auto; /* Ensure events pass through */
   }
 
-  /* Profile section - lower z-index on mobile */
+  /* Profile section - lower z-index on mobile and don't block clicks */
   .profile-section {
-    z-index: 1 !important; /* Lower on mobile */
+    z-index: auto !important; /* Reset to not interfere */
+    pointer-events: auto;
+    position: static !important; /* Remove positioning on mobile */
+  }
+
+  /* Profile dropdown container - ensure it doesn't block hamburger */
+  .profile-dropdown-container {
+    z-index: auto !important; /* Reset on mobile */
     pointer-events: auto;
   }
 
