@@ -24,7 +24,7 @@ export class EmailService {
     templateId_newsletter: 'DISABLED_FOR_NOW', // ⚠️ Newsletter template not yet created (free tier limit)
     templateId_enquiry: 'template_56n9a7q', // ✅ Enquiry template configured
     userId: 'GdTxsPfYlBBT4P-WE', // ✅ Public Key configured
-    toEmail: 'jayantivishnoi31@gmail.com' // Testing email - will change to VichranTrip.info@gmail.com later
+    toEmail: 'VichranTrip.info@gmail.com' // VichranTrip business email
   };
 
   // Enable/disable real email sending
